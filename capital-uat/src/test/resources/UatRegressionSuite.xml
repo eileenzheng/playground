@@ -2,6 +2,7 @@
 <suite name="Captial UAT Regression" verbose="5" parallel="classes" thread-count="3">
 <!--<suite name="Captial UAT Regression" verbose="1">-->
     <parameter name="url" value="https://providerfinderua.capbluecross.com"/>
+    <parameter name="testLocation" value="remoteWD"/>
     <test name="Search and BlueDistinction Tests">
         <classes>
             <class name="test.SearchTests"/>
