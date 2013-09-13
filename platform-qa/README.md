@@ -7,7 +7,7 @@ The Platform QA suite uses Cucumber BDD feature scripts and runs those tests thr
 Clone the repository and also make sure you have maven to run.
 
 ```bash
-git clone git@github.com:<fill in here>
+git clone git@github.com:mdx-dev/selenium-suite.git
 cd platform-qa
 mvn clean verify -Pintegration-tests
 ```

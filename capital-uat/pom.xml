@@ -38,6 +38,19 @@
                 <suite.filename>QARegressionSuite.xml</suite.filename>
             </properties>
         </profile>
+
+        <profile>
+            <id>capital_prod</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>ProdRegressionSuite.xml</suite.filename>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
