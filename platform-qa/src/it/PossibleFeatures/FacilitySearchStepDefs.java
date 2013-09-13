@@ -1,0 +1,122 @@
+package test;
+
+import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import pages.HomePage;
+import pages.ProfilePage;
+import pages.SearchResults;
+
+
+import static org.openqa.selenium.By.cssSelector;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+public class FacilitySearchStepDefs {
+
+    protected FirefoxDriver driver;
+    private HomePage homePage;
+    private SearchResults searchResults;
+    private ProfilePage profilePage;
+
+    @Before
+    public void setUp() {
+        driver = new FirefoxDriver();
+
+        homePage = new HomePage(driver);
+        searchResults = new SearchResults(driver);
+        profilePage = new ProfilePage(driver);
+
+    }
+
+
+    @Given("^I have done a zip code search for a facility$")
+    public void I_have_done_a_zip_code_search_for_a_facility() throws Throwable {
+        homePage.searchBar().sendKeys("10001");
+    }
+
+    @And("^I have submitted the search results$")
+    public void I_have_submitted_the_search_results() throws Throwable {
+        homePage.searchButton().click();
+    }
+
+    //PUI-206
+    @When("^there are more than (\\d+) records$")
+    public void there_are_more_than_records(int count) throws Throwable {
+        assertThat(searchResults.resultList().size(), greaterThanOrEqualTo(count));
+    }
+
+    @Then("^up to (\\d+) results are displayed by default$")
+    public void up_to_results_are_displayed_by_default(int count) throws Throwable {
+        assertThat(searchResults.resultList().size(), greaterThanOrEqualTo(count));
+    }
+
+    @And("^a See More link is displayed$")
+    public void a_See_More_link_is_displayed() throws Throwable {
+        assertThat(searchResults.seeMoreLink().isDisplayed().value(), equalTo(true));
+    }
+
+    //@PUI-133
+    @When("^a search for a facility is completed$")
+    public void a_search_for_a_facility_is_completed() throws Throwable {
+        assertThat(driver.getCurrentUrl(), containsString("/facilities"));
+    }
+
+
+    @Then("^I will see records for facilities that contain a name$")
+    public void I_will_see_records_for_facilities_that_contain_a_name() throws Throwable {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat(el.div(cssSelector(".ng-binding")).getText().toString(), containsString("Result"));
+        }
+    }
+
+    @And("^I will see the location name if different from the facility name$")
+    public void I_will_see_the_location_name_if_different_from_the_facility_name() throws Throwable {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat(el.div(cssSelector(".ng-binding")).getText().toString(), containsString("Result"));
+        }
+    }
+
+    @And("^I will see the location specialties if they exist$")
+    public void I_will_see_the_location_specialties_if_they_exist() throws Throwable {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat(el.div(cssSelector(".ng-binding")).getText().toString(), containsString("Result"));
+        }
+    }
+
+    @And("^I will see a location address if it exists$")
+    public void I_will_see_a_location_address_if_it_exists() throws Throwable {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat(el.div(cssSelector(".ng-binding")).getText().toString(), containsString("Result"));
+        }
+    }
+
+    @And("^I will see a location phone number if it exists$")
+    public void I_will_see_a_location_phone_number_if_it_exists() throws Throwable {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat(el.div(cssSelector(".ng-binding")).getText().toString(), containsString("Result"));
+        }
+    }
+
+    //@PUI-207
+    @Then("^I will see a small map displaying the facilities$")
+    public void I_will_see_a_small_map_displaying_the_facilities() throws Throwable {
+        assertThat(searchResults.googleMap().isDisplayed().value(), equalTo(true));
+    }
+
+
+    //@PUI-135
+    @And("^I select a facility from the search results$")
+    public void I_select_a_facility_from_the_search_results() throws Throwable {
+        searchResults.resultList().get(0).click();
+    }
+
+    @Then("^I will see all the specialties this facility supports$")
+    public void I_will_see_all_the_specialties_this_facility_supports() throws Throwable {
+        assertThat(profilePage.doctorSpecialtyList().isDisplayed().value(), equalTo(true));
+    }
+}

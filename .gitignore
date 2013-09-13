@@ -1,0 +1,10 @@
+.idea/
+*.iml
+*.iws
+*.class
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+target/

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<suite name="ParallelTests" verbose="5" parallel="methods" thread-count="2">-->
+<suite name="Vitals Staging Regression" verbose="5">
+    <parameter name="domain" value="www.vitals.com"/>
+    <test name="Search Specfic Tests">
+        <classes>
+            <class name="test.SearchTest"/>
+        </classes>
+    </test>
+    <test name="Profile Specific Tests">
+        <classes>
+            <class name="test.ProfileTest"/>
+        </classes>
+    </test>
+</suite>

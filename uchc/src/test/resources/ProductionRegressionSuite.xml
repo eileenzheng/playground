@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<suite name="ParallelTests" verbose="5" parallel="methods" thread-count="2">-->
+<suite name="UCHC Production Regression" verbose="5">
+    <parameter name="domain" value="www.ucomparehealthcare.com"/>
+    <test name="Search Specfic Tests">
+        <classes>
+            <class name="tests.SearchTests"/>
+        </classes>
+    </test>
+</suite>
