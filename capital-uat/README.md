@@ -12,3 +12,7 @@ To run UAT:
 To run Production:
 `mvn clean test -Denv=prod`
 
+### Current issues
+Since the NOC has problems routing UAT and Production you may have to run the tests locally. If that is the case
+go into the appropriate suite xml file in the resources directory and comment out the "testLocation" parameter.
+
