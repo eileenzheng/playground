@@ -8,3 +8,5 @@
 *.swp
 *.out
 target/
+atlassian-ide-plugin.xml
+*.log
