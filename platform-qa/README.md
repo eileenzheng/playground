@@ -9,6 +9,6 @@ Clone the repository and also make sure you have maven to run.
 ```bash
 git clone git@github.com:mdx-dev/selenium-suite.git
 cd platform-qa
-mvn clean verify -Pintegration-tests
+mvn clean verify -Pcore-it_tests
 ```
 
