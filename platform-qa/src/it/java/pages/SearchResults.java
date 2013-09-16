@@ -1,6 +1,8 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 
@@ -45,8 +47,8 @@ public class SearchResults extends BasePage {
         return seeMoreLink().isDisplayed().value();
     }
 
-    public FluentWebElement googleMap(){
-        return div(cssSelector(".map"));
+    public WebElement googleMap(){
+        return delegate.findElement(By.cssSelector(".map"));
     }
 
 }
