@@ -25,8 +25,8 @@ public class DansPageStepDefs {
 
     @After
     public void breakDown() {
-        driver.close();
         driver.quit();
+        driver.close();
     }
 
     @Given("^i have made it to the landing page$")
