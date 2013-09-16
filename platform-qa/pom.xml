@@ -14,7 +14,7 @@
 
     <profiles>
         <profile>
-            <id>integration-tests</id>
+            <id>core-it_tests</id>
             <build>
                 <plugins>
                     <plugin>
