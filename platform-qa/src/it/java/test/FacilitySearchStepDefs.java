@@ -6,12 +6,19 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import pages.HomePage;
 import pages.ProfilePage;
 import pages.SearchResults;
 
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.By.cssSelector;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,14 +26,21 @@ import static org.hamcrest.Matchers.*;
 
 public class FacilitySearchStepDefs {
 
-    protected FirefoxDriver driver;
+    protected WebDriver driver;
     private HomePage homePage;
     private SearchResults searchResults;
     private ProfilePage profilePage;
 
     @Before
-    public void setUp() {
-        driver = new FirefoxDriver();
+    public void setUp() throws MalformedURLException {
+//        driver = new FirefoxDriver();
+        URL server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
+        DesiredCapabilities caps = DesiredCapabilities.firefox();
+
+        driver = new RemoteWebDriver(server, caps);
+
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
         homePage = new HomePage(driver);
         searchResults = new SearchResults(driver);
