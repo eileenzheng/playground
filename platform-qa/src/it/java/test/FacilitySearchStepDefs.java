@@ -1,5 +1,7 @@
 package test;
 
+import cucumber.api.PendingException;
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -31,8 +33,9 @@ public class FacilitySearchStepDefs {
     private SearchResults searchResults;
     private ProfilePage profilePage;
 
-    @Before
-    public void setUp() throws MalformedURLException {
+
+    @Before({"@search"})
+    public void setUp(Scenario scenario) throws MalformedURLException {
 //        driver = new FirefoxDriver();
         URL server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
         DesiredCapabilities caps = DesiredCapabilities.firefox();
@@ -48,9 +51,9 @@ public class FacilitySearchStepDefs {
 
     }
 
-    @After
+    @After({"@search"})
     public void breakDown() {
-        driver.close();
+        driver.quit();
     }
 
     @Given("^I have done a zip code search for a facility$")
@@ -102,6 +105,11 @@ public class FacilitySearchStepDefs {
 //            assertThat(el.div(cssSelector(".name.ng-binding")).getText().toString(), containsString("Result"));
 //        }
 //    }
+    @And("^I will see the location name if different from the facility name$")
+    public void I_will_see_the_location_name_if_different_from_the_facility_name() throws Throwable {
+        // Express the Regexp above with the code you wish you had
+        throw new PendingException();
+    }
 
     @And("^I will see the location specialties if they exist$")
     public void I_will_see_the_location_specialties_if_they_exist() {
@@ -111,7 +119,6 @@ public class FacilitySearchStepDefs {
             if (el.spans(cssSelector(".ng-scope.ng-binding")).size() > 0) {
                 // Loop through the specialties
                 for (FluentWebElement spec : el.spans(cssSelector(".ng-scope.ng-binding"))) {
-                    System.out.println(spec.getText().toString());
                     //assertThat(spec.div(cssSelector(".ng-scope.ng-binding")).getText().toString(), containsString("Result"));
                 }
             }
