@@ -14,10 +14,10 @@ Feature: Facility Search
 
     When a search for a facility is completed
     Then I will see records for facilities that contain a name
-    And I will see the location name if different from the facility name
     And I will see the location specialties if they exist
     And I will see a location address if it exists
     And I will see a location phone number if it exists
+    And I will see the location name if different from the facility name
 
   @PUI-207
   Scenario: Search Results Map
