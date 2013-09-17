@@ -105,11 +105,6 @@ public class FacilitySearchStepDefs {
 //            assertThat(el.div(cssSelector(".name.ng-binding")).getText().toString(), containsString("Result"));
 //        }
 //    }
-    @And("^I will see the location name if different from the facility name$")
-    public void I_will_see_the_location_name_if_different_from_the_facility_name() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
-    }
 
     @And("^I will see the location specialties if they exist$")
     public void I_will_see_the_location_specialties_if_they_exist() {
