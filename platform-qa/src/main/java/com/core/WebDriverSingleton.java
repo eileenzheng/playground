@@ -2,6 +2,7 @@ package com.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class WebDriverSingleton {
 
     private static WebDriver driver;
+    private static WebDriver augmentedDriver;
 
     public static WebDriver getInstance() {
         if (driver == null) {
@@ -27,10 +29,13 @@ public class WebDriverSingleton {
             driver = new RemoteWebDriver(server, caps);
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
             driver.manage().window().maximize();
+
+            augmentedDriver = new Augmenter().augment(driver);
         }
         return driver;
+    }
 
-
-
+    public static WebDriver getAugmentedDriver() {
+        return augmentedDriver;
     }
 }

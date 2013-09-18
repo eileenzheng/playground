@@ -1,6 +1,5 @@
 package com.core;
 
-import com.core.WebDriverSingleton;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -22,7 +21,7 @@ public class MainHooks {
 
     private byte[] getScreenShotBytes() {
         if(WebDriverSingleton.getInstance() instanceof TakesScreenshot) {
-            return ((TakesScreenshot) WebDriverSingleton.getInstance()).getScreenshotAs(OutputType.BYTES);
+            return ((TakesScreenshot) WebDriverSingleton.getAugmentedDriver()).getScreenshotAs(OutputType.BYTES);
         }
         return new byte[]{};
     }
