@@ -16,11 +16,11 @@ public class MainHooks {
 
     @After
     public void takeScreenShot(Scenario result) throws IOException {
-        result.embed(getScreenShotBytes(), "data:image/png;base64");
+        result.embed(getScreenShotBytes(), "image/png");
     }
 
     private byte[] getScreenShotBytes() {
-        if(WebDriverSingleton.getInstance() instanceof TakesScreenshot) {
+        if(WebDriverSingleton.getAugmentedDriver() instanceof TakesScreenshot) {
             return ((TakesScreenshot) WebDriverSingleton.getAugmentedDriver()).getScreenshotAs(OutputType.BYTES);
         }
         return new byte[]{};
