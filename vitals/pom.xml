@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.vitals</groupId>
-        <artifactId>test-suite</artifactId>
+        <artifactId>selenium-suite</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -72,21 +72,6 @@
         </dependency>
     </dependencies>
 
-    <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.4.3</version>-->
-                <!--<configuration>-->
-                    <!--<suiteXmlFiles>-->
-                        <!--<suiteXmlFile>${project.basedir}/src/test/resources/UatRegressionSuite.xml</suiteXmlFile>-->
-                    <!--</suiteXmlFiles>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
-
     <build>
         <plugins>
             <plugin>
@@ -97,7 +82,6 @@
                     <systemPropertyVariables>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                         <org.uncommons.reportng.title>Vitals QA Test Report</org.uncommons.reportng.title>
-                        <!--<testLocation>${test_Location}</testLocation>-->
                     </systemPropertyVariables>
                     <properties>
                         <property>
@@ -114,7 +98,7 @@
                         </property>
                     </properties>
                     <suiteXmlFiles>
-                        <file>${project.basedir}/src/test/resources/${suite.filename}</file>
+                        <file>${project.basedir}/src/test/resources/com/vitals/${suite.filename}</file>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

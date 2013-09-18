@@ -1,27 +1,51 @@
 Selenium Suite
 ==============
 
-This test suite contains Selenium tests for Capital, Core, UCHC, and Vitals. The suites contained in here use a mixture
+This com.capital.test suite contains Selenium tests for Capital, Core, UCHC, and Vitals. The suites contained in here use a mixture
 of TestNG and Cucumber to drive the tests. Currently only Core is using Cucumber to drive tests.
 
 Directory Structure
 -------------------
 Suite directories should follow the following structure:
+
 ```
+For testNG
+
 root
 `--src
+   `--main
+      `--java
+         `--com.capital
+            `--helpers  # helper classes if needed
+            `--pages    # page object models
    `--test
-      |--java
-      |  |--pages
-      |  `--test
-      `--resources
+      `--java
+      |  `--com.capital
+      |     `--test     # test files
+      `--resources      # testNG xml files
 ```
-The java directory will contain the page model classes and test classes. Test classes can either be in Cucumber
-defs format or TestNG format.
 
-The resources directory will contain Cucumber feature files or TestNG xml configuration files.
+```
+For cucumber
 
-**Note:** The platform-qa folder uses the "it" folder as the testing class file and resource folder
+root
+`--src
+   `--main
+      `--java
+         `--com.core
+            `--helpers  # helper classes if needed
+            `--pages    # page object models
+   `--it
+      `--java
+      |  `--com.core
+      |     `--test     # Step definitions
+      `--resources      # testNG xml files
+         `--com.core
+            `--features # cucumber .feature files
+   `--test              # would be for unit tests unused right now
+         `--java
+         `--resources
+```
 
 pom.xml
 -------

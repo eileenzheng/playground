@@ -5,8 +5,8 @@
     <parameter name="testLocation" value="remoteWD"/>
     <test name="Search and BlueDistinction Tests">
         <classes>
-            <class name="test.SearchTests"/>
-            <class name="test.BlueDistinctionSearchTests"/>
+            <class name="com.capital.test.SearchTests"/>
+            <class name="com.capital.test.BlueDistinctionSearchTests"/>
         </classes>
     </test>
 </suite>

@@ -4,7 +4,7 @@
     <parameter name="domain" value="www.ucomparehealthcare.com"/>
     <test name="Search Specfic Tests">
         <classes>
-            <class name="tests.SearchTests"/>
+            <class name="com.uchc.test.SearchTest"/>
         </classes>
     </test>
 </suite>

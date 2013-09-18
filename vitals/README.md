@@ -4,7 +4,7 @@ This suite contains tests for Vitals's Staging and Production suites. Uses TestN
 
 ## Running the Suite
 To run Staging:
-`mvn clean test -Denv=stg`
+`mvn clean com.capital.test -Denv=stg`
 
 To run Production:
-`mvn clean test -Denv=prod`
+`mvn clean com.capital.test -Denv=prod`

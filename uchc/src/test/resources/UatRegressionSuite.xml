@@ -6,7 +6,7 @@
     <parameter name="pw" value="maggiegetyourbone"/>
     <test name="Search Specfic Tests">
         <classes>
-            <class name="tests.SearchTests"/>
+            <class name="com.uchc.test.SearchTest"/>
         </classes>
     </test>
 </suite>
