@@ -16,14 +16,16 @@ public class SearchResultsPage {
     public final HeaderPage header;
     public final FooterPage footer;
     public final SearchResultsRefinement refinement;
-
+    public final PatientLinkCenterAd centerAd;
+    public final PatientLinkRrAd rrAd;
 
     public SearchResultsPage(WebDriver driver) {
         this.driver = driver;
         this.header = PageFactory.initElements(driver, HeaderPage.class);
         this.footer = PageFactory.initElements(driver, FooterPage.class);
         this.refinement = PageFactory.initElements(driver, SearchResultsRefinement.class);
-
+        this.centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
+        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
     @FindBy(css="#leaderboard_top")

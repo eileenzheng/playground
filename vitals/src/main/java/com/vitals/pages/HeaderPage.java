@@ -169,6 +169,16 @@ public class HeaderPage {
         return this;
     }
 
+    /* Note: I found out that if you just type the specialty without selecting a menu,
+     *       it will just use the default specialty. So I added this function to click
+     *       on the first available menu item.
+     *
+     * */
+    public HeaderPage clickFirstMenuItem() {
+        searchSuggestions.get(0).click();
+        return this;
+    }
+
     public HeaderPage clickConditionLink() {
         conditionLink.click();
         return this;

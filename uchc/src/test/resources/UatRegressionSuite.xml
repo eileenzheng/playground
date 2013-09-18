@@ -9,4 +9,10 @@
             <class name="com.uchc.test.SearchTest"/>
         </classes>
     </test>
+
+    <test name="Patient Link Tests">
+        <classes>
+            <class name="com.uchc.test.PatientLinkTest"/>
+        </classes>
+    </test>
 </suite>

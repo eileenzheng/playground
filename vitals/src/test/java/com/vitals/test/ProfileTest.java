@@ -8,7 +8,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SEOProfilePage;
-import com.vitals.runners.LocalTestRunner;
 
 public class ProfileTest extends RemoteTestRunner {
 

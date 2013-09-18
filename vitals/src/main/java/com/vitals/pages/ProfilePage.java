@@ -1,5 +1,6 @@
 package com.vitals.pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,6 +15,7 @@ public class ProfilePage {
     private WebDriver driver;
     public final HeaderPage header;
     public final FooterPage footer;
+    public final PatientLinkRrAd rrAd;
 
     WebDriverWait wait;
 
@@ -21,6 +23,7 @@ public class ProfilePage {
         this.driver = driver;
         this.header = PageFactory.initElements(driver,HeaderPage.class);
         this.footer = PageFactory.initElements(driver,FooterPage.class);
+        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
         this.wait = new WebDriverWait(driver, 15, 3000);
     }
 
@@ -45,13 +48,20 @@ public class ProfilePage {
     @FindBy (css=".tabs td:nth-child(6)>a")
     private WebElement sponsoredTab;
 
-
-
     @FindBy(css=".trail.current>span")
     private List<WebElement> breadCrumbTrail;
 
     @FindBy(css="#doctor_video")
     private WebElement drVideo;
+
+    @FindBy(linkText="Doctor's site")
+    private WebElement plDrSite;
+
+    @FindBy(css=".ribbon.wide>div>a")
+    private WebElement plBookAppt;
+
+    @FindBy(css=".ribbon.wide>div")
+    private WebElement plPhoneNumber;
 
     public boolean viewFullProfileButtonIsVisible() {
         return viewFullProfileButton.isDisplayed();
@@ -133,5 +143,52 @@ public class ProfilePage {
 
     public boolean drVideoIsVisible() {
         return drVideo.isDisplayed();
+    }
+
+    public boolean isDrSitePresent() {
+        return isElementPresent (plDrSite);
+    }
+
+    public String getSiteUrl() {
+        String onClick = plDrSite.getAttribute("onclick");
+        int begin = onClick.indexOf("http");
+        int end = onClick.indexOf("', '_blank'");
+        return onClick.substring(begin, end);
+    }
+
+    public boolean isBookApptPresent() {
+        return isElementPresent (plBookAppt);
+    }
+
+    public PatientLinkBookModal clickBookAppt() {
+        plBookAppt.click();
+        return PageFactory.initElements(driver, PatientLinkBookModal.class);
+    }
+
+    public boolean isPLPhoneNumberPresent() {
+        if (isElementPresent (plPhoneNumber)) {
+            if (getPLPhoneNumber().equals("Book appointment"))
+                return false;
+            else
+                return true;
+        }
+        else
+            return false;
+    }
+
+    public String getPLPhoneNumber() {
+        return plPhoneNumber.getText();
+    }
+
+    public static boolean isElementPresent (WebElement el) {
+        try {
+            if (el.isDisplayed())
+                return true;
+            else
+                return false;
+        }
+        catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }

@@ -3,6 +3,9 @@ package com.vitals.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import java.util.List;
 
 public class FooterPage {
 
@@ -68,6 +71,20 @@ public class FooterPage {
 
     @FindBy (css=".final>p:nth-child(1)")
     private WebElement currentCopyRightText;
+
+    @FindBy (css=".contain dd>a")
+    private List<WebElement> specialtyList;
+
+    public FooterPage clickSpecialtyLink() {
+        findDrBySpecialtyLink.click();
+        return this;
+    }
+
+    public CitySpecLandingPage clickRandomSpecialty() {
+        int rand = (int) Math.floor(Math.random() * (specialtyList.size()-1));
+        specialtyList.get(rand).click();
+        return PageFactory.initElements(driver, CitySpecLandingPage.class);
+    }
 
 
 }

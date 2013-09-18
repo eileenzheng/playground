@@ -10,11 +10,13 @@ public class SEOProfilePage {
     private WebDriver driver;
     public final HeaderPage header;
     public final FooterPage footer;
+    public final PatientLinkRrAd rrAd;
 
     public SEOProfilePage(WebDriver driver) {
         this.driver = driver;
         this.header = PageFactory.initElements(driver,HeaderPage.class);
         this.footer = PageFactory.initElements(driver,FooterPage.class);
+        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
     @FindBy(css="#view-full")
