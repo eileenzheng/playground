@@ -1,7 +1,11 @@
 package com.capital.pages;
 
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+
+import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
@@ -10,9 +14,8 @@ public class SpecialtyTypeSearchPage extends BasePage {
 
     public SearchSideBar sideBar;
 
-    public SpecialtyTypeSearchPage(WebDriver delegate) {
-        super(delegate);
-        sideBar = new SearchSideBar(delegate);
+    public SpecialtyTypeSearchPage() {
+        sideBar = new SearchSideBar();
     }
 
     public FluentWebElement providerLocationTextBox() {
@@ -71,7 +74,14 @@ public class SpecialtyTypeSearchPage extends BasePage {
 
     public ResultsPage clickSearchButton() {
         searchButton().click();
-        return new ResultsPage(delegate);
+
+        webDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(webDriver(), 10, 2000);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
+
+        webDriver().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+
+        return new ResultsPage();
     }
 
     public String getErrorText() {
