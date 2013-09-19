@@ -1,5 +1,6 @@
 package com.capital.pages;
 
+import com.capital.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
@@ -14,9 +15,9 @@ public abstract class BasePage extends FluentWebDriver implements WebDriver, Has
 
     private WebDriver webDriver;
 
-    public BasePage(WebDriver delegate){
-        super(delegate);
-        this.webDriver = delegate;
+    public BasePage(){
+        super(DriverManager.getDriver());
+        this.webDriver = DriverManager.getDriver();
     }
 
     public void get(String url) {
