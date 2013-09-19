@@ -8,6 +8,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public class DriverFactory {
 
@@ -23,6 +24,8 @@ public class DriverFactory {
             DesiredCapabilities caps = DesiredCapabilities.firefox();
 
             driver = new RemoteWebDriver(server, caps);
+
+            setDriverFeatures(driver);
         }
         return driver;
     }
@@ -31,8 +34,14 @@ public class DriverFactory {
         WebDriver driver = null;
         if (browserName.toLowerCase().contains("firefox")) {
             driver = new FirefoxDriver();
+            setDriverFeatures(driver);
         }
         return driver;
+    }
+
+    private static void setDriverFeatures(WebDriver driver) {
+        driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
     }
 
 }
