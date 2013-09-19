@@ -1,14 +1,12 @@
 package com.capital.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import static org.openqa.selenium.By.cssSelector;
 
 public class SearchSideBar extends BasePage {
 
-    public SearchSideBar (WebDriver delegate) {
-        super(delegate);
+    public SearchSideBar () {
     }
 
     private FluentWebElement searchByNameButton() {

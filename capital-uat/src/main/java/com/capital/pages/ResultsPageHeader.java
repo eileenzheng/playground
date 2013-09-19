@@ -2,7 +2,6 @@ package com.capital.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.seleniumhq.selenium.fluent.FluentSelect;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.testng.Assert;
@@ -12,8 +11,7 @@ import static org.openqa.selenium.By.id;
 
 public class ResultsPageHeader extends BasePage {
 
-    public ResultsPageHeader(WebDriver delegate) {
-        super(delegate);
+    public ResultsPageHeader() {
     }
 
     public FluentWebElement maleCheckBox() {

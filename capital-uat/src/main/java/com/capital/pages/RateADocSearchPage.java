@@ -1,6 +1,5 @@
 package com.capital.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import static org.openqa.selenium.By.id;
@@ -11,9 +10,8 @@ public class RateADocSearchPage extends BasePage {
 
     protected SearchSideBar sideBar;
 
-    public RateADocSearchPage(WebDriver delegate) {
-        super(delegate);
-        this.sideBar = new SearchSideBar(delegate);
+    public RateADocSearchPage() {
+        sideBar = new SearchSideBar();
     }
 
     private FluentWebElement providerNameTextBox() {
@@ -62,7 +60,7 @@ public class RateADocSearchPage extends BasePage {
 
     public ResultsPage clickSearchButton() {
         searchButton().click();
-        return new ResultsPage(delegate);
+        return new ResultsPage();
     }
 
     public String getHeaderText() {

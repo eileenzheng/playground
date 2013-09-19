@@ -1,6 +1,5 @@
 package com.capital.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,8 +11,7 @@ public class SearchByNameSearchPage extends BasePage {
 
     protected SearchSideBar sideBar;
 
-    public SearchByNameSearchPage(WebDriver delegate) {
-        super(delegate);
+    public SearchByNameSearchPage() {
         this.sideBar = PageFactory.initElements(webDriver(), SearchSideBar.class);
     }
 
