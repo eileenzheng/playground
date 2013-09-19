@@ -1,12 +1,5 @@
 package com.capital.test;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.testng.Reporter;
 import org.testng.annotations.*;
@@ -14,46 +7,28 @@ import org.testng.asserts.SoftAssert;
 import com.capital.pages.ResultsPage;
 import com.capital.pages.SpecialtyTypeSearchPage;
 
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Capital Blue Distinction Test Suite
  */
 public class BlueDistinctionSearchTests {
 
-    private WebDriver driver;
-    private SoftAssert m_assert;
     private String url;
 
-    @Parameters({"url","testLocation"})
+    @Parameters({"url"})
     @BeforeMethod
-    public void setup(String url, @Optional("")String testLocation) throws Exception {
+    public void setup(String url) {
         this.url = url;
-
-        if (testLocation.equals("remoteWD")) {
-            URL server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
-            DesiredCapabilities caps = DesiredCapabilities.firefox();
-            driver = new RemoteWebDriver(server, caps);
-        } else {
-            driver = new FirefoxDriver();
-        }
-
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
     }
 
     @AfterMethod
     public void shutdown() {
-        driver.quit();
     }
 
     @Test (dataProvider = "state")
     public void bariatricSurgerySearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
 
@@ -62,16 +37,9 @@ public class BlueDistinctionSearchTests {
 
         specialtySearch.enterProviderLocation(state);
 
-        ResultsPage results =  specialtySearch.clickSearchButton();
-
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
+        ResultsPage results = specialtySearch.clickSearchButton();
 
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickBariatricSurgeryCheckbox();
 
@@ -90,9 +58,9 @@ public class BlueDistinctionSearchTests {
 
     @Test (dataProvider = "state")
     public void cardiacCareSearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
 
@@ -102,14 +70,7 @@ public class BlueDistinctionSearchTests {
         specialtySearch.enterProviderLocation(state);
         ResultsPage results =  specialtySearch.clickSearchButton();
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
-
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickCardiacCareCheckbox();
 
@@ -128,9 +89,9 @@ public class BlueDistinctionSearchTests {
 
     @Test (dataProvider = "state")
     public void kneeHipSearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
         // Facility Search
@@ -139,14 +100,7 @@ public class BlueDistinctionSearchTests {
         specialtySearch.enterProviderLocation(state);
         ResultsPage results =  specialtySearch.clickSearchButton();
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
-
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickKneeAndHipCheckbox();
 
@@ -165,9 +119,9 @@ public class BlueDistinctionSearchTests {
 
     @Test (dataProvider = "state")
     public void spineSurgerySearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
 
@@ -177,14 +131,7 @@ public class BlueDistinctionSearchTests {
         specialtySearch.enterProviderLocation(state);
         ResultsPage results =  specialtySearch.clickSearchButton();
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
-
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickSpineSurgeryCheckbox();
 
@@ -203,9 +150,9 @@ public class BlueDistinctionSearchTests {
 
     @Test (dataProvider = "state")
     public void transplantsSearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
 
@@ -215,14 +162,7 @@ public class BlueDistinctionSearchTests {
         specialtySearch.enterProviderLocation(state);
         ResultsPage results =  specialtySearch.clickSearchButton();
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
-
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickTransplantsCheckbox();
 
@@ -241,9 +181,9 @@ public class BlueDistinctionSearchTests {
 
     @Test (dataProvider = "state")
     public void complexCancerSearchFilterTest(String state) {
-        m_assert = new SoftAssert();
+        SoftAssert m_assert = new SoftAssert();
 
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
         // Facility Search
@@ -252,14 +192,7 @@ public class BlueDistinctionSearchTests {
         specialtySearch.enterProviderLocation(state);
         ResultsPage results =  specialtySearch.clickSearchButton();
 
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, 10, 2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("filterSearchClose")));
-
         results.clickFilterYourSearch();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("filterSearchClose")));
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         results.filter.clickComplexAndRareCancersCheckbox();
 
