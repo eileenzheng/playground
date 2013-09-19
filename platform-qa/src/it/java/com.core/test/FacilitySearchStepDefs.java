@@ -20,6 +20,7 @@ import org.seleniumhq.selenium.fluent.FluentWebElements;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.By.cssSelector;
@@ -31,32 +32,17 @@ public class FacilitySearchStepDefs {
     protected WebDriver driver;
     private HomePage homePage;
     private SearchResults searchResults;
-    private ProfilePage profilePage;
 
+    // Hold results here
     private FluentWebElements results;
 
 
     @Before({"@search"})
     public void setUp() throws MalformedURLException {
-////        driver = new FirefoxDriver();
-//        URL server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
-//        DesiredCapabilities caps = DesiredCapabilities.firefox();
-//
-//        driver = new RemoteWebDriver(server, caps);
-//
-//        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-//        driver.manage().window().maximize();
-//
         homePage = new HomePage();
         searchResults = new SearchResults();
-        profilePage = new ProfilePage();
         this.driver = WebDriverSingleton.getInstance();
     }
-
-//    @After({"@search"})
-//    public void breakDown() {
-//        driver.quit();
-//    }
 
     @Given("^I have done a zip code search for a facility$")
     public void I_have_done_a_zip_code_search_for_a_facility() {
@@ -70,21 +56,18 @@ public class FacilitySearchStepDefs {
         homePage.clickDemoFacilitySearch();
     }
 
-//    //PUI-206
-//    @When("^there are more than (\\d+) records$")
-//    public void there_are_more_than_records(int count) {
-//        assertThat(searchResults.resultList().size(), greaterThanOrEqualTo(count));
-//    }
-//
-//    @Then("^up to (\\d+) results are displayed by default$")
-//    public void up_to_results_are_displayed_by_default(int count) {
-//        assertThat(searchResults.resultList().size(), greaterThanOrEqualTo(count));
-//    }
-//
-//    @And("^a See More link is displayed$")
-//    public void a_See_More_link_is_displayed() {
-//        assertThat(searchResults.seeMoreLink().isDisplayed().value(), equalTo(true));
-//    }
+    //PUI-206
+    @When("^there are more than (\\d+) records$")
+    public void there_are_more_than_records(int count) {
+        assertThat("Less than 10 records displayed",
+                searchResults.resultList().size(), greaterThanOrEqualTo(count));
+    }
+
+    @Then("^up to (\\d+) results are displayed by default$")
+    public void up_to_results_are_displayed_by_default(int count) {
+        assertThat("There were less than 10 records displayed",
+                searchResults.resultList().size(), equalTo(count));
+    }
 
     //@PUI-133
     @When("^a search for a facility is completed$")
@@ -111,16 +94,7 @@ public class FacilitySearchStepDefs {
 
     @And("^I will see the location specialties if they exist$")
     public void I_will_see_the_location_specialties_if_they_exist() {
-        // Given all of the results
-        for (FluentWebElement el : results) {
-            // Check that there are specialties
-            if (el.spans(cssSelector(".ng-scope.ng-binding")).size() > 0) {
-                // Loop through the specialties
-                for (FluentWebElement spec : el.spans(cssSelector(".ng-scope.ng-binding"))) {
-                    //assertThat(spec.div(cssSelector(".ng-scope.ng-binding")).getText().toString(), containsString("Result"));
-                }
-            }
-        }
+        searchResults.assertSpecializationsArePresent(searchResults.resultList());
     }
 
     @And("^I will see a location address if it exists$")
@@ -144,15 +118,17 @@ public class FacilitySearchStepDefs {
     }
 
 
-//    //@PUI-135
-//    @And("^I select a facility from the search results$")
-//    public void I_select_a_facility_from_the_search_results() {
-//        searchResults.resultList().get(0).click();
-//    }
-//
-//    @Then("^I will see all the specialties this facility supports$")
-//    public void I_will_see_all_the_specialties_this_facility_supports() {
-//        assertThat(profilePage.doctorSpecialtyList().isDisplayed().value(), equalTo(true));
-//    }
+    //@PUI-135
+    @And("^I view a facility from the search results$")
+    public void I_view_a_facility_from_the_search_results() {
+        assertThat(searchResults.resultList().size(), greaterThan(0));
+    }
 
+    @And("^the specialties will only be displayed once$")
+    public void the_specialties_will_only_be_displayed_once(){
+        for (FluentWebElement el : searchResults.resultList()) {
+            List<String> resultSpecializations = searchResults.getSpecializations(el);
+            searchResults.assertSpecializationDisplayedOnce(resultSpecializations);
+        }
+    }
 }

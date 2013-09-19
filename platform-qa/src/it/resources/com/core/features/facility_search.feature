@@ -36,26 +36,25 @@ Feature: Facility Search
 #    And clicking on each pin display an info bubble with the facility address
 #    And display more pins if infinite scroll adds more results
 
-#  @PUI-135
-#  Scenario: Show Specialties on a Results Record
-#
-#    In order to decide what facility I am interested in viewing
-#    As a Member
-#    I want to see all the specialties a facility provides in my network.
-#
-#    When a search for a facility is completed
-#    And I select a facility from the search results
-#    Then I will see all the specialties this facility supports
-#    And the specialties will be displayed in order of in scope data to out of scope data
-#    And the specialties will only be displayed once
+  @PUI-135
+  Scenario: Show Specialties on a Results Record
 
-#  @PUI-206
-#  Scenario: Facility Search Results
-#
-#    As a member
-#    I want to see results from my search
-#    so I can browse facilities
-#
-#    When there are more than 10 records
-#    Then up to 10 results are displayed by default
-#    And a See More link is displayed
+    In order to decide what facility I am interested in viewing
+    As a Member
+    I want to see all the specialties a facility provides in my network.
+
+    When a search for a facility is completed
+    And I view a facility from the search results
+    Then I will see the location specialties if they exist
+    And the specialties will only be displayed once
+    And the specialties will be displayed in order of in scope data to out of scope data
+
+  @PUI-206
+  Scenario: Facility Search Results
+
+    As a member
+    I want to see results from my search
+    so I can browse facilities
+
+    When there are more than 10 records
+    Then up to 10 results are displayed by default
