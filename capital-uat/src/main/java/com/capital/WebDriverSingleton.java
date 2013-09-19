@@ -1,5 +1,6 @@
 package com.capital;
 
+import com.capital.helpers.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
@@ -36,7 +37,7 @@ public class WebDriverSingleton {
             }
             DesiredCapabilities caps = DesiredCapabilities.firefox();
             driver = new RemoteWebDriver(server, caps);
-            driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
             driver.manage().window().maximize();
 
             augmentedDriver = new Augmenter().augment(driver);
