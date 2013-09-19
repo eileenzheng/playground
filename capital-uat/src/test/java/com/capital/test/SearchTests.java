@@ -1,56 +1,32 @@
 package com.capital.test;
 
 import com.capital.helpers.Profile;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.Reporter;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 import com.capital.pages.ResultsPage;
 import com.capital.pages.SpecialtyTypeSearchPage;
 
-import java.net.URL;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Capital Search Test Suite
  */
 public class SearchTests {
 
-    private WebDriver driver;
-    private SoftAssert m_assert;
     private String url;
 
     @Parameters({"url","testLocation"})
     @BeforeMethod
     public void setup(String url, @Optional("")String testLocation) throws Exception {
         this.url = url;
-
-        if (testLocation.equals("remoteWD")) {
-            URL server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
-            DesiredCapabilities caps = DesiredCapabilities.firefox();
-            driver = new RemoteWebDriver(server, caps);
-        } else {
-            driver = new FirefoxDriver();
-        }
-
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-
     }
 
     @AfterMethod
     public void shutdown() {
-        driver.quit();
     }
 
     @Test (enabled = false)
     public void simpleSearchTest() {
-        SpecialtyTypeSearchPage specialtyTypeSearchPage = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtyTypeSearchPage = new SpecialtyTypeSearchPage();
 
         specialtyTypeSearchPage.go(url)
                 .enterProviderLocation("10001")
@@ -60,9 +36,7 @@ public class SearchTests {
 
     @Test (dataProvider = "state")
     public void compareStateSearchResultsNameToProfile(String state) {
-        m_assert = new SoftAssert();
-
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
         specialtySearch.enterProviderLocation(state);
@@ -88,25 +62,13 @@ public class SearchTests {
             docs.add(doc);
         }
 
-        // Initial report line
-        //TODO: Doctor Profile page
-        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
-        for (Profile doc : docs) {
-            driver.get(doc.getUrl());
-            //Assert.assertTrue((driver.findElements(By.xpath("/html/body/b")).size() == 0),"MONGO ERROR: \n" + driver.getPageSource().toString() );
-            doc.setProfileName(driver.findElement(By.cssSelector(".six.columns.mobile>h2")).getText().trim());
-            m_assert.assertTrue(doc.searchAndProfileMatches(),"Did not match: " + doc.toString());
-            Reporter.log(doc.toString());
-        }
-
-        m_assert.assertAll();
+        // Do the compare
+        results.doctorListCompareAndReport(docs);
     }
 
     @Test (dataProvider = "state")
     public void compareStateSearchResultsFacilityToProfile(String state) {
-        m_assert = new SoftAssert();
-
-        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage(driver);
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(url);
 
@@ -135,18 +97,9 @@ public class SearchTests {
             docs.add(doc);
         }
 
-        // Initial report line
-        //TODO: Doctor Profile page
-        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
-        for (Profile doc : docs) {
-            driver.get(doc.getUrl());
-            doc.setProfileName(driver.findElement(By.cssSelector(".six.columns.mobile>h2")).getText().trim());
-            m_assert.assertTrue(doc.searchAndProfileMatches(),"Did not match: " + doc.toString());
-            Reporter.log(doc.toString());
+        // Do the compare
+        results.facilityListCompareAndReport(docs);
 
-        }
-
-        m_assert.assertAll();
     }
 
     @DataProvider(name = "zipCodes")
