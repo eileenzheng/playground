@@ -13,7 +13,7 @@ public class Profile {
         this.url = url;
     }
 
-    public boolean searchAndProfileMatches() {
+    public boolean searchAndProfileNameMatches() {
         return searchResultName.equals(profileName);
     }
 
