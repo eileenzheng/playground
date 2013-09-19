@@ -131,4 +131,37 @@ public class FacilitySearchStepDefs {
             searchResults.assertSpecializationDisplayedOnce(resultSpecializations);
         }
     }
+
+    @Then("^I will see an average cost for the provider$")
+    public void I_will_see_an_average_cost_for_the_provider() {
+        for (FluentWebElement el : searchResults.resultList()) {
+            assertThat("Average cost was not displayed for provider: " +
+                    el.div(cssSelector(".name")).getText().toString(),
+                    el.div(cssSelector(".contact")).span(cssSelector(".cost"))
+                            .isDisplayed().value(), equalTo(true));
+        }
+    }
+
+    //@PUI-49
+    @Then("^I will see a range of costs for all providers$")
+    public void I_will_see_a_range_of_costs_for_all_providers() {
+        assertThat("Average cost containter is not visible", 
+                searchResults.averageCostContainerIsPresent(), equalTo(true));
+    }
+
+
+    @And("^the range will display for \"([^\"]*)\"$")
+    public void the_range_will_display_for(String arg1) {
+        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+    }
+
+    @And("^the cost will be \"([^\"]*)\"$")
+    public void the_cost_will_be(String arg1) {
+        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+    }
+
+    @And("^the plan will contribute \"([^\"]*)\"$")
+    public void the_plan_will_contribute(String arg1) throws Throwable {
+        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+    }
 }

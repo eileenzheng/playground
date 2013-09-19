@@ -119,6 +119,18 @@ public class SearchResults extends BasePage {
         }
     }
 
+    public FluentWebElement averageCostContainer() {
+        return div(cssSelector(".row>.col-lg-12"));
+    }
+
+    public boolean averageCostContainerIsPresent() {
+        return divs(cssSelector(".row>.col-lg-12")).size() > 0;
+    }
+
+    public String getCostContainerText() {
+        return averageCostContainer().p().getText().toString();
+    }
+
     public FluentWebElement seeMoreLink() {
         return div(id("placeholder"));
     }

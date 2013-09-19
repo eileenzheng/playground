@@ -58,3 +58,50 @@ Feature: Facility Search
 
     When there are more than 10 records
     Then up to 10 results are displayed by default
+
+  @PUI_51
+  Scenario: Facility Search Result Cost Display
+
+    In order to demonstrate cost differentials between providers
+    As a PPO Member,
+    I want to see my estimated responsibility with an individual provider
+    so that I can understand how much a procedure with individual provider may cost me
+
+    When a search for a facility is completed
+    And I view a facility from the search results
+    Then I will see an average cost for the provider
+
+  @ignore
+  Scenario: Facility Search Result has not Cost Display
+    When a search for a facility is completed
+    And I view a facility from the search results
+    And the cost is not available for the facility
+    Then I will see "Cost N/A" displayed for that provider
+
+  @ignore
+  Scenario: Facility Search Result has more than one location
+    When a search for a facility is completed
+    And I view a facility from the search results
+    And it has more than one location
+    Then I will see a link
+
+  @PUI-49
+  Scenario: Display range of facility costs
+
+    In order to demonstrate price differentials between providers
+    As a PPO Member,
+    I want to see a range of costs for all providers in my results set,
+    so I can understand the range of costs I might be responsible for a procedure in my searched area.
+
+    When a search for a facility is completed
+    Then I will see a range of costs for all providers
+    And the range will display for "Shoulder Arthroscopy"
+    And the cost will be "$650-1,125"
+    And the plan will contribute "$4,849-11,877"
+
+  @ignore
+  Scenario: Display single dollar value when all providers have the same average value
+    When a search for a facility is completed
+    And all the providers have the same average cost
+    Then I will see a single dollar value
+    And the cost will be ""

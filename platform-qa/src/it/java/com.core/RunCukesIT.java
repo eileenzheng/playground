@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @Cucumber.Options(features = {"src/it/resources"}, format = {"pretty",
         "html:target/cucumber-html-report",
-        "json:target/cucumber.json", "usage:target/usage.jsonx", "junit:target/junit.xml"})
+        "json:target/cucumber.json", "usage:target/usage.jsonx", "junit:target/junit.xml"},
+        tags = {"~@ignore"})
 public class RunCukesIT {
 
     @BeforeClass
