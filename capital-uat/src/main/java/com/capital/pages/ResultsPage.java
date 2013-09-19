@@ -2,9 +2,10 @@ package com.capital.pages;
 
 import com.capital.helpers.Profile;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
+import org.testng.Reporter;
+import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,8 @@ public class ResultsPage extends BasePage {
 
     public ResultsPageHeader filter;
 
-    public ResultsPage(WebDriver delegate) {
-        super(delegate);
-        filter = new ResultsPageHeader(delegate);
+    public ResultsPage() {
+        filter = new ResultsPageHeader();
     }
 
     public FluentWebElements resultsList() {
@@ -146,6 +146,43 @@ public class ResultsPage extends BasePage {
 
     public String getFacilityName(FluentWebElement facility) {
         return facility.h4(cssSelector(".alert-box>h4")).getText().toString().trim();
+    }
+
+    public void facilityListCompareAndReport(List<Profile> docs) {
+        SoftAssert m_assert = new SoftAssert();
+
+        // Initial report line
+        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
+        for (Profile doc : docs) {
+            // Go to the Facility profile
+            webDriver().get(doc.getUrl());
+            // Find the Facility name on the profile page
+            doc.setProfileName(webDriver().findElement(By.cssSelector(".six.columns.mobile>h2")).getText().trim());
+            // Compare the names
+            m_assert.assertTrue(doc.searchAndProfileNameMatches(),"Did not match: " + doc.toString());
+            Reporter.log(doc.toString());
+        }
+
+        m_assert.assertAll();
+    }
+
+    public void doctorListCompareAndReport(List<Profile> docs) {
+        SoftAssert m_assert = new SoftAssert();
+
+        // Initial report line
+        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
+        for (Profile doc : docs) {
+            // Go to the Dr profile
+            webDriver().get(doc.getUrl());
+            // Find the Facility name on the profile page
+            //Assert.assertTrue((driver.findElements(By.xpath("/html/body/b")).size() == 0),"MONGO ERROR: \n" + driver.getPageSource().toString() );
+            doc.setProfileName(webDriver().findElement(By.cssSelector(".six.columns.mobile>h2")).getText().trim());
+            // Compare the names
+            m_assert.assertTrue(doc.searchAndProfileNameMatches(),"Did not match: " + doc.toString());
+            Reporter.log(doc.toString());
+        }
+
+        m_assert.assertAll();
     }
 
 }
