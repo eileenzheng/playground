@@ -231,9 +231,8 @@ public class BlueDistinctionSearchTests {
                 {"VA"}
         };
     }
-
-
 }
+
 /**
  * load app
  perform a search
