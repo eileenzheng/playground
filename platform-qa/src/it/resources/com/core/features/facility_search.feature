@@ -70,15 +70,16 @@ Feature: Facility Search
     When a search for a facility is completed
     And I view a facility from the search results
     Then I will see an average cost for the provider
+    And cost is displayed as 'Avg $[avg cost]'
 
-  @ignore
+  @ignore @PUI_51
   Scenario: Facility Search Result has not Cost Display
     When a search for a facility is completed
     And I view a facility from the search results
     And the cost is not available for the facility
     Then I will see "Cost N/A" displayed for that provider
 
-  @ignore
+  @ignore @PUI_51
   Scenario: Facility Search Result has more than one location
     When a search for a facility is completed
     And I view a facility from the search results
@@ -99,7 +100,14 @@ Feature: Facility Search
     And the cost will be "$650-1,125"
     And the plan will contribute "$4,849-11,877"
 
-  @ignore
+  @PUI-49
+  Scenario: Display text of facility costs
+    When a search for a facility is completed
+    Then I will see a range of costs for all providers
+    And the payer cost is displayed as 'We will be contributing approximately $[LOW COST] - $[HIGH COST].'
+    And the range is displayed as 'On your insurance plan, this type of [PROCEDURE NAME] will cost you approximately $[LOW COST] - $[HIGH COST].'
+
+  @ignore @PUI-49
   Scenario: Display single dollar value when all providers have the same average value
     When a search for a facility is completed
     And all the providers have the same average cost

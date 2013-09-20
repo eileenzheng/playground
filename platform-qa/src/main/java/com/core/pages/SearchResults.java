@@ -26,18 +26,13 @@ public class SearchResults extends BasePage {
 
     public void assertNamesArePresent(FluentWebElements elements) {
         for (FluentWebElement el : elements) {
-            assertThat(el.div(cssSelector(".name")).isDisplayed().value(), equalTo(true));
+            assertThat("Name was not present",
+                    el.divs(cssSelector(".name")).size() > 0, equalTo(true));
         }
     }
 
-    public List<String> resultName(FluentWebElements elements) {
-        List<String> retValue = new ArrayList<String>();
-
-        for (FluentWebElement el : elements) {
-            retValue.add(el.link(cssSelector(".name")).getText().toString());
-        }
-
-        return retValue;
+    public String getProviderName(FluentWebElement element) {
+        return div(cssSelector(".name")).getText().toString().trim();
     }
 
     public void assertAddressesArePresent(FluentWebElements elements) {
@@ -143,29 +138,8 @@ public class SearchResults extends BasePage {
         return webDriver().findElement(By.cssSelector(".map"));
     }
 
-    public List<Result> makeResults(FluentWebElements resultList) {
-        List<Result> results = new ArrayList<Result>();
-
-        for (FluentWebElement el : resultList) {
-            String name = el.link(cssSelector(".name")).getText().toString();
-            List<String> specializations = getSpecializations(el);
-            String address = el.div(cssSelector(".contact")).span(cssSelector(".address")).getText().toString();
-            String phone = el.div(cssSelector(".contact")).span(cssSelector(".phone")).getText().toString();
-            results.add(new Result(name, specializations, address, phone));
-        }
-
-        return results;
+    public String getAvgCostForProvider(FluentWebElement element) {
+        return div(cssSelector(".contact")).span(cssSelector(".cost")).getText().toString().trim();
     }
 
-    class Result {
-
-        String name;
-        List<String> specializations;
-        String address;
-        String phone;
-
-        public Result(String name, List<String> specializations, String address, String phone) {
-            this.name = name;
-        }
-    }
 }
