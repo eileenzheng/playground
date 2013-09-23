@@ -119,7 +119,7 @@ public class SearchResults extends BasePage {
     }
 
     public boolean averageCostContainerIsPresent() {
-        return divs(cssSelector(".row>.col-lg-12")).size() > 0;
+        return divs(cssSelector(".well")).size() > 0;
     }
 
     public String getCostContainerText() {
