@@ -123,11 +123,11 @@ public class SearchResults extends BasePage {
     }
 
     public String getCostContainerProcedureCostText() {
-        return averageCostContainer().p().getText().toString();
+        return averageCostContainer().ps().get(0).getText().toString();
     }
 
     public String getCostContainerInsContributionText() {
-        return averageCostContainer().p().getText().toString();
+        return averageCostContainer().ps().get(1).getText().toString();
     }
 
     public FluentWebElement seeMoreLink() {
