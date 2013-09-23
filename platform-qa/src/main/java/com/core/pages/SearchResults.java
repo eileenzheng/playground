@@ -115,7 +115,7 @@ public class SearchResults extends BasePage {
     }
 
     public FluentWebElement averageCostContainer() {
-        return div(cssSelector(".row>.col-lg-12"));
+        return div(cssSelector(".well"));
     }
 
     public boolean averageCostContainerIsPresent() {
