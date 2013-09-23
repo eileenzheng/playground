@@ -157,27 +157,27 @@ public class FacilitySearchStepDefs {
     // PUI-49
     @And("^the range will display for \"([^\"]*)\"$")
     public void the_range_will_display_for(String arg1) {
-        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+        assertThat(searchResults.getCostContainerProcedureCostText(), containsString(arg1));
     }
 
     // PUI-49
     @And("^the cost will be \"([^\"]*)\"$")
     public void the_cost_will_be(String arg1) {
-        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+        assertThat(searchResults.getCostContainerProcedureCostText(), containsString(arg1));
     }
 
     // PUI-49
     @And("^the plan will contribute \"([^\"]*)\"$")
     public void the_plan_will_contribute(String arg1) {
-        assertThat(searchResults.getCostContainerText(), containsString(arg1));
+        assertThat(searchResults.getCostContainerInsContributionText(), containsString(arg1));
     }
 
     // PUI-49
     @And("^the payer cost is displayed as 'We will be contributing approximately \\$\\[LOW COST\\] - \\$\\[HIGH COST\\]\\.'$")
     public void the_payer_cost_is_displayed_as() {
         Pattern regex = Pattern.compile("We will be contributing approximately \\$[0-9,]+\\s?-\\s?\\$[0-9,]+\\.", Pattern.DOTALL);
-        Matcher regexMatcher = regex.matcher(searchResults.getCostContainerText().trim());
-        assertThat("Text does not match. Check the text of: " + searchResults.getCostContainerText(),
+        Matcher regexMatcher = regex.matcher(searchResults.getCostContainerInsContributionText().trim());
+        assertThat("Text does not match. Check the text of: " + searchResults.getCostContainerInsContributionText(),
                 regexMatcher.find(),
                 equalTo(true));
     }
@@ -186,8 +186,8 @@ public class FacilitySearchStepDefs {
     @And("^the range is displayed as 'On your insurance plan, this type of \\[PROCEDURE NAME\\] will cost you approximately \\$\\[LOW COST\\] - \\$\\[HIGH COST\\]\\.'$")
     public void the_range_is_displayed_as_() {
         Pattern regex = Pattern.compile("On your insurance plan, this type of [a-zA-Z\\s]+ will cost you approximately \\$[0-9,]+\\s?-\\s?\\$[0-9,]+\\.", Pattern.DOTALL);
-        Matcher regexMatcher = regex.matcher(searchResults.getCostContainerText().trim());
-        assertThat("Text does not match. Check the text of: " + searchResults.getCostContainerText(),
+        Matcher regexMatcher = regex.matcher(searchResults.getCostContainerProcedureCostText().trim());
+        assertThat("Text does not match. Check the text of: " + searchResults.getCostContainerProcedureCostText(),
                 regexMatcher.find(),
                 equalTo(true));
     }

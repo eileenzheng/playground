@@ -122,7 +122,11 @@ public class SearchResults extends BasePage {
         return divs(cssSelector(".well")).size() > 0;
     }
 
-    public String getCostContainerText() {
+    public String getCostContainerProcedureCostText() {
+        return averageCostContainer().p().getText().toString();
+    }
+
+    public String getCostContainerInsContributionText() {
         return averageCostContainer().p().getText().toString();
     }
 
