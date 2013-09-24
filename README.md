@@ -1,7 +1,7 @@
 Selenium Suite
 ==============
 
-This com.capital.test suite contains Selenium tests for Capital, Core, UCHC, and Vitals. The suites contained in here use a mixture
+This com.capital.test suite contains Selenium tests for Capital, Core, UCHC, PRS, and Vitals. The suites contained in here use a mixture
 of TestNG and Cucumber to drive the tests. Currently only Core is using Cucumber to drive tests.
 
 Directory Structure
