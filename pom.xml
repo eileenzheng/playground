@@ -25,7 +25,7 @@
         <fluent-selenium.version>1.14</fluent-selenium.version>
         <maven-surefire.version>2.16</maven-surefire.version>
         <maven-failsafe.version>2.16</maven-failsafe.version>
-        <cucumber-jvm.version>1.1.4</cucumber-jvm.version>
+        <cucumber-jvm.version>1.1.5</cucumber-jvm.version>
         <junit.version>4.11</junit.version>
     </properties>
 

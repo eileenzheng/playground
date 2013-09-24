@@ -1,4 +1,4 @@
-package com.core;
+package com.prsdemo;
 
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;

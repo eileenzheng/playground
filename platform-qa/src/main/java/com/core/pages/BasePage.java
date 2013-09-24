@@ -16,8 +16,8 @@ public abstract class BasePage extends FluentWebDriver implements WebDriver, Has
     private WebDriver webDriver;
 
     public BasePage(){
-        super(WebDriverSingleton.getInstance());
-        this.webDriver = WebDriverSingleton.getInstance();
+        super(WebDriverSingleton.getDriver());
+        this.webDriver = WebDriverSingleton.getDriver();
     }
 
     public void get(String url) {

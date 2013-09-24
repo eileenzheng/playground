@@ -5,6 +5,9 @@ import org.seleniumhq.selenium.fluent.FluentSelect;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 
@@ -60,6 +63,16 @@ public class DoctorReviews extends BasePage {
                 .getText().toString();
     }
 
+    public int totalResultPages() {
+        String a = div(id("B7")).getText().toString().trim();
+        return Integer.parseInt(a.replaceAll("<<\\s+(\\d)+\\s+of\\s(\\d)+\\s+>>","$2"));
+    }
+
+    public int currentResultPage() {
+        String a = div(id("B7")).getText().toString().trim();
+        return Integer.parseInt(a.replaceAll("<<\\s+(\\d)+\\s+of\\s(\\d)+\\s+>>","$1"));
+    }
+
     /**
      * Use this to get the div containing the thumbs up/down and flag links
      * @param element
@@ -110,13 +123,13 @@ public class DoctorReviews extends BasePage {
                 .getText().toString().trim();
     }
 
-    public FluentSelect getSortByDropDown() {
+    public FluentSelect sortByDropDown() {
         return select(id("ddl_sortBy"));
     }
 
-    // oldtonew, mosthelpful, leasthelpful, experience: lowtohigh, experience: hightolow
-    public void selectSortType(FluentSelect select, String value) {
-        select.selectByValue(value);
+    // newtoold, oldtonew, mosthelpful, leasthelpful, experience: lowtohigh, experience: hightolow
+    public void selectSortType(String value) {
+        sortByDropDown().selectByValue(value);
     }
 
 

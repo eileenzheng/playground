@@ -8,8 +8,72 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>prs-qa</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>PRS Test Suite</name>
+
+    <profiles>
+        <profile>
+            <id>PRS-it_tests</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>add-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-test-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>src/it/java</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>add-resource</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-test-resource</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/it/resources</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- block unit com.capital.test execution -->
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire.version}</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,10 +81,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
@@ -30,70 +90,25 @@
             <artifactId>fluent-selenium</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.uncommons</groupId>
-            <artifactId>reportng</artifactId>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
         </dependency>
         <dependency>
-            <groupId>velocity</groupId>
-            <artifactId>velocity</artifactId>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-sources</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="target/surefire-reports/html"/>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire.version}</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
-                        <org.uncommons.reportng.title>Vitals QA Test Report</org.uncommons.reportng.title>
-                    </systemPropertyVariables>
-                    <properties>
-                        <property>
-                            <name>usedefaultlisteners</name>
-                            <value>false</value>
-                        </property>
-                        <property>
-                            <name>listener</name>
-                            <value>org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
-                        </property>
-                        <property>
-                            <name>outputDir</name>
-                            <value>${project.basedir}/target/surefire-reports</value>
-                        </property>
-                    </properties>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>${project.basedir}/src/test/resources/${suite.filename}</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

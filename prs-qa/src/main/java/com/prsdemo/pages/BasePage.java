@@ -1,6 +1,6 @@
 package com.prsdemo.pages;
 
-import com.prsdemo.DriverManager;
+import com.prsdemo.WebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
@@ -16,8 +16,8 @@ public abstract class BasePage extends FluentWebDriver implements WebDriver, Has
     private WebDriver webDriver;
 
     public BasePage(){
-        super(DriverManager.getDriver());
-        this.webDriver = DriverManager.getDriver();
+        super(WebDriverSingleton.getDriver());
+        this.webDriver = WebDriverSingleton.getDriver();
     }
 
     public void get(String url) {

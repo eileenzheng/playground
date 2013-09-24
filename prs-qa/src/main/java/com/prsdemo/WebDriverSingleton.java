@@ -1,6 +1,6 @@
 package com.prsdemo;
 
-import com.capital.helpers.Constants;
+import com.prsdemo.helpers.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
@@ -31,7 +31,7 @@ public class WebDriverSingleton {
         if (driver == null) {
             URL server = null;
             try {
-                server = new URL("http://thvitdatadev01.mdx.med:4444/wd/hub");
+                server = new URL(Constants.SELENIUM_REMOTE);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
