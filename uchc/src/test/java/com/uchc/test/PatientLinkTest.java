@@ -17,21 +17,23 @@ import com.uchc.runners.RemoteTestRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientLinkTest extends RemoteTestRunner {
+public class PatientLinkTest extends LocalTestRunner {
     private WebDriver driver;
 
     private static List<String> apptUrl = new ArrayList<String>();
+    private static String serpUrl = "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=6&x=43&y=8";
+    private static String profileUrl = "/drs/roopal_kundu/";
     
     
-    @Parameters({"domain"})
+    @Parameters({"domain","user","pw"})
     @Test
-    public void testCenter(@Optional("")String user, @Optional("")String pw, String domain) {
+    public void testCenter(String domain, @Optional("")String user, @Optional("")String pw) {
         driver = getDriver();
 
         if (user.equals("") && pw.equals("")) {
-            driver.get(getUrl(domain));
+            driver.get(getUrl(domain) + serpUrl);
         } else {
-            driver.get(getHttpSecureUrl(user,pw,domain) + "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=6&x=43&y=8");
+            driver.get(getHttpSecureUrl(user,pw,domain) + serpUrl);
         }
 
         PatientLinkCenterAd ad = PageFactory.initElements(driver, PatientLinkCenterAd.class);
@@ -41,13 +43,13 @@ public class PatientLinkTest extends RemoteTestRunner {
 
     @Parameters({"domain","user","pw"})
     @Test
-    public void testRight(@Optional("")String user, @Optional("")String pw, String domain) {
+    public void testRight(String domain, @Optional("")String user, @Optional("")String pw) {
         driver = getDriver();
 
         if (user.equals("") && pw.equals("")) {
-            driver.get(getUrl(domain));
+            driver.get(getUrl(domain) + profileUrl);
         } else {
-            driver.get(getHttpSecureUrl(user,pw,domain) + "/drs/roopal_kundu/");
+            driver.get(getHttpSecureUrl(user,pw,domain) + profileUrl);
         }
 
         PatientLinkRrAd ad = PageFactory.initElements(driver, PatientLinkRrAd.class);
