@@ -120,5 +120,7 @@ public class RateADoctorStepDefs {
         String jsAlertText = reviewProvider.getJSAlertText();
         assertTrue("JS Alert \"" + jsAlertText + "\" does not contain \"" + arg1 + "\"",
                 reviewProvider.getJSAlertText().contains(arg1));
+        //Selenium can't screenshot with Alerts in the way
+        reviewProvider.dismissJSAlert();
     }
 }
