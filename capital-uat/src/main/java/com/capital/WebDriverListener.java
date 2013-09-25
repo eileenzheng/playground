@@ -56,8 +56,13 @@ public class WebDriverListener implements IInvokedMethodListener {
                 // Nothing to catch
             }
 
-            reportLogScreenshot(failureImageFile, date, testResult.getMethod().getMethodName());
+            String failedURL = DriverManager.getAugmentedDriver().getCurrentUrl();
+            String methodName = testResult.getMethod().getMethodName();
+
+            reportLogScreenshot(failureImageFile, date, methodName,failedURL);
+
         }
+
 
         if (method.isTestMethod()) {
             WebDriver driver = DriverManager.getDriver();
@@ -67,10 +72,11 @@ public class WebDriverListener implements IInvokedMethodListener {
         }
     }
 
-    protected void reportLogScreenshot(File file, String date, String methodName) {
+    protected void reportLogScreenshot(File file, String date, String methodName, String FailedURL) {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
 
         Reporter.log("<a href=\"testfailureimages/" + file + "\"><p align=\"left\">Error for " + methodName + " screenshot at " + date + "</p>");
+        Reporter.log("<p align=\"left\">URL At Failure: " + FailedURL + "</p>");
         Reporter.log("<p><img width=\"1024\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
     }
 }
