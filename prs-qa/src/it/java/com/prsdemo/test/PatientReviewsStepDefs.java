@@ -1,5 +1,6 @@
 package com.prsdemo.test;
 
+import com.prsdemo.helpers.Constants;
 import com.prsdemo.pages.DoctorReviews;
 import com.prsdemo.pages.ReviewProvider;
 import cucumber.api.PendingException;
@@ -17,6 +18,7 @@ public class PatientReviewsStepDefs {
 
     DoctorReviews drReviews;
     ReviewProvider reviewProvider;
+    String providerNumber = "1";
 
     @Before
     public void setUp() {
@@ -26,7 +28,7 @@ public class PatientReviewsStepDefs {
 
     @Given("^I have navigated to a provider review page$")
     public void I_have_navigated_to_a_provider_review_page() throws Throwable {
-        drReviews.go("1");
+        drReviews.go(providerNumber);
     }
 
     @Then("^I will see patient reviews$")
@@ -47,7 +49,10 @@ public class PatientReviewsStepDefs {
     @Then("^I will see the sort order change$")
     public void I_will_see_the_sort_order_change() throws Throwable {
         if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Newest to Oldest")) {
-            assertTrue(drReviews.getCurrentUrl().contains("newtoold"));
+            //Date: Newest to Oldest is by default
+            if (!drReviews.getCurrentUrl().equals(Constants.PRS_DEMO_SITE + "/reviews/Doctor" + providerNumber)) {
+                assertTrue(drReviews.getCurrentUrl().contains("newtoold"));
+            }
         } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Oldest to Newest")) {
             assertTrue(drReviews.getCurrentUrl().contains("oldtonew"));
         } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Most Helpful")) {
