@@ -1,7 +1,6 @@
 package com.prsdemo.pages;
 
 import com.prsdemo.helpers.Constants;
-import org.seleniumhq.selenium.fluent.FluentSelect;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 
@@ -28,7 +27,23 @@ public class ReviewProvider extends BasePage {
         return divs(cssSelector(".C17"));
     }
 
-    public ReviewProvider rateQuestion(FluentSelect element, int rating) {
+    public FluentWebElement experience() {
+        return reviewQuestions().get(0);
+    }
+
+    public FluentWebElement communication() {
+        return reviewQuestions().get(2);
+    }
+
+    public FluentWebElement availability() {
+        return reviewQuestions().get(3);
+    }
+
+    public FluentWebElement environment() {
+        return reviewQuestions().get(4);
+    }
+
+    public ReviewProvider rateQuestion(FluentWebElement element, int rating) {
         if (rating < 1 && rating > Constants.MAX_RATING) throw new IllegalArgumentException("Rating must be between 1 and 5");
 
         element.lis(cssSelector(".D20>.E11>.rating_5>li")).get(rating - 1).link(cssSelector("a")).click();
@@ -45,18 +60,18 @@ public class ReviewProvider extends BasePage {
 
     }
 
-    public ReviewProvider recommendProvider(FluentWebElement element) {
-        element.link(cssSelector("#D9>a:nth-child(1)")).click();
+    public ReviewProvider recommendProvider() {
+        reviewQuestions().get(1).link(cssSelector("#D9>a:nth-child(1)")).click();
         return this;
     }
 
-    public ReviewProvider dontRecommendProvider(FluentWebElement element) {
-        element.link(cssSelector("#D9>a:nth-child(3)")).click();
+    public ReviewProvider dontRecommendProvider() {
+        reviewQuestions().get(1).link(cssSelector("#D9>a:nth-child(3)")).click();
         return this;
     }
 
-    public ReviewProvider additionalComments(FluentWebElement element, String string) {
-        element.textarea(cssSelector(".D22>.E20>#Comments_field")).sendKeys(string);
+    public ReviewProvider additionalComments(String string) {
+        reviewQuestions().get(5).textarea(cssSelector(".D22>.E20>#Comments_field")).sendKeys(string);
         return this;
     }
 
@@ -70,12 +85,17 @@ public class ReviewProvider extends BasePage {
         return this;
     }
 
-    public ReviewProvider submitReview() {
+    public void submitReview() {
         div(id("C8")).click();
-        return this;
     }
 
+    public void dismissJSAlert() {
+        webDriver().switchTo().alert().accept();
+        webDriver().switchTo().defaultContent();
+    }
 
-
+    public String getJSAlertText() {
+        return webDriver().switchTo().alert().getText();
+    }
 
 }
