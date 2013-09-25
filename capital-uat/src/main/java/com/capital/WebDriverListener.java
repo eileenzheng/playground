@@ -77,6 +77,6 @@ public class WebDriverListener implements IInvokedMethodListener {
 
         Reporter.log("<a href=\"testfailureimages/" + file + "\"><p align=\"left\">Error for " + methodName + " screenshot at " + date + "</p>");
         Reporter.log("<p align=\"left\">URL At Failure: " + FailedURL + "</p>");
-        Reporter.log("<p><img width=\"1024\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
+        Reporter.log("<p><img width=\"768\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
     }
 }
