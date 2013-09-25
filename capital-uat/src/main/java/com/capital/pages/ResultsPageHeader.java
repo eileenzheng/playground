@@ -326,7 +326,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickVaccinesAdministeredCheckbox() {
-        Assert.assertTrue(vaccinesAdministeredCheckBox().getText().toString().contains("Vaccines Administered"),
+        Assert.assertTrue(vaccinesAdministeredCheckBox().getText().toString().trim().contains("Vaccines Administered"),
                 "'Vaccines Administered' filter not found or checkbox changed");
         vaccinesAdministeredCheckBox().click();
         Assert.assertTrue(vaccinesAdministeredCheckBox().isSelected().value(), "Failed to check 'Vaccines Administered' checkbox");
@@ -334,7 +334,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickEPrescriberCheckbox() {
-        Assert.assertTrue(ePrescriberCheckBox().getText().toString().contains("e-prescriber"),
+        Assert.assertTrue(ePrescriberCheckBox().getText().toString().trim().contains("e-prescriber"),
                 "'e-prescriber' filter not found or checkbox changed");
         ePrescriberCheckBox().click();
         Assert.assertTrue(ePrescriberCheckBox().isSelected().value(),"Failed to check 'e-prescriber' checkbox");
@@ -342,7 +342,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickBariatricSurgeryCheckbox() {
-        Assert.assertTrue(BDBariatricSurgeryCheckBox().getText().toString().contains("Bariatric Surgery"),
+        Assert.assertTrue(BDBariatricSurgeryCheckBox().getText().toString().trim().contains("Bariatric Surgery"),
                 "'Bariatric Surgery' filter not found or checkbox changed");
         BDBariatricSurgeryCheckBox().input().click();
         Assert.assertTrue(BDBariatricSurgeryCheckBox().input().isSelected().value(),"Failed to check 'Bariatric Surgery' checkbox");
@@ -350,7 +350,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickCardiacCareCheckbox() {
-        Assert.assertTrue(BDCardiacCareCheckBox().getText().toString().contains("Cardiac Care"),
+        Assert.assertTrue(BDCardiacCareCheckBox().getText().toString().trim().contains("Cardiac Care"),
                 "'Cardiac Care' filter not found or checkbox changed");
         BDCardiacCareCheckBox().input().click();
         Assert.assertTrue(BDCardiacCareCheckBox().input().isSelected().value(),"Failed to check 'Cardiac Care' checkbox");
@@ -358,7 +358,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickKneeAndHipCheckbox() {
-        Assert.assertTrue(BDKneeHipCheckBox().getText().toString().contains("Knee & Hip"),
+        Assert.assertTrue(BDKneeHipCheckBox().getText().toString().trim().contains("Knee & Hip"),
                 "'Knee & Hip' filter not found or checkbox changed");
         BDKneeHipCheckBox().input().click();
         Assert.assertTrue(BDKneeHipCheckBox().input().isSelected().value(),"Failed to check 'Knee & Hip' checkbox");
@@ -366,7 +366,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickSpineSurgeryCheckbox() {
-        Assert.assertTrue(BDSpineSurgeryCheckBox().getText().toString().contains("Spine Surgery"),
+        Assert.assertTrue(BDSpineSurgeryCheckBox().getText().toString().trim().contains("Spine Surgery"),
                 "'Spine Surgery' filter not found or checkbox changed");
         BDSpineSurgeryCheckBox().input().click();
         Assert.assertTrue(BDSpineSurgeryCheckBox().input().isSelected().value(),"Failed to check 'Spine Surgery' checkbox");
@@ -374,7 +374,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickTransplantsCheckbox() {
-        Assert.assertTrue(BDTransplantsCheckBox().getText().toString().contains("Transplants"),
+        Assert.assertTrue(BDTransplantsCheckBox().getText().toString().trim().contains("Transplants"),
                 "'Transplants' filter not found or checkbox changed");
         BDTransplantsCheckBox().input().click();
         Assert.assertTrue(BDTransplantsCheckBox().input().isSelected().value(), "Failed to check 'Transplants' checkbox");
@@ -382,7 +382,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickComplexAndRareCancersCheckbox() {
-        Assert.assertTrue(BDComplexCancersCheckBox().getText().toString().contains("Complex and Rare Cancers"),
+        Assert.assertTrue(BDComplexCancersCheckBox().getText().toString().trim().contains("Complex and Rare Cancers"),
                 "'Complex and Rare Cancers' filter not found or checkbox changed");
         BDComplexCancersCheckBox().input().click();
         Assert.assertTrue(BDComplexCancersCheckBox().input().isSelected().value(), "Failed to check 'Complex and Rare Cancers' checkbox");
@@ -390,7 +390,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickHeartAttackTreatmentCheckbox() {
-        Assert.assertTrue(QRHeartAttackTreatmentCheckBox().getText().toString().contains("Heart Attack Treatment"),
+        Assert.assertTrue(QRHeartAttackTreatmentCheckBox().getText().toString().trim().contains("Heart Attack Treatment"),
                 "'Heart Attack Treatment' filter not found or checkbox changed");
         QRHeartAttackTreatmentCheckBox().input().click();
         Assert.assertTrue(QRHeartAttackTreatmentCheckBox().input().isSelected().value(), "Failed to check 'Heart Attack Treatment' checkbox");
@@ -398,7 +398,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickHeartFailureTreatmentCheckbox() {
-        Assert.assertTrue(QRHeartFailureTreatmentCheckBox().getText().toString().contains("Heart Failure Treatment"),
+        Assert.assertTrue(QRHeartFailureTreatmentCheckBox().getText().toString().trim().contains("Heart Failure Treatment"),
                 "'Heart Failure Treatment' filter not found or checkbox changed");
         QRHeartFailureTreatmentCheckBox().input().click();
         Assert.assertTrue(QRHeartFailureTreatmentCheckBox().input().isSelected().value(), "Failed to check 'Heart Failure Treatment' checkbox");
@@ -406,7 +406,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickOverallMortalityRateCheckbox() {
-        Assert.assertTrue(QROverallMortalityRateCheckBox().getText().toString().contains("Overall Mortality Rate"),
+        Assert.assertTrue(QROverallMortalityRateCheckBox().getText().toString().trim().contains("Overall Mortality Rate"),
                 "'Overall Mortality Rate' filter not found or checkbox changed");
         QROverallMortalityRateCheckBox().input().click();
         Assert.assertTrue(QROverallMortalityRateCheckBox().input().isSelected().value(), "Failed to check 'Overall Mortality Rate' checkbox");
@@ -414,7 +414,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickInfantMortalityRateCheckbox() {
-        Assert.assertTrue(QRInfantMortalityRateCheckBox().getText().toString().contains("Infant Mortality Rate"),
+        Assert.assertTrue(QRInfantMortalityRateCheckBox().getText().toString().trim().contains("Infant Mortality Rate"),
                 "'Infant Mortality Rate' filter not found or checkbox changed");
         QRInfantMortalityRateCheckBox().input().click();
         Assert.assertTrue(QRInfantMortalityRateCheckBox().input().isSelected().value(), "Failed to check 'Infant Mortality Rate' checkbox");
@@ -422,7 +422,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickCommunicationCheckbox() {
-        Assert.assertTrue(QRCommunicationCheckBox().getText().toString().contains("Communication"),
+        Assert.assertTrue(QRCommunicationCheckBox().getText().toString().trim().contains("Communication"),
                 "'Communication' filter not found or checkbox changed");
         QRCommunicationCheckBox().input().click();
         Assert.assertTrue(QRCommunicationCheckBox().input().isSelected().value(), "Failed to check 'Communication' checkbox");
@@ -430,7 +430,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickPatientCareCheckbox() {
-        Assert.assertTrue(QRPatientCareCheckBox().getText().toString().contains("Patient Care"),
+        Assert.assertTrue(QRPatientCareCheckBox().getText().toString().trim().contains("Patient Care"),
                 "'Patient Care' filter not found or checkbox changed");
         QRPatientCareCheckBox().input().click();
         Assert.assertTrue(QRPatientCareCheckBox().input().isSelected().value(), "Failed to check 'Patient Care' checkbox");
@@ -438,7 +438,7 @@ public class ResultsPageHeader extends BasePage {
     }
 
     public ResultsPageHeader clickEnvironmentCheckbox() {
-        Assert.assertTrue(QREnvironmentCheckBox().getText().toString().contains("Environment"),
+        Assert.assertTrue(QREnvironmentCheckBox().getText().toString().trim().contains("Environment"),
                 "'Environment' filter not found or checkbox changed");
         QREnvironmentCheckBox().input().click();
         Assert.assertTrue(QREnvironmentCheckBox().input().isSelected().value(), "Failed to check 'Environment' checkbox");
