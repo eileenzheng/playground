@@ -50,7 +50,7 @@ public class PatientReviewsStepDefs {
     public void I_will_see_the_sort_order_change() throws Throwable {
         if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Newest to Oldest")) {
             //Date: Newest to Oldest is by default
-            if (!drReviews.getCurrentUrl().equals(Constants.PRS_DEMO_SITE + "/reviews/Doctor" + providerNumber)) {
+            if (!drReviews.getCurrentUrl().equals(Constants.PRS_DEMO_SITE + "/reviews/Doctor/" + providerNumber)) {
                 assertTrue(drReviews.getCurrentUrl().contains("newtoold"));
             }
         } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Oldest to Newest")) {
