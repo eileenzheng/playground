@@ -23,7 +23,7 @@ Feature: Patient Reviews
 
   Scenario Outline: Change the sorting
     When I select sort option <sort>
-#    Then I will see the sort order change
+    Then I will see the sort order change
 
   Examples:
     | sort |

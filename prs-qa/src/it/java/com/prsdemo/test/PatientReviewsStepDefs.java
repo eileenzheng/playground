@@ -46,8 +46,19 @@ public class PatientReviewsStepDefs {
 
     @Then("^I will see the sort order change$")
     public void I_will_see_the_sort_order_change() throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+        if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Newest to Oldest")) {
+            assertTrue(drReviews.getCurrentUrl().contains("newtoold"));
+        } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Date: Oldest to Newest")) {
+            assertTrue(drReviews.getCurrentUrl().contains("oldtonew"));
+        } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Most Helpful")) {
+            assertTrue(drReviews.getCurrentUrl().contains("mosthelpful"));
+        } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Least Helpful")) {
+            assertTrue(drReviews.getCurrentUrl().contains("leasthelpful"));
+        } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Experience: Lowest to Highest")) {
+            assertTrue(drReviews.getCurrentUrl().contains("lowtohigh"));
+        } else if (drReviews.sortByDropDown().getFirstSelectedOption().getText().equals("Experience: Highest to Lowest")) {
+            assertTrue(drReviews.getCurrentUrl().contains("hightolow"));
+        }
     }
 
     @Given("^more than one page of reviews$")
@@ -74,37 +85,37 @@ public class PatientReviewsStepDefs {
     @When("^I select sort option Date: Newest to Oldest$")
     public void I_select_sort_option_sort_new_to_old() throws Throwable {
         drReviews.selectSortType("newtoold");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Date: Newest to Oldest");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Date: Newest to Oldest");
     }
 
     @When("^I select sort option Date: Oldest to Newest$")
     public void I_select_sort_option_sort_old_to_new() throws Throwable {
         drReviews.selectSortType("oldtonew");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Date: Oldest to Newest");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Date: Oldest to Newest");
     }
 
     @When("^I select sort option Most Helpful$")
     public void I_select_sort_option_sort_most_helpful() throws Throwable {
         drReviews.selectSortType("mosthelpful");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Most Helpful");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Most Helpful");
     }
 
     @When("^I select sort option Least Helpful$")
     public void I_select_sort_option_sort_least_helpful() throws Throwable {
         drReviews.selectSortType("leasthelpful");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Least Helpful");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Least Helpful");
     }
 
     @When("^I select sort option Experience: Lowest to Highest$")
     public void I_select_sort_option_sort_exp_low_to_high() throws Throwable {
         drReviews.selectSortType("experience: lowtohigh");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Experience: Lowest to Highest");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Experience: Lowest to Highest");
     }
 
     @When("^I select sort option Experience: Highest to Lowest$")
     public void I_select_sort_option_sort_exp_high_to_low() throws Throwable {
         drReviews.selectSortType("experience: hightolow");
-        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().toString().trim(),"Experience: Highest to Lowest");
+        assertEquals(drReviews.sortByDropDown().getFirstSelectedOption().getText().trim(),"Experience: Highest to Lowest");
     }
 
 }
