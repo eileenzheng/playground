@@ -1,6 +1,7 @@
 package com.prsdemo.pages;
 
 import com.prsdemo.helpers.Constants;
+import cucumber.runtime.CucumberException;
 import org.seleniumhq.selenium.fluent.FluentSelect;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
@@ -169,8 +170,8 @@ public class ModAccess extends BasePage {
      * Returns the total number of reviews available
      * @return
      */
-    public String totalReviewCount() {
-        return parsePaginationString(3);
+    public int totalReviewCount() {
+        return Integer.parseInt(parsePaginationString(3));
     }
 
     /**
@@ -199,6 +200,8 @@ public class ModAccess extends BasePage {
      * @return String
      */
     private String parsePaginationString(int group) {
+        if (divs(id("no_reviews")).size() > 0) throw new CucumberException("No reviews found");
+
         String a = div(cssSelector("#A4>div:nth-child(2)>div")).getText().toString();
         Pattern regex = Pattern.compile("(\\d+)\\s\\-\\s(\\d+)\\sof\\s(\\d+)");
         Matcher m = regex.matcher(a);
@@ -224,7 +227,7 @@ public class ModAccess extends BasePage {
      * @return
      */
     private FluentWebElements reviews() {
-        return divs(cssSelector("form[id^=review_id_]"));
+        return forms(cssSelector("form[id^=review_id_]"));
     }
 
     private String getId(FluentWebElement element) {
@@ -239,52 +242,57 @@ public class ModAccess extends BasePage {
      */
     private String reviewId(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(element.div(id("review_"+elementID))).replaceAll("Review ID: (\\d+)$","$1");
+        return idMatcher(trimmedElement(element.div(id("review_" + elementID))));
     }
 
     private String screenName(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("Screenname_"+elementID))).replaceAll("Screen Name: (\\d+)$","$1");
+        return trimmedElement(div(id("Screenname_"+elementID))).replaceAll("Screen Name: (.+)$","$1");
     }
 
     private String headline(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("Headline_"+elementID))).replaceAll("Headline: (\\d+)$","$1");
+        String text = trimmedElement(div(id("Headline_"+elementID))).replaceAll("Headline: (.+)$","$1");
+        return text.contains("Headline") ? "" : text;
     }
 
     private String comment(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("Comments_" + elementID))).replaceAll("Comment: (\\d+)$","$1");
+        return trimmedElement(div(id("Comments_" + elementID))).replaceAll("Comment: (.+)$","$1");
     }
 
     private String response(FluentWebElement element) {
         String elementID = getId(element);
         if (divs(id("Response_" + elementID)).size() > 0) {
-            return trimmedElement(div(id("Response_"+elementID))).replaceAll("Response: (\\d+)$","$1");
+            return trimmedElement(div(id("Response_"+elementID))).replaceAll("Response: (.+)$","$1");
         } else {
             return "";
         }
     }
 
-    private String memberid(FluentWebElement element) {
+    private String memberId(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("reviewerid_"+elementID))).replaceAll("Member ID: (\\d+)$","$1");
+        return idMatcher(trimmedElement(div(id("reviewerid_" + elementID))));
     }
 
     private String submitted(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("date_"+elementID))).replaceAll("Submitted: (\\d+)$","$1");
+        return trimmedElement(div(id("date_"+elementID))).replaceAll("Submitted: (.+)$","$1");
     }
 
     private String providerId(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("providerId_"+elementID))).replaceAll("Provider ID: (\\d+)$","$1");
+        return idMatcher(trimmedElement(div(id("providerId_" + elementID))));
+    }
+
+    private String reviewStatus(FluentWebElement element) {
+        String elementID = getId(element);
+        return trimmedElement(div(cssSelector(".review_middle_frame>div:nth-child(1)")));
     }
 
     /**
      * Generate a list of reviews from the info scraped from the page
-     * @param elements
-     * @return
+     * @return A list of reviews
      */
     public List<Review> processReviews() {
         List<Review> reviews = new ArrayList<Review>();
@@ -295,9 +303,10 @@ public class ModAccess extends BasePage {
             rev.headline = headline(el);
             rev.comment = comment(el);
             rev.response = response(el);
-            rev.memberid = memberid(el);
+            rev.memberid = memberId(el);
             rev.submitted = submitted(el);
             rev.providerid = providerId(el);
+            rev.reviewStatus = reviewStatus(el);
             reviews.add(rev);
         }
         return reviews;
@@ -308,31 +317,39 @@ public class ModAccess extends BasePage {
         String separator = "";
         for (Review rev : reviews) {
             sb.append(separator).append(rev.toString());
-            separator = ",\n";
+            separator = "\n";
         }
         return sb.toString();
     }
 
-    class Review {
-        String reviewId;
-        String screenName;
-        String headline;
-        String comment;
-        String response;
-        String memberid;
-        String submitted;
-        String providerid;
+    private String idMatcher(String str) {
+        Pattern regex = Pattern.compile("([\\d\\-])+");
+        Matcher regexMatch = regex.matcher(str);
+        return regexMatch.find() ? regexMatch.group(0) : "";
+    }
+
+    public class Review {
+        public String reviewId;
+        public String screenName;
+        public String headline;
+        public String comment;
+        public String response;
+        public String memberid;
+        public String submitted;
+        public String providerid;
+        public String reviewStatus;
 
         public String toString() {
             StringBuilder sb = new StringBuilder();
             sb.append(reviewId).append(",")
                     .append(screenName).append(",")
                     .append(headline).append(",")
-                    .append(comment).append(",")
                     .append(response).append(",")
                     .append(memberid).append(",")
                     .append(submitted).append(",")
-                    .append(providerid).append(",");
+                    .append(providerid).append(",")
+                    .append(reviewStatus).append(",");
+//                    .append(comment).append(",");
             return sb.toString();
         }
     }
