@@ -9,4 +9,10 @@ public interface Constants {
 
     static public final int MAX_RATING = 5;
     static public final int MAX_QUESTIONS = 6;
+
+    static public final String PRS_MOD_MANAGER = "/modaccess";
+    static public final String PRS_MOD_MANAGER_USERNAME = "jerry2";
+    static public final String PRS_MOD_MANAGER_PASSWORD = "password";
+
+    static public final String PRS_PROVIDER_PORTAL = "/providerportal";
 }

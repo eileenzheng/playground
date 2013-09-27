@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.HasInputDevices;
 import org.openqa.selenium.interactions.Keyboard;
 import org.openqa.selenium.interactions.Mouse;
 import org.seleniumhq.selenium.fluent.FluentWebDriver;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import java.util.List;
 import java.util.Set;
@@ -96,6 +97,15 @@ public abstract class BasePage extends FluentWebDriver implements WebDriver, Has
 
     public Capabilities getCapabilities() {
         return ((HasCapabilities) webDriver()).getCapabilities();
+    }
+
+    /**
+     * Use when you want to get the text and have the spaces trimmed in front and behind the text
+     * @param element
+     * @return
+     */
+    public String trimmedElement(FluentWebElement element) {
+        return element.getText().toString().trim();
     }
 
     protected WebDriver webDriver() {
