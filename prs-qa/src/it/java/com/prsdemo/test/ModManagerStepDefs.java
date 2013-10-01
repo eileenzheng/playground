@@ -19,6 +19,10 @@ public class ModManagerStepDefs {
     @Before
     public void setup() {
         modAccess = new ModAccess();
+        // check if logged in
+        if (modAccess.isLoggedIn()) {
+            modAccess.clickLogoutLink();
+        }
     }
 
     @Given("^I logged into the moderation manager$")

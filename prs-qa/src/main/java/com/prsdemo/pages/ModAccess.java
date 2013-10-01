@@ -16,6 +16,13 @@ import static org.openqa.selenium.By.id;
 
 public class ModAccess extends BasePage {
 
+    Pattern textRegex;
+    Pattern idRegex;
+
+    public ModAccess() {
+        compileRegex();
+    }
+
     public void go() {
         get(Constants.PRS_DEMO_SITE + Constants.PRS_MOD_MANAGER);
         login();
@@ -59,6 +66,14 @@ public class ModAccess extends BasePage {
         return element.isSelected().value();
     }
 
+
+
+    /**
+     * Apply a check to any of the given check boxes
+     * Will not attempt to check the box if already checked
+     * @param element supply any of the CheckBox methods (ie. modStatusAcceptedCheckBox())
+     * @return This Page
+     */
     public ModAccess check(FluentWebElement element) {
         if (!checkedValueOf(element)) {
             element.click();
@@ -66,6 +81,12 @@ public class ModAccess extends BasePage {
         return this;
     }
 
+    /**
+     * Un-check any of the given check boxes
+     * Will not attempt to un-check the box if not already checked
+     * @param element supply any of the CheckBox methods (ie. modStatusAcceptedCheckBox())
+     * @return This Page
+     */
     public ModAccess unCheck(FluentWebElement element) {
         if (checkedValueOf(element)) {
             element.click();
@@ -73,42 +94,82 @@ public class ModAccess extends BasePage {
         return this;
     }
 
+    /**
+     * The WebElement for the start date text box found in the filters
+     * @return FluentWebElement for the start date text box
+     */
     private FluentWebElement startDateTextBox() {
         return input(id("startDate"));
     }
 
+    /**
+     * The WebElement for the end date text box found in the filters
+     * @return FluentWebElement for the end date textbox
+     */
     private FluentWebElement endDateTextBox() {
         return input(id("endDate"));
     }
 
+    /**
+     * Enters a start date to filter on
+     * @param date Date in format MM/DD/YYYY
+     * @return This Page
+     */
     public ModAccess enterStartDate(String date) {
         startDateTextBox().sendKeys(date);
         return this;
     }
 
+    /**
+     * Enters an end date to filter on
+     * @param date Date in format MM/DD/YYYY
+     * @return This Page
+     */
     public ModAccess enterEndDate(String date) {
         endDateTextBox().sendKeys(date);
         return this;
     }
 
+    /**
+     * WebElement for the review id textbox
+     * @return FluentWebElement for the review id textbox
+     */
     private FluentWebElement reviewIDTextBox() {
         return input(id("reviewId"));
     }
 
+    /**
+     * WebElement for the member id textbox
+     * @return FluentWebElement for the member id textbox
+     */
     private FluentWebElement memberIDTextBox() {
         return input(id("reviewerId"));
     }
 
+    /**
+     * Enters a review id to filter on
+     * @param id Review ID
+     * @return This Page
+     */
     public ModAccess enterReviewID(String id) {
         reviewIDTextBox().sendKeys(id);
         return this;
     }
 
+    /**
+     * Enters a member id to filter on
+     * @param id Member ID
+     * @return This Page
+     */
     public ModAccess enterMemberID(String id) {
         memberIDTextBox().sendKeys(id);
         return this;
     }
 
+    /**
+     * WebElement for the provider id textbox
+     * @return FluentWebElement for the provider id textbox
+     */
     private FluentWebElement providerIDTextBox() {
         return input(id("predicateToken"));
     }
@@ -156,6 +217,10 @@ public class ModAccess extends BasePage {
     public ModAccess clickLogoutLink() {
         logoutLink().click();
         return this;
+    }
+
+    public boolean isLoggedIn() {
+        return links(id("logout_link")).size() > 0;
     }
 
     private FluentWebElement currentFiltersText() {
@@ -247,24 +312,25 @@ public class ModAccess extends BasePage {
 
     private String screenName(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("Screenname_"+elementID))).replaceAll("Screen Name: (.+)$","$1");
+//        return trimmedElement(div(id("Screenname_"+elementID))).replaceAll("Screen Name: (.+)$","$1");
+        return textMatcher(trimmedElement(div(id("Screenname_"+elementID))));
     }
 
     private String headline(FluentWebElement element) {
         String elementID = getId(element);
-        String text = trimmedElement(div(id("Headline_"+elementID))).replaceAll("Headline: (.+)$","$1");
+        String text = textMatcher(trimmedElement(div(id("Headline_"+elementID))));
         return text.contains("Headline") ? "" : text;
     }
 
     private String comment(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("Comments_" + elementID))).replaceAll("Comment: (.+)$","$1");
+        return textMatcher(trimmedElement(div(id("Comments_" + elementID))));
     }
 
     private String response(FluentWebElement element) {
         String elementID = getId(element);
         if (divs(id("Response_" + elementID)).size() > 0) {
-            return trimmedElement(div(id("Response_"+elementID))).replaceAll("Response: (.+)$","$1");
+            return textMatcher(trimmedElement(div(id("Response_"+elementID))));
         } else {
             return "";
         }
@@ -277,7 +343,7 @@ public class ModAccess extends BasePage {
 
     private String submitted(FluentWebElement element) {
         String elementID = getId(element);
-        return trimmedElement(div(id("date_"+elementID))).replaceAll("Submitted: (.+)$","$1");
+        return textMatcher(trimmedElement(div(id("date_"+elementID))));
     }
 
     private String providerId(FluentWebElement element) {
@@ -323,8 +389,18 @@ public class ModAccess extends BasePage {
     }
 
     private String idMatcher(String str) {
-        Pattern regex = Pattern.compile("([\\d\\-])+");
-        Matcher regexMatch = regex.matcher(str);
+//        Pattern regex = Pattern.compile("([\\d\\-])+");
+        Matcher regexMatch = idRegex.matcher(str);
+        return regexMatch.find() ? regexMatch.group(0) : "";
+    }
+
+    private void compileRegex() {
+        this.textRegex = Pattern.compile(":\\s(.+)?$");
+        this.idRegex = Pattern.compile("([\\d\\-])+");
+    }
+
+    private String textMatcher(String str) {
+        Matcher regexMatch = textRegex.matcher(str);
         return regexMatch.find() ? regexMatch.group(0) : "";
     }
 
@@ -348,8 +424,8 @@ public class ModAccess extends BasePage {
                     .append(memberid).append(",")
                     .append(submitted).append(",")
                     .append(providerid).append(",")
-                    .append(reviewStatus).append(",");
-//                    .append(comment).append(",");
+                    .append(reviewStatus).append(",")
+                    .append(comment).append(",");
             return sb.toString();
         }
     }
