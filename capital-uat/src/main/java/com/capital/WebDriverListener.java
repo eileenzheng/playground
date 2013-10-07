@@ -24,12 +24,12 @@ public class WebDriverListener implements IInvokedMethodListener {
             WebDriver driver;
 
             if (System.getenv("SAUCE_API_KEY") != null) {
-                System.out.println("I AM MAKING SAUCE");
+                Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
                 printSessionId(method.getTestMethod().getMethodName());
             } else {
-                System.out.println("NO SAUCE");
+                Reporter.log("NO SAUCE",true);
                 driver = driverType.equals("remoteWD")
                         ? DriverFactory.createRemoteInstance("firefox")
                         : DriverFactory.createLocalInstance("firefox");
