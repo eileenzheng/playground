@@ -375,7 +375,7 @@ public class ResultsPageHeader extends BasePage {
 
     public ResultsPageHeader clickTransplantsCheckbox() {
         Assert.assertTrue(BDTransplantsCheckBox().getText().toString().trim().contains("Transplants"),
-                "'Transplants' filter not found or checkbox changed");
+                "'Transplants' filter not found or checkbox changed: " + BDTransplantsCheckBox().getText().toString().trim());
         BDTransplantsCheckBox().input().click();
         Assert.assertTrue(BDTransplantsCheckBox().input().isSelected().value(), "Failed to check 'Transplants' checkbox");
         return this;
