@@ -29,6 +29,7 @@ public class WebDriverListener implements IInvokedMethodListener {
                 DriverManager.setAugmentedWebDriver(driver);
                 printSessionId(method.getTestMethod().getMethodName());
             } else {
+                System.out.println("NO SAUCE");
                 driver = driverType.equals("remoteWD")
                         ? DriverFactory.createRemoteInstance("firefox")
                         : DriverFactory.createLocalInstance("firefox");
