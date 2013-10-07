@@ -27,7 +27,7 @@ public class WebDriverListener implements IInvokedMethodListener {
                 Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
-                printSessionId(method.getTestMethod().getMethodName());
+                printSessionId(testResult.getMethod().getMethodName());
             } else {
                 Reporter.log("NO SAUCE",true);
                 driver = driverType.equals("remoteWD")
