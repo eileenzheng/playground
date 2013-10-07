@@ -20,9 +20,16 @@ public class WebDriverListener implements IInvokedMethodListener {
                     ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
                     : "";
 
-            WebDriver driver = driverType.equals("remoteWD")
-                    ? DriverFactory.createRemoteInstance("firefox")
-                    : DriverFactory.createLocalInstance("firefox");
+            WebDriver driver;
+
+            if (System.getenv("SAUCE_API_KEY") != null) {
+                driver = DriverFactory.createSauceInstance();
+                DriverManager.setAugmentedWebDriver(driver);
+            } else {
+                driver = driverType.equals("remoteWD")
+                        ? DriverFactory.createRemoteInstance("firefox")
+                        : DriverFactory.createLocalInstance("firefox");
+            }
 
             DriverManager.setWebDriver(driver);
 
