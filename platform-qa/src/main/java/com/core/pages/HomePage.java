@@ -17,11 +17,11 @@ public class HomePage extends BasePage {
     }
 
     public void clickDemoFacilitySearch() {
-        link(cssSelector(".container>div:nth-child(2)>a")).click();
+        link(cssSelector(".panel-body>ul>li:nth-child(1)>a")).click();
     }
 
     public void clickDemoFacilityProfile() {
-        link(cssSelector(".container>div:nth-child(3)>a")).click();
+        link(cssSelector(".panel-body>ul>li:nth-child(2)>a")).click();
     }
 
     public FluentWebElement imLookingForADoctor() {
