@@ -2,6 +2,7 @@ package com.capital;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverManager {
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();

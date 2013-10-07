@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.*;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public class WebDriverListener implements IInvokedMethodListener {
             if (System.getenv("SAUCE_API_KEY") != null) {
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
+                printSessionId(method.getTestMethod().getMethodName());
             } else {
                 driver = driverType.equals("remoteWD")
                         ? DriverFactory.createRemoteInstance("firefox")
@@ -85,5 +87,11 @@ public class WebDriverListener implements IInvokedMethodListener {
         Reporter.log("<a href=\"testfailureimages/" + file + "\"><p align=\"left\">Error for " + methodName + " screenshot at " + date + "</p>");
         Reporter.log("<p align=\"left\">URL At Failure: " + FailedURL + "</p>");
         Reporter.log("<p><img width=\"768\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
+    }
+
+    private void printSessionId(String methodName) {
+
+        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), methodName);
+        System.out.println(message);
     }
 }
