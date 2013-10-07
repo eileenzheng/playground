@@ -27,7 +27,7 @@ public class WebDriverListener implements IInvokedMethodListener {
                 Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
-                printSessionId(testResult.getMethod().getMethodName());
+
             } else {
                 Reporter.log("NO SAUCE",true);
                 driver = driverType.equals("remoteWD")
@@ -46,6 +46,8 @@ public class WebDriverListener implements IInvokedMethodListener {
         if (testResult.getStatus() == 3) {
             throw new SkipException("!!! Test method was skipped");
         }
+
+        printSessionId(testResult.getMethod().getMethodName());
 
         if (!testResult.isSuccess()) {
 
