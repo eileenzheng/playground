@@ -113,3 +113,20 @@ Feature: Facility Search
     And all the providers have the same average cost
     Then I will see a single dollar value
     And the cost will be ""
+
+  @ignore @PUI-248
+  Scenario: Considerations/Disclaimers ("individual result"-level) Output
+
+    IN ORDER TO inform endusers of pertinent information about individual results of their searches
+    (i.e., this is a doctor who participates in an options network with variable plan participation dates,
+    so please call in advance to confirm coverage acceptance)
+
+    AS A user who has searched for facilities and is in the process of getting results back
+
+    I WANT TO see my individual results contain,
+    if there are results in this page that match an existing result-level Consideration (see PUI-165),
+    some display that will indicate the text specified by that matching result-level Consideration.
+
+    When a search for a facility is completed
+    And the results match a consideration
+    Then I will see the text for that consideration displayed with the results
