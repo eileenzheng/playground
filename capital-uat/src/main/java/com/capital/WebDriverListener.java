@@ -24,6 +24,7 @@ public class WebDriverListener implements IInvokedMethodListener {
             WebDriver driver;
 
             if (System.getenv("SAUCE_API_KEY") != null) {
+                System.out.println("I AM MAKING SAUCE");
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
                 printSessionId(method.getTestMethod().getMethodName());
