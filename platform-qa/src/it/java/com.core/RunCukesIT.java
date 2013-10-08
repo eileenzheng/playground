@@ -14,11 +14,17 @@ public class RunCukesIT {
 
     @BeforeClass
     public static void setUp() {
-        WebDriverSingleton.getRemoteInstance();
+        // Check the API Key is passed via Jenkins
+        if (System.getenv("SAUCE_API_KEY") != null) {
+            WebDriverSingleton.getSauceInstance();
+        } else {
+            WebDriverSingleton.getRemoteInstance();
+        }
+
     }
 
     @AfterClass
     public static void shutDown() {
-        WebDriverSingleton.getRemoteInstance().quit();
+        WebDriverSingleton.getDriver().quit();
     }
 }

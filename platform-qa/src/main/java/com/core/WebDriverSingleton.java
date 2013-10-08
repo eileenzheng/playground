@@ -4,6 +4,7 @@ import com.core.helpers.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -53,6 +54,38 @@ public class WebDriverSingleton {
             }
             DesiredCapabilities caps = DesiredCapabilities.firefox();
             driver = new RemoteWebDriver(server, caps);
+            driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+            driver.manage().window().maximize();
+
+            augmentedDriver = new Augmenter().augment(driver);
+        }
+        return driver;
+    }
+
+    /**
+     * Create or return an instance of Sauce Labs via RemoteWebDriver
+     * Remote instance will run parameters passed via Jenkins
+     * @return a RemoteWebDriver object
+     */
+    public static WebDriver getSauceInstance() {
+        if (driver == null) {
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+            caps.setVersion(System.getenv("SELENIUM_VERSION"));
+            caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+
+            String user = System.getenv("SAUCE_USER_NAME");
+            String key = System.getenv("SAUCE_API_KEY");
+
+            URL sauceUrl = null;
+            try {
+                sauceUrl = new URL("http://" + user + ":" + key + "@ondemand.saucelabs.com:80/wd/hub");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            driver = new RemoteWebDriver(sauceUrl, caps);
+
             driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
             driver.manage().window().maximize();
 

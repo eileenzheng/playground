@@ -22,14 +22,14 @@ public class WebDriverListener implements IInvokedMethodListener {
                     : "";
 
             WebDriver driver;
-
+            // Check if we're using sauce
             if (System.getenv("SAUCE_API_KEY") != null) {
-                Reporter.log("I AM MAKING SAUCE",true);
+                //Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
 
             } else {
-                Reporter.log("NO SAUCE",true);
+                //Reporter.log("NO SAUCE",true);
                 driver = driverType.equals("remoteWD")
                         ? DriverFactory.createRemoteInstance("firefox")
                         : DriverFactory.createLocalInstance("firefox");
@@ -47,7 +47,8 @@ public class WebDriverListener implements IInvokedMethodListener {
             throw new SkipException("!!! Test method was skipped");
         }
 
-        printSessionId(testResult.getMethod().getMethodName());
+        // If we're a sauce test output the id
+        if (System.getenv("SAUCE_API_KEY") != null) printSessionId(testResult.getMethod().getMethodName());
 
         if (!testResult.isSuccess()) {
 
@@ -58,7 +59,6 @@ public class WebDriverListener implements IInvokedMethodListener {
             // Make the file name
             String date = new SimpleDateFormat("MM-dd-yyyy_HHssSSS").format(new GregorianCalendar().getTime());
             String failureImageFileName = testResult.getMethod().getMethodName() + "_on_" + date + ".png";
-
 
             File failureImageFile = new File(failureImageFileName);
 
@@ -75,7 +75,6 @@ public class WebDriverListener implements IInvokedMethodListener {
             reportLogScreenshot(failureImageFile, date, methodName,failedURL);
 
         }
-
 
         if (method.isTestMethod()) {
             WebDriver driver = DriverManager.getDriver();
@@ -94,7 +93,6 @@ public class WebDriverListener implements IInvokedMethodListener {
     }
 
     private void printSessionId(String methodName) {
-
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), methodName);
         System.out.println(message);
     }
