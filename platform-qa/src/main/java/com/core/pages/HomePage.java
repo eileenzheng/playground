@@ -13,7 +13,10 @@ public class HomePage extends BasePage {
 
     public void go() {
         get(Constants.TEST_SITE);
+    }
 
+    public void go(String url) {
+        get(url);
     }
 
     public void clickDemoFacilitySearch() {

@@ -8,8 +8,7 @@ Feature: Facility Search
   @PUI-133
   Scenario: Basic Facility Data Results
 
-    In order to decide what facility I am interested in viewing
-    as a Member
+    In order to decide what facility I am interested in viewing as a Member
     I want to see basic location information for each facility in the results set.
 
     When a search for a facility is completed
@@ -24,7 +23,7 @@ Feature: Facility Search
 
     As a member
     I want to see my facility results plotted on a map
-    so I can get a visual understanding of where facilities are located
+    So I can get a visual understanding of where facilities are located
 
     When a search for a facility is completed
     Then I will see a small map displaying the facilities
@@ -39,8 +38,7 @@ Feature: Facility Search
   @PUI-135
   Scenario: Show Specialties on a Results Record
 
-    In order to decide what facility I am interested in viewing
-    As a Member
+    In order to decide what facility I am interested in viewing as a Member
     I want to see all the specialties a facility provides in my network.
 
     When a search for a facility is completed
@@ -52,8 +50,7 @@ Feature: Facility Search
   @PUI-206
   Scenario: Facility Search Results
 
-    As a member
-    I want to see results from my search
+    As a member I want to see results from my search
     so I can browse facilities
 
     When there are more than 10 records
@@ -62,8 +59,7 @@ Feature: Facility Search
   @PUI_51
   Scenario: Facility Search Result Cost Display
 
-    In order to demonstrate cost differentials between providers
-    As a PPO Member,
+    In order to demonstrate cost differentials between providers as a PPO Member
     I want to see my estimated responsibility with an individual provider
     so that I can understand how much a procedure with individual provider may cost me
 
@@ -89,10 +85,8 @@ Feature: Facility Search
   @PUI-49
   Scenario: Display range of facility costs
 
-    In order to demonstrate price differentials between providers
-    As a PPO Member,
-    I want to see a range of costs for all providers in my results set,
-    so I can understand the range of costs I might be responsible for a procedure in my searched area.
+    In order to demonstrate price differentials between providers as a PPO Member
+    I want to see a range of costs for all providers in my results set so I can understand the range of costs I might be responsible for a procedure in my searched area.
 
     When a search for a facility is completed
     Then I will see a range of costs for all providers
@@ -117,13 +111,13 @@ Feature: Facility Search
   @ignore @PUI-248
   Scenario: Considerations/Disclaimers ("individual result"-level) Output
 
-    IN ORDER TO inform endusers of pertinent information about individual results of their searches
+    In order to inform endusers of pertinent information about individual results of their searches
     (i.e., this is a doctor who participates in an options network with variable plan participation dates,
     so please call in advance to confirm coverage acceptance)
 
-    AS A user who has searched for facilities and is in the process of getting results back
+    As a user who has searched for facilities and is in the process of getting results back
 
-    I WANT TO see my individual results contain,
+    I want to see my individual results contain
     if there are results in this page that match an existing result-level Consideration (see PUI-165),
     some display that will indicate the text specified by that matching result-level Consideration.
 

@@ -43,13 +43,16 @@ public class FacilitySearchStepDefs {
     public void I_have_done_a_zip_code_search_for_a_facility() {
         //homePage.searchBar().sendKeys("10001");
         homePage.go();
+
     }
 
     // For @Given
     @And("^I have submitted the search results$")
     public void I_have_submitted_the_search_results() {
         //homePage.searchButton().click();
-        homePage.clickDemoFacilitySearch();
+        //homePage.clickDemoFacilitySearch();
+        // So we can get more than 10 results until they implement actual searching
+        homePage.go("http://qa.vitalschoice.com/search?type=facilities&geo_location=New%20York&restrict[radius]=50");
     }
 
     // PUI-206
