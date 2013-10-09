@@ -22,8 +22,6 @@ public class WebDriverListener implements IInvokedMethodListener {
             // Check if we're using sauce
             if (System.getenv("SAUCE_API_KEY") != null) {
 //                Reporter.log("I AM MAKING SAUCE",true);
-                Reporter.log(System.getenv("SAUCE_API_KEY"),true);
-                Reporter.log(System.getenv("SAUCE_USER_NAME"),true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
 
