@@ -37,8 +37,10 @@ public class WebDriverListener extends TestListenerAdapter implements IInvokedMe
 
     @Override
     public void onTestStart(ITestResult result) {
+        super.onTestStart(result);
         if (result.getInstance() != null) {
-            System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", result.getInstance(), result.getMethod().getMethodName()));
+            System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s",
+                    ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), result.getMethod().getMethodName()));
         }
     }
 
