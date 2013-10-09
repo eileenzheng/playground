@@ -26,6 +26,7 @@ public class WebDriverListener implements IInvokedMethodListener {
             if (driverType.equals("sauce")) {
                 //Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
+                DriverManager.setWebDriver(driver);
                 DriverManager.setAugmentedWebDriver(driver);
                 // If we're a sauce test output the id
                 if (((RemoteWebDriver) DriverManager.getDriver()).getSessionId() != null) {
@@ -35,9 +36,10 @@ public class WebDriverListener implements IInvokedMethodListener {
             } else if (driverType.equals("remoteWD")) {
                 //Reporter.log("NO SAUCE",true);
                 driver = DriverFactory.createRemoteInstance("firefox");
+                DriverManager.setWebDriver(driver);
             }
 
-            DriverManager.setWebDriver(driver);
+
 
             if (driverType.equals("remoteWD")) DriverManager.setAugmentedWebDriver(driver);
         }
