@@ -2,6 +2,7 @@
 <suite name="Sauce Suite" verbose="5" parallel="classes" thread-count="3">
 <!--<suite name="Captial UAT Regression" verbose="1">-->
     <parameter name="url" value="https://providerfinder.capbluecross.com"/>
+    <parameter name="testLocation" value="sauce"/>
     <listeners>
         <listener class-name="com.capital.WebDriverListener"/>
     </listeners>
