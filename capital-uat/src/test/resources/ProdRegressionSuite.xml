@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Captial UAT Regression" verbose="5" parallel="classes" thread-count="3">
+<suite name="Captial UAT Regression" verbose="5" parallel="classes" thread-count="2">
 <!--<suite name="Captial UAT Regression" verbose="1">-->
     <parameter name="url" value="https://providerfinder.capbluecross.com"/>
     <parameter name="testLocation" value="remoteWD"/>

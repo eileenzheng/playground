@@ -118,9 +118,9 @@ public class SearchTests {
     @DataProvider(name = "state")
     public Object[][] generateStates() {
         return new Object[][] {
-                {"PA"},
-                {"CA"},
-                {"MI"},
+//                {"PA"},
+//                {"CA"},
+//                {"MI"},
                 {"VA"}
         };
     }

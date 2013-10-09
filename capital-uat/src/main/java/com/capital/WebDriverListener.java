@@ -1,5 +1,6 @@
 package com.capital;
 
+import com.saucelabs.saucerest.SauceREST;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -11,8 +12,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WebDriverListener implements IInvokedMethodListener {
+
+    Boolean isSauce = false;
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
@@ -36,6 +41,7 @@ public class WebDriverListener implements IInvokedMethodListener {
             // Check if we're using sauce
             if (driverType.equals("sauce")) {
                 //Reporter.log("I AM MAKING SAUCE",true);
+                isSauce = true;
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setWebDriver(driver);
                 DriverManager.setAugmentedWebDriver(driver);
@@ -64,7 +70,20 @@ public class WebDriverListener implements IInvokedMethodListener {
             throw new SkipException("!!! Test method was skipped");
         }
 
-
+        if (isSauce) {
+            String user = System.getenv("SAUCE_USER_NAME");
+            String key = System.getenv("SAUCE_API_KEY");
+            String jobID = ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString();
+            SauceREST client = new SauceREST(user, key);
+            Map<String, Object> sauceJob = new HashMap<String, Object>();
+            sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
+            if(testResult.isSuccess()) {
+                client.jobPassed(jobID);
+            } else {
+                client.jobFailed(jobID);
+            }
+            client.updateJobInfo(jobID, sauceJob);
+        }
 
         if (!testResult.isSuccess()) {
 

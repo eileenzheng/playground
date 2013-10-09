@@ -120,6 +120,11 @@
                 <artifactId>velocity</artifactId>
                 <version>1.4</version>
             </dependency>
+            <dependency>
+                <groupId>com.saucelabs</groupId>
+                <artifactId>saucerest</artifactId>
+                <version>1.0.7</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -171,16 +176,16 @@
     </build>
 
     <repositories>
-        <!--<repository>-->
-            <!--<id>saucelabs-repository</id>-->
-            <!--<url>https://repository-saucelabs.forge.cloudbees.com/release</url>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-            <!--</releases>-->
+        <repository>
+            <id>saucelabs-repository</id>
+            <url>https://repository-saucelabs.forge.cloudbees.com/release</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
             <!--<snapshots>-->
                 <!--<enabled>true</enabled>-->
             <!--</snapshots>-->
-        <!--</repository>-->
+        </repository>
         <repository>
             <id>clojars</id>
             <url>http://clojars.org/repo</url>
