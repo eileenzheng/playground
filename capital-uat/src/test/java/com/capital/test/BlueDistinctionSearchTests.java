@@ -17,7 +17,9 @@ public class BlueDistinctionSearchTests {
     @Parameters({"url"})
     @BeforeMethod
     public void setup(String url) {
+        Reporter.log("The URL" + url,true);
         this.url = url;
+
     }
 
     @AfterMethod
