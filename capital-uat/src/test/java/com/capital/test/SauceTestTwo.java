@@ -9,12 +9,12 @@ import org.testng.annotations.Test;
 
 public class SauceTestTwo {
 
-    private String url;
+    private String theurl;
 
-    @Parameters({"url"})
-    @BeforeClass
-    public void setup(String url) {
-        this.url = url;
+    @Parameters({"theurl"})
+    @BeforeMethod
+    public void setup(String theurl) {
+        this.theurl = theurl;
     }
 
     @Test
@@ -22,7 +22,7 @@ public class SauceTestTwo {
         Reporter.log("THE KEY " + System.getenv("SAUCE_API_KEY"), true);
         SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
-        specialtySearch.go(url);
+        specialtySearch.go(theurl);
 
         Reporter.log(specialtySearch.getCurrentUrl(), true);
     }
