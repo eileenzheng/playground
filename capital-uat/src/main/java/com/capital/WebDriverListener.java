@@ -21,7 +21,7 @@ public class WebDriverListener extends TestListenerAdapter implements IInvokedMe
         if (method.isTestMethod() && !method.isConfigurationMethod()) {
             // Check if we're using sauce
             if (System.getenv("SAUCE_API_KEY") != null) {
-//                Reporter.log("I AM MAKING SAUCE",true);
+                Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
 
@@ -29,7 +29,7 @@ public class WebDriverListener extends TestListenerAdapter implements IInvokedMe
 //                if(testResult.getInstance() != null) printSessionId(testResult.getMethod().getMethodName());
 
             } else {
-//                Reporter.log("NO SAUCE",true);
+                Reporter.log("NO SAUCE",true);
                 String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
                         ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
                         : "";
