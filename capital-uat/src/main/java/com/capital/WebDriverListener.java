@@ -1,5 +1,8 @@
 package com.capital;
 
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
+import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -12,27 +15,38 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
-public class WebDriverListener extends TestListenerAdapter implements IInvokedMethodListener {
+public class WebDriverListener implements IInvokedMethodListener {
+
+    public SauceOnDemandAuthentication authentication;
+    private SauceOnDemandSessionIdProvider sessionIdProvider;
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        WebDriver driver;
+        WebDriver driver = null;
+
+        if (System.getenv("SAUCE_API_KEY") != null && System.getenv("SAUCE_USER_NAME") !=null) {
+            authentication = new SauceOnDemandAuthentication(System.getenv("SAUCE_USER_NAME"),System.getenv("SAUCE_API_KEY"));
+        }
+
+        String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
+                ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
+                : "";
 
         if (method.isTestMethod() && !method.isConfigurationMethod()) {
             // Check if we're using sauce
-            if (System.getenv("SAUCE_API_KEY") != null) {
+//            if (System.getenv("SAUCE_API_KEY") != null) {
+            if (testResult.getInstance() instanceof SauceOnDemandSessionIdProvider) {
+                this.sessionIdProvider = (SauceOnDemandSessionIdProvider) testResult.getInstance();
+//                if(testResult.getInstance() != null) printSessionId(testResult.getMethod().getMethodName());
+                if(sessionIdProvider.getSessionId() !=null) {
+                    System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", sessionIdProvider.getSessionId(), testResult.getMethod().getMethodName()));
+                }
                 Reporter.log("I AM MAKING SAUCE",true);
-                driver = DriverFactory.createSauceInstance();
+                driver = DriverFactory.createSauceInstance(authentication.getUsername(),authentication.getAccessKey());
                 DriverManager.setAugmentedWebDriver(driver);
 
-//                // Output Session to Stdout for Sauce Plugin
-//                if(testResult.getInstance() != null) printSessionId(testResult.getMethod().getMethodName());
-
-            } else {
+            } else if (driverType.equals("remoteWD")) {
                 Reporter.log("NO SAUCE",true);
-                String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
-                        ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
-                        : "";
 
                 driver = driverType.equals("remoteWD")
                         ? DriverFactory.createRemoteInstance("firefox")
