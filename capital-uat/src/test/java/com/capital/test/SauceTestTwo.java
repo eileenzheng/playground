@@ -2,27 +2,25 @@ package com.capital.test;
 
 import com.capital.pages.SpecialtyTypeSearchPage;
 import org.testng.Reporter;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class SauceTestTwo {
 
-    private String theurl;
+    private String url;
 
-    @Parameters({"theurl"})
+    @Parameters({"url"})
     @BeforeMethod
-    public void setup(String theurl) {
-        this.theurl = theurl;
+    public void setup(String url) {
+        this.url = url;
     }
 
     @Test
     public void theTest() {
-        //Reporter.log("THE KEY " + System.getenv("SAUCE_API_KEY"), true);
         SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
-        specialtySearch.go(theurl);
+        specialtySearch.go(url);
 
         Reporter.log(specialtySearch.getCurrentUrl(), true);
     }
