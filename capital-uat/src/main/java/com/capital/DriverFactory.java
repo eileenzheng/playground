@@ -42,14 +42,18 @@ public class DriverFactory {
     }
 
     public static WebDriver createSauceInstance() {
-        WebDriver driver = null;
+
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-        caps.setVersion(System.getenv("SELENIUM_VERSION"));
-        caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
+//        caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
+//        caps.setVersion(System.getenv("SELENIUM_VERSION"));
+//        caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
 
         String user = System.getenv("SAUCE_USER_NAME");
         String key = System.getenv("SAUCE_API_KEY");
+
+        caps.setBrowserName("firefox");
+//        String user = "vitalsqa";
+//        String key = "2d8c7b47-7853-426b-bf7b-93784f2804da";
 
         URL sauceUrl = null;
         try {
@@ -58,7 +62,7 @@ public class DriverFactory {
             e.printStackTrace();
         }
 
-        driver = new RemoteWebDriver(sauceUrl, caps);
+        WebDriver driver = new RemoteWebDriver(sauceUrl, caps);
 
         setDriverFeatures(driver);
 

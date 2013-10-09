@@ -23,20 +23,20 @@ public class WebDriverListener implements IInvokedMethodListener {
 
             WebDriver driver = null;
             // Check if we're using sauce
-            if (System.getenv("SAUCE_API_KEY") != null) {
+//            if (System.getenv("SAUCE_API_KEY") != null) {
                 Reporter.log("I AM MAKING SAUCE",true);
                 driver = DriverFactory.createSauceInstance();
                 DriverManager.setAugmentedWebDriver(driver);
 
-            } else {
-                Reporter.log("NO SAUCE",true);
-                driver = driverType.equals("remoteWD")
-                        ? DriverFactory.createRemoteInstance("firefox")
-                        : DriverFactory.createLocalInstance("firefox");
-
-                if (driverType.equals("remoteWD")) DriverManager.setAugmentedWebDriver(driver);
-
-            }
+//            } else {
+//                Reporter.log("NO SAUCE",true);
+//                driver = driverType.equals("remoteWD")
+//                        ? DriverFactory.createRemoteInstance("firefox")
+//                        : DriverFactory.createLocalInstance("firefox");
+//
+//                if (driverType.equals("remoteWD")) DriverManager.setAugmentedWebDriver(driver);
+//
+//            }
 
             DriverManager.setWebDriver(driver);
 
@@ -96,6 +96,8 @@ public class WebDriverListener implements IInvokedMethodListener {
     }
 
     private void printSessionId(String methodName) {
+        String id = ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString();
+        Reporter.log("ID> " + id,true);
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), methodName);
         System.out.println(message);
     }
