@@ -8,6 +8,7 @@
     <test name="Sauce Test">
         <classes>
             <class name="com.capital.test.SauceTest"/>
+            <class name="com.capital.test.SauceTestTwo"/>
         </classes>
     </test>
 </suite>
