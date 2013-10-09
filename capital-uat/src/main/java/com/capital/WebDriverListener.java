@@ -13,36 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 public class WebDriverListener extends TestListenerAdapter implements IInvokedMethodListener {
-    private static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
-    private static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
-    private static final String SELENIUM_VERSION = "SELENIUM_VERSION";
-
-    @Override
-    public void onStart(ITestContext testContext) {
-        super.onStart(testContext);
-        String browser = System.getenv(SELENIUM_BROWSER);
-        if (browser != null && !browser.equals("")) {
-            System.setProperty("browser", browser);
-        }
-        String platform = System.getenv(SELENIUM_PLATFORM);
-        if (platform != null && !platform.equals("")) {
-            System.setProperty("os", platform);
-        }
-        String version = System.getenv(SELENIUM_VERSION);
-        if (version != null && !version.equals("")) {
-            System.setProperty("version", version);
-        }
-
-    }
-
-    @Override
-    public void onTestStart(ITestResult result) {
-        super.onTestStart(result);
-        if (result.getInstance() != null) {
-            System.out.println(String.format("SauceOnDemandSessionID=%1$s job-name=%2$s",
-                    ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), result.getMethod().getMethodName()));
-        }
-    }
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
