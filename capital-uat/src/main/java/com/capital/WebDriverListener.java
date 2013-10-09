@@ -42,6 +42,7 @@ public class WebDriverListener implements IInvokedMethodListener {
 
             DriverManager.setWebDriver(driver);
 
+            if(testResult.getInstance() != null) printSessionId(testResult.getMethod().getMethodName());
 
         }
     }
@@ -53,33 +54,35 @@ public class WebDriverListener implements IInvokedMethodListener {
         }
 
         // If we're a sauce test output the id
-        if (System.getenv("SAUCE_API_KEY") != null) printSessionId(testResult.getMethod().getMethodName());
+//        if (System.getenv("SAUCE_API_KEY") != null)
 
-//        if (!testResult.isSuccess()) {
-//
-//            // Take screenshot
-//            File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())
-//                    .getScreenshotAs(OutputType.FILE);
-//
-//            // Make the file name
-//            String date = new SimpleDateFormat("MM-dd-yyyy_HHssSSS").format(new GregorianCalendar().getTime());
-//            String failureImageFileName = testResult.getMethod().getMethodName() + "_on_" + date + ".png";
-//
-//            File failureImageFile = new File(failureImageFileName);
-//
-//            try {
-//                FileUtils.moveFile(scrFile, failureImageFile);
-//                FileUtils.moveFileToDirectory(failureImageFile, new File("target/surefire-reports/html/testfailureimages/"),true);
-//            } catch (IOException e) {
-//                // Nothing to catch
-//            }
-//
-//            String failedURL = DriverManager.getAugmentedDriver().getCurrentUrl();
-//            String methodName = testResult.getMethod().getMethodName();
-//
-//            reportLogScreenshot(failureImageFile, date, methodName,failedURL);
-//
-//        }
+
+
+        if (!testResult.isSuccess()) {
+
+            // Take screenshot
+            File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())
+                    .getScreenshotAs(OutputType.FILE);
+
+            // Make the file name
+            String date = new SimpleDateFormat("MM-dd-yyyy_HHssSSS").format(new GregorianCalendar().getTime());
+            String failureImageFileName = testResult.getMethod().getMethodName() + "_on_" + date + ".png";
+
+            File failureImageFile = new File(failureImageFileName);
+
+            try {
+                FileUtils.moveFile(scrFile, failureImageFile);
+                FileUtils.moveFileToDirectory(failureImageFile, new File("target/surefire-reports/html/testfailureimages/"),true);
+            } catch (IOException e) {
+                // Nothing to catch
+            }
+
+            String failedURL = DriverManager.getAugmentedDriver().getCurrentUrl();
+            String methodName = testResult.getMethod().getMethodName();
+
+            reportLogScreenshot(failureImageFile, date, methodName,failedURL);
+
+        }
 
         if (method.isTestMethod()) {
             WebDriver driver = DriverManager.getDriver();
