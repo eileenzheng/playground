@@ -1,6 +1,7 @@
 package com.capital;
 
 import com.capital.helpers.Constants;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
@@ -40,14 +41,15 @@ public class DriverFactory {
         return driver;
     }
 
-    public static WebDriver createSauceInstance(String user, String key) {
+    public static WebDriver createSauceInstance() {
+        WebDriver driver = null;
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
         caps.setVersion(System.getenv("SELENIUM_VERSION"));
         caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-        caps.setCapability("idle-timeout",10);
-//        String user = System.getenv("SAUCE_USER_NAME");
-//        String key = System.getenv("SAUCE_API_KEY");
+
+        String user = System.getenv("SAUCE_USER_NAME");
+        String key = System.getenv("SAUCE_API_KEY");
 
         URL sauceUrl = null;
         try {
@@ -56,7 +58,7 @@ public class DriverFactory {
             e.printStackTrace();
         }
 
-        WebDriver driver = new RemoteWebDriver(sauceUrl, caps);
+        driver = new RemoteWebDriver(sauceUrl, caps);
 
         setDriverFeatures(driver);
 

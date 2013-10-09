@@ -14,9 +14,9 @@ public class SearchTests {
 
     private String url;
 
-    @Parameters({"url"})
+    @Parameters({"url","testLocation"})
     @BeforeMethod
-    public void setup(String url) throws Exception {
+    public void setup(String url, @Optional("")String testLocation) throws Exception {
         this.url = url;
     }
 
@@ -127,3 +127,16 @@ public class SearchTests {
 
 
 }
+/**
+ * load app
+ perform a search
+ does name (display_title) on search results match the loaded profile if you click on title on results page
+ paginate
+ same com.capital.test
+
+ that's the generic walk thru com.capital.test for both apps
+ capital has people in PA
+ presby has people in NM
+ alina may have a few specific use cases she runs
+ other than that,the gravy stuff is testing filters, testing plans, locations... ect..
+ */

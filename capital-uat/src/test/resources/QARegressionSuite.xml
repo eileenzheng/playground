@@ -2,6 +2,7 @@
 <suite name="Captial QA Regression" verbose="5" parallel="classes" thread-count="3">
 <!--<suite name="Captial QA Regression" verbose="1">-->
     <parameter name="url" value="http://cbc-qa.ipf.mdx.med"/>
+    <!--<parameter name="driverType" value=""/>-->
     <parameter name="testLocation" value="remoteWD"/>
     <listeners>
         <listener class-name="com.capital.WebDriverListener"/>

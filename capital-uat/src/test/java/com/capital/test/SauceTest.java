@@ -8,19 +8,12 @@ import org.testng.annotations.Test;
 
 public class SauceTest {
 
-    private String url;
-
-    @Parameters({"url"})
-    @BeforeMethod
-    public void setup(String url) {
-        this.url = url;
-    }
-
     @Test
     public void theTest() {
+        Reporter.log("THE KEY " + System.getenv("SAUCE_API_KEY"), true);
         SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
-        specialtySearch.go(url);
+        specialtySearch.go("https://providerfinder.capbluecross.com");
 
         Reporter.log(specialtySearch.getCurrentUrl(), true);
     }
