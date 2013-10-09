@@ -18,7 +18,7 @@ public class WebDriverListener extends TestListenerAdapter implements IInvokedMe
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         WebDriver driver;
 
-        if (method.isTestMethod()) {
+        if (method.isTestMethod() && !method.isConfigurationMethod()) {
             // Check if we're using sauce
             if (System.getenv("SAUCE_API_KEY") != null) {
 //                Reporter.log("I AM MAKING SAUCE",true);
