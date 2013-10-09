@@ -19,7 +19,7 @@ public class SauceTest {
 
     @Test
     public void theTest() {
-        Reporter.log("THE KEY " + System.getenv("SAUCE_API_KEY"), true);
+        //Reporter.log("THE KEY " + System.getenv("SAUCE_API_KEY"), true);
         SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
 
         specialtySearch.go(theurl);
