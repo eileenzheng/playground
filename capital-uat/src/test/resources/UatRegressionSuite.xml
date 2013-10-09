@@ -2,7 +2,7 @@
 <suite name="Captial UAT Regression" verbose="5" parallel="classes" thread-count="3">
 <!--<suite name="Captial UAT Regression" verbose="1">-->
     <parameter name="url" value="https://providerfinderua.capbluecross.com"/>
-    <parameter name="testLocation" value="remoteWD"/>
+    <!--<parameter name="testLocation" value="remoteWD"/>-->
     <listeners>
         <listener class-name="com.capital.WebDriverListener"/>
     </listeners>
