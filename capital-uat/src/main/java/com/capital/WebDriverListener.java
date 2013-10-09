@@ -17,11 +17,22 @@ public class WebDriverListener implements IInvokedMethodListener {
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {
-            String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
+//            String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
+//                    ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
+//                    : "";
+
+            // Check that testLocation is populated in the XML or not
+            String testLocation = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
                     ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
                     : "";
 
-            WebDriver driver = null;
+            // If testLocation is set by -DtestLocation then override the XML configuration
+            String driverType = System.getProperty("testLocation") != null
+                    ? System.getProperty("testLocation")
+                    : testLocation;
+
+            System.out.println(driverType);
+            WebDriver driver;
             // Check if we're using sauce
             if (driverType.equals("sauce")) {
                 //Reporter.log("I AM MAKING SAUCE",true);
@@ -32,16 +43,18 @@ public class WebDriverListener implements IInvokedMethodListener {
                 if (((RemoteWebDriver) DriverManager.getDriver()).getSessionId() != null) {
                     printSessionId(testResult.getMethod().getMethodName());
                 }
-
+            // Or if we're remoteWD
             } else if (driverType.equals("remoteWD")) {
                 //Reporter.log("NO SAUCE",true);
                 driver = DriverFactory.createRemoteInstance("firefox");
                 DriverManager.setWebDriver(driver);
+                DriverManager.setAugmentedWebDriver(driver);
+            // Assume local
+            } else if (driverType.equals("")) {
+                driver = DriverFactory.createLocalInstance("firefox");
+                DriverManager.setWebDriver(driver);
             }
 
-
-
-            if (driverType.equals("remoteWD")) DriverManager.setAugmentedWebDriver(driver);
         }
     }
 
