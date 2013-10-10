@@ -59,8 +59,9 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
             DriverManager.setAugmentedWebDriver(driver);
             // If we're a sauce test output the id
             if (getSessionId() != null) {
-                printSessionId(testResult.getMethod().getMethodName());
                 jobID = getSessionId();
+                printSessionId(jobID,testResult.getMethod().getMethodName());
+
             }
 
             Map<String, Object> sauceJob = new HashMap<String, Object>();
@@ -125,7 +126,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         Reporter.log("<p><img width=\"768\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
     }
 
-    private void printSessionId(String methodName) {
+    private void printSessionId(String jobID, String methodName) {
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", jobID, methodName);
         System.out.println(message);
     }
