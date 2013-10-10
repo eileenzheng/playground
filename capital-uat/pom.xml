@@ -108,6 +108,10 @@
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_testng</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.saucelabs</groupId>
+            <artifactId>sauce_java_common</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

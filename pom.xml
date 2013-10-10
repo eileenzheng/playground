@@ -129,7 +129,11 @@
                 <groupId>com.saucelabs</groupId>
                 <artifactId>sauce_testng</artifactId>
                 <version>1.0.17</version>
-                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.saucelabs</groupId>
+                <artifactId>sauce_java_common</artifactId>
+                <version>1.0.17</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
