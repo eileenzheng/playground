@@ -21,13 +21,57 @@ import java.util.Map;
 
 public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
 
-    Boolean isSauce = false;
+    public String browser;
+    public String platform;
+    public String browserVersion;
+    public String user;
+    public String key;
+
+    public static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
+    public static final String SELENIUM_VERSION = "SELENIUM_VERSION";
+    public static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
+
+    private static final String SAUCE_USER_NAME = "SAUCE_USER_NAME";
+    private static final String SAUCE_API_KEY = "SAUCE_API_KEY";
+
+    public static String jobID;
+
+    public SauceREST rest;
 
     public SauceOnDemandAuthentication authentication;
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        if (method.isTestMethod()) {
+        // We don't care about configuration methods
+        if (!method.isTestMethod()) return;
+
+        // Do we have sauce info from Jenkins?
+        user = System.getenv(SAUCE_USER_NAME) != null ? System.getenv(SAUCE_USER_NAME) : null;
+        key = System.getenv(SAUCE_API_KEY) != null ? System.getenv(SAUCE_API_KEY) : null;
+
+        if (user != null && key != null) {
+            browser = System.getenv(SELENIUM_BROWSER) != null ? System.getenv(SELENIUM_BROWSER) : null;
+            platform = System.getenv(SELENIUM_PLATFORM) != null ? System.getenv(SELENIUM_PLATFORM) : null;
+            browserVersion = System.getenv(SELENIUM_VERSION) != null ? System.getenv(SELENIUM_VERSION) : null;
+
+            authentication = new SauceOnDemandAuthentication(user, key);
+            rest = new SauceREST(user, key);
+
+            WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
+            DriverManager.setWebDriver(driver);
+            DriverManager.setAugmentedWebDriver(driver);
+            // If we're a sauce test output the id
+            if (getSessionId() != null) {
+                jobID = getSessionId();
+                printSessionId(jobID,testResult.getMethod().getMethodName());
+            }
+            // Update sauce with the test method being tested
+            Map<String, Object> sauceJob = new HashMap<String, Object>();
+            sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
+            rest.updateJobInfo(jobID, sauceJob);
+
+        } else {
+            //Not a sauce test
             String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
                     ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
                     : "";
@@ -48,23 +92,22 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        // We don't care about configuration methods
+        if (!method.isTestMethod()) return;
+
         if (testResult.getStatus() == 3) {
             throw new SkipException("!!! Test method was skipped");
         }
 
-        if (isSauce) {
-            String user = System.getenv("SAUCE_USER_NAME");
-            String key = System.getenv("SAUCE_API_KEY");
-            String jobID = ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString();
-            SauceREST client = new SauceREST(user, key);
+        // If we're a sauce test update pass/fail status
+        if (rest != null) {
             Map<String, Object> sauceJob = new HashMap<String, Object>();
-            sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
             if(testResult.isSuccess()) {
-                client.jobPassed(jobID);
+                rest.jobPassed(jobID);
             } else {
-                client.jobFailed(jobID);
+                rest.jobFailed(jobID);
             }
-            client.updateJobInfo(jobID, sauceJob);
+            rest.updateJobInfo(jobID, sauceJob);
         }
 
         if (!testResult.isSuccess()) {
@@ -93,11 +136,9 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
 
         }
 
-        if (method.isTestMethod()) {
-            WebDriver driver = DriverManager.getDriver();
-            if (driver != null) {
-                driver.quit();
-            }
+        WebDriver driver = DriverManager.getDriver();
+        if (driver != null) {
+            driver.quit();
         }
     }
 
@@ -109,8 +150,8 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
         Reporter.log("<p><img width=\"768\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
     }
 
-    private void printSessionId(String methodName) {
-        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), methodName);
+    private void printSessionId(String jobID, String methodName) {
+        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", jobID, methodName);
         System.out.println(message);
     }
 
