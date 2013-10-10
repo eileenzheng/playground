@@ -1,11 +1,15 @@
 package com.capital;
 
+import com.saucelabs.common.SauceOnDemandAuthentication;
+import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.saucerest.SauceREST;
+import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.*;
 
 import java.io.File;
@@ -15,43 +19,22 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebDriverListener implements IInvokedMethodListener {
+public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
 
     Boolean isSauce = false;
+
+    public SauceOnDemandAuthentication authentication;
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         if (method.isTestMethod()) {
-//            String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
-//                    ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
-//                    : "";
-
-            // Check that testLocation is populated in the XML or not
-            String testLocation = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
+            String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
                     ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
                     : "";
 
-            // If testLocation is set by -DtestLocation then override the XML configuration
-            String driverType = System.getProperty("testLocation") != null
-                    ? System.getProperty("testLocation")
-                    : testLocation;
-
-            System.out.println(driverType);
             WebDriver driver;
             // Check if we're using sauce
-            if (driverType.equals("sauce")) {
-                //Reporter.log("I AM MAKING SAUCE",true);
-                isSauce = true;
-                driver = DriverFactory.createSauceInstance();
-                DriverManager.setWebDriver(driver);
-                DriverManager.setAugmentedWebDriver(driver);
-                // If we're a sauce test output the id
-                if (((RemoteWebDriver) DriverManager.getDriver()).getSessionId() != null) {
-                    printSessionId(testResult.getMethod().getMethodName());
-                }
-            // Or if we're remoteWD
-            } else if (driverType.equals("remoteWD")) {
-                //Reporter.log("NO SAUCE",true);
+            if (driverType.equals("remoteWD")) {
                 driver = DriverFactory.createRemoteInstance("firefox");
                 DriverManager.setWebDriver(driver);
                 DriverManager.setAugmentedWebDriver(driver);
@@ -60,7 +43,6 @@ public class WebDriverListener implements IInvokedMethodListener {
                 driver = DriverFactory.createLocalInstance("firefox");
                 DriverManager.setWebDriver(driver);
             }
-
         }
     }
 
@@ -131,4 +113,16 @@ public class WebDriverListener implements IInvokedMethodListener {
         String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", ((RemoteWebDriver) DriverManager.getDriver()).getSessionId().toString(), methodName);
         System.out.println(message);
     }
+
+    @Override
+    public SauceOnDemandAuthentication getAuthentication() {
+        return authentication;
+    }
+
+    @Override
+    public String getSessionId() {
+        SessionId sessionId = ((RemoteWebDriver)DriverManager.getDriver()).getSessionId();
+        return (sessionId == null) ? null : sessionId.toString();
+    }
+
 }

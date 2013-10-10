@@ -4,7 +4,7 @@
     <parameter name="url" value="https://providerfinder.capbluecross.com"/>
     <parameter name="testLocation" value="sauce"/>
     <listeners>
-        <listener class-name="com.capital.WebDriverListener"/>
+        <listener class-name="com.capital.SauceListener"/>
     </listeners>
     <test name="Sauce Test">
         <classes>

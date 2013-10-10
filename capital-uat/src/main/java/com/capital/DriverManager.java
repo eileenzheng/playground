@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class DriverManager {
     private static ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
     private static ThreadLocal<WebDriver> augmentedDriver = new ThreadLocal<WebDriver>();
-
+    private static ThreadLocal<String> jobId = new ThreadLocal<String>();
     public static WebDriver getDriver() {
         return webDriver.get();
     }

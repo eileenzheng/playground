@@ -41,15 +41,12 @@ public class DriverFactory {
         return driver;
     }
 
-    public static WebDriver createSauceInstance() {
+    public static WebDriver createSauceInstance(String user, String key, String browser, String version, String platform) {
         WebDriver driver = null;
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setBrowserName(System.getenv("SELENIUM_BROWSER"));
-        caps.setVersion(System.getenv("SELENIUM_VERSION"));
-        caps.setCapability(CapabilityType.PLATFORM, System.getenv("SELENIUM_PLATFORM"));
-
-        String user = System.getenv("SAUCE_USER_NAME");
-        String key = System.getenv("SAUCE_API_KEY");
+        caps.setBrowserName(System.getenv(browser));
+        caps.setVersion(System.getenv(version));
+        caps.setCapability(CapabilityType.PLATFORM, System.getenv(platform));
 
         URL sauceUrl = null;
         try {
