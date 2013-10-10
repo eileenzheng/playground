@@ -74,7 +74,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
             throw new SkipException("!!! Test method was skipped");
         }
 
-        if (method.isTestMethod()) {
+        if (method.isTestMethod() && getSessionId() != null) {
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             if (testResult.isSuccess()) {
                 rest.jobPassed(jobID);
