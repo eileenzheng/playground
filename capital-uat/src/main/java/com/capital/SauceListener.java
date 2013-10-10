@@ -54,7 +54,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         System.out.println(platform);
         System.out.println(browserVersion);
 
-        if (method.isTestMethod()) {
+        if (method.isTestMethod() && !method.isConfigurationMethod()) {
             authentication = new SauceOnDemandAuthentication(user, key);
 
             rest = new SauceREST(user, key);

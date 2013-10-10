@@ -44,9 +44,9 @@ public class DriverFactory {
     public static WebDriver createSauceInstance(String user, String key, String browser, String version, String platform) {
         WebDriver driver = null;
         DesiredCapabilities caps = new DesiredCapabilities();
-        caps.setBrowserName(System.getenv(browser));
-        caps.setVersion(System.getenv(version));
-        caps.setCapability(CapabilityType.PLATFORM, System.getenv(platform));
+        caps.setBrowserName(browser);
+        caps.setVersion(version);
+        caps.setCapability(CapabilityType.PLATFORM, platform);
 
         URL sauceUrl = null;
         try {
