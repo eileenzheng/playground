@@ -42,22 +42,22 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        // We don't care about configuration methods
+        if (method.isConfigurationMethod()) return;
+
         user = System.getenv(SAUCE_USER_NAME);
         key = System.getenv(SAUCE_API_KEY);
         browser = System.getenv(SELENIUM_BROWSER);
         platform = System.getenv(SELENIUM_PLATFORM);
         browserVersion = System.getenv(SELENIUM_VERSION);
 
-        System.out.println("Am i a test method> " + method.isTestMethod());
         System.out.println(user);
         System.out.println(key);
         System.out.println(browser);
         System.out.println(platform);
         System.out.println(browserVersion);
 
-
-
-        if (method.isTestMethod() && !method.isConfigurationMethod()) {
+//        if (method.isTestMethod()) {
             authentication = new SauceOnDemandAuthentication(user, key);
 
             rest = new SauceREST(user, key);
@@ -74,16 +74,19 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
             rest.updateJobInfo(jobID, sauceJob);
-        }
+//        }
     }
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        // We don't care about configuration methods
+        if (method.isConfigurationMethod()) return;
+
         if (testResult.getStatus() == 3) {
             throw new SkipException("!!! Test method was skipped");
         }
 
-        if (method.isTestMethod() && getSessionId() != null) {
+//        if (method.isTestMethod() && getSessionId() != null) {
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             if (testResult.isSuccess()) {
                 rest.jobPassed(jobID);
@@ -96,7 +99,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
             if (driver != null) {
                 driver.quit();
             }
-        }
+//        }
 
 //        if (!testResult.isSuccess()) {
 //
