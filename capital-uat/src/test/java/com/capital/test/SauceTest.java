@@ -10,10 +10,10 @@ public class SauceTest {
 
     private String url;
 
-    @Parameters({"url"})
+    //@Parameters({"url"})
     @BeforeMethod
-    public void setup(String url) {
-        this.url = url;
+    public void setup() {
+        this.url = "https://providerfinder.capbluecross.com";
     }
 
     @Test
