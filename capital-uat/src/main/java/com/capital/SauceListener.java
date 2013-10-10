@@ -43,12 +43,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         @Override
         public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
             // We don't care about configuration methods
-//            System.out.println("Configuration method? " + method.isConfigurationMethod());
-//            System.out.println("BeforeMethod?> " + testResult.getMethod().isBeforeMethodConfiguration());
-//            System.out.println(testResult.getMethod().getMethodName());
-            System.out.println("TEST METHOD> " + method.isTestMethod());
-            if (method.isConfigurationMethod()) return;
-            if (testResult.getMethod().isBeforeMethodConfiguration()) return;
+            if (!method.isTestMethod()) return;
 
             System.out.println("Configuration method? " + method.isConfigurationMethod());
             System.out.println(testResult.getMethod().getMethodName());
@@ -86,11 +81,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
 
         @Override
         public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-            System.out.println("Configuration method? " + method.isConfigurationMethod());
-            System.out.println(testResult.getMethod().getMethodName());
-            if (method.isConfigurationMethod()) return;
-
-            System.out.println("Configuration method? " + method.isConfigurationMethod());
+            if (!method.isTestMethod()) return;
 
             if (testResult.getStatus() == 3) {
                 throw new SkipException("!!! Test method was skipped");
