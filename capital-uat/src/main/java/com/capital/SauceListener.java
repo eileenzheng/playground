@@ -45,6 +45,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         // We don't care about configuration methods
         if (method.isConfigurationMethod()) return;
 
+        System.out.println("Configuration method? " + method.isConfigurationMethod());
         user = System.getenv(SAUCE_USER_NAME);
         key = System.getenv(SAUCE_API_KEY);
         browser = System.getenv(SELENIUM_BROWSER);
