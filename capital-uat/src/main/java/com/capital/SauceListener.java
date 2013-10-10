@@ -137,7 +137,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
 
     @Override
     public String getSessionId() {
-        SessionId sessionId = ((RemoteWebDriver)DriverManager.getDriver()).getSessionId();
+        SessionId sessionId = (DriverManager.getDriver()) != null ? ((RemoteWebDriver)DriverManager.getDriver()).getSessionId() : null;
         return (sessionId == null) ? null : sessionId.toString();
     }
 
