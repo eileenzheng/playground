@@ -44,39 +44,28 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
             // We don't care about configuration methods
             if (!method.isTestMethod()) return;
-
-            System.out.println("Configuration method? " + method.isConfigurationMethod());
-            System.out.println(testResult.getMethod().getMethodName());
             user = System.getenv(SAUCE_USER_NAME);
             key = System.getenv(SAUCE_API_KEY);
             browser = System.getenv(SELENIUM_BROWSER);
             platform = System.getenv(SELENIUM_PLATFORM);
             browserVersion = System.getenv(SELENIUM_VERSION);
 
-            System.out.println(user);
-            System.out.println(key);
-            System.out.println(browser);
-            System.out.println(platform);
-            System.out.println(browserVersion);
+            authentication = new SauceOnDemandAuthentication(user, key);
 
-    //        if (method.isTestMethod()) {
-                authentication = new SauceOnDemandAuthentication(user, key);
+            rest = new SauceREST(user, key);
 
-                rest = new SauceREST(user, key);
+            WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
+            DriverManager.setWebDriver(driver);
+            DriverManager.setAugmentedWebDriver(driver);
+            // If we're a sauce test output the id
+            if (getSessionId() != null) {
+                printSessionId(testResult.getMethod().getMethodName());
+                jobID = getSessionId();
+            }
 
-                WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
-                DriverManager.setWebDriver(driver);
-                DriverManager.setAugmentedWebDriver(driver);
-                // If we're a sauce test output the id
-                if (getSessionId() != null) {
-                    printSessionId(testResult.getMethod().getMethodName());
-                    jobID = getSessionId();
-                }
-
-                Map<String, Object> sauceJob = new HashMap<String, Object>();
-                sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
-                rest.updateJobInfo(jobID, sauceJob);
-    //        }
+            Map<String, Object> sauceJob = new HashMap<String, Object>();
+            sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
+            rest.updateJobInfo(jobID, sauceJob);
         }
 
         @Override
@@ -87,20 +76,18 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
                 throw new SkipException("!!! Test method was skipped");
             }
 
-    //        if (method.isTestMethod() && getSessionId() != null) {
-                Map<String, Object> sauceJob = new HashMap<String, Object>();
-                if (testResult.isSuccess()) {
-                    rest.jobPassed(jobID);
-                } else {
-                    rest.jobFailed(jobID);
-                }
-                rest.updateJobInfo(jobID, sauceJob);
+            Map<String, Object> sauceJob = new HashMap<String, Object>();
+            if (testResult.isSuccess()) {
+                rest.jobPassed(jobID);
+            } else {
+                rest.jobFailed(jobID);
+            }
+            rest.updateJobInfo(jobID, sauceJob);
 
-                WebDriver driver = DriverManager.getDriver();
-                if (driver != null) {
-                    driver.quit();
-                }
-    //        }
+            WebDriver driver = DriverManager.getDriver();
+            if (driver != null) {
+                driver.quit();
+            }
 
     //        if (!testResult.isSuccess()) {
     //
@@ -139,7 +126,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
     }
 
     private void printSessionId(String methodName) {
-        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", getSessionId(), methodName);
+        String message = String.format("SauceOnDemandSessionID=%1$s job-name=%2$s", jobID, methodName);
         System.out.println(message);
     }
 
@@ -150,7 +137,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
 
     @Override
     public String getSessionId() {
-        SessionId sessionId = (DriverManager.getDriver()) != null ? ((RemoteWebDriver)DriverManager.getDriver()).getSessionId() : null;
+        SessionId sessionId = ((RemoteWebDriver)DriverManager.getDriver()).getSessionId();
         return (sessionId == null) ? null : sessionId.toString();
     }
 
