@@ -44,6 +44,7 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         // We don't care about configuration methods
         System.out.println("Configuration method? " + method.isConfigurationMethod());
+        System.out.println("BeforeMethod?> " + testResult.getMethod().isBeforeMethodConfiguration());
         System.out.println(testResult.getMethod().getMethodName());
         if (method.isConfigurationMethod()) return;
 
