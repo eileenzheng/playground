@@ -40,102 +40,104 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
 
     public SauceOnDemandAuthentication authentication;
 
-    @Override
-    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        // We don't care about configuration methods
-        System.out.println("Configuration method? " + method.isConfigurationMethod());
-        System.out.println("BeforeMethod?> " + testResult.getMethod().isBeforeMethodConfiguration());
-        System.out.println(testResult.getMethod().getMethodName());
-        if (method.isConfigurationMethod()) return;
+        @Override
+        public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+            // We don't care about configuration methods
+//            System.out.println("Configuration method? " + method.isConfigurationMethod());
+//            System.out.println("BeforeMethod?> " + testResult.getMethod().isBeforeMethodConfiguration());
+//            System.out.println(testResult.getMethod().getMethodName());
+            System.out.println("TEST METHOD> " + method.isTestMethod());
+            if (method.isConfigurationMethod()) return;
+            if (testResult.getMethod().isBeforeMethodConfiguration()) return;
 
-        System.out.println("Configuration method? " + method.isConfigurationMethod());
-        System.out.println(testResult.getMethod().getMethodName());
-        user = System.getenv(SAUCE_USER_NAME);
-        key = System.getenv(SAUCE_API_KEY);
-        browser = System.getenv(SELENIUM_BROWSER);
-        platform = System.getenv(SELENIUM_PLATFORM);
-        browserVersion = System.getenv(SELENIUM_VERSION);
+            System.out.println("Configuration method? " + method.isConfigurationMethod());
+            System.out.println(testResult.getMethod().getMethodName());
+            user = System.getenv(SAUCE_USER_NAME);
+            key = System.getenv(SAUCE_API_KEY);
+            browser = System.getenv(SELENIUM_BROWSER);
+            platform = System.getenv(SELENIUM_PLATFORM);
+            browserVersion = System.getenv(SELENIUM_VERSION);
 
-        System.out.println(user);
-        System.out.println(key);
-        System.out.println(browser);
-        System.out.println(platform);
-        System.out.println(browserVersion);
+            System.out.println(user);
+            System.out.println(key);
+            System.out.println(browser);
+            System.out.println(platform);
+            System.out.println(browserVersion);
 
-//        if (method.isTestMethod()) {
-            authentication = new SauceOnDemandAuthentication(user, key);
+    //        if (method.isTestMethod()) {
+                authentication = new SauceOnDemandAuthentication(user, key);
 
-            rest = new SauceREST(user, key);
+                rest = new SauceREST(user, key);
 
-            WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
-            DriverManager.setWebDriver(driver);
-            DriverManager.setAugmentedWebDriver(driver);
-            // If we're a sauce test output the id
-            if (getSessionId() != null) {
-                printSessionId(testResult.getMethod().getMethodName());
-                jobID = getSessionId();
-            }
+                WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
+                DriverManager.setWebDriver(driver);
+                DriverManager.setAugmentedWebDriver(driver);
+                // If we're a sauce test output the id
+                if (getSessionId() != null) {
+                    printSessionId(testResult.getMethod().getMethodName());
+                    jobID = getSessionId();
+                }
 
-            Map<String, Object> sauceJob = new HashMap<String, Object>();
-            sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
-            rest.updateJobInfo(jobID, sauceJob);
-//        }
-    }
-
-    @Override
-    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        System.out.println("Configuration method? " + method.isConfigurationMethod());
-        System.out.println(testResult.getMethod().getMethodName());
-        if (method.isConfigurationMethod()) return;
-
-        System.out.println("Configuration method? " + method.isConfigurationMethod());
-
-        if (testResult.getStatus() == 3) {
-            throw new SkipException("!!! Test method was skipped");
+                Map<String, Object> sauceJob = new HashMap<String, Object>();
+                sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
+                rest.updateJobInfo(jobID, sauceJob);
+    //        }
         }
 
-//        if (method.isTestMethod() && getSessionId() != null) {
-            Map<String, Object> sauceJob = new HashMap<String, Object>();
-            if (testResult.isSuccess()) {
-                rest.jobPassed(jobID);
-            } else {
-                rest.jobFailed(jobID);
+        @Override
+        public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+            System.out.println("Configuration method? " + method.isConfigurationMethod());
+            System.out.println(testResult.getMethod().getMethodName());
+            if (method.isConfigurationMethod()) return;
+
+            System.out.println("Configuration method? " + method.isConfigurationMethod());
+
+            if (testResult.getStatus() == 3) {
+                throw new SkipException("!!! Test method was skipped");
             }
-            rest.updateJobInfo(jobID, sauceJob);
 
-            WebDriver driver = DriverManager.getDriver();
-            if (driver != null) {
-                driver.quit();
-            }
-//        }
+    //        if (method.isTestMethod() && getSessionId() != null) {
+                Map<String, Object> sauceJob = new HashMap<String, Object>();
+                if (testResult.isSuccess()) {
+                    rest.jobPassed(jobID);
+                } else {
+                    rest.jobFailed(jobID);
+                }
+                rest.updateJobInfo(jobID, sauceJob);
 
-//        if (!testResult.isSuccess()) {
-//
-//            // Take screenshot
-//            File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())
-//                    .getScreenshotAs(OutputType.FILE);
-//
-//            // Make the file name
-//            String date = new SimpleDateFormat("MM-dd-yyyy_HHssSSS").format(new GregorianCalendar().getTime());
-//            String failureImageFileName = testResult.getMethod().getMethodName() + "_on_" + date + ".png";
-//
-//            File failureImageFile = new File(failureImageFileName);
-//
-//            try {
-//                FileUtils.moveFile(scrFile, failureImageFile);
-//                FileUtils.moveFileToDirectory(failureImageFile, new File("target/surefire-reports/html/testfailureimages/"),true);
-//            } catch (IOException e) {
-//                // Nothing to catch
-//            }
-//
-//            String failedURL = DriverManager.getAugmentedDriver().getCurrentUrl();
-//            String methodName = testResult.getMethod().getMethodName();
-//
-//            reportLogScreenshot(failureImageFile, date, methodName,failedURL);
-//
-//        }
+                WebDriver driver = DriverManager.getDriver();
+                if (driver != null) {
+                    driver.quit();
+                }
+    //        }
 
-    }
+    //        if (!testResult.isSuccess()) {
+    //
+    //            // Take screenshot
+    //            File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())
+    //                    .getScreenshotAs(OutputType.FILE);
+    //
+    //            // Make the file name
+    //            String date = new SimpleDateFormat("MM-dd-yyyy_HHssSSS").format(new GregorianCalendar().getTime());
+    //            String failureImageFileName = testResult.getMethod().getMethodName() + "_on_" + date + ".png";
+    //
+    //            File failureImageFile = new File(failureImageFileName);
+    //
+    //            try {
+    //                FileUtils.moveFile(scrFile, failureImageFile);
+    //                FileUtils.moveFileToDirectory(failureImageFile, new File("target/surefire-reports/html/testfailureimages/"),true);
+    //            } catch (IOException e) {
+    //                // Nothing to catch
+    //            }
+    //
+    //            String failedURL = DriverManager.getAugmentedDriver().getCurrentUrl();
+    //            String methodName = testResult.getMethod().getMethodName();
+    //
+    //            reportLogScreenshot(failureImageFile, date, methodName,failedURL);
+    //
+    //        }
+
+        }
 
     protected void reportLogScreenshot(File file, String date, String methodName, String FailedURL) {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
