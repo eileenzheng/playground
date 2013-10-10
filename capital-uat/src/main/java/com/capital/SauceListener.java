@@ -48,6 +48,12 @@ public class SauceListener implements IInvokedMethodListener, SauceOnDemandSessi
         platform = System.getenv(SELENIUM_PLATFORM);
         browserVersion = System.getenv(SELENIUM_VERSION);
 
+        System.out.println(user);
+        System.out.println(key);
+        System.out.println(browser);
+        System.out.println(platform);
+        System.out.println(browserVersion);
+
         if (method.isTestMethod()) {
             authentication = new SauceOnDemandAuthentication(user, key);
 
