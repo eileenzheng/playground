@@ -74,7 +74,7 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             // Update sauce with the test method being tested
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
-            sauceJob.put("tags", "['"+jobName+"']");
+            sauceJob.put("tags", "["+jobName+"]");
             rest.updateJobInfo(jobID, sauceJob);
 
         } else {
