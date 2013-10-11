@@ -77,8 +77,19 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
             JSONArray tags = new JSONArray();
             tags.add(jobName);
+
+            // If we have parameters
+            if (testResult.getParameters().length > 0) {
+                for (Object para : testResult.getParameters()) {
+                    tags.add(para.toString());
+                }
+            }
+
             sauceJob.put("tags", tags);
             rest.updateJobInfo(jobID, sauceJob);
+
+
+
 
         } else {
             //Not a sauce test
