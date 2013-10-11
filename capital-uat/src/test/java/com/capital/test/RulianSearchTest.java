@@ -42,7 +42,7 @@ public class RulianSearchTest {
 
     }
 
-    @DataProvider(name = "providers")
+    @DataProvider(name = "providers", parallel = true)
     public Object[][] generateProviders() {
         Object[][] glob = dbQuery();
         return glob;
