@@ -131,7 +131,7 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             rest.updateJobInfo(jobID, sauceJob);
         }
 
-        if (!testResult.isSuccess()) {
+        if (!testResult.isSuccess() && DriverManager.getAugmentedDriver() != null) {
 
             // Take screenshot
             File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())

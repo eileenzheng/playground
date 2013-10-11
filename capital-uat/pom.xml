@@ -64,6 +64,19 @@
                 <suite.filename>ProdRegressionSuite.xml</suite.filename>
             </properties>
         </profile>
+
+        <profile>
+            <id>capital_rulian</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>rulian</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>RulianTestSuite.xml</suite.filename>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
@@ -111,6 +124,10 @@
         <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,6 @@
 package com.capital.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -55,12 +56,13 @@ public class SearchByNameSearchPage extends BasePage {
     }
 
     public SearchByNameSearchPage enterProviderName(String input) {
-        providerNameTextBox.sendKeys(input);
+        webDriver().findElement(By.name("criteria[provider-name]")).sendKeys(input);
         return this;
     }
 
     public SearchByNameSearchPage enterProviderLocation(String input) {
-        providerLocationTextBox.sendKeys(input);
+        //providerLocationTextBox.sendKeys(input);
+        webDriver().findElement(By.cssSelector("#provider_location")).sendKeys(input);
         return this;
     }
 
@@ -71,7 +73,8 @@ public class SearchByNameSearchPage extends BasePage {
     }
 
     public ResultsPage clickSearchButton() {
-        searchButton.click();
+        webDriver().findElement(By.cssSelector(".btn.btn-primary")).click();
+//        searchButton.click();
         return PageFactory.initElements(webDriver(), ResultsPage.class);
     }
 
