@@ -116,7 +116,7 @@ public class ResultsPage extends BasePage {
 
     public ResultsPage goToPageNumber(int page) {
         for (FluentWebElement el : pageNumbers()) {
-            if (el.getText().toString().equals(page)) {
+            if (Integer.valueOf(el.getText().toString()) == page) {
                 el.click();
                 break;
             }
@@ -152,7 +152,7 @@ public class ResultsPage extends BasePage {
         SoftAssert m_assert = new SoftAssert();
 
         // Initial report line
-        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
+        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl\n");
         for (Profile doc : docs) {
             // Go to the Facility profile
             webDriver().get(doc.getUrl());
@@ -170,7 +170,7 @@ public class ResultsPage extends BasePage {
         SoftAssert m_assert = new SoftAssert();
 
         // Initial report line
-        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
+        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl\n");
         for (Profile doc : docs) {
             // Go to the Dr profile
             webDriver().get(doc.getUrl());
