@@ -5,6 +5,7 @@ import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.saucerest.SauceREST;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -74,7 +75,9 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             // Update sauce with the test method being tested
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
-            sauceJob.put("tags", "["+jobName+"]");
+            JSONArray tags = new JSONArray();
+            tags.add(jobName);
+            sauceJob.put("tags", tags);
             rest.updateJobInfo(jobID, sauceJob);
 
         } else {
