@@ -65,42 +65,42 @@ public class SearchTests {
         // Do the compare
         results.doctorListCompareAndReport(docs);
     }
-//
-//    @Test (dataProvider = "state")
-//    public void compareStateSearchResultsFacilityToProfile(String state) {
-//        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
-//
-//        specialtySearch.go(url);
-//
-//        // Facility Search
-//        specialtySearch.selectProviderType("Facility");
-//
-//        specialtySearch.enterProviderLocation(state);
-//        ResultsPage results = specialtySearch.clickSearchButton();
-//
-//        // Add the current list of doctors
-//        List<Profile> docs = results.facilityResults();
-//
-//        // Click page 4
-//        results.goToPageNumber(4);
-//
-//        // Add those results to the list of doctors
-//        for (Profile doc : results.facilityResults()) {
-//            docs.add(doc);
-//        }
-//
-//        // Click page up
-//        results.pageJumpForward();
-//
-//        // Add that final list
-//        for (Profile doc : results.facilityResults()) {
-//            docs.add(doc);
-//        }
-//
-//        // Do the compare
-//        results.facilityListCompareAndReport(docs);
-//
-//    }
+
+    @Test (dataProvider = "state")
+    public void compareStateSearchResultsFacilityToProfile(String state) {
+        SpecialtyTypeSearchPage specialtySearch = new SpecialtyTypeSearchPage();
+
+        specialtySearch.go(url);
+
+        // Facility Search
+        specialtySearch.selectProviderType("Facility");
+
+        specialtySearch.enterProviderLocation(state);
+        ResultsPage results = specialtySearch.clickSearchButton();
+
+        // Add the current list of doctors
+        List<Profile> docs = results.facilityResults();
+
+        // Click page 4
+        results.goToPageNumber(4);
+
+        // Add those results to the list of doctors
+        for (Profile doc : results.facilityResults()) {
+            docs.add(doc);
+        }
+
+        // Click page up
+        results.pageJumpForward();
+
+        // Add that final list
+        for (Profile doc : results.facilityResults()) {
+            docs.add(doc);
+        }
+
+        // Do the compare
+        results.facilityListCompareAndReport(docs);
+
+    }
 
     @DataProvider(name = "zipCodes")
     public Object[][] generateZipCodes() {
@@ -118,9 +118,9 @@ public class SearchTests {
     @DataProvider(name = "state")
     public Object[][] generateStates() {
         return new Object[][] {
-//                {"PA"},
-//                {"CA"},
-//                {"MI"},
+                {"PA"},
+                {"CA"},
+                {"MI"},
                 {"VA"}
         };
     }
