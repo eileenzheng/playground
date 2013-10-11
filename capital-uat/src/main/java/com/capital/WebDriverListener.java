@@ -27,12 +27,16 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
     public String user;
     public String key;
 
+    public String jobName; // Jenkins job name
+
     public static final String SELENIUM_BROWSER = "SELENIUM_BROWSER";
     public static final String SELENIUM_VERSION = "SELENIUM_VERSION";
     public static final String SELENIUM_PLATFORM = "SELENIUM_PLATFORM";
 
     private static final String SAUCE_USER_NAME = "SAUCE_USER_NAME";
     private static final String SAUCE_API_KEY = "SAUCE_API_KEY";
+
+    private static final String JOB_NAME = "JOB_NAME";
 
     public static String jobID;
 
@@ -57,6 +61,8 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             authentication = new SauceOnDemandAuthentication(user, key);
             rest = new SauceREST(user, key);
 
+            jobName = System.getenv(JOB_NAME) != null ? System.getenv(JOB_NAME) : null;
+
             WebDriver driver = DriverFactory.createSauceInstance(user,key,browser,browserVersion,platform);
             DriverManager.setWebDriver(driver);
             DriverManager.setAugmentedWebDriver(driver);
@@ -68,6 +74,7 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             // Update sauce with the test method being tested
             Map<String, Object> sauceJob = new HashMap<String, Object>();
             sauceJob.put("name", "Test method: "+testResult.getMethod().getMethodName());
+            sauceJob.put("tags", "['"+jobName+"']");
             rest.updateJobInfo(jobID, sauceJob);
 
         } else {
