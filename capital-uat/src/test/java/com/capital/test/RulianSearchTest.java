@@ -151,7 +151,8 @@ public class RulianSearchTest {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery(query);
+            // Take the query at the top of this class and concatenate limit to it.
+            rs = st.executeQuery(query + limit);
 
 
             if (!rs.last()) { //If false, the result set is empty.
