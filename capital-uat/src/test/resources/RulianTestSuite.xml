@@ -7,7 +7,7 @@
         <listener class-name="com.capital.WebDriverListener"/>
     </listeners>
     <test name="Current production index: Names that end in y,s,i,e">
-        <parameter name="solrIndex" value="contractalt"/>
+        <parameter name="solrIndex" value="contractsalt"/>
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
@@ -16,7 +16,7 @@
         </classes>
     </test>
     <test name="Current production index: All Providers">
-        <parameter name="solrIndex" value="contractalt"/>
+        <parameter name="solrIndex" value="contractsalt"/>
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
