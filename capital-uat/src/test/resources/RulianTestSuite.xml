@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Captial QA Regression" verbose="5" data-provider-thread-count="20">
+<suite name="Capital Compare Postgres to Solr" verbose="5" data-provider-thread-count="20">
 <!--<suite name="Captial QA Regression" verbose="1">-->
     <parameter name="url" value="http://cbc-qa.ipf.mdx.med"/>
     <parameter name="testLocation" value="phantom"/>
     <listeners>
         <listener class-name="com.capital.WebDriverListener"/>
     </listeners>
-    <test name="Search and BlueDistinction Tests">
+    <test name="Names that end in y,s,i,e">
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
         </classes>
