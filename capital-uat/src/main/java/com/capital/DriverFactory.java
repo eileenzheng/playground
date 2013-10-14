@@ -4,6 +4,8 @@ import com.capital.helpers.Constants;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -57,6 +59,23 @@ public class DriverFactory {
 
         driver = new RemoteWebDriver(sauceUrl, caps);
 
+        setDriverFeatures(driver);
+
+        return driver;
+    }
+
+    public static WebDriver createPhantomInstance() {
+        WebDriver driver = null;
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
+                "/usr/local/bin/phantomjs");
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,new String[] {
+                "--web-security=false",
+                "--ignore-ssl-errors=true",
+                "--ssl-protocol=any"});
+        caps.setJavascriptEnabled(true);
+
+        driver = new PhantomJSDriver(caps);
         setDriverFeatures(driver);
 
         return driver;

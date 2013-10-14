@@ -88,9 +88,6 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             sauceJob.put("tags", tags);
             rest.updateJobInfo(jobID, sauceJob);
 
-
-
-
         } else {
             //Not a sauce test
             String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
@@ -107,6 +104,9 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             } else if (driverType.equals("")) {
                 driver = DriverFactory.createLocalInstance("firefox");
                 DriverManager.setWebDriver(driver);
+            } else if (driverType.equals("phantom")) {
+                driver = DriverFactory.createPhantomInstance();
+                DriverManager.setWebDriver(driver);
             }
         }
     }
@@ -120,6 +120,10 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             throw new SkipException("!!! Test method was skipped");
         }
 
+        String driverType = method.getTestMethod().getXmlTest().getAllParameters().get("testLocation") != null
+                ? method.getTestMethod().getXmlTest().getAllParameters().get("testLocation")
+                : "";
+
         // If we're a sauce test update pass/fail status
         if (rest != null) {
             Map<String, Object> sauceJob = new HashMap<String, Object>();
@@ -131,7 +135,7 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             rest.updateJobInfo(jobID, sauceJob);
         }
 
-        if (!testResult.isSuccess() && DriverManager.getAugmentedDriver() != null) {
+        if (!testResult.isSuccess() && DriverManager.getAugmentedDriver() != null && !driverType.equals("phantom")) {
 
             // Take screenshot
             File scrFile = ((TakesScreenshot) DriverManager.getAugmentedDriver())
