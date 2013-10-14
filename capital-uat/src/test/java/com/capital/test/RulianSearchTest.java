@@ -24,8 +24,25 @@ import java.util.logging.Logger;
  */
 public class RulianSearchTest {
 
+    String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
+            "join mdx_core.provider_practice pp using(provider_id)\n" +
+            "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
+            "limit ";
+
+    String queryAll = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
+            "join mdx_core.provider_practice pp using(provider_id)\n" +
+            "limit ";
+
+    String solrIndex;
+
+    @BeforeMethod
+    @Parameters ({"solrIndex"})
+    public void setLocation(String solrIndex) {
+        this.solrIndex = solrIndex;
+    }
+
     @Test (dataProvider = "providers")
-    public void userSearchTest(String name, String state) {
+    public void limitedProviderNewSolrSearchTest(String name, String state) {
 
         String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
 
@@ -37,7 +54,44 @@ public class RulianSearchTest {
             e.printStackTrace();
         }
 
-        String url = "http://10.0.4.23:8080/solr/contracts/select/?q=" + formatted;
+        String url = "http://10.0.4.23:8080/solr/" + solrIndex + "/select/?q=" + formatted;
+        // Use below if you want to see currently generated stuff -- Good when solr job is building
+        // String url = "http://10.0.4.23:8080/solr/contractsalt/select/?q=" + formatted;
+
+        com.capital.DriverManager.getDriver().get(url);
+
+        try {
+            String xml = com.capital.DriverManager.getDriver().getPageSource();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+
+            doc.getDocumentElement().normalize();
+
+            NodeList nList = doc.getElementsByTagName("result");
+            String result = nList.item(0).getAttributes().getNamedItem("numFound").getTextContent();
+            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test (dataProvider = "allProviders")
+    public void allProviderNewSolrTest(String name, String state) {
+
+        String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
+
+        String formatted = String.format(base, name, name, state);
+
+        try {
+            formatted = URLEncoder.encode(formatted, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://10.0.4.23:8080/solr/" + solrIndex + "/select/?q=" + formatted;
         // Use below if you want to see currently generated stuff -- Good when solr job is building
         // String url = "http://10.0.4.23:8080/solr/contractsalt/select/?q=" + formatted;
 
@@ -64,11 +118,16 @@ public class RulianSearchTest {
     @DataProvider(name = "providers", parallel = true)
     public Object[][] generateProviders() {
         int limit = System.getProperty("queryLimit") != null ? Integer.parseInt(System.getProperty("queryLimit")) : 1;
-        return dbQuery(Integer.toString(limit));
-
+        return dbQuery(query,Integer.toString(limit));
     }
 
-    public Object[][] dbQuery(String limit) {
+    @DataProvider(name = "allProviders", parallel = true)
+    public Object[][] generateAllProviders() {
+        int limit = System.getProperty("queryLimit") != null ? Integer.parseInt(System.getProperty("queryLimit")) : 1;
+        return dbQuery(queryAll,Integer.toString(limit));
+    }
+
+    public Object[][] dbQuery(String query, String limit) {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
@@ -80,10 +139,10 @@ public class RulianSearchTest {
 //                "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
 //                "limit 500";
 
-        String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
-                "join mdx_core.provider_practice pp using(provider_id)\n" +
-                "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
-                "limit " + limit;
+//        String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
+//                "join mdx_core.provider_practice pp using(provider_id)\n" +
+//                "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
+//                "limit " + limit;
 
         String url = "jdbc:postgresql://10.0.7.12:5432/mdx_v4_capital";
         String user = "mdx";

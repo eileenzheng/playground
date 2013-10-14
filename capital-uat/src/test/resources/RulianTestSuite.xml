@@ -6,9 +6,40 @@
     <listeners>
         <listener class-name="com.capital.WebDriverListener"/>
     </listeners>
-    <test name="Names that end in y,s,i,e">
+    <test name="Current production index: Names that end in y,s,i,e">
+        <parameter name="solrIndex" value="contractalt"/>
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="limitedProviderNewSolrSearchTest"/>
+            </methods>
+        </classes>
+    </test>
+    <test name="Current production index: All Providers">
+        <parameter name="solrIndex" value="contractalt"/>
+        <classes>
+            <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="allProviderNewSolrTest"/>
+            </methods>
+        </classes>
+    </test>
+    <test name="New index: Names that end in y,s,i,e">
+        <parameter name="solrIndex" value="contracts"/>
+        <classes>
+            <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="limitedProviderNewSolrSearchTest"/>
+            </methods>
+        </classes>
+    </test>
+    <test name="New index: All Providers">
+        <parameter name="solrIndex" value="contracts"/>
+        <classes>
+            <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="allProviderNewSolrTest"/>
+            </methods>
         </classes>
     </test>
 </suite>
