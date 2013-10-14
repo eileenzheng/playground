@@ -55,8 +55,9 @@ public class RulianSearchTest {
 
     @DataProvider(name = "providers", parallel = true)
     public Object[][] generateProviders() {
-        Object[][] glob = dbQuery();
-        return glob;
+        int limit = System.getProperty("queryLimit") != null ? Integer.parseInt(System.getProperty("queryLimit")) : 1;
+        return dbQuery(Integer.toString(limit));
+
     }
 
     @Test (dataProvider = "providers")
@@ -93,7 +94,7 @@ public class RulianSearchTest {
 
     //%5B = [  %5D = ]
     // ?criteria[provider-type]=physician&criteria[provider-name]=smith&criteria[provider-location]=New York, NY&criteria[provider-plan]=All
-    public Object[][] dbQuery() {
+    public Object[][] dbQuery(String limit) {
         Connection con = null;
         Statement st = null;
         ResultSet rs = null;
@@ -108,7 +109,7 @@ public class RulianSearchTest {
         String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
                 "join mdx_core.provider_practice pp using(provider_id)\n" +
                 "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
-                "limit 100";
+                "limit " + limit;
 
         String url = "jdbc:postgresql://10.0.7.12:5432/mdx_v4_capital";
         String user = "mdx";
