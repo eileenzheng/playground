@@ -11,7 +11,7 @@
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
-                <include name="limitedProviderNewSolrSearchTest"/>
+                <include name="limitedProviderSolrSearchTest"/>
             </methods>
         </classes>
     </test>
@@ -20,7 +20,16 @@
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
-                <include name="allProviderNewSolrTest"/>
+                <include name="allProviderSolrTest"/>
+            </methods>
+        </classes>
+    </test>
+    <test name="Current production index: All Facilities">
+        <parameter name="solrIndex" value="contractsalt"/>
+        <classes>
+            <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="allFacilitiesSolrTest"/>
             </methods>
         </classes>
     </test>
@@ -29,7 +38,7 @@
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
-                <include name="limitedProviderNewSolrSearchTest"/>
+                <include name="limitedProviderSolrSearchTest"/>
             </methods>
         </classes>
     </test>
@@ -38,7 +47,16 @@
         <classes>
             <class name="com.capital.test.RulianSearchTest"/>
             <methods>
-                <include name="allProviderNewSolrTest"/>
+                <include name="allProviderSolrTest"/>
+            </methods>
+        </classes>
+    </test>
+    <test name="New index: All Facilities">
+        <parameter name="solrIndex" value="contracts"/>
+        <classes>
+            <class name="com.capital.test.RulianSearchTest"/>
+            <methods>
+                <include name="allFacilitiesSolrTest"/>
             </methods>
         </classes>
     </test>

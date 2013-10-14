@@ -33,6 +33,8 @@ public class RulianSearchTest {
             "join mdx_core.provider_practice pp using(provider_id)\n" +
             "limit ";
 
+    String queryFacility =  "select distinct name, default_state_code from mdx_core.facility limit ";
+
     String solrIndex;
 
     @BeforeMethod
@@ -42,7 +44,7 @@ public class RulianSearchTest {
     }
 
     @Test (dataProvider = "providers")
-    public void limitedProviderNewSolrSearchTest(String name, String state) {
+    public void limitedProviderSolrSearchTest(String name, String state) {
 
         String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
 
@@ -79,11 +81,48 @@ public class RulianSearchTest {
     }
 
     @Test (dataProvider = "allProviders")
-    public void allProviderNewSolrTest(String name, String state) {
+    public void allProviderSolrTest(String name, String state) {
 
         String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
 
         String formatted = String.format(base, name, name, state);
+
+        try {
+            formatted = URLEncoder.encode(formatted, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://10.0.4.23:8080/solr/" + solrIndex + "/select/?q=" + formatted;
+        // Use below if you want to see currently generated stuff -- Good when solr job is building
+        // String url = "http://10.0.4.23:8080/solr/contractsalt/select/?q=" + formatted;
+
+        com.capital.DriverManager.getDriver().get(url);
+
+        try {
+            String xml = com.capital.DriverManager.getDriver().getPageSource();
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("utf-8"))));
+
+            doc.getDocumentElement().normalize();
+
+            NodeList nList = doc.getElementsByTagName("result");
+            String result = nList.item(0).getAttributes().getNamedItem("numFound").getTextContent();
+            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test (dataProvider = "allFacilities")
+    public void allFacilitiesSolrTest(String name, String state) {
+
+        String base = "(account_store:capital AND provider_type_store:facility AND (facility_name_search:\"%s\"~10) AND state_match:\"%s\")";
+
+        String formatted = String.format(base, name, state);
 
         try {
             formatted = URLEncoder.encode(formatted, "UTF-8");
@@ -125,6 +164,12 @@ public class RulianSearchTest {
     public Object[][] generateAllProviders() {
         int limit = System.getProperty("queryLimit") != null ? Integer.parseInt(System.getProperty("queryLimit")) : 1;
         return dbQuery(queryAll,Integer.toString(limit));
+    }
+
+    @DataProvider(name = "allFacilities", parallel = true)
+    public Object[][] generateAllFacilities() {
+        int limit = System.getProperty("queryLimit") != null ? Integer.parseInt(System.getProperty("queryLimit")) : 1;
+        return dbQuery(queryFacility,Integer.toString(limit));
     }
 
     public Object[][] dbQuery(String query, String limit) {
