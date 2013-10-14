@@ -65,7 +65,7 @@ public class FacilitySearchStepDefs {
     // PUI-206
     @Then("^up to (\\d+) results are displayed by default$")
     public void up_to_results_are_displayed_by_default(int count) {
-        assertThat("There were less than 10 records displayed",
+        assertThat("Exactly 10 records were not displayed",
                 searchResults.resultList().size(), equalTo(count));
     }
 
