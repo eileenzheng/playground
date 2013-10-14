@@ -66,7 +66,8 @@ public class RulianSearchTest {
         String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~10) AND state_match:\"%s\")";
         String formatted = String.format(base, name, name, state);
         formatted = URLEncoder.encode(formatted, "UTF-8");
-        String url = "http://10.0.4.23:8080/solr/contracts/select/?q=" + formatted;
+//        String url = "http://10.0.4.23:8080/solr/contracts/select/?q=" + formatted;
+        String url = "http://10.0.4.23:8080/solr/contractsalt/select/?q=" + formatted;
 
         //System.out.println(url);
         com.capital.DriverManager.getDriver().get(url);
