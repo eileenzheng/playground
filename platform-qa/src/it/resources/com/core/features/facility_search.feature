@@ -91,8 +91,8 @@ Feature: Facility Search
     When a search for a facility is completed
     Then I will see a range of costs for all providers
     And the range will display for "Shoulder Arthroscopy"
-    And the cost will be "$650-1,125"
-    And the plan will contribute "$4,849-11,877"
+    And the cost will be "$650-$1,125"
+    And the plan will contribute "$4,849-$11,877"
 
   @PUI-49
   Scenario: Display text of facility costs

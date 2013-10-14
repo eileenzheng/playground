@@ -198,11 +198,11 @@ public class FacilitySearchStepDefs {
     // PUI-51
     @And("^cost is displayed as 'Avg \\$\\[avg cost\\]'$")
     public void cost_is_displayed_as_Avg_$_avg_cost_() {
-        Pattern regex = Pattern.compile("AVG \\$[0-9,]+", Pattern.DOTALL);
+        Pattern regex = Pattern.compile("AVG\\$[0-9,]+", Pattern.DOTALL);
         Matcher regexMatcher;
         for (FluentWebElement el : searchResults.resultList()) {
             regexMatcher = regex.matcher(searchResults.getAvgCostForProvider(el));
-            assertThat("Text does not match. Check the text of: " + searchResults.getProviderName(el),
+            assertThat("Text does not match. Check the text of: " + searchResults.getAvgCostForProvider(el),
                     regexMatcher.find(),
                     equalTo(true));
         }
