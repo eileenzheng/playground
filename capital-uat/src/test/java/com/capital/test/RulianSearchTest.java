@@ -33,7 +33,10 @@ public class RulianSearchTest {
             "join mdx_core.provider_practice pp using(provider_id)\n" +
             "limit ";
 
-    String queryFacility =  "select distinct name, default_state_code from mdx_core.facility limit ";
+    String queryFacility =  "select distinct name, default_state_code " +
+            "from mdx_core.facility " +
+            "where facility_type_code not in ('U', 'M') " +
+            "limit ";
 
     String solrIndex;
 
@@ -178,16 +181,6 @@ public class RulianSearchTest {
         ResultSet rs = null;
 
         Object[][] result = null;
-//        Query using zip code
-//        String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_postal_code  from mdx_core.provider p\n" +
-//                "join mdx_core.provider_practice pp using(provider_id)\n" +
-//                "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
-//                "limit 500";
-
-//        String query = "select distinct(first_name || ' ' || last_name)as name, pp.default_state_code  from mdx_core.provider p\n" +
-//                "join mdx_core.provider_practice pp using(provider_id)\n" +
-//                "where (p.last_name ~* '[ysie]$' and length(p.last_name) <= 5) OR (p.first_name ~* '[ysie]$' and length(p.first_name) <= 5) \n" +
-//                "limit " + limit;
 
         String url = "jdbc:postgresql://10.0.7.12:5432/mdx_v4_capital";
         String user = "mdx";
@@ -216,7 +209,6 @@ public class RulianSearchTest {
             int i = 0;
             while (rs.next()) {
                 for (int j = 0; j < columnCount; j++) {
-//                    System.out.println(rs.getObject(j+1));
                     result[i][j] = rs.getObject(j+1);
                 }
                 i++;
