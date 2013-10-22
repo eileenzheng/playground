@@ -5,8 +5,10 @@ Feature: Facility Profile Awards
   As a member I want to see awards for a facility
   So that I can feel confident that a facility is good and understand specific areas where they excel
 
-  Given I am viewing a facility with awards
-  Then I will see the awards module
+  Background:
+
+    Given I am viewing a facility with awards
+    Then I will see the awards module
 
   @PUI-260
   Scenario: Facility Awards More Than Three Awards
