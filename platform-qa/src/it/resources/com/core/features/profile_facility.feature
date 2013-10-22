@@ -6,7 +6,7 @@ Feature: Facility Profile Awards
   So that I can feel confident that a facility is good and understand specific areas where they excel
 
   Given I am viewing a facility with awards
-  Then I will see the facility awards module
+  Then I will see the awards module
 
   @PUI-260
   Scenario: Facility Awards More Than Three Awards

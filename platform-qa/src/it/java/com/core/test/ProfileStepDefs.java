@@ -13,12 +13,12 @@ import org.seleniumhq.selenium.fluent.FluentWebElement;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-public class ProviderProfileStepDefs {
+public class ProfileStepDefs {
 
     protected WebDriver driver;
     private ProfilePage profilePage;
 
-    @Before({"@provider"})
+    @Before({"@provider","@facility"})
     public void setUp() {
         profilePage = new ProfilePage();
         this.driver = WebDriverSingleton.getInstance();
@@ -29,7 +29,12 @@ public class ProviderProfileStepDefs {
         profilePage.get("http://qa.vitalschoice.com/profile/provider?id=1000000000");
     }
 
-    @Then("^I will see the provider awards module$")
+    @Given("^I am viewing a facility with awards$")
+    public void I_am_viewing_a_facility_with_at_least_award(int arg1) throws Throwable {
+        profilePage.get("http://qa.vitalschoice.com/profile/facility?id=1000000000");
+    }
+
+    @Then("^I will see the awards module$")
     public void I_will_see_the_provider_awards_module() throws Throwable {
         assertThat("Awards module was not visible",profilePage.awardsModuleIsPresent(), is(true));
     }
