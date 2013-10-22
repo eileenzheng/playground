@@ -49,10 +49,8 @@ public class FacilitySearchStepDefs {
     // For @Given
     @And("^I have submitted the search results$")
     public void I_have_submitted_the_search_results() {
-        //homePage.searchButton().click();
-        //homePage.clickDemoFacilitySearch();
-        // So we can get more than 10 results until they implement actual searching
-        homePage.go("http://qa.vitalschoice.com/search?type=facilities&geo_location=New%20York&restrict[radius]=50");
+//        homePage.searchButton().click();
+        homePage.clickDemoFacilitySearch();
     }
 
     // PUI-206
@@ -72,7 +70,7 @@ public class FacilitySearchStepDefs {
     // PUI-133
     @When("^a search for a facility is completed$")
     public void a_search_for_a_facility_is_completed() {
-        assertThat(driver.getCurrentUrl(), containsString("facilities"));
+        assertThat(driver.getCurrentUrl(), containsString("facility"));
     }
 
     // PUI-133
