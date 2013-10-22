@@ -1,4 +1,4 @@
-@cost_estimator @HCSC
+@ignore @cost_estimator @HCSC
 Feature: Cost Estimator
 
   @PUI-30

@@ -1,13 +1,11 @@
 package com.core.test;
 
-import com.core.WebDriverSingleton;
 import com.core.pages.ProfilePage;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,23 +13,21 @@ import static org.hamcrest.Matchers.*;
 
 public class ProfileStepDefs {
 
-    protected WebDriver driver;
     private ProfilePage profilePage;
 
-    @Before({"@provider","@facility"})
+    @Before()
     public void setUp() {
         profilePage = new ProfilePage();
-        this.driver = WebDriverSingleton.getInstance();
     }
 
     @Given("^I am viewing a Provider with awards$")
-    public void I_am_viewing_a_provider_with_at_least_award() {
-        profilePage.get("http://qa.vitalschoice.com/profile/provider?id=1000000000");
+    public void I_am_viewing_a_provider_with_awards() {
+        profilePage.go("http://qa.vitalschoice.com/profile/professional?id=1000000000");
     }
 
     @Given("^I am viewing a facility with awards$")
-    public void I_am_viewing_a_facility_with_at_least_award() {
-        profilePage.get("http://qa.vitalschoice.com/profile/facility?id=1000000000");
+    public void I_am_viewing_a_facility_with_awards() {
+        profilePage.go("http://qa.vitalschoice.com/profile/facility?id=1000000000");
     }
 
     @Then("^I will see the awards module$")

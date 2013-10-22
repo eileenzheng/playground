@@ -14,6 +14,10 @@ public class ProfilePage extends BasePage {
     public ProfilePage() {
     }
 
+    public void go(String url) {
+        get(url);
+    }
+
     public String providerName() {
         return h3(cssSelector(".title>h3")).getText().toString().trim();
     }
@@ -67,7 +71,7 @@ public class ProfilePage extends BasePage {
 
     public ProfilePage viewAwardsExpanded() {
         awardsModule().link(cssSelector(".nextLink")).click();
-        pageLoadWait();
+//        pageLoadWait();
         return this;
     }
 

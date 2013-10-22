@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 @Cucumber.Options(features = {"src/it/resources"}, format = {"pretty",
         "html:target/cucumber-html-report",
         "json:target/cucumber.json", "usage:target/usage.jsonx", "junit:target/junit.xml"},
-        tags = {"~@ignore"})
+        tags = {"~@ignore","@provider"})
 public class RunCukesIT {
 
     @BeforeClass
@@ -18,7 +18,7 @@ public class RunCukesIT {
         if (System.getenv("SAUCE_API_KEY") != null) {
             WebDriverSingleton.getSauceInstance();
         } else {
-            WebDriverSingleton.getRemoteInstance();
+            WebDriverSingleton.getDriver();
         }
 
     }
