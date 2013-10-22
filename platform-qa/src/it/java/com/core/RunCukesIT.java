@@ -18,7 +18,7 @@ public class RunCukesIT {
         if (System.getenv("SAUCE_API_KEY") != null) {
             WebDriverSingleton.getSauceInstance();
         } else {
-            WebDriverSingleton.getDriver();
+            WebDriverSingleton.getRemoteInstance();
         }
 
     }
