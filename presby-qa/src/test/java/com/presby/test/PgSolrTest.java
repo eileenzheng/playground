@@ -53,7 +53,7 @@ public class PgSolrTest {
     @Test (dataProvider = "providers")
     public void limitedProviderSolrSearchTest(String name, String state) {
 
-        String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
+        String base = "(account_store:presby AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
 
         String formatted = String.format(base, name, name, state);
 
@@ -90,7 +90,7 @@ public class PgSolrTest {
     @Test (dataProvider = "allProviders")
     public void allProviderSolrTest(String name, String state) {
 
-        String base = "(account_store:capital AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
+        String base = "(account_store:presby AND provider_type_store:physician AND (last_name_search:\"%s\"^5 full_name_search:\"%s\"~30) AND state_match:\"%s\")";
 
         String formatted = String.format(base, name, name, state);
 
@@ -127,7 +127,7 @@ public class PgSolrTest {
     @Test (dataProvider = "allFacilities")
     public void allFacilitiesSolrTest(String name, String state) {
 
-        String base = "(account_store:capital AND provider_type_store:facility AND (facility_name_search:\"%s\"~10) AND state_match:\"%s\")";
+        String base = "(account_store:presby AND provider_type_store:facility AND (facility_name_search:\"%s\"~10) AND state_match:\"%s\")";
 
         String formatted = String.format(base, name, state);
 
