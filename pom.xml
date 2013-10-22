@@ -15,6 +15,7 @@
         <module>uchc</module>
         <module>platform-qa</module>
         <module>prs-qa</module>
+        <module>presby-qa</module>
     </modules>
 
     <properties>
