@@ -2,29 +2,24 @@ package com.uchc.test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.uchc.DriverManager;
 import com.uchc.pages.HomePage;
-import com.uchc.runners.LocalTestRunner;
 
 /**
  * UCHC Test
  */
-public class SearchTest extends LocalTestRunner {
+public class SearchTest {
 
     private WebDriver driver;
 
-    @Parameters({"domain","user","pw"})
+    @Parameters({"url"})
     @Test
-    public void simpleTest(String domain,@Optional("")String user, @Optional("")String pw) {
-        driver = getDriver();
+    public void simpleTest(String url) {
+        driver = DriverManager.getDriver();
 
-        if (user.equals("") && pw.equals("")) {
-            driver.get(getUrl(domain));
-        } else {
-            driver.get(getHttpSecureUrl(user,pw,domain));
-        }
+        driver.get(url);
 
 
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);

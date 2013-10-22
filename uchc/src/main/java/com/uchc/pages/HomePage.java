@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-
+import com.uchc.DriverManager;
 import java.util.List;
 
 public class HomePage {
 
     private WebDriver driver;
 
-    public HomePage (WebDriver driver) {
-        this.driver = driver;
+    public HomePage () {
+        driver = DriverManager.getDriver();
     }
 
     @FindBy(name="q")

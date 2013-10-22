@@ -1,6 +1,5 @@
 package com.uchc.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -8,8 +7,8 @@ import java.util.List;
 
 public class PatientLinkCenterAd extends PatientLinkAd {
 
-	public PatientLinkCenterAd (WebDriver driver) {
-		super(driver);
+	public PatientLinkCenterAd () {
+		super();
 	}
 	
 	@FindBy(css=".cmt_inner_content .provider-name-cw>a")

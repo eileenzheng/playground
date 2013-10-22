@@ -1,15 +1,13 @@
 package com.uchc.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
 
 public class PatientLinkRrAd extends PatientLinkAd {
 	
-	public PatientLinkRrAd (WebDriver driver) {
-		super(driver);
+	public PatientLinkRrAd () {
+		super();
 	}
 	
 	@FindBy(css=".bluebox-featured-rr .featured_cmt .provider_name>a")

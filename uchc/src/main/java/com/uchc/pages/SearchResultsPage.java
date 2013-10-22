@@ -5,14 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.uchc.DriverManager;
+
 import java.util.List;
 
 public class SearchResultsPage {
 
     WebDriver driver;
 
-    public SearchResultsPage(WebDriver driver) {
-        this.driver = driver;
+    public SearchResultsPage() {
+        driver = DriverManager.getDriver();
     }
 
     @FindBy(css=".bluebox-featured")

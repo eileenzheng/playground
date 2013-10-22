@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--<suite name="ParallelTests" verbose="5" parallel="methods" thread-count="2">-->
-<suite name="UCHC UAT Regression" verbose="5">
-    <parameter name="domain" value="stagea.ucomparehealthcare.com"/>
-    <parameter name="user" value="uchc"/>
-    <parameter name="pw" value="maggiegetyourbone"/>
+<suite name="UCHC Staging Regression" verbose="5">
+    <parameter name="url" value="http://uchc:maggiegetyourbone@stagea.ucomparehealthcare.com"/>
+    <listeners>
+        <listener class-name="com.uchc.WebDriverListener"/>
+    </listeners>
+    
     <test name="Search Specfic Tests">
         <classes>
             <class name="com.uchc.test.SearchTest"/>

@@ -5,14 +5,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import com.uchc.DriverManager;
+
 import java.util.List;
 
 public abstract class PatientLinkAd {
 
 	private WebDriver driver;
 	
-	public PatientLinkAd (WebDriver driver) {
-		this.driver = driver;
+	public PatientLinkAd () {
+		driver = DriverManager.getDriver();
 	}
 	
 	private List<WebElement> name;
