@@ -79,7 +79,7 @@ public class PgSolrTest {
 
             NodeList nList = doc.getElementsByTagName("result");
             String result = nList.item(0).getAttributes().getNamedItem("numFound").getTextContent();
-            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state);
+            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state + "\n" + url);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +116,7 @@ public class PgSolrTest {
 
             NodeList nList = doc.getElementsByTagName("result");
             String result = nList.item(0).getAttributes().getNamedItem("numFound").getTextContent();
-            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state);
+            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state + "\n" + url);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class PgSolrTest {
 
             NodeList nList = doc.getElementsByTagName("result");
             String result = nList.item(0).getAttributes().getNamedItem("numFound").getTextContent();
-            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state);
+            Assert.assertNotEquals(result,"0","No results found for: " + name + " in State: " + state + "\n" + url);
 
         } catch (Exception e) {
             e.printStackTrace();
