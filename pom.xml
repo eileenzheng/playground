@@ -28,6 +28,7 @@
         <maven-failsafe.version>2.16</maven-failsafe.version>
         <cucumber-jvm.version>1.1.5</cucumber-jvm.version>
         <junit.version>4.11</junit.version>
+        <ghostdriver.version>1.0.4</ghostdriver.version>
     </properties>
 
     <dependencyManagement>
@@ -50,7 +51,7 @@
             <dependency>
                 <groupId>com.github.detro.ghostdriver</groupId>
                 <artifactId>phantomjsdriver</artifactId>
-                <version>1.0.3</version>
+                <version>${ghostdriver.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.seleniumhq.selenium</groupId>

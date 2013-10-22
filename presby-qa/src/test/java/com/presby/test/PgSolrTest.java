@@ -42,15 +42,12 @@ public class PgSolrTest {
             "where facility_type_code not in ('U', 'M') " +
             "limit ";
 
-    static final String SOLR_URL_STEM = "http://10.0.4.23:8080/solr/";
-    static final String SOLR_POST_URL_Q = "/select/?q=";
     String solrPostUrlStem;
 
-
     @BeforeMethod
-    @Parameters ({"solrIndex"})
-    public void setLocation(String solrIndex) {
-        this.solrPostUrlStem = SOLR_URL_STEM + solrIndex + SOLR_POST_URL_Q;
+    @Parameters ({"solrIndex","solrIndexIp"})
+    public void setLocation(String solrIndex, String solrIndexIp) {
+        this.solrPostUrlStem = "http://" + solrIndexIp + ":8080/solr/" + solrIndex + "/select/?q=";
     }
 
     @Test (dataProvider = "providers")

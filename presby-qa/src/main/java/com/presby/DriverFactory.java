@@ -72,6 +72,11 @@ public class DriverFactory {
                 "--web-security=false",
                 "--ignore-ssl-errors=true",
                 "--ssl-protocol=any"});
+
+        caps.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_CLI_ARGS, new String[] {
+                "--logLevel=WARN"
+        });
+
         caps.setJavascriptEnabled(true);
 
         driver = new PhantomJSDriver(caps);
