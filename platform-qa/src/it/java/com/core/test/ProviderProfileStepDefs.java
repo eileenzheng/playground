@@ -29,8 +29,8 @@ public class ProviderProfileStepDefs {
         profilePage.get("http://qa.vitalschoice.com/profile/provider?id=1000000000");
     }
 
-    @Then("^I will see the awards module$")
-    public void I_will_see_the_awards_module() throws Throwable {
+    @Then("^I will see the provider awards module$")
+    public void I_will_see_the_provider_awards_module() throws Throwable {
         assertThat("Awards module was not visible",profilePage.awardsModuleIsPresent(), is(true));
     }
 

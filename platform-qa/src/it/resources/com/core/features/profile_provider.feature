@@ -7,7 +7,7 @@ Feature: Provider Profile Awards
 
   Background:
     Given I am viewing a Provider with awards
-    Then I will see the awards module
+    Then I will see the provider awards module
     And the header displays as "Awards"
     And I will see the award name
 #    And I will see the award logo
