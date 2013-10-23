@@ -55,7 +55,16 @@ Feature: Facility Profile Awards
     And the module header displays as "Specialties & Expertise"
     And specialties will be listed in alphabetical order
 
+  @PUI-316 @HCSC
+  Scenario: Facility Identifiers
+    In order to allow members to identify facilities to a customer service representative
+    As a member
+    I want to see identifiers for a facility
+    So that I can uniquely identify the facility to an HCSC customer service agent.
 
-
+    Given I am viewing a facility with identifiers
+    Then I will see up to 3 identifiers
+    And it will be displayed as [identifier label][colon][identifier]
+    #And it will display if specific to that requested network
 
 

@@ -64,4 +64,22 @@ public class ProfileStepDefs {
         profilePage.viewAwardsExpanded();
     }
 
+    @Given("^I am viewing a facility with identifiers$")
+    public void I_am_viewing_a_facility_with_identifiers() throws Throwable {
+        assertThat("Identifier module was not visible on: " + profilePage.getCurrentUrl(),
+                profilePage.identifiersModuleIsPresent(),is(true));
+    }
+
+    @Then("^I will see up to (\\d+) identifiers$")
+    public void I_will_see_up_to_identifiers(int arg1) throws Throwable {
+        assertThat("More than " + arg1 + " identifiers were shown.", profilePage.identifierList().size(), lessThanOrEqualTo(arg1));
+    }
+
+    @And("^it will be displayed as \\[identifier label\\]\\[colon\\]\\[identifier\\]$")
+    public void it_will_be_displayed_as_identifier_label_colon_identifier() throws Throwable {
+        for (FluentWebElement el : profilePage.identifierList()) {
+            String idText = el.getText().toString().trim();
+            assertThat("Identifier: " + idText + "didn't match pattern.",idText.matches("^\\w.+:\\s?\\d.+$"),is(true));
+        }
+    }
 }

@@ -79,4 +79,24 @@ public class ProfilePage extends BasePage {
         without(secs(5)).div(id("pageLoading"));
     }
 
+    public FluentWebElement identifiersModule() {
+        return div(cssSelector(".identifiers"));
+    }
+
+    public Boolean identifiersModuleIsPresent() {
+        return divs(cssSelector(".identifiers")).size() > 0;
+    }
+
+    public String identifierModuleHeaderText() {
+        return identifiersModule().h4(cssSelector(".panel-heading>.panel-title")).getText().toString();
+    }
+
+    public List<FluentWebElement> identifierList() {
+        return identifiersModule().spans(cssSelector(".panel-body>ul>li>span"));
+    }
+
+    public String identifierText (FluentWebElement fl) {
+        return fl.getText().toString().trim();
+    }
+
 }
