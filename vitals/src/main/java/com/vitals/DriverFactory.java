@@ -1,7 +1,6 @@
 package com.vitals;
 
 import com.vitals.helpers.Constants;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
