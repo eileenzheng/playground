@@ -82,4 +82,47 @@ public class ProfileStepDefs {
             assertThat("Identifier: " + idText + "didn't match pattern.",idText.matches("^\\w.+:\\s?\\d.+$"),is(true));
         }
     }
+
+    @Given("^I am viewing a facility$")
+    public void I_am_viewing_a_facility() throws Throwable {
+        profilePage.get("http://qa.vitalschoice.com/profile/facility?id=1000000000");
+    }
+
+    @Then("^I will see the facility name$")
+    public void I_will_see_the_facility_name() throws Throwable {
+        assertThat("Profile name wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profileNameIsPresent(), is(true));
+    }
+
+    @And("^I will see the facility address$")
+    public void I_will_see_the_facility_address() throws Throwable {
+        assertThat("Profile address wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profileAddressIsPresent(), is(true));
+    }
+
+    @And("^I will see a get directions link$")
+    public void I_will_see_a_get_directions_link() throws Throwable {
+        assertThat("Profile directions link wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profileMapAndDirectionsLinkIsPresent(), is(true));
+    }
+
+    @And("^I will see a facility phone number$")
+    public void I_will_see_a_facility_phone_number() throws Throwable {
+        assertThat("Profile phone number wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profilePhoneNumberIsPresent(), is(true));
+    }
+
+    @And("^I will see the tier network name$")
+    public void I_will_see_the_tier_network_name() throws Throwable {
+        assertThat("Profile tier name wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profileTierNameIsPresent(), is(true));
+    }
+
+    @And("^I will see a photo$")
+    public void I_will_see_a_photo() throws Throwable {
+        assertThat("Profile photo wasn't visible on: " + profilePage.getCurrentUrl(),
+                profilePage.profilePhotoIsPresent(), is(true));
+
+        assertThat("Photo dimensions changed",profilePage.profileImageHeightWidth(),equalTo("168,168"));
+    }
 }

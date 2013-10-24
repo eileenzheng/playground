@@ -1,10 +1,11 @@
 package com.core.pages;
 
+import cucumber.api.java.en.Given;
+import org.openqa.selenium.JavascriptExecutor;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import java.util.List;
 
-import static org.openqa.selenium.By.className;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.id;
 import static org.seleniumhq.selenium.fluent.Period.secs;
@@ -18,8 +19,45 @@ public class ProfilePage extends BasePage {
         get(url);
     }
 
-    public String providerName() {
+    public String profileName() {
         return h3(cssSelector(".title>h3")).getText().toString().trim();
+    }
+
+    public Boolean profileNameIsPresent() {
+        return h3s(cssSelector(".title>h3")).size() > 0;
+    }
+
+    public String profileTierName() {
+        return span(cssSelector(".title>h3>span")).getText().toString().trim();
+    }
+
+    public Boolean profileTierNameIsPresent() {
+        return spans(cssSelector(".title>h3>span")).size() > 0;
+    }
+
+    public Boolean profilePhotoIsPresent() {
+        return imgs(cssSelector(".image>img")).size() > 0;
+    }
+
+    public Boolean profileAddressIsPresent() {
+        return divs(cssSelector(".address>.ng-binding")).size() > 0;
+    }
+
+    public Boolean profileMapAndDirectionsLinkIsPresent() {
+        return divs(cssSelector(".address>.ng-binding>a")).size() > 0;
+    }
+
+    public Boolean profilePhoneNumberIsPresent() {
+        return spans(cssSelector(".icon.phone>span")).size() > 0;
+    }
+
+    public String profileImageHeightWidth() {
+        String height = ((JavascriptExecutor) webDriver())
+                .executeScript("return document.querySelector('.image>img').height").toString();
+        String width = ((JavascriptExecutor) webDriver())
+                .executeScript("return document.querySelector('.image>img').width").toString();
+        //Return ex. 168,168
+        return height + "," + width;
     }
 
     public FluentWebElement doctorSpecialtyModule() {
