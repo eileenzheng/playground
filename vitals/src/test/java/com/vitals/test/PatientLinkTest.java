@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.DriverManager;
 import com.vitals.helpers.PatientLinkFeatures;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -14,22 +15,21 @@ import com.vitals.pages.PatientLinkRrAd;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SEOProfilePage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.runners.RemoteTestRunner;
 
-public class PatientLinkTest extends RemoteTestRunner {
+public class PatientLinkTest {
     private WebDriver driver;
     
     private static final String citySpecUrl = "/specialists/cardiologists/new-york/new-york";
     private static final String profileUrl = "/doctors/Dr_Nicholas_Soter/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
     
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testProfileHeader(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain) + profileHeaderUrl);
+    public void testProfileHeader(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url + profileHeaderUrl);
         // launch again to go to profile instead of seo profile
-        driver.get(getUrl(domain) + profileHeaderUrl);
+        driver.get(url + profileHeaderUrl);
         ProfilePage profile = PageFactory.initElements(driver, ProfilePage.class);
         
         Assert.assertTrue(profile.isDrSitePresent(), "Doctor's site is missing!");
@@ -41,11 +41,11 @@ public class PatientLinkTest extends RemoteTestRunner {
         Assert.assertTrue(profile.isBookApptPresent(), "Book appointment form is missing!");
     }
     
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testRrAdSerp(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain));
+    public void testRrAdSerp(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url);
         
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.clickSpecialtyLink();
@@ -58,11 +58,11 @@ public class PatientLinkTest extends RemoteTestRunner {
         testRrAd(ad);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testRrAdFind(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain) + citySpecUrl);
+    public void testRrAdFind(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url+ citySpecUrl);
         
         CitySpecPage find = PageFactory.initElements(driver, CitySpecPage.class);
         
@@ -70,11 +70,11 @@ public class PatientLinkTest extends RemoteTestRunner {
         testRrAd(ad);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testRrSeoProfile(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain) + profileUrl);
+    public void testRrSeoProfile(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url + profileUrl);
         
         SEOProfilePage profile = PageFactory.initElements(driver, SEOProfilePage.class);
         
@@ -82,12 +82,12 @@ public class PatientLinkTest extends RemoteTestRunner {
         testRrAd(ad);    
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testRrProfile(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain) + profileUrl);
-        driver.get(getUrl(domain) + profileUrl);
+    public void testRrProfile(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url + profileUrl);
+        driver.get(url + profileUrl);
 
         ProfilePage profile = PageFactory.initElements(driver, ProfilePage.class);
         
@@ -95,11 +95,11 @@ public class PatientLinkTest extends RemoteTestRunner {
         testRrAd(ad);    
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testCenterAdSerp(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain));
+    public void testCenterAdSerp(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url);
         
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.clickSpecialtyLink();
@@ -112,11 +112,11 @@ public class PatientLinkTest extends RemoteTestRunner {
         testCenterAd(ad);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testCenterAdFind(String domain) {
-        driver = getDriver();
-        driver.get(getUrl(domain) + citySpecUrl);
+    public void testCenterAdFind(String url) {
+    	driver = DriverManager.getDriver();
+        driver.get(url+ citySpecUrl);
         
         CitySpecPage find = PageFactory.initElements(driver, CitySpecPage.class);
         

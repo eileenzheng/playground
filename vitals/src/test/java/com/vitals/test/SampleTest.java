@@ -8,14 +8,14 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import com.vitals.DriverManager;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.runners.RemoteTestRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleTest extends RemoteTestRunner {
+public class SampleTest {
 
     WebDriver driver;
     static final String url = "http://www.vitals.com";
@@ -36,7 +36,7 @@ public class SampleTest extends RemoteTestRunner {
 
     @Test
     public void simpleTest() {
-        driver = getDriver();
+    	driver = DriverManager.getDriver();
 
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
@@ -58,7 +58,7 @@ public class SampleTest extends RemoteTestRunner {
 
     @Test
     public void checkAddresses() {
-        driver = getDriver();
+    	driver = DriverManager.getDriver();
 
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
@@ -81,7 +81,7 @@ public class SampleTest extends RemoteTestRunner {
 
     @Test (dataProvider = "doctor-list", dependsOnMethods = {"checkAddresses"})
     public void checkTheDocTests(DrInfo info) {
-        driver = getDriver();
+    	driver = DriverManager.getDriver();
 
         driver.get(info.profilePageUrl);
 
@@ -96,7 +96,7 @@ public class SampleTest extends RemoteTestRunner {
 
     @Test
     public void checkTheOffset() {
-        driver = getDriver();
+    	driver = DriverManager.getDriver();
 
         driver.get("http://www.vitals.com/specialists/allergists/louisiana/baton-rouge");
         WebElement topAd = driver.findElement(By.cssSelector(".advert.leaderboard-variable.cbox"));

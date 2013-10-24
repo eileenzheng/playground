@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 public class PatientGuidePage {
 	private WebDriver driver;
 	public final HeaderPage header;
@@ -13,8 +15,8 @@ public class PatientGuidePage {
 	
 	WebDriverWait wait;
 	
-	public PatientGuidePage (WebDriver driver) {
-		this.driver = driver;
+	public PatientGuidePage () {
+		driver = DriverManager.getDriver();
 		this.header = PageFactory.initElements(driver, HeaderPage.class);
 		this.footer = PageFactory.initElements(driver, FooterPage.class);
 		this.wait = new WebDriverWait(driver, 15, 3000);

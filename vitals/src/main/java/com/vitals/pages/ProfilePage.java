@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 import java.util.List;
 
 public class ProfilePage {
@@ -19,8 +21,8 @@ public class ProfilePage {
 
     WebDriverWait wait;
 
-    public ProfilePage(WebDriver driver) {
-        this.driver = driver;
+    public ProfilePage() {
+    	driver = DriverManager.getDriver();
         this.header = PageFactory.initElements(driver,HeaderPage.class);
         this.footer = PageFactory.initElements(driver,FooterPage.class);
         this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);

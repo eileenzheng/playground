@@ -5,22 +5,22 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.vitals.DriverManager;
 import com.vitals.pages.CitySpecLandingPage;
 import com.vitals.pages.CitySpecPage;
 import com.vitals.pages.CitySpecStatePage;
 import com.vitals.pages.HomePage;
-import com.vitals.runners.RemoteTestRunner;
 
-public class CitySpecTest extends RemoteTestRunner {
+public class CitySpecTest{
     
     WebDriver driver;
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testPageTitles(String domain) {
+    public void testPageTitles(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain));
+    	driver = DriverManager.getDriver();
+        driver.get(url);
         
         HomePage home = PageFactory.initElements(driver,HomePage.class);
         home.footer.clickSpecialtyLink();
@@ -38,12 +38,12 @@ public class CitySpecTest extends RemoteTestRunner {
                 "City Page title did not match.");
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void testCityPage(String domain) {
+    public void testCityPage(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain));
+    	driver = DriverManager.getDriver();
+        driver.get(url);
         
         HomePage home = PageFactory.initElements(driver,HomePage.class);
         home.footer.clickSpecialtyLink();

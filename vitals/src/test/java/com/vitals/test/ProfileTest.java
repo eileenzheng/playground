@@ -1,15 +1,15 @@
 package com.vitals.test;
 
-import com.vitals.runners.RemoteTestRunner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.vitals.DriverManager;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SEOProfilePage;
 
-public class ProfileTest extends RemoteTestRunner {
+public class ProfileTest {
 
     WebDriver driver;
 
@@ -19,12 +19,12 @@ public class ProfileTest extends RemoteTestRunner {
     static final String dentistProfile = "/dentists/Dr_Grace_Smart/profile";
     static final String drVideoProfile = "/doctors/Dr_John_Nemunaitis/video";
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void doctorSeoProfileTest(String domain) {
-        driver = getDriver();
+    public void doctorSeoProfileTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain) + seoDrProfile);
+        driver.get(url + seoDrProfile);
 
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
 
@@ -32,12 +32,12 @@ public class ProfileTest extends RemoteTestRunner {
                 "SEO Doctor Page did not load successfully" + seoProfile);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void dentistSeoProfileTest(String domain) {
-        driver = getDriver();
+    public void dentistSeoProfileTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain) + seoDentistProfile);
+        driver.get(url + seoDentistProfile);
 
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
 
@@ -45,14 +45,14 @@ public class ProfileTest extends RemoteTestRunner {
                 "SEO Dentist Page did not load successfully: " + seoDentistProfile);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewFullProfileSummaryTest(String domain) {
-        driver = getDriver();
+    public void viewFullProfileSummaryTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
@@ -60,14 +60,14 @@ public class ProfileTest extends RemoteTestRunner {
                 "Summary page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewFullProfileReviewsTest(String domain) {
-        driver = getDriver();
+    public void viewFullProfileReviewsTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url+ drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
@@ -77,14 +77,14 @@ public class ProfileTest extends RemoteTestRunner {
                 "Patient Reviews page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewFullProfileCredentialsTest(String domain) {
-        driver = getDriver();
+    public void viewFullProfileCredentialsTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
@@ -94,14 +94,14 @@ public class ProfileTest extends RemoteTestRunner {
 
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewLocationsAvailabilityTest(String domain) {
-        driver = getDriver();
+    public void viewLocationsAvailabilityTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
@@ -111,14 +111,14 @@ public class ProfileTest extends RemoteTestRunner {
                 "Locations availability page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewAcceptedInsuranceTest(String domain) {
-        driver = getDriver();
+    public void viewAcceptedInsuranceTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
@@ -128,26 +128,26 @@ public class ProfileTest extends RemoteTestRunner {
                 "Accepted insurance page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void viewVideoProfileTest(String domain) {
-        driver = getDriver();
+    public void viewVideoProfileTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
 
-        driver.get(getUrl(domain) + drVideoProfile);
+        driver.get(url + drVideoProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
 
         Assert.assertTrue(profilePage.drVideoIsVisible(), "Dr Video is not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void redirectToSeoProfileTest(String domain) {
-        driver = getDriver();
+    public void redirectToSeoProfileTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
 
@@ -156,19 +156,19 @@ public class ProfileTest extends RemoteTestRunner {
 
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void seoToFullProfileTest(String domain) {
-        driver = getDriver();
+    public void seoToFullProfileTest(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
 
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
                 "SEO Profile page did not load: " + driver.getCurrentUrl());
 
-        driver.get(getUrl(domain) + drProfile);
+        driver.get(url + drProfile);
 
         ProfilePage fullProfile = PageFactory.initElements(driver, ProfilePage.class);
 

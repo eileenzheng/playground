@@ -5,14 +5,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.vitals.DriverManager;
+
 import java.util.List;
 
 public class FooterPage {
 
     private WebDriver driver;
 
-    public FooterPage(WebDriver driver) {
-        this.driver = driver;
+    public FooterPage() {
+    	driver = DriverManager.getDriver();
     }
 
     @FindBy(css=".find-by-nav>.contain>a:nth-child(2)")

@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.vitals.DriverManager;
+
 public class HomePage {
 
     private final WebDriver driver;
@@ -12,8 +14,8 @@ public class HomePage {
     public final FooterPage footer;
 
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
+    public HomePage() {
+    	driver = DriverManager.getDriver();
         this.header = PageFactory.initElements(driver, HeaderPage.class);
         this.footer = PageFactory.initElements(driver, FooterPage.class);
     }
