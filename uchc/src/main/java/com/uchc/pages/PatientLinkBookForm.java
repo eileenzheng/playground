@@ -6,14 +6,16 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.uchc.DriverManager;
+
 public class PatientLinkBookForm {
 	
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
-	public PatientLinkBookForm (WebDriver driver) {
-		this.driver = driver;
-		this.wait = new WebDriverWait(driver, 5, 300);
+	public PatientLinkBookForm () {
+		driver = DriverManager.getDriver();
+		wait = new WebDriverWait(driver, 5, 300);
 	}
 	
 	@FindBy(css="#contact input[name=fname]")

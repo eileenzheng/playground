@@ -1,63 +1,54 @@
 package com.uchc.test;
 
+import com.uchc.DriverManager;
 import com.uchc.helpers.PatientLinkFeatures;
-import com.uchc.runners.LocalTestRunner;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.uchc.pages.PatientLinkAd;
 import com.uchc.pages.PatientLinkBookForm;
 import com.uchc.pages.PatientLinkCenterAd;
 import com.uchc.pages.PatientLinkRrAd;
-import com.uchc.runners.RemoteTestRunner;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientLinkTest extends LocalTestRunner {
+public class PatientLinkTest {
     private WebDriver driver;
 
     private static List<String> apptUrl = new ArrayList<String>();
-    private static String serpUrl = "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=6&x=43&y=8";
+    private static String serpUrl = "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=7&x=36&y=5";
     private static String profileUrl = "/drs/roopal_kundu/";
     
     
-    @Parameters({"domain","user","pw"})
+    @Parameters({"url"})
     @Test
-    public void testCenter(String domain, @Optional("")String user, @Optional("")String pw) {
-        driver = getDriver();
-
-        if (user.equals("") && pw.equals("")) {
-            driver.get(getUrl(domain) + serpUrl);
-        } else {
-            driver.get(getHttpSecureUrl(user,pw,domain) + serpUrl);
-        }
+    public void testCenter(String url) {
+        driver = DriverManager.getDriver();
+        
+        driver.get(url + serpUrl);
 
         PatientLinkCenterAd ad = PageFactory.initElements(driver, PatientLinkCenterAd.class);
         
-        testAd(ad, driver);
+        testAd(ad,driver);
     }
 
-    @Parameters({"domain","user","pw"})
+    @Parameters({"url"})
     @Test
-    public void testRight(String domain, @Optional("")String user, @Optional("")String pw) {
-        driver = getDriver();
-
-        if (user.equals("") && pw.equals("")) {
-            driver.get(getUrl(domain) + profileUrl);
-        } else {
-            driver.get(getHttpSecureUrl(user,pw,domain) + profileUrl);
-        }
-
+    public void testRight(String url) {
+        driver = DriverManager.getDriver();
+        
+        driver.get(url + profileUrl);
+        
         PatientLinkRrAd ad = PageFactory.initElements(driver, PatientLinkRrAd.class);
         
         testAd(ad, driver);
     }
     
     public static void testAd(PatientLinkAd ad, WebDriver driver) {
+    	
+    	Assert.assertTrue(ad.getSize()>0, "Ad is not showing up!");
         
         for (int i=0; i<ad.getSize(); i++) {
             
