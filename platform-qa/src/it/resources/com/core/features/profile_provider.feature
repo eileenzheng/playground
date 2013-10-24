@@ -1,5 +1,5 @@
 @provider
-Feature: Provider Profile Awards
+Feature: Provider Profile
 
   In order to demonstrate excellence in general and in specific arenas
   As a member I want to see awards for a Provider
@@ -12,37 +12,37 @@ Feature: Provider Profile Awards
     And I will see the award name
 #    And I will see the award logo
 
-  @PUI-355
+  @PUI-355 @awards
   Scenario: Provider Awards More Than Three Awards
 
     When a provider has more than 1 awards
-    And up to 2 awards will display on the module
+    And up to 3 awards will display on the module
     And I will see a link that reads "View X More Awards"
 
-  @PUI-355
+  @PUI-355 @awards
   Scenario: Provider Awards associated urls with logo
 
     When an award has an associated link
     Then the link will be with the logo
 
-  @PUI-355
+  @PUI-355 @awards
   Scenario: Provider Awards associated urls with no logo
 
     When an award has an associated link
     Then the link will be with the award name
 
-  @PUI-355
+  @PUI-355 @awards
   Scenario: Provider Awards grouping
 
     And the awards are grouped by category
 
-  @PUI-356
+  @PUI-356 @awards
   Scenario: Provider Awards Expanded grouping
 
     When I click See Awards and Recognitions
     Then I will see the awards are grouped by category
 
-  @ignore @PUI-303
+  @ignore @PUI-303 @specialties
   Scenario: Provider Specialties
 
     In order to demonstrate to members what a Provider specializes in
