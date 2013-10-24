@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 import java.util.List;
 
 public class CitySpecPage {
@@ -18,8 +20,8 @@ public class CitySpecPage {
 	
 	WebDriverWait wait;
 
-	public CitySpecPage (WebDriver driver) {
-		this.driver = driver;
+	public CitySpecPage () {
+		driver = DriverManager.getDriver();
 		this.header = PageFactory.initElements(driver, HeaderPage.class);
 		this.footer = PageFactory.initElements(driver, FooterPage.class);
 		this.centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);

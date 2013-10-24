@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +17,8 @@ public class SearchResultsRefinement {
 
     private WebDriver driver;
 
-    public SearchResultsRefinement (WebDriver driver) {
-        this.driver = driver;
+    public SearchResultsRefinement () {
+    	driver = DriverManager.getDriver();
     }
 
     @FindBy(css=".filter-reset")

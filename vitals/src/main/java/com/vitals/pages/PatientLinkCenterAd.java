@@ -8,12 +8,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 public class PatientLinkCenterAd {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
-	public PatientLinkCenterAd (WebDriver driver) {
-		this.driver = driver;
+	public PatientLinkCenterAd () {
+		driver = DriverManager.getDriver();
 		this.wait = new WebDriverWait(driver, 5, 300);
 	}
 	

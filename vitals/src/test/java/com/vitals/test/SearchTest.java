@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,24 +14,22 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.runners.RemoteTestRunner;
-
 import java.util.List;
 
 /**
  * Vitals.com test
  */
-public class SearchTest extends RemoteTestRunner {
+public class SearchTest {
 
     WebDriver driver;
     SoftAssert m_assert;
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void autoSuggestLocation(String domain) {
-        driver = getDriver();
+    public void autoSuggestLocation(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         String location = "1000";
@@ -40,12 +39,12 @@ public class SearchTest extends RemoteTestRunner {
         Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void autoSuggestName(String domain) {
-        driver = getDriver();
+    public void autoSuggestName(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         String name = "Smith";
@@ -59,13 +58,13 @@ public class SearchTest extends RemoteTestRunner {
     }
 
     //Results contain the search name
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void searchByName(String domain) {
+    public void searchByName(String url) {
         m_assert = new SoftAssert();
-        driver = getDriver();
+        driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         String name = "Smith";
@@ -84,12 +83,12 @@ public class SearchTest extends RemoteTestRunner {
         m_assert.assertAll();
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void searchBySpecialty(String domain) {
-        driver = getDriver();
+    public void searchBySpecialty(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         homePage.header.clickSpecialtyLink();
@@ -104,12 +103,12 @@ public class SearchTest extends RemoteTestRunner {
         Reporter.log(results.getResultsCount() + " for search: " + spec);
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void selectSubSpecialtySearch(String domain) {
-        driver = getDriver();
+    public void selectSubSpecialtySearch(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         homePage.header.clickSpecialtyLink();
@@ -126,12 +125,12 @@ public class SearchTest extends RemoteTestRunner {
 
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void selectSubConditionSearch(String domain) {
-        driver = getDriver();
+    public void selectSubConditionSearch(String url) {
+    	driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         homePage.header.clickConditionLink();
@@ -148,14 +147,14 @@ public class SearchTest extends RemoteTestRunner {
 
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test (dataProvider = "zipCodes")
-    public void compareResultsToProfile(String zipCodes, String domain) {
+    public void compareResultsToProfile(String zipCodes, String url) {
         m_assert = new SoftAssert();
 
-        driver = getDriver();
+        driver = DriverManager.getDriver();
 
-        driver.get(getUrl(domain));
+        driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         String name = "Smith";

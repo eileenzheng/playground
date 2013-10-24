@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
 
+import com.vitals.DriverManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +16,8 @@ public class HeaderPage {
 
     private WebDriver driver;
 
-    public HeaderPage(WebDriver driver) {
-        this.driver = driver;
+    public HeaderPage() {
+    	driver = DriverManager.getDriver();
     }
 
     @FindBy(css=".home-logo.current>img")

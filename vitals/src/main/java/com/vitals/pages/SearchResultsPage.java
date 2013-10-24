@@ -1,5 +1,6 @@
 package com.vitals.pages;
 
+import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,8 +20,8 @@ public class SearchResultsPage {
     public final PatientLinkCenterAd centerAd;
     public final PatientLinkRrAd rrAd;
 
-    public SearchResultsPage(WebDriver driver) {
-        this.driver = driver;
+    public SearchResultsPage() {
+    	driver = DriverManager.getDriver();
         this.header = PageFactory.initElements(driver, HeaderPage.class);
         this.footer = PageFactory.initElements(driver, FooterPage.class);
         this.refinement = PageFactory.initElements(driver, SearchResultsRefinement.class);

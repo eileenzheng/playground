@@ -6,12 +6,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.vitals.DriverManager;
+
 public class PatientLinkBookModal {
 	private WebDriver driver;
 	private WebDriverWait wait;
 	
-	public PatientLinkBookModal (WebDriver driver) {
-		this.driver = driver;
+	public PatientLinkBookModal () {
+		driver = DriverManager.getDriver();
 		this.wait = new WebDriverWait(driver, 5, 300);
 	}
 	

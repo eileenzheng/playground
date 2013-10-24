@@ -5,21 +5,21 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import com.vitals.DriverManager;
 import com.vitals.pages.PatientGuideLandingPage;
 import com.vitals.pages.PatientGuidePage;
-import com.vitals.runners.RemoteTestRunner;
 
-public class PatientGuideTest extends RemoteTestRunner {
+public class PatientGuideTest {
     
     WebDriver driver;
     static final String pglink = "/patient-education";
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void checkBreadCrumb(String domain) {
+    public void checkBreadCrumb(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain) + pglink);
+    	driver = DriverManager.getDriver();
+        driver.get(url + pglink);
         
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         
@@ -27,12 +27,12 @@ public class PatientGuideTest extends RemoteTestRunner {
                 "Patient Guide landing page did not load successfully.");
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void clickLearnMore(String domain) {
+    public void clickLearnMore(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain) + pglink);
+    	driver = DriverManager.getDriver();
+        driver.get(url + pglink);
         
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         pglanding.clickLearnMore();
@@ -40,12 +40,12 @@ public class PatientGuideTest extends RemoteTestRunner {
         testPatientGuide();
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void clickTopGuide(String domain) {
+    public void clickTopGuide(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain) + pglink);
+    	driver = DriverManager.getDriver();
+        driver.get(url + pglink);
         
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         pglanding.clickTopGuide();
@@ -53,12 +53,12 @@ public class PatientGuideTest extends RemoteTestRunner {
         testPatientGuide();
     }
 
-    @Parameters({"domain"})
+    @Parameters({"url"})
     @Test
-    public void clickAtoZGuide(String domain) {
+    public void clickAtoZGuide(String url) {
         
-        driver = getDriver();
-        driver.get(getUrl(domain) + pglink);
+        driver = DriverManager.getDriver();
+        driver.get(url + pglink);
         
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         pglanding.clickAtoZGuide();

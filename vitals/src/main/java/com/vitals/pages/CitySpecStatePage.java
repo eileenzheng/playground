@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.vitals.DriverManager;
+
 import java.util.List;
 
 public class CitySpecStatePage {
@@ -12,8 +14,8 @@ public class CitySpecStatePage {
 	public final HeaderPage header;
 	public final FooterPage footer;
 
-	public CitySpecStatePage (WebDriver driver) {
-		this.driver = driver;
+	public CitySpecStatePage () {
+		driver = DriverManager.getDriver();
 		this.header = PageFactory.initElements(driver, HeaderPage.class);
 		this.footer = PageFactory.initElements(driver, FooterPage.class);
 	}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
+    <parameter name="url" value="http://www.vitals.com"/>
+    
+    <listeners>
+        <listener class-name="com.vitals.WebDriverListener"/>
+    </listeners>
+    
+    <test name="Search Specfic Tests">
+        <classes>
+            <class name="com.vitals.test.SearchTest"/>
+        </classes>
+    </test>
+    <test name="Profile Specific Tests">
+        <classes>
+            <class name="com.vitals.test.ProfileTest"/>
+        </classes>
+    </test>
+    <test name="CitySpec Specific Tests">
+        <classes>
+            <class name="com.vitals.test.CitySpecTest"/>
+        </classes>
+    </test>
+    <test name="PatientGuide Specific Tests">
+        <classes>
+            <class name="com.vitals.test.PatientGuideTest"/>
+        </classes>
+    </test>
+    <test name="Patientlink Specific Tests">
+        <classes>
+            <class name="com.vitals.test.PatientLinkTest"/>
+        </classes>
+    </test>
+</suite>
