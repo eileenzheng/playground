@@ -133,7 +133,7 @@ public class ProfileStepDefs {
     }
 
     @And("^the (professional|facility) has at least (\\d+) award$")
-    public void the_professional_has_at_least_award(int arg1) throws Throwable {
+    public void the_professional_has_at_least_award(String type, int awdCount) throws Throwable {
 
     }
 
