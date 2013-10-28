@@ -1,46 +1,9 @@
 @facility
 Feature: Facility Profile
 
-  In order to demonstrate excellence in general and in specific arenas
-  As a member I want to see awards for a facility
-  So that I can feel confident that a facility is good and understand specific areas where they excel
-
   Background:
 
-    Given I am viewing a facility with awards
-    Then I will see the awards module
-
-  @PUI-260 @awards
-  Scenario: Facility Awards More Than Three Awards
-
-    When up to 3 awards will display on the module
-    And I will see a link that reads "View X More Awards"
-
-  @PUI-260 @awards
-  Scenario: Facility Awards Visible Information
-
-    Given the header displays as "Awards"
-    Then I will see the award name
-    And I will see the award logo
-
-  @PUI-260 @awards
-  Scenario: Facility Awards associated urls with logo
-
-    When a url has an associated link
-    Then the link will be with the logo
-
-  @PUI-260 @awards
-  Scenario: Facility Awards associated urls with no logo
-
-    When a url has an associated link
-    Then the link will be with the award name
-
-  @PUI-260 @PUI-262 @awards
-  Scenario: Facility Awards grouping
-
-    Given I am viewing a facility with awards
-    Then I will see the awards module
-    And the awards are grouped by category
+    Given I am viewing a facility with id 1000012717
 
   @PUI-303 @specialties
   Scenario: Facility Specialties
@@ -74,7 +37,6 @@ Feature: Facility Profile
     I want to summary information on a facility and its location
     so that i can easily decide if i am interested in the facility.
 
-    Given I am viewing a facility
     Then I will see the facility name
     And I will see the facility address
     And I will see a get directions link

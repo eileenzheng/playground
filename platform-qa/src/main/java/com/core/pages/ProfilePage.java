@@ -88,8 +88,8 @@ public class ProfilePage extends BasePage {
     }
 
     public String getViewMoreLinkText() {
-        if (awardsModule().links(cssSelector(".panel-body>ul>li[ng-show]>a")).size() > 0) {
-            return awardsModule().link(cssSelector(".panel-body>ul>li[ng-show]>a")).getText().toString().trim();
+        if (awardsModule().spans(cssSelector(".panel-body>.nextLink>span")).size() > 0) {
+            return awardsModule().spans(cssSelector(".panel-body>ul>li[ng-show]>a")).getText().toString().trim();
         } else {
             return "";
         }
