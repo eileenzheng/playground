@@ -96,5 +96,40 @@ Feature: Professional Profile
     | Capital Regional Medical Center   | 2626 Capital Medical Blvd, Tallahassee, FL 32308-4402 |
 
 
+  #PUI-358
+  @staff-languages
+  Scenario: Visible fields for languages
+    Given the languages module is visible
+    Then I will see the module title is "Foreign Languages Spoken"
+    And I will see a "Languages Spoken by Staff" label
+    And I will see up to 5 languages
+    And I will see the languages listed alphabetically
+    And I will see the following languages:
+      | Greek   |
+      | Spanish |
 
+  #PUI-485
+  @location_amenities
+  Scenario: Location Amenities Visible Elements
+  In order to make members aware of important amenities offered at a location
+  As a member
+  I want to see location amenities
+  So I can consider valuable amenities when deciding which location to see a facility at
+
+    Given the amenity module is visible
+    Then I will see the module title is "Services at this Location"
+    And I will see "Handicap Accessible"
+  #    And I will see "Electronic Prescriptions"
+  #    And I will see "Electronic Health Record"
+    And I will see an amenity icon to the left of the name
+
+  @ignore
+  Scenario Outline:
+    Given I am viewing a professional with id <number>
+    Then I will see the following amenity <amenity>
+    | number | amenity                   |
+    | 123123 | Handicap Accessible       |
+    | 374734 | Electronic Prescriptions  |
+    | 872348 | Electronic Health Records |
+    | 478293 | Public Transportation     |
 
