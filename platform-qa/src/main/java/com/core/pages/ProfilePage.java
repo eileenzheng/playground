@@ -44,7 +44,7 @@ public class ProfilePage extends BasePage {
     }
 
     public Boolean profileAddressIsPresent() {
-        String jsReturn = (String) ((JavascriptExecutor) webDriver()).executeScript("return document.querySelector('.address').childNodes[0].textContent === null ? '' : document.querySelector('.address').childNodes[0].textContent");
+        String jsReturn = (String) ((JavascriptExecutor) webDriver()).executeScript("return document.querySelector('.address') === null ? '' : document.querySelector('.address').childNodes[0].textContent");
         return !jsReturn.equals("");
     }
 
