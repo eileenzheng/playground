@@ -54,5 +54,82 @@ Feature: Professional Profile
     | Cervical Cancer Screening   | 13%     | Above Average |
     | Colorectal Cancer Screening | 4%      | Above Average |
 
+  #PUI-272
+  @multiple-locations
+  Scenario: Professional with multiple locations
+    In order to demonstrate that a professional practices at multiple locations
+    As a member
+    I want to see all locations that I professional practices at
+    so that I can find the most convenient location to see the professional.
 
+    Given the professional has multiple locations
+    Then I will see a link that reads "X more locations"
+
+  @multiple-locations
+  Scenario: View multiple locations list
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And I will see a link that reads "View profile at this location"
+
+  @multiple-locations
+  Scenario: Visible fields for each location
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And I will see a location name
+    And I will see the location address
+    And I will see a numbered map pin
+
+  @multiple-locations
+  Scenario Outline: Multiple location data check
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And the name will be <Name>
+    And the address will be <Address>
+
+    Examples: Extra locations
+
+    | Name                              | Address                                               |
+    | Doctors Memorial Hospital - Perry | 333 N. Byron Butler Pkwy, Perry, FL 32347-2300        |
+    | Capital Regional Medical Center   | 2626 Capital Medical Blvd, Tallahassee, FL 32308-4402 |
+
+
+  #PUI-358
+  @staff-languages
+  Scenario: Visible fields for languages
+    Given the languages module is visible
+    Then I will see the module title is "Foreign Languages Spoken"
+    And I will see a "Languages Spoken by Staff" label
+    And I will see up to 5 languages
+    And I will see the languages listed alphabetically
+    And I will see the following languages:
+      | Greek   |
+      | Spanish |
+
+  #PUI-485
+  @location_amenities
+  Scenario: Location Amenities Visible Elements
+  In order to make members aware of important amenities offered at a location
+  As a member
+  I want to see location amenities
+  So I can consider valuable amenities when deciding which location to see a facility at
+
+    Given the amenity module is visible
+    Then I will see the module title is "Services at this Location"
+    And I will see "Handicap Accessible"
+  #    And I will see "Electronic Prescriptions"
+  #    And I will see "Electronic Health Record"
+    And I will see an amenity icon to the left of the name
+
+  @ignore
+  Scenario Outline:
+    Given I am viewing a professional with id <number>
+    Then I will see the following amenity <amenity>
+    | number | amenity                   |
+    | 123123 | Handicap Accessible       |
+    | 374734 | Electronic Prescriptions  |
+    | 872348 | Electronic Health Records |
+    | 478293 | Public Transportation     |
 

@@ -9,7 +9,7 @@ Feature: Facility Profile Awards
 
     Given I am viewing a facility with id 1000012717
     Then I will see the awards module
-    And the header displays as "Awards"
+    And the header displays as "Awards & Recognitions"
     And I will see the award name
     And the facility has at least 1 award
 #    And I will see the award logo

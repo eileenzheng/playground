@@ -60,6 +60,3 @@ Feature: Facility Profile
 #    And I will see "Electronic Prescriptions"
 #    And I will see "Electronic Health Record"
     And I will see an amenity icon to the left of the name
-
-
-
