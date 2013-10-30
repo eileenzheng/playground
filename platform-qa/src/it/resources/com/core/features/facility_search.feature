@@ -47,7 +47,8 @@ Feature: Facility Search
     And the specialties will only be displayed once
     And the specialties will be displayed in order of in scope data to out of scope data
 
-  @PUI-206
+
+  @ignore @PUI-206
   Scenario: Facility Search Results
 
     As a member I want to see results from my search
