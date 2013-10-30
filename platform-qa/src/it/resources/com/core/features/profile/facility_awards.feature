@@ -25,7 +25,7 @@ Feature: Facility Profile Awards
 
     Given a facility has more than 3 awards
     Then up to 3 awards will display on the module
-    And I will see a link that reads "View X More Awards"
+    And I will see a link that reads "View Awards & Recognitions details..."
 
   #PUI-260
   Scenario: Facility Awards associated urls with logo
