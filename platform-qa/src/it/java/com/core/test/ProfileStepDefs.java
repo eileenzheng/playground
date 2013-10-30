@@ -37,13 +37,19 @@ public class ProfileStepDefs {
     }
 
     @Given("^a (professional|facility) has more than (\\d+) awards$")
-    public void a_provider_has_more_than_awards(int arg1) throws Throwable {
+    public void a_provider_has_more_than_awards(String type, int awdCount) throws Throwable {
 
     }
 
     @Given("^a facility has less than (\\d+) awards$")
     public void a_facility_has_less_than_awards(int arg1) throws Throwable {
         assertThat(profilePage.awardsModuleCompressedCount(),lessThanOrEqualTo(arg1));
+    }
+
+    @Given("^the amenity module is visible$")
+    public void the_amenity_module_is_visible() throws Throwable {
+        assertThat("Amenities Module is not present on " + profilePage.getCurrentUrl(),
+                profilePage.amenitiesModuleIsPresent(), is(true));
     }
 
     @Then("^I will see the awards module$")
@@ -65,6 +71,11 @@ public class ProfileStepDefs {
     @Then("^up to (\\d+) awards will display on the module$")
     public void up_to_awards_will_display_on_the_module(int arg1) {
         assertThat(profilePage.awardsModuleCompressedCount(),is(lessThanOrEqualTo(arg1)));
+    }
+
+    @Then("^I will see a link that reads \"([^\"]*)\"$")
+    public void I_will_see_a_link_that_reads(String arg1) {
+        assertThat(profilePage.getViewMoreLinkText(),equalTo(arg1));
     }
 
     @When("^I click See Awards and Recognitions$")
@@ -118,12 +129,6 @@ public class ProfileStepDefs {
         assertThat("Expected " + arg1 + " to be the module title. Title is currently: " + title, title, equalTo(arg1));
     }
 
-
-    @Then("^I will see a link that reads \"([^\"]*)\"$")
-    public void I_will_see_a_link_that_reads(String arg1) {
-        assertThat(profilePage.getViewMoreLinkText(),equalTo(arg1));
-    }
-
     @And("^I will see the award name$")
     public void I_will_see_the_award_name() {
         for (FluentWebElement el : profilePage.awardsList()) {
@@ -137,4 +142,26 @@ public class ProfileStepDefs {
 
     }
 
+    @Then("^I will see the module title is \"([^\"]*)\"$")
+    public void I_will_see_the_module_title_is(String arg1) throws Throwable {
+        assertThat(profilePage.amenitiesModuleTitle(),equalTo(arg1));
+    }
+
+    @And("^I will see \"([^\"]*)\"$")
+    public void I_will_see(String arg1) throws Throwable {
+        Boolean flag = false;
+        for (FluentWebElement fl : profilePage.amenitiesList()) {
+            if (profilePage.amenityName(fl).equals(arg1)) flag = true;
+            if (flag) break;
+        }
+        assertThat("Amenity '" + arg1 + "' was not found on " + profilePage.getCurrentUrl(),flag,is(true));
+    }
+
+    @And("^I will see an amenity icon to the left of the name$")
+    public void I_will_see_an_amenity_icon_to_the_left_of_the_name() throws Throwable {
+        for (FluentWebElement fl : profilePage.amenitiesList()) {
+            assertThat("Amenity icon missing for " + profilePage.amenityName(fl) + " found on " + profilePage.getCurrentUrl(),
+                    profilePage.amenityIconIsPresent(fl),is(true));
+        }
+    }
 }

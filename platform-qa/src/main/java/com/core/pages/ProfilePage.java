@@ -39,8 +39,13 @@ public class ProfilePage extends BasePage {
         return imgs(cssSelector(".image>img")).size() > 0;
     }
 
+    public String profileAddressText() {
+        return (String) ((JavascriptExecutor) webDriver()).executeScript("return document.querySelector('.address').childNodes[0].textContent");
+    }
+
     public Boolean profileAddressIsPresent() {
-        return divs(cssSelector(".address>.ng-binding")).size() > 0;
+        String jsReturn = (String) ((JavascriptExecutor) webDriver()).executeScript("return document.querySelector('.address').childNodes[0].textContent === null ? '' : document.querySelector('.address').childNodes[0].textContent");
+        return !jsReturn.equals("");
     }
 
     public Boolean profileMapAndDirectionsLinkIsPresent() {
@@ -89,7 +94,7 @@ public class ProfilePage extends BasePage {
 
     public String getViewMoreLinkText() {
         if (awardsModule().spans(cssSelector(".panel-body>.nextLink>span")).size() > 0) {
-            return awardsModule().spans(cssSelector(".panel-body>ul>li[ng-show]>a")).getText().toString().trim();
+            return awardsModule().spans(cssSelector(".panel-body>.nextLink>span")).getText().toString().trim();
         } else {
             return "";
         }
@@ -136,5 +141,26 @@ public class ProfilePage extends BasePage {
     public String identifierText (FluentWebElement fl) {
         return fl.getText().toString().trim();
     }
+
+    public Boolean amenitiesModuleIsPresent() {
+        return divs(cssSelector(".amenities")).size() > 0;
+    }
+
+    public String amenitiesModuleTitle() {
+        return h4(cssSelector(".amenities>.panel-heading>h4")).getText().toString().trim();
+    }
+
+    public List<FluentWebElement> amenitiesList() {
+        return lis(cssSelector(".amenities>.panel-body>ul>li[class*=repeat-list]"));
+    }
+
+    public String amenityName(FluentWebElement fl) {
+        return fl.span(cssSelector(".ng-scope")).getText().toString().trim();
+    }
+
+    public Boolean amenityIconIsPresent(FluentWebElement fl) {
+        return fl.spans(cssSelector("span[class*=icon]")).size() > 0;
+    }
+
 
 }

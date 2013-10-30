@@ -12,12 +12,14 @@ Feature: Professional Profile
     I want to see specialties for a Professional
     So that I can decide if a Professional has expertise in an area of care that is important to me
 
-    Given I am viewing a Professional with at least 1 Professional
+    Given I am viewing a Professional with at least 1 Specialty
     Then I will see the Professional specialties module
     And the module header displays as "Specialties & Expertise"
     And specialties will be listed in alphabetical order
 
-
+  #PUI-350
+  @quality-module
+  Scenario:
 
 
 

@@ -46,5 +46,20 @@ Feature: Facility Profile
     And I will see an identifier label and number
     And I will see a facility fax number
 
+  #PUI-301
+  @location_amenities
+  Scenario: Location Amenities Visible Elements
+    In order to make members aware of important amenities offered at a location
+    As a member
+    I want to see location amenities
+    So I can consider valuable amenities when deciding which location to see a facility at
+
+    Given the amenity module is visible
+    Then I will see the module title is "Services at this Location"
+    And I will see "Handicap Accessible"
+#    And I will see "Electronic Prescriptions"
+#    And I will see "Electronic Health Record"
+    And I will see an amenity icon to the left of the name
+
 
 
