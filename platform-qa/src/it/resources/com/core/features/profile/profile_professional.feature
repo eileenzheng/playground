@@ -54,5 +54,47 @@ Feature: Professional Profile
     | Cervical Cancer Screening   | 13%     | Above Average |
     | Colorectal Cancer Screening | 4%      | Above Average |
 
+  #PUI-272
+  @multiple-locations
+  Scenario: Professional with multiple locations
+    In order to demonstrate that a professional practices at multiple locations
+    As a member
+    I want to see all locations that I professional practices at
+    so that I can find the most convenient location to see the professional.
+
+    Given the professional has multiple locations
+    Then I will see a link that reads "X more locations"
+
+  @multiple-locations
+  Scenario: View multiple locations list
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And I will see a link that reads "View profile at this location"
+
+  @multiple-locations
+  Scenario: Visible fields for each location
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And I will see a location name
+    And I will see the location address
+    And I will see a numbered map pin
+
+  @multiple-locations
+  Scenario Outline: Multiple location data check
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And the name will be <Name>
+    And the address will be <Address>
+
+    Examples: Extra locations
+
+    | Name                              | Address                                               |
+    | Doctors Memorial Hospital - Perry | 333 N. Byron Butler Pkwy, Perry, FL 32347-2300        |
+    | Capital Regional Medical Center   | 2626 Capital Medical Blvd, Tallahassee, FL 32308-4402 |
+
+
 
 
