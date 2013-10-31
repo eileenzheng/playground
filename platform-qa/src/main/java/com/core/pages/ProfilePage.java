@@ -49,7 +49,7 @@ public class ProfilePage extends BasePage {
     }
 
     public Boolean profileMapAndDirectionsLinkIsPresent() {
-        return divs(cssSelector(".address>.ng-binding>a")).size() > 0;
+        return divs(cssSelector(".address.ng-binding>a")).size() > 0;
     }
 
     public Boolean profilePhoneNumberIsPresent() {
