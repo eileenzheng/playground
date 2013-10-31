@@ -133,3 +133,50 @@ Feature: Professional Profile
     | 872348 | Electronic Health Records |
     | 478293 | Public Transportation     |
 
+  #PUI-339 PUI-642 PUI-644
+  @affiliations
+  Scenario: Affiliations Module is visible
+  In order to help members find a provider in their preferred medical group or hospital
+  As a member
+  I want to see medical group and hospital affiliations
+  So that I can find a professional that practices at my preferred medical group or hospital
+
+    Given the affiliations module is visible
+    Then I will see the module title is "Affiliations"
+    And I will see a subheading called "Hospital Affiliations"
+    And I will see a subheading called "Medical Groups"
+    And I will see a link that reads "See more affiliations..."
+
+  #PUI-339 PUI-642 PUI-644
+  @ignore @affiliations
+  Scenario Outline:
+    Given I am viewing a professional with id <number>
+    Then I will see the following hospital affiliation <hos_affiliations>
+    And the "hospital" will be located in <city>
+
+    Examples: Hospital Affiliations
+      | number | hos_affiliations                   | city         |
+      | 123123 | The University Of Il Medical Ctr   | Chicago, IL  |
+      | 123123 | Elmhurst Mem Hospital Main Campus  | Elmhurst, IL |
+
+    Examples: No Hospital Affiliations
+      | number | hos_affiliations                   | city |
+      | 999999 | None                               |      |
+      | 888888 | None                               |      |
+
+  #PUI-339 PUI-642 PUI-644
+  @ignore @affiliations
+  Scenario Outline:
+    Given I am viewing a professional with id <number>
+    Then I will see the following group affiliation <group_affiliations>
+    And the "group" will be located in <city>
+
+    Examples: Group Affiliations
+      | number | group_affiliations                   | city         |
+      | 123123 | The University Of Il Medical Ctr     | Chicago, IL  |
+      | 123123 | Elmhurst Mem Hospital Main Campus    | Elmhurst, IL |
+
+    Examples: No Group Affiliations
+      | number | group_affiliations                   | city |
+      | 999999 | None                                 |      |
+      | 888888 | None                                 |      |
