@@ -3,6 +3,7 @@ package com.vitals.test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
@@ -18,10 +19,17 @@ public class ProfileTest {
     static final String drProfile = "/doctors/Dr_John_Nemunaitis/profile";
     static final String dentistProfile = "/dentists/Dr_Grace_Smart/profile";
     static final String drVideoProfile = "/doctors/Dr_John_Nemunaitis/video";
-
+    
+    String url;
+    
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) throws Exception {
+        this.url = url;
+    }
+
     @Test
-    public void doctorSeoProfileTest(String url) {
+    public void doctorSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url + seoDrProfile);
@@ -32,9 +40,8 @@ public class ProfileTest {
                 "SEO Doctor Page did not load successfully" + seoProfile);
     }
 
-    @Parameters({"url"})
     @Test
-    public void dentistSeoProfileTest(String url) {
+    public void dentistSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url + seoDentistProfile);
@@ -45,9 +52,8 @@ public class ProfileTest {
                 "SEO Dentist Page did not load successfully: " + seoDentistProfile);
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewFullProfileSummaryTest(String url) {
+    public void viewFullProfileSummaryTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -60,9 +66,8 @@ public class ProfileTest {
                 "Summary page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewFullProfileReviewsTest(String url) {
+    public void viewFullProfileReviewsTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -77,9 +82,8 @@ public class ProfileTest {
                 "Patient Reviews page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewFullProfileCredentialsTest(String url) {
+    public void viewFullProfileCredentialsTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -94,9 +98,8 @@ public class ProfileTest {
 
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewLocationsAvailabilityTest(String url) {
+    public void viewLocationsAvailabilityTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -111,9 +114,8 @@ public class ProfileTest {
                 "Locations availability page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewAcceptedInsuranceTest(String url) {
+    public void viewAcceptedInsuranceTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -128,9 +130,8 @@ public class ProfileTest {
                 "Accepted insurance page was not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"url"})
     @Test
-    public void viewVideoProfileTest(String url) {
+    public void viewVideoProfileTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -142,9 +143,8 @@ public class ProfileTest {
         Assert.assertTrue(profilePage.drVideoIsVisible(), "Dr Video is not visible: " + driver.getCurrentUrl());
     }
 
-    @Parameters({"url"})
     @Test
-    public void redirectToSeoProfileTest(String url) {
+    public void redirectToSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url + drProfile);
@@ -156,9 +156,8 @@ public class ProfileTest {
 
     }
 
-    @Parameters({"url"})
     @Test
-    public void seoToFullProfileTest(String url) {
+    public void seoToFullProfileTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url + drProfile);

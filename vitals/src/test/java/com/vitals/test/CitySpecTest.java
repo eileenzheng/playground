@@ -3,6 +3,7 @@ package com.vitals.test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
@@ -14,10 +15,16 @@ import com.vitals.pages.HomePage;
 public class CitySpecTest{
     
     WebDriver driver;
-
+    String url;
+    
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) throws Exception {
+        this.url = url;
+    }
+
     @Test
-    public void testPageTitles(String url) {
+    public void testPageTitles() {
         
     	driver = DriverManager.getDriver();
         driver.get(url);
@@ -38,9 +45,8 @@ public class CitySpecTest{
                 "City Page title did not match.");
     }
 
-    @Parameters({"url"})
     @Test
-    public void testCityPage(String url) {
+    public void testCityPage() {
         
     	driver = DriverManager.getDriver();
         driver.get(url);

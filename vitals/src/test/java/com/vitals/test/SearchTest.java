@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -23,10 +24,16 @@ public class SearchTest {
 
     WebDriver driver;
     SoftAssert m_assert;
-
+    String url;
+    
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) throws Exception {
+        this.url = url;
+    }
+
     @Test
-    public void autoSuggestLocation(String url) {
+    public void autoSuggestLocation() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -39,9 +46,8 @@ public class SearchTest {
         Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
     }
 
-    @Parameters({"url"})
     @Test
-    public void autoSuggestName(String url) {
+    public void autoSuggestName() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -58,9 +64,8 @@ public class SearchTest {
     }
 
     //Results contain the search name
-    @Parameters({"url"})
     @Test
-    public void searchByName(String url) {
+    public void searchByName() {
         m_assert = new SoftAssert();
         driver = DriverManager.getDriver();
 
@@ -68,7 +73,7 @@ public class SearchTest {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
         String name = "Smith";
-        String location = "10001";
+        String location = "10036";
 
         homePage.header.enterName(name);
         homePage.header.enterLocation(location);
@@ -83,9 +88,8 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
-    @Parameters({"url"})
     @Test
-    public void searchBySpecialty(String url) {
+    public void searchBySpecialty() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -94,6 +98,7 @@ public class SearchTest {
         homePage.header.clickSpecialtyLink();
         String spec = "Cardiologist";
         homePage.header.enterSpecialty(spec);
+        homePage.header.clickFirstMenuItem();
 
         Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
         Reporter.log(homePage.header.getCurrentPopulatedLocation());
@@ -103,9 +108,8 @@ public class SearchTest {
         Reporter.log(results.getResultsCount() + " for search: " + spec);
     }
 
-    @Parameters({"url"})
     @Test
-    public void selectSubSpecialtySearch(String url) {
+    public void selectSubSpecialtySearch() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -125,9 +129,8 @@ public class SearchTest {
 
     }
 
-    @Parameters({"url"})
     @Test
-    public void selectSubConditionSearch(String url) {
+    public void selectSubConditionSearch() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -147,9 +150,8 @@ public class SearchTest {
 
     }
 
-    @Parameters({"url"})
     @Test (dataProvider = "zipCodes")
-    public void compareResultsToProfile(String zipCodes, String url) {
+    public void compareResultsToProfile(String zipCodes) {
         m_assert = new SoftAssert();
 
         driver = DriverManager.getDriver();
@@ -181,11 +183,11 @@ public class SearchTest {
     public Object[][] generateZipCodes() {
         return new Object[][] {
                 {"18102"},
-                {"18015"},
+                /*{"18015"},
                 {"16434"},
                 {"02201"},
                 {"10001"},
-                {"07801"},
+                {"07801"},*/
                 {"90210"}
         };
     }

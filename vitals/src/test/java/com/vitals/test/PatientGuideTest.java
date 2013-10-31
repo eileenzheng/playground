@@ -3,6 +3,7 @@ package com.vitals.test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
@@ -13,10 +14,17 @@ public class PatientGuideTest {
     
     WebDriver driver;
     static final String pglink = "/patient-education";
-
+    
+    String url;
+    
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) throws Exception {
+        this.url = url;
+    }
+
     @Test
-    public void checkBreadCrumb(String url) {
+    public void checkBreadCrumb() {
         
     	driver = DriverManager.getDriver();
         driver.get(url + pglink);
@@ -27,9 +35,8 @@ public class PatientGuideTest {
                 "Patient Guide landing page did not load successfully.");
     }
 
-    @Parameters({"url"})
     @Test
-    public void clickLearnMore(String url) {
+    public void clickLearnMore() {
         
     	driver = DriverManager.getDriver();
         driver.get(url + pglink);
@@ -40,9 +47,8 @@ public class PatientGuideTest {
         testPatientGuide();
     }
 
-    @Parameters({"url"})
     @Test
-    public void clickTopGuide(String url) {
+    public void clickTopGuide() {
         
     	driver = DriverManager.getDriver();
         driver.get(url + pglink);
@@ -53,9 +59,8 @@ public class PatientGuideTest {
         testPatientGuide();
     }
 
-    @Parameters({"url"})
     @Test
-    public void clickAtoZGuide(String url) {
+    public void clickAtoZGuide() {
         
         driver = DriverManager.getDriver();
         driver.get(url + pglink);
