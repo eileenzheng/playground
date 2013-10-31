@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Staging Regression" verbose="5" parallel="tests" thread-count="2">
-    <parameter name="url" value="http://staging.vitals.com"/>
+<suite name="Vitals QA Regression" verbose="5" parallel="tests" thread-count="2">
+    <parameter name="url" value="http://qa.mdxdev.net"/>
     <parameter name="testLocation" value="remoteWD"/>
 
     <listeners>

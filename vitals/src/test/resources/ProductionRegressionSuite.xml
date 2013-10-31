@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="1">
     <parameter name="url" value="http://www.vitals.com"/>
-    
+    <parameter name="testLocation" value="remoteWD"/>
+
     <listeners>
         <listener class-name="com.vitals.WebDriverListener"/>
     </listeners>
@@ -15,8 +16,8 @@
         <classes>
             <class name="com.vitals.test.ProfileTest"/>
         </classes>
-     </test>
-   <test name="CitySpec Specific Tests">
+    </test>
+    <test name="CitySpec Specific Tests">
         <classes>
             <class name="com.vitals.test.CitySpecTest"/>
         </classes>

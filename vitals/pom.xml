@@ -38,6 +38,19 @@
                 <suite.filename>ProductionRegressionSuite.xml</suite.filename>
             </properties>
         </profile>
+
+        <profile>
+            <id>vitals_qa</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>qa</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>QARegressionSuite.xml</suite.filename>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
@@ -93,10 +106,6 @@
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.detro.ghostdriver</groupId>
-            <artifactId>phantomjsdriver</artifactId>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
