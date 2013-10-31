@@ -117,7 +117,7 @@ Feature: Professional Profile
   So I can consider valuable amenities when deciding which location to see a facility at
 
     Given the amenity module is visible
-    Then I will see the module title is "Services at this Location"
+    Then I will see the module title is "Services at this location"
     And I will see "Handicap Accessible"
   #    And I will see "Electronic Prescriptions"
   #    And I will see "Electronic Health Record"
