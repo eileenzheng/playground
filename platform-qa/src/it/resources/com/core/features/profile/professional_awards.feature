@@ -19,7 +19,7 @@ Feature: Professional Profile Awards
 
     Given a professional has more than 3 awards
     Then up to 3 awards will display on the module
-    And I will see a link that reads "View X More Awards"
+    And I will see a link that reads "See more Awards & Recognitions..."
 
   #PUI-355
   Scenario: Professional Awards associated urls with logo
