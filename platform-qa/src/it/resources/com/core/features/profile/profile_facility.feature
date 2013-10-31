@@ -55,7 +55,7 @@ Feature: Facility Profile
     So I can consider valuable amenities when deciding which location to see a facility at
 
     Given the amenity module is visible
-    Then I will see the module title is "Services at this location"
+    Then I will see the module title is "Location Amenities"
     And I will see "Handicap Accessible"
 #    And I will see "Electronic Prescriptions"
 #    And I will see "Electronic Health Record"
