@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--<suite name="ParallelTests" verbose="5" parallel="methods" thread-count="2">-->
-<suite name="UCHC Production Regression" verbose="5">
-    <parameter name="url" value="http://www.ucomparehealthcare.com"/>
+<suite name="UCHC Staging Regression" verbose="5">
+    <parameter name="url" value="http://qa-vit-1595-ip.qa.uchc.svcs.mdx.med/"/>
     <parameter name="testLocation" value="remoteWD"/>
     <listeners>
         <listener class-name="com.uchc.WebDriverListener"/>

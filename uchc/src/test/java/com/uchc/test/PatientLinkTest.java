@@ -47,8 +47,8 @@ public class PatientLinkTest {
     }
     
     public static void testAd(PatientLinkAd ad, WebDriver driver) {
-    	
-    	Assert.assertTrue(ad.getSize()>0, "Ad is not showing up!");
+       
+       Assert.assertTrue(ad.getSize()>0, "Ad is not showing up!");
         
         for (int i=0; i<ad.getSize(); i++) {
             
