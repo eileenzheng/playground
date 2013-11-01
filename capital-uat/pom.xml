@@ -14,19 +14,6 @@
 
     <profiles>
         <profile>
-            <id>capital_sauce</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>sauce</value>
-                </property>
-            </activation>
-            <properties>
-                <suite.filename>SauceSuite.xml</suite.filename>
-            </properties>
-        </profile>
-
-        <profile>
             <id>capital_uat</id>
             <activation>
                 <property>
