@@ -93,6 +93,10 @@
             <artifactId>guice</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.detro.ghostdriver</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
         </dependency>
@@ -115,10 +119,6 @@
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.detro.ghostdriver</groupId>
-            <artifactId>phantomjsdriver</artifactId>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -168,7 +168,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
-                        <org.uncommons.reportng.title>Vitals QA Test Report</org.uncommons.reportng.title>
+                        <org.uncommons.reportng.title>Capital Test Report</org.uncommons.reportng.title>
                     </systemPropertyVariables>
                     <properties>
                         <property>
@@ -181,7 +181,7 @@
                         </property>
                         <property>
                             <name>outputDir</name>
-                            <value>${project.basedir}/target/surefire-reports</value>
+                            <value>${project.build.directory}/surefire-reports/html</value>
                         </property>
                     </properties>
                     <suiteXmlFiles>
