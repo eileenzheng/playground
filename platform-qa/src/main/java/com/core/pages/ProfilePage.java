@@ -65,16 +65,13 @@ public class ProfilePage extends BasePage {
         return height + "," + width;
     }
 
-    public FluentWebElement doctorSpecialtyModule() {
-        return div(cssSelector(".specialties"));
+    public Boolean specialtiesModuleIsPresent() {
+        return divs(cssSelector(".specialties")).size() > 0;
     }
 
-    public String doctorSpecialtyModuleHeaderText() {
-        return doctorSpecialtyModule().h4(cssSelector("panel-title")).getText().toString().trim();
+    public FluentWebElement specialtiesModule() {
+        return div(cssSelector(".specialties"));
     }
-//    public FluentWebElement doctorSpecialtyModuleList() {
-//        return FluentWebElement
-//    }
 
     public FluentWebElement awardsModule() {
         return div(cssSelector(".awards"));

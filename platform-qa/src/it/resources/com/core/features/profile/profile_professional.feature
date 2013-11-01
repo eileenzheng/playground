@@ -4,8 +4,8 @@ Feature: Professional Profile
   Background:
     Given I am viewing a professional with id 1000000000
 
-  #PUI-303
-  @ignore @specialties
+  #PUI-335
+  @specialties
   Scenario: Professional Specialties
 
     In order to demonstrate to members what a Professional specializes in
@@ -13,10 +13,21 @@ Feature: Professional Profile
     I want to see specialties for a Professional
     So that I can decide if a Professional has expertise in an area of care that is important to me
 
-    Given I am viewing a Professional with at least 1 Specialty
-    Then I will see the Professional specialties module
-    And the module header displays as "Specialties & Expertise"
-    And specialties will be listed in alphabetical order
+    Given the specialties module is visible
+    Then I will see the module title is "Specialties & Expertise"
+
+  #PUI-335
+  @ignore
+  Scenario: Professional Specialties No Specialties
+
+  In order to demonstrate to members what a Professional specializes in
+  As a member
+  I want to see specialties for a Professional
+  So that I can decide if a Professional has expertise in an area of care that is important to me
+
+    Given the specialties module is visible
+    Then I will see the module title is "Specialties & Expertise"
+    And the module displays "Unknown"
 
   #PUI-350
   @quality-module

@@ -164,4 +164,10 @@ public class ProfileStepDefs {
                     profilePage.amenityIconIsPresent(fl),is(true));
         }
     }
+
+    @Given("^the specialties module is visible$")
+    public void the_specialties_module_is_visible() throws Throwable {
+        assertThat("Specialties module was not present on " + profilePage.getCurrentUrl(),
+            profilePage.specialtiesModuleIsPresent(), is(true));
+    }
 }
