@@ -143,6 +143,10 @@ public class ProfilePage extends BasePage {
         return divs(cssSelector(".amenities")).size() > 0;
     }
 
+    public FluentWebElement amenitiesModule() {
+        return div(cssSelector(".amenities"));
+    }
+
     public String amenitiesModuleTitle() {
         return h4(cssSelector(".amenities>.panel-heading>h4")).getText().toString().trim();
     }

@@ -14,6 +14,7 @@ import static org.hamcrest.Matchers.*;
 public class ProfileStepDefs {
 
     private ProfilePage profilePage;
+    private FluentWebElement el;
 
     @Before()
     public void setUp() {
@@ -34,6 +35,7 @@ public class ProfileStepDefs {
     public void I_am_viewing_a_facility_with_identifiers() {
         assertThat("Identifier module was not visible on: " + profilePage.getCurrentUrl(),
                 profilePage.identifiersModuleIsPresent(),is(true));
+        el = profilePage.identifiersModule();
     }
 
     @Given("^a (professional|facility) has more than (\\d+) awards$")
@@ -50,11 +52,13 @@ public class ProfileStepDefs {
     public void the_amenity_module_is_visible() throws Throwable {
         assertThat("Amenities Module is not present on " + profilePage.getCurrentUrl(),
                 profilePage.amenitiesModuleIsPresent(), is(true));
+        el = profilePage.amenitiesModule();
     }
 
     @Then("^I will see the awards module$")
     public void I_will_see_the_provider_awards_module() {
         assertThat("Awards module was not visible",profilePage.awardsModuleIsPresent(), is(true));
+        el = profilePage.awardsModule();
     }
 
     @Then("^I will see up to (\\d+) identifiers$")
@@ -123,11 +127,11 @@ public class ProfileStepDefs {
         assertThat("Photo dimensions changed",profilePage.profileImageHeightWidth(),equalTo("168,168"));
     }
 
-    @And("^the header displays as \"([^\"]*)\"$")
-    public void the_header_displays_as(String arg1) {
-        String title = profilePage.getModuleTitleText(profilePage.awardsModule());
-        assertThat("Expected " + arg1 + " to be the module title. Title is currently: " + title, title, equalTo(arg1));
-    }
+//    @And("^the header displays as \"([^\"]*)\"$")
+//    public void the_header_displays_as(String arg1) {
+//        String title = profilePage.getModuleTitleText(profilePage.awardsModule());
+//        assertThat("Expected " + arg1 + " to be the module title. Title is currently: " + title, title, equalTo(arg1));
+//    }
 
     @And("^I will see the award name$")
     public void I_will_see_the_award_name() {
@@ -144,7 +148,7 @@ public class ProfileStepDefs {
 
     @Then("^I will see the module title is \"([^\"]*)\"$")
     public void I_will_see_the_module_title_is(String arg1) throws Throwable {
-        assertThat(profilePage.amenitiesModuleTitle(),equalTo(arg1));
+        assertThat(profilePage.getModuleTitleText(el),equalTo(arg1));
     }
 
     @And("^I will see \"([^\"]*)\"$")
@@ -169,5 +173,6 @@ public class ProfileStepDefs {
     public void the_specialties_module_is_visible() throws Throwable {
         assertThat("Specialties module was not present on " + profilePage.getCurrentUrl(),
             profilePage.specialtiesModuleIsPresent(), is(true));
+        el = profilePage.specialtiesModule();
     }
 }

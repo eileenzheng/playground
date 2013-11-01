@@ -15,7 +15,7 @@ Feature: Facility Profile
 
     Given I am viewing a facility with at least 1 facility
     Then I will see the facility specialties module
-    And the module header displays as "Specialties & Expertise"
+    And I will see the module title is "Specialties & Expertise"
     And specialties will be listed in alphabetical order
 
   @PUI-316 @HCSC @identifiers
