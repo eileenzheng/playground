@@ -42,7 +42,7 @@ public class FacilitySearchStepDefs {
     @Given("^I have done a zip code search for a facility$")
     public void I_have_done_a_zip_code_search_for_a_facility() {
         //homePage.searchBar().sendKeys("10001");
-        homePage.go();
+        homePage.go("http://qa.vitalschoice.com/search/facility?type=facilities&geo_location=Boston,%2BMA&restrict%5Bradius%5D=20");
 
     }
 
@@ -50,7 +50,8 @@ public class FacilitySearchStepDefs {
     @And("^I have submitted the search results$")
     public void I_have_submitted_the_search_results() {
 //        homePage.searchButton().click();
-        homePage.clickDemoFacilitySearch();
+//        homePage.clickDemoFacilitySearch();
+          assertThat(homePage.getCurrentUrl().contains("qa.vitalschoice.com"),is(true));
     }
 
     // PUI-206
