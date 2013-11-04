@@ -28,6 +28,8 @@ public class ProfileTest {
         this.url = url;
     }
 
+    /* - go to a doctor SEO profile page
+     * - verify View Full button is displayed */
     @Test
     public void doctorSeoProfileTest() {
     	driver = DriverManager.getDriver();
@@ -40,6 +42,8 @@ public class ProfileTest {
                 "SEO Doctor Page did not load successfully" + seoProfile);
     }
 
+    /* - go to a dentist SEO profile page
+     * - verify View Full button is displayed */
     @Test
     public void dentistSeoProfileTest() {
     	driver = DriverManager.getDriver();
@@ -52,6 +56,8 @@ public class ProfileTest {
                 "SEO Dentist Page did not load successfully: " + seoDentistProfile);
     }
 
+    /* - go to a doctor full profile page
+     * - verify breadcrumb contains summary page */
     @Test
     public void viewFullProfileSummaryTest() {
     	driver = DriverManager.getDriver();
@@ -66,6 +72,8 @@ public class ProfileTest {
                 "Summary page was not visible: " + driver.getCurrentUrl());
     }
 
+    /* - go to a doctor full profile page
+     * - verify breadcrumb contains review page */
     @Test
     public void viewFullProfileReviewsTest() {
     	driver = DriverManager.getDriver();
@@ -82,6 +90,8 @@ public class ProfileTest {
                 "Patient Reviews page was not visible: " + driver.getCurrentUrl());
     }
 
+    /* - go to a doctor full profile page
+     * - verify breadcrumb contains credentials page */
     @Test
     public void viewFullProfileCredentialsTest() {
     	driver = DriverManager.getDriver();
@@ -98,6 +108,8 @@ public class ProfileTest {
 
     }
 
+    /* - go to a doctor full profile page
+     * - verify breadcrumb contains location page */
     @Test
     public void viewLocationsAvailabilityTest() {
     	driver = DriverManager.getDriver();
@@ -114,6 +126,8 @@ public class ProfileTest {
                 "Locations availability page was not visible: " + driver.getCurrentUrl());
     }
 
+    /* - go to a doctor full profile page
+     * - verify breadcrumb contains insurance page */
     @Test
     public void viewAcceptedInsuranceTest() {
     	driver = DriverManager.getDriver();
@@ -130,6 +144,8 @@ public class ProfileTest {
                 "Accepted insurance page was not visible: " + driver.getCurrentUrl());
     }
 
+    /* - go to a doctor's video profile page
+     * - verify video is displayed */
     @Test
     public void viewVideoProfileTest() {
     	driver = DriverManager.getDriver();
@@ -143,6 +159,8 @@ public class ProfileTest {
         Assert.assertTrue(profilePage.drVideoIsVisible(), "Dr Video is not visible: " + driver.getCurrentUrl());
     }
 
+    /* - go to a doctor profile for first time
+     * - verify SEO profile is shown*/
     @Test
     public void redirectToSeoProfileTest() {
     	driver = DriverManager.getDriver();
@@ -156,6 +174,10 @@ public class ProfileTest {
 
     }
 
+    /* - go to a doctor profile for first time
+     * - verify SEO profile is shown
+     * - go to the same profile link again within the same session
+     * - verify full profile (summary tab) is shown */
     @Test
     public void seoToFullProfileTest() {
     	driver = DriverManager.getDriver();

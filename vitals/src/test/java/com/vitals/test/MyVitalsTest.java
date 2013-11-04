@@ -29,6 +29,8 @@ public class MyVitalsTest {
         this.url = url;
     }
 
+    /* - login to myvitals from homepage
+     * - verify 'login successful' text is shown */
     @Test
     public void testLogin() {
     	driver = DriverManager.getDriver();
@@ -40,6 +42,9 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isSignInSuccessful());
     }
     
+    /* - sign in to myvitals
+     * - change password
+     * - verify success message */
     @Test
     public void testEditAccount() {
     	driver = DriverManager.getDriver();
@@ -60,6 +65,12 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isAccountUpdateSuccessful());
     }
     
+    /* - sign in to myvitals
+     * - go to claim profile page and check for 'no profile' alert text
+     * - type in location and verify auto-complete
+     * - type in name and verify auto-complete
+     * - select random profile to claim
+     * - claim profile without filling in anything and verify alert text */
     // pre-requisite: account is not linked to any profile
     @Test
     public void testLocateProfile() {
@@ -95,6 +106,10 @@ public class MyVitalsTest {
         Assert.assertTrue(claimPage.clickClaimExpectFailure().isEmptyAlertShown());
     }
     
+    /* - sign in to my vitals
+     * - go to provider's profile and click claim profile
+     * - fill in info and submit
+     * - unlink profile */
     @Test
     public void testClaimProfile() {
     	// only perform this test on staging or qa
