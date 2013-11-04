@@ -64,6 +64,9 @@ public class ProfilePage {
 
     @FindBy(css=".ribbon.wide>div")
     private WebElement plPhoneNumber;
+    
+    @FindBy(css=".claim-profile>a")
+    private WebElement claimProfileLink;
 
     public boolean viewFullProfileButtonIsVisible() {
         return viewFullProfileButton.isDisplayed();
@@ -182,7 +185,7 @@ public class ProfilePage {
         return plPhoneNumber.getText();
     }
 
-    public static boolean isElementPresent (WebElement el) {
+    public boolean isElementPresent (WebElement el) {
         try {
             if (el.isDisplayed())
                 return true;
@@ -192,5 +195,10 @@ public class ProfilePage {
         catch (NoSuchElementException e) {
             return false;
         }
+    }
+    
+    public MyVitalsClaimProfilePage clickClaimProfileLink () {
+    	claimProfileLink.click();
+    	return PageFactory.initElements(driver, MyVitalsClaimProfilePage.class);
     }
 }

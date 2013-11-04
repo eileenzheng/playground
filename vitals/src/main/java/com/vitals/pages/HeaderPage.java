@@ -55,18 +55,27 @@ public class HeaderPage {
 
     @FindBy(css="#insurance_plan_id")
     private WebElement exclusiveInsuranceCheckbox;
-
+    
     @FindBy(css=".contain>.left:nth-child(1)")
-    private WebElement patientEduLink;
+    private WebElement urgentCareLink;
 
     @FindBy(css=".contain>.left:nth-child(2)")
+    private WebElement patientEduLink;
+
+    @FindBy(css=".contain>.left:nth-child(3)")
     private WebElement writeReviewLink;
 
-    @FindBy(css=".right>a:nth-child(2)")
-    private WebElement patientSignInLink;
+    @FindBy(css=".right>a:nth-child(1)")
+    private WebElement signUpLink;
 
-    @FindBy(css=".right>a:nth-child(4)")
-    private WebElement doctorSignInLink;
+    @FindBy(css=".right>a:nth-child(3)")
+    private WebElement signInLink;
+    
+    @FindBy(css=".right span:nth-child(1) a")
+    private WebElement signedInEmailLink;
+    
+    @FindBy(css=".right span:nth-child(3) a")
+    private WebElement signOutLink;
 
     public HeaderPage enterName(String name) {
         searchTextBox.sendKeys(name);
@@ -207,5 +216,15 @@ public class HeaderPage {
         }
 
         return specs.toString();
+    }
+    
+    public MyVitalsSignInPage clickSignIn() {
+    	signInLink.click();
+    	return PageFactory.initElements(driver,MyVitalsSignInPage.class);
+    }
+    
+    public MyVitalsEditAccountPage clickSignedInEmail() {
+    	signedInEmailLink.click();
+    	return PageFactory.initElements(driver, MyVitalsEditAccountPage.class);
     }
 }
