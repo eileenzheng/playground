@@ -124,7 +124,7 @@ public class PatientLinkTest {
         testCenterAd(ad);
     }
     
-    public static void testRrAd(PatientLinkRrAd ad) {
+    public void testRrAd(PatientLinkRrAd ad) {
         
         for (int i=0; i<ad.getSize(); i++) {
         
@@ -162,7 +162,7 @@ public class PatientLinkTest {
         }
     }
     
-    public static void testCenterAd(PatientLinkCenterAd ad) {
+    public void testCenterAd(PatientLinkCenterAd ad) {
         
         PatientLinkFeatures.setExpected(ad.getName());
             

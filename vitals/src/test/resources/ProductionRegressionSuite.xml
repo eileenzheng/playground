@@ -27,9 +27,14 @@
             <class name="com.vitals.test.PatientGuideTest"/>
         </classes>
     </test>
-    <test name="Patientlink Specific Tests">
+<!--     <test name="Patientlink Specific Tests">
         <classes>
             <class name="com.vitals.test.PatientLinkTest"/>
+        </classes>
+    </test> -->
+    <test name="MyVitals Tests">
+        <classes>
+            <class name="com.vitals.test.MyVitalsTest"/>
         </classes>
     </test>
 </suite>

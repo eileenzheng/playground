@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.DriverManager;
 
 public class PatientGuidePage {
@@ -13,13 +11,10 @@ public class PatientGuidePage {
 	public final HeaderPage header;
 	public final FooterPage footer;
 	
-	WebDriverWait wait;
-	
 	public PatientGuidePage () {
 		driver = DriverManager.getDriver();
 		this.header = PageFactory.initElements(driver, HeaderPage.class);
 		this.footer = PageFactory.initElements(driver, FooterPage.class);
-		this.wait = new WebDriverWait(driver, 15, 3000);
 	}
 	
 	@FindBy(css=".breadcrumbs>span:nth-child(4)>a>span")
