@@ -114,10 +114,9 @@ Feature: Professional Profile
     Then I will see the module title is "Foreign Languages Spoken"
     And I will see a "Languages Spoken by Staff" label
     And I will see up to 5 languages
-    And I will see the languages listed alphabetically
     And I will see the following languages:
-      | Greek   |
-      | Spanish |
+      | Spanish   |
+      | Sundanese |
 
   #PUI-485
   @location_amenities
