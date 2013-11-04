@@ -163,5 +163,20 @@ public class ProfilePage extends BasePage {
         return fl.spans(cssSelector("span[class*=icon]")).size() > 0;
     }
 
+    public Boolean languagesModuleIsPresent() {
+        return divs(cssSelector(".langauges")).size() > 0;
+    }
+
+    public String languagesSpokenByStaffTitle() {
+        return p(cssSelector(".languages>.panel-body>p")).getText().toString().trim();
+    }
+
+    public Integer languageSpokenByStaffVisibleCount() {
+        return lis(cssSelector(".languages>.panel-body>ul>li[class*=repeat-list]")).size();
+    }
+
+    public List<FluentWebElement> languagesSpokenByStaffList() {
+        return spans(cssSelector(".languages>.panel-body>ul>li[class*=repeat-list]>span"));
+    }
 
 }
