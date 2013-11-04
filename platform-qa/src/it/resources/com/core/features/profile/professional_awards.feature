@@ -7,7 +7,7 @@ Feature: Professional Profile Awards
 
   Background:
 
-    Given I am viewing a professional with id 1000000000
+    Given I am viewing a professional with id 1000000560
     Then I will see the awards module
     And I will see the module title is "Awards & Recognitions"
     And I will see the award name
