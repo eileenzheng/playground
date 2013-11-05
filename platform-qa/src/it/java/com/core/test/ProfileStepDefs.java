@@ -1,12 +1,15 @@
 package com.core.test;
 
 import com.core.pages.ProfilePage;
+import cucumber.api.DataTable;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -174,5 +177,27 @@ public class ProfileStepDefs {
         assertThat("Specialties module was not present on " + profilePage.getCurrentUrl(),
             profilePage.specialtiesModuleIsPresent(), is(true));
         el = profilePage.specialtiesModule();
+    }
+
+    @Given("^the languages module is visible$")
+    public void the_languages_module_is_visible() throws Throwable {
+        assertThat("Languages module was not present on " + profilePage.getCurrentUrl(),
+                profilePage.languagesModuleIsPresent(), is(true));
+        el = profilePage.languagesModule();
+    }
+
+    @And("^I will see a Languages Spoken by Staff label$")
+    public void I_will_see_a_Languages_Spoken_by_Staff_label() throws Throwable {
+        assertThat(profilePage.languagesSpokenByStaffTitle(),equalTo("Languages Spoken by Staff"));
+    }
+
+    @And("^I will see up to (\\d+) languages$")
+    public void I_will_see_up_to_languages(int arg1) throws Throwable {
+        assertThat(profilePage.languageSpokenByStaffVisibleCount(),lessThanOrEqualTo(arg1));
+    }
+
+    @And("^I will see \"(.+)\" as the languages$")
+    public void I_will_see_the_following_languages(List<String> languages) throws Throwable {
+
     }
 }

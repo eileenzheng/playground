@@ -112,11 +112,22 @@ Feature: Professional Profile
   Scenario: Visible fields for languages
     Given the languages module is visible
     Then I will see the module title is "Foreign Languages Spoken"
-    And I will see a "Languages Spoken by Staff" label
+    And I will see a Languages Spoken by Staff label
     And I will see up to 5 languages
-    And I will see the following languages:
-      | Spanish   |
-      | Sundanese |
+    #And I will see "Spanish,Sundanese" as the languages
+
+
+  @ignore @staff-languages
+  Scenario Outline: Language examples
+    Given I am viewing a professional with id <number>
+    Then the languages module is visible
+    And the languages are <language>
+
+    Examples: Visible Languages
+    | number     | language           |
+    | 1000000000 | Spanish,Sundanese  |
+    | 1000000017 | Spanish            |
+
 
   #PUI-485
   @location_amenities
