@@ -5,23 +5,17 @@ Feature: Professional Profile Awards
   As a member I want to see awards for a Professional
   So that I can feel confident that a Professional is good and understand specific areas where they excel
 
-  Background:
+  Scenario: Professional Awards Visible Elements
 
     Given I am viewing a professional with id 1000000560
     Then I will see the awards module
     And I will see the module title is "Awards & Recognitions"
     And I will see the award name
     And the professional has at least 1 award
-#    And I will see the award logo
-
-  #PUI-355
-  Scenario: Professional With More Than Three Awards
-
-    Given a professional has more than 3 awards
-    Then up to 3 awards will display on the module
     And I will see a link that reads "See more Awards & Recognitions..."
 
   #PUI-355
+  @ignore
   Scenario: Professional Awards associated urls with logo
 
     Given an award has an associated link
@@ -29,6 +23,7 @@ Feature: Professional Profile Awards
     Then the link will be with the logo
 
   #PUI-355
+  @ignore
   Scenario: Professional Awards associated urls with no logo
 
     When an award has an associated link
@@ -36,6 +31,7 @@ Feature: Professional Profile Awards
     Then the link will be with the award name
 
   #PUI-356
+  @ignore
   Scenario: Professional Awards Expanded grouping
 
     When I click See Awards and Recognitions
