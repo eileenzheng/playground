@@ -23,6 +23,12 @@ public class CitySpecTest{
         this.url = url;
     }
 
+    /* - click random specialty from footer
+     * - check breadcrumb of landing page
+     * - click random state 
+     * - check breadcrumb of state page
+     * - click random city
+     * - check breadcrumb of city page */
     @Test
     public void testPageTitles() {
         
@@ -45,6 +51,10 @@ public class CitySpecTest{
                 "City Page title did not match.");
     }
 
+    /* - select random city listing page
+     * - verify the page contains at least 1 result
+     * - click 'next page' link if it exists
+     * - verify page 2 is the current page and contains at least 1 result */
     @Test
     public void testCityPage() {
         
@@ -61,7 +71,7 @@ public class CitySpecTest{
                 "City Page does not have result!");
         
         if (cityPage.hasNext()) {
-            cityPage.clickNext();
+            cityPage = cityPage.clickNext();
             
             Assert.assertTrue(cityPage.hasResult(), 
                     "City Page does not have result!");

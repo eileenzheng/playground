@@ -32,6 +32,8 @@ public class SearchTest {
         this.url = url;
     }
 
+    /* - enter zip code '1000' in location box of global header
+     * - verify that at least 1 suggstion of 'New York' is returned in auto-complete */
     @Test
     public void autoSuggestLocation() {
     	driver = DriverManager.getDriver();
@@ -46,6 +48,8 @@ public class SearchTest {
         Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
     }
 
+    /* - enter 'Smith' in name search box of global hearder
+     * - verify that at least 1 suggestion containing 'Smith' is returned in auto-complete */
     @Test
     public void autoSuggestName() {
     	driver = DriverManager.getDriver();
@@ -63,7 +67,9 @@ public class SearchTest {
 
     }
 
-    //Results contain the search name
+    /* - search for 'Smith' in zip '10036' 
+     * - verify the first page of serp all contains 'smith'*/
+    // not necessarily true - smith can be a middle name and abbreviated 
     @Test
     public void searchByName() {
         m_assert = new SoftAssert();
@@ -88,6 +94,9 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
+    /* - search for 'cardiologist' in global header
+     * - click on the first menu item and search
+     * - log the number of results returned by the serp */
     @Test
     public void searchBySpecialty() {
     	driver = DriverManager.getDriver();
@@ -108,6 +117,9 @@ public class SearchTest {
         Reporter.log(results.getResultsCount() + " for search: " + spec);
     }
 
+    /* - search for 'cardiologist' in global header 
+     * - click a sub-specialty in the middle and search
+     * - log the number of results returned by the serp*/
     @Test
     public void selectSubSpecialtySearch() {
     	driver = DriverManager.getDriver();
@@ -129,6 +141,9 @@ public class SearchTest {
 
     }
 
+    /* - search for 'heart aneurysm' in global header 
+     * - click a sub-condition in the middle and search
+     * - log the number of results returned by the serp*/
     @Test
     public void selectSubConditionSearch() {
     	driver = DriverManager.getDriver();
@@ -150,6 +165,9 @@ public class SearchTest {
 
     }
 
+    /* - loop through the provided zip codes, for each do:
+     * - search for 'smith' in the given zip code
+     * - for each result in serp, check the name in serp matches name in profile */
     @Test (dataProvider = "zipCodes")
     public void compareResultsToProfile(String zipCodes) {
         m_assert = new SoftAssert();

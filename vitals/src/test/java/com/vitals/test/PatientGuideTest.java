@@ -23,6 +23,7 @@ public class PatientGuideTest {
         this.url = url;
     }
 
+    /* - check breadcrumb of PG landing page */
     @Test
     public void checkBreadCrumb() {
         
@@ -35,6 +36,9 @@ public class PatientGuideTest {
                 "Patient Guide landing page did not load successfully.");
     }
 
+    /* - go to PG landing page
+     * - click a random learn more link
+     * - perform test for single guide */
     @Test
     public void clickLearnMore() {
         
@@ -47,6 +51,9 @@ public class PatientGuideTest {
         testPatientGuide();
     }
 
+    /* - go to PG landing page
+     * - click a random top guide
+     * - perform test for single guide */
     @Test
     public void clickTopGuide() {
         
@@ -59,6 +66,9 @@ public class PatientGuideTest {
         testPatientGuide();
     }
 
+    /* - go to PG landing page
+     * - click a random A to Z guide
+     * - perform test for single guide */
     @Test
     public void clickAtoZGuide() {
         
@@ -71,6 +81,7 @@ public class PatientGuideTest {
         testPatientGuide();
     }
 
+    /* shared function for testing a single guide, navigate thru the tabs and check breadcrumb */
     public void testPatientGuide() {
         // This is a common function for testing one patient guide page
         
