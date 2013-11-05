@@ -66,11 +66,11 @@ public class ProfilePage extends BasePage {
     }
 
     public Boolean specialtiesModuleIsPresent() {
-        return divs(cssSelector(".specialties")).size() > 0;
+        return divs(cssSelector(".panel.specialties")).size() > 0;
     }
 
     public FluentWebElement specialtiesModule() {
-        return div(cssSelector(".specialties"));
+        return div(cssSelector(".panel.specialties"));
     }
 
     public FluentWebElement awardsModule() {
@@ -164,7 +164,7 @@ public class ProfilePage extends BasePage {
     }
 
     public Boolean languagesModuleIsPresent() {
-        return divs(cssSelector(".langauges")).size() > 0;
+        return divs(cssSelector(".languages")).size() > 0;
     }
 
     public String languagesSpokenByStaffTitle() {
@@ -177,6 +177,10 @@ public class ProfilePage extends BasePage {
 
     public List<FluentWebElement> languagesSpokenByStaffList() {
         return spans(cssSelector(".languages>.panel-body>ul>li[class*=repeat-list]>span"));
+    }
+
+    public FluentWebElement languagesModule() {
+        return div(cssSelector(".languages"));
     }
 
 }
