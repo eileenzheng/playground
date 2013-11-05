@@ -58,9 +58,9 @@ public class ProfilePage extends BasePage {
 
     public String profileImageHeightWidth() {
         String height = ((JavascriptExecutor) webDriver())
-                .executeScript("return document.querySelector('.image>img').height").toString();
+                .executeScript("return $('.image>img')[0].height").toString();
         String width = ((JavascriptExecutor) webDriver())
-                .executeScript("return document.querySelector('.image>img').width").toString();
+                .executeScript("return $('.image>img')[0].width").toString();
         //Return ex. 168,168
         return height + "," + width;
     }
