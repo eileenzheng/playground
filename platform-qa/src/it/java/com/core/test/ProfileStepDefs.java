@@ -7,12 +7,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.By;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.openqa.selenium.By.cssSelector;
 
 public class ProfileStepDefs {
 
@@ -200,4 +202,32 @@ public class ProfileStepDefs {
     public void I_will_see_the_following_languages(List<String> languages) throws Throwable {
 
     }
+
+    @Given("^the affiliations module is visible$")
+    public void the_affiliations_module_is_visible() throws Throwable {
+        assertThat("Affiliations module was not present on " + profilePage.getCurrentUrl(),
+                profilePage.affiliationsModuleIsPresent(),is(true));
+        el = profilePage.affiliationsModule();
+    }
+
+    @And("^I will see a module link that reads \"([^\"]*)\"$")
+    public void I_will_see_a_module_link_that_reads(String arg1) throws Throwable {
+        assertThat(profilePage.affiliationsModule().span(cssSelector(".show-more>a>span")).getText().toString().trim(),
+                equalTo(arg1));
+    }
+
+    @And("^I will see a subheadings called \"([^\"]*)\"$")
+    public void I_will_see_a_subheadings_called(List<String> subheading) throws Throwable {
+        // Medical Group Affiliations
+        assertThat("Affiliations subheading '" + subheading.get(0) + "' was not found on page " + profilePage.getCurrentUrl(),
+                profilePage.affiliationsModule().div(cssSelector(".panel-heading.first>.panel-title")).getText().toString().trim(),
+                equalTo(subheading.get(0)));
+        // Hospital Affiliations
+        assertThat("Affiliations subheading '" + subheading.get(1) + "' was not found on page " + profilePage.getCurrentUrl(),
+                profilePage.affiliationsModule().div(cssSelector(".panel-heading.repeat>.panel-title")).getText().toString().trim(),
+                equalTo(subheading.get(1)));
+    }
+
+
+
 }

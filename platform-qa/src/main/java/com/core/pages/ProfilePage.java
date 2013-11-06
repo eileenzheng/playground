@@ -183,4 +183,16 @@ public class ProfilePage extends BasePage {
         return div(cssSelector(".languages"));
     }
 
+    public Boolean affiliationsModuleIsPresent() {
+        return divs(cssSelector(".affiliations.ng-scope")).size() > 0;
+    }
+
+    public String affiliationsModuleTitle() {
+        return h4(cssSelector(".affiliations.ng-scope>.panel-heading>h4")).getText().toString().trim();
+    }
+
+    public FluentWebElement affiliationsModule() {
+        return div(cssSelector(".affiliations.ng-scope"));
+    }
+
 }

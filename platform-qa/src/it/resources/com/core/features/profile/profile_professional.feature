@@ -164,9 +164,8 @@ Feature: Professional Profile
 
     Given the affiliations module is visible
     Then I will see the module title is "Affiliations"
-    And I will see a subheading called "Hospital Affiliations"
-    And I will see a subheading called "Medical Groups"
-    And I will see a link that reads "See more affiliations..."
+    And I will see a subheadings called "Medical Group Affiliations, Hospital Affiliations"
+    And I will see a module link that reads "See more Affiliations..."
 
   #PUI-339 PUI-642 PUI-644
   @ignore @affiliations
