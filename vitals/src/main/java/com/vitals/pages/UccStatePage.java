@@ -1,18 +1,16 @@
 package com.vitals.pages;
 
+import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import com.vitals.DriverManager;
 
-import java.util.List;
-
-public class CitySpecStatePage {
+public class UccStatePage {
 	private WebDriver driver;
 
-	public CitySpecStatePage () {
+	public UccStatePage () {
 		driver = DriverManager.getDriver();
 	}
 	
@@ -26,15 +24,14 @@ public class CitySpecStatePage {
 	private List<WebElement> cities;
 	
 	public boolean isTitleMatched() {
-		String specialty = breadcrumbs.get(1).getText();
 		String state = breadcrumbs.get(2).getText();
-		return (title.getText().contains(state) && title.getText().contains(specialty));
+		return (title.getText().contains(state) && title.getText().contains("Urgent Care"));
 	}
 	
-	public CitySpecPage clickCity() {
+	public UccCityPage clickCity() {
 		int rand = (int) Math.floor(Math.random() * (cities.size() - 1));
 		cities.get(rand).click();
-		return PageFactory.initElements(driver, CitySpecPage.class);
+		return PageFactory.initElements(driver, UccCityPage.class);
 	}
 	
 }
