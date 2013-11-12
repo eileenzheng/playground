@@ -1,5 +1,6 @@
 package com.vitals.pages;
 
+import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,12 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.vitals.DriverManager;
 
-import java.util.List;
-
-public class CitySpecLandingPage {
+public class UccLandingPage {
 	private WebDriver driver;
 
-	public CitySpecLandingPage () {
+	public UccLandingPage () {
 		driver = DriverManager.getDriver();
 	}
 	
@@ -32,15 +31,15 @@ public class CitySpecLandingPage {
 		return (title.getText().equals(breadcrumb.getText()));
 	}
 	
-	public CitySpecStatePage clickState() {
+	public UccStatePage clickState() {
 		int rand = (int) Math.floor(Math.random() * (states.size() - 1));
 		states.get(rand).click();
-		return PageFactory.initElements(driver, CitySpecStatePage.class);
+		return PageFactory.initElements(driver, UccStatePage.class);
 	}
 	
-	public CitySpecPage clickCity() {
+	public UccCityPage clickCity() {
 		int rand = (int) Math.floor(Math.random() * (cities.size() - 1));
 		cities.get(rand).click();
-		return PageFactory.initElements(driver, CitySpecPage.class);
+		return PageFactory.initElements(driver, UccCityPage.class);
 	}
 }

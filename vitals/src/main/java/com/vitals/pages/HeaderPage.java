@@ -218,6 +218,11 @@ public class HeaderPage {
         return specs.toString();
     }
     
+    public UccLandingPage clickUrgentCareLink() {
+    	urgentCareLink.click();
+    	return PageFactory.initElements(driver, UccLandingPage.class);
+    }
+    
     public MyVitalsSignInPage clickSignIn() {
     	signInLink.click();
     	return PageFactory.initElements(driver,MyVitalsSignInPage.class);
