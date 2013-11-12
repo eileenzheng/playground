@@ -1,5 +1,6 @@
 package com.core.test;
 
+import com.core.WebDriverSingleton;
 import com.core.pages.ProfilePage;
 import cucumber.api.DataTable;
 import cucumber.api.java.Before;
@@ -24,6 +25,7 @@ public class ProfileStepDefs {
     @Before()
     public void setUp() {
         profilePage = new ProfilePage();
+        WebDriverSingleton.getDriver().manage().window().maximize();
     }
 
     @Given("^I am viewing a facility with id (\\d+)$")
@@ -229,5 +231,46 @@ public class ProfileStepDefs {
     }
 
 
+    @Then("^I will see the following hospital affiliation \"([^\"]*)\"$")
+    public void I_will_see_the_following_hospital_affiliation(String afflName) throws Throwable {
+        assertThat(profilePage.hospitalAffiliationsList().contains(afflName), is(true));
+    }
 
+    @Given("^the professional has multiple locations$")
+    public void the_professional_has_multiple_locations() throws Throwable {
+        assertThat("Profile does not have multiple locations: " + profilePage.getCurrentUrl()
+                , profilePage.multipleLocationsLinkIsPresent(), is(true));
+    }
+
+    @Then("^I will see the professional has \"([^\"]*)\" additional locations$")
+    public void I_will_see_the_professional_has_additional_locations(String num) throws Throwable {
+        assertThat("Expected " + num + " location(s) on page " + profilePage.getCurrentUrl(),
+                profilePage.multipleLocationsLink().getText().toString().trim(),
+                containsString(num));
+    }
+
+    @Then("^I will see a numbered pin$")
+    public void I_will_see_a_numbered_pin() throws Throwable {
+        profilePage.multipleLocationsLink().click();
+        for (FluentWebElement fl : profilePage.locationsList()) {
+            assertThat("Pin was not visible on " + profilePage.getCurrentUrl(),
+                    profilePage.locationPin(fl).isDisplayed().value(),is(true));
+        }
+    }
+
+    @And("^the location address$")
+    public void the_location_address() throws Throwable {
+        for (FluentWebElement fl : profilePage.locationsList()) {
+            assertThat("Location address was not visible on " + profilePage.getCurrentUrl(),
+                    profilePage.locationAddress(fl).isDisplayed().value(),is(true));
+        }
+    }
+
+    @And("^a link to view profile at that location$")
+    public void a_link_to_view_profile_at_that_location() throws Throwable {
+        for (FluentWebElement fl : profilePage.locationsList()) {
+            assertThat("Address link was not visible on " + profilePage.getCurrentUrl(),
+                    profilePage.locationViewProfileAtLocationLink(fl).isDisplayed().value(),is(true));
+        }
+    }
 }

@@ -4,6 +4,7 @@ import cucumber.api.java.en.Given;
 import org.openqa.selenium.JavascriptExecutor;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.By.cssSelector;
@@ -195,4 +196,42 @@ public class ProfilePage extends BasePage {
         return div(cssSelector(".affiliations.ng-scope"));
     }
 
+    public List<String> hospitalAffiliationsList() {
+        List<FluentWebElement> els = affiliationsModule().spans(cssSelector(".affiliations>div:nth-child(4)>div>div>div>a>span"));
+        List<String> retVal = new ArrayList<String>();
+        for (FluentWebElement el : els) {
+            retVal.add(el.getText().toString().trim());
+        }
+
+        return retVal;
+    }
+
+    public List<FluentWebElement> groupAffiliationsList() {
+        return affiliationsModule().spans(cssSelector(".affiliations>div:nth-child(2)>div>div>div>a>span"));
+    }
+
+    public Boolean multipleLocationsLinkIsPresent() {
+        // Angular causes tag to be visible regardless. When 'ng-hide' isn't there multiple locations are visible
+        return divs(cssSelector(".other-locations.ng-hide")).size() != 1;
+    }
+
+    public List<FluentWebElement> locationsList() {
+        return divs(cssSelector(".locations>.location"));
+    }
+
+    public FluentWebElement multipleLocationsLink() {
+        return span(cssSelector(".other-locations>div>.more-down>span"));
+    }
+
+    public FluentWebElement locationPin(FluentWebElement fl) {
+        return fl.div(cssSelector(".pin"));
+    }
+
+    public FluentWebElement locationAddress(FluentWebElement fl) {
+        return fl.div(cssSelector(".street-address"));
+    }
+
+    public FluentWebElement locationViewProfileAtLocationLink(FluentWebElement fl) {
+        return fl.link(cssSelector(".link>a"));
+    }
 }

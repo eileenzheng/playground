@@ -65,48 +65,6 @@ Feature: Professional Profile
     | Cervical Cancer Screening   | 13%     | Above Average |
     | Colorectal Cancer Screening | 4%      | Above Average |
 
-  #PUI-272
-  @multiple-locations
-  Scenario: Professional with multiple locations
-    In order to demonstrate that a professional practices at multiple locations
-    As a member
-    I want to see all locations that I professional practices at
-    so that I can find the most convenient location to see the professional.
-
-    Given the professional has multiple locations
-    Then I will see a link that reads "X more locations"
-
-  @multiple-locations
-  Scenario: View multiple locations list
-    Given the professional has multiple locations
-    When I click "2 more locations"
-    Then I will see a list of locations
-    And I will see a link that reads "View profile at this location"
-
-  @multiple-locations
-  Scenario: Visible fields for each location
-    Given the professional has multiple locations
-    When I click "2 more locations"
-    Then I will see a list of locations
-    And I will see a location name
-    And I will see the location address
-    And I will see a numbered map pin
-
-  @multiple-locations
-  Scenario Outline: Multiple location data check
-    Given the professional has multiple locations
-    When I click "2 more locations"
-    Then I will see a list of locations
-    And the name will be <Name>
-    And the address will be <Address>
-
-    Examples: Extra locations
-
-    | Name                              | Address                                               |
-    | Doctors Memorial Hospital - Perry | 333 N. Byron Butler Pkwy, Perry, FL 32347-2300        |
-    | Capital Regional Medical Center   | 2626 Capital Medical Blvd, Tallahassee, FL 32308-4402 |
-
-
   #PUI-358
   @staff-languages
   Scenario: Visible fields for languages
@@ -168,35 +126,70 @@ Feature: Professional Profile
     And I will see a module link that reads "See more Affiliations..."
 
   #PUI-339 PUI-642 PUI-644
-  @ignore @affiliations
+  @affiliations
   Scenario Outline:
     Given I am viewing a professional with id <number>
-    Then I will see the following hospital affiliation <hos_affiliations>
-    And the "hospital" will be located in <city>
+    Then I will see the following hospital affiliation "<hos_affiliations>"
 
     Examples: Hospital Affiliations
-      | number | hos_affiliations                   | city         |
-      | 123123 | The University Of Il Medical Ctr   | Chicago, IL  |
-      | 123123 | Elmhurst Mem Hospital Main Campus  | Elmhurst, IL |
+      | number     | hos_affiliations                   |
+      | 1000000000 | Valley Baptist Medical Center      |
 
     Examples: No Hospital Affiliations
-      | number | hos_affiliations                   | city |
-      | 999999 | None                               |      |
-      | 888888 | None                               |      |
+      | number     | hos_affiliations |
+      | 1000000001 | None             |
 
   #PUI-339 PUI-642 PUI-644
   @ignore @affiliations
   Scenario Outline:
     Given I am viewing a professional with id <number>
     Then I will see the following group affiliation <group_affiliations>
-    And the "group" will be located in <city>
 
     Examples: Group Affiliations
-      | number | group_affiliations                   | city         |
-      | 123123 | The University Of Il Medical Ctr     | Chicago, IL  |
-      | 123123 | Elmhurst Mem Hospital Main Campus    | Elmhurst, IL |
+      | number | group_affiliations                   |
+      | 123123 | The University Of Il Medical Ctr     |
+      | 123123 | Elmhurst Mem Hospital Main Campus    |
 
     Examples: No Group Affiliations
-      | number | group_affiliations                   | city |
-      | 999999 | None                                 |      |
-      | 888888 | None                                 |      |
+      | number | group_affiliations                   |
+      | 999999 | None                                 |
+      | 888888 | None                                 |
+
+  #PUI-272
+  @multiple-locations
+  Scenario: Multiple Location Feature Elements
+
+  In order to demonstrate that a professional practices at multiple locations
+  As a member
+  I want to see all locations that I professional practices at
+  so that I can find the most convenient location to see the professional.
+
+    Given the professional has multiple locations
+    Then I will see a numbered pin
+    And the location address
+    And a link to view profile at that location
+  # And the location name <-- Not visible or testable?
+
+  @multiple-locations
+  Scenario Outline:
+    Given I am viewing a professional with id <number>
+    Then I will see the professional has "<location_count>" additional locations
+
+    Examples: Locations
+      | number     | location_count |
+      | 1000000000 | 7              |
+      | 1000000005 | 1              |
+
+  @ignore @multiple-locations
+  Scenario Outline: Multiple location data check
+    Given the professional has multiple locations
+    When I click "2 more locations"
+    Then I will see a list of locations
+    And the name will be <Name>
+    And the address will be <Address>
+
+  Examples: Extra locations
+
+    | Name                              | Address                                               |
+    | Doctors Memorial Hospital - Perry | 333 N. Byron Butler Pkwy, Perry, FL 32347-2300        |
+    | Capital Regional Medical Center   | 2626 Capital Medical Blvd, Tallahassee, FL 32308-4402 |
