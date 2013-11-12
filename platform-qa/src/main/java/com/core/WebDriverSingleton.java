@@ -1,6 +1,7 @@
 package com.core;
 
 import com.core.helpers.Constants;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Augmenter;
@@ -56,6 +57,8 @@ public class WebDriverSingleton {
             driver = new RemoteWebDriver(server, caps);
             driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
             driver.manage().window().maximize();
+            // .maximize() doesn't seem to work in a Xvfb instance?
+            driver.manage().window().setSize(new Dimension(1280,1024));
 
             augmentedDriver = new Augmenter().augment(driver);
         }
