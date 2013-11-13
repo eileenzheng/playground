@@ -197,13 +197,26 @@ public class ProfilePage extends BasePage {
     }
 
     public List<String> hospitalAffiliationsList() {
-        List<FluentWebElement> els = affiliationsModule().spans(cssSelector(".affiliations>div:nth-child(4)>div>div>div>a>span"));
-        List<String> retVal = new ArrayList<String>();
-        for (FluentWebElement el : els) {
-            retVal.add(el.getText().toString().trim());
-        }
+        List<String> els = new ArrayList<String>();
 
-        return retVal;
+        // Check for none
+        if (affiliationsModule().divs(cssSelector(".affiliations>div:nth-child(4)>div>div>div")).size() == 0) {
+            els.add(affiliationsModule().li(cssSelector(".affiliations>div:nth-child(4)>div>li")).getText().toString().trim());
+        } else {
+            // Grab all the spans
+            if (affiliationsModule().spans(cssSelector(".affiliations>div:nth-child(4)>div>div>div>div>span")).size() > 0 ) {
+                for (FluentWebElement el : affiliationsModule().spans(cssSelector(".affiliations>div:nth-child(4)>div>div>div>div>span"))) {
+                    els.add(el.getText().toString().trim());
+                }
+            }
+            // Grab all the links
+            if (affiliationsModule().links(cssSelector(".affiliations>div:nth-child(4)>div>div>div>div>a")).size() > 0 ) {
+                for (FluentWebElement el : affiliationsModule().links(cssSelector(".affiliations>div:nth-child(4)>>div>div>div>div>a"))) {
+                    els.add(el.getText().toString().trim());
+                }
+            }
+        }
+        return els;
     }
 
     public List<FluentWebElement> groupAffiliationsList() {
