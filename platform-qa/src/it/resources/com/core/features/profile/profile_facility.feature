@@ -13,7 +13,7 @@ Feature: Facility Profile
     I want to see specialties for a facility
     So that I can decide if a facility has expertise in an area of care that is important to me
 
-    Given I am viewing a facility with at least 1 facility
+    Given I am viewing a facility with at least 1 specialty
     Then I will see the facility specialties module
     And I will see the module title is "Specialties & Expertise"
     And specialties will be listed in alphabetical order
