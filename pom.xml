@@ -13,7 +13,6 @@
         <module>capital-uat</module>
         <module>vitals</module>
         <module>uchc</module>
-        <module>platform-qa</module>
         <module>prs-qa</module>
         <module>presby-qa</module>
     </modules>
