@@ -2,13 +2,11 @@ package com.core.test;
 
 import com.core.WebDriverSingleton;
 import com.core.pages.ProfilePage;
-import cucumber.api.DataTable;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import java.util.List;
@@ -16,6 +14,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.openqa.selenium.By.cssSelector;
+import static org.seleniumhq.selenium.fluent.Period.secs;
+import static org.openqa.selenium.By.id;
 
 public class ProfileStepDefs {
 
@@ -31,11 +31,13 @@ public class ProfileStepDefs {
     @Given("^I am viewing a facility with id (\\d+)$")
     public void I_am_viewing_a_facility_with_id(int id) {
         profilePage.get("http://qa.vitalschoice.com/profile/facility?id=" + id);
+        profilePage.without(secs(10)).div(id("pageLoading"));
     }
 
     @Given("^I am viewing a professional with id (\\d+)$")
     public void I_am_viewing_a_professional_with_id(int id) {
         profilePage.go("http://qa.vitalschoice.com/profile/professional?id=" + id);
+        profilePage.without(secs(10)).div(id("pageLoading"));
     }
 
     @Given("^I am viewing a facility with identifiers$")
