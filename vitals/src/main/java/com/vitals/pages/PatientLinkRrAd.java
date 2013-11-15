@@ -6,48 +6,40 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.DriverManager;
 
 import java.util.List;
 
 public class PatientLinkRrAd {
 	private WebDriver driver;
-	private WebDriverWait wait;
 	
 	public PatientLinkRrAd() {
 		driver = DriverManager.getDriver();
-		this.wait = new WebDriverWait(driver, 5, 300);
 	}
 	
-	@FindBy(css=".related.block.border .row>img")
+	@FindBy(css=".related.block.border .rr-row img")
 	private List<WebElement> photo;
 	
-	@FindBy(css=".related.block.border .row .title>a")
+	@FindBy(css=".related.block.border .rr-row .title>a")
 	private List<WebElement> name;
 	
-	@FindBy(css=".related.block.border .row .specialty")
+	@FindBy(css=".related.block.border .rr-row .specialty")
 	private List<WebElement> specialty;
 	
-	@FindBy(css=".related.block.border .row .details>address>span>span")
-	private List<WebElement> address;
-	
-	@FindBy(css=".related.block.border .row .details>address>span:nth-child(2)")
+	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(2)")
 	private List<WebElement> city;
 	
-	@FindBy(css=".related.block.border .row .details>address>span:nth-child(3)")
+	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(3)")
 	private List<WebElement> state;
 	
-	@FindBy(css=".related.block.border .row .details>address>span:nth-child(4)")
+	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(4)")
 	private List<WebElement> zip;
 	
-	@FindBy(css=".related.block.border .patientlink-buttons")
-	private List<WebElement> buttonsDiv;
+	@FindBy(css=".related.block.border .row2")
+	private List<WebElement> bottomRow;
 	
-	@FindBy(css=".qtip-focus .pl-phone")
-	private WebElement phoneNumber;
+	@FindBy(css=".related.block.border .rr-row")
+	private List<WebElement> topRow;
 	
 	public String getName (int i) {
 		return name.get(i).getText();
@@ -57,8 +49,17 @@ public class PatientLinkRrAd {
 		return specialty.get(i).getText();
 	}
 	
-	public String getAddress (int i) {
-		return address.get(i).getText();
+	public String getAddressLine1 (int i) {
+		List<WebElement> address = topRow.get(i).findElements(By.cssSelector(".details>address>span>span"));
+		return address.get(0).getText();
+	}
+	
+	public String getAddressLine2 (int i) {
+		List<WebElement> address = topRow.get(i).findElements(By.cssSelector(".details>address>span>span"));
+		if (address.size()>1)
+			return address.get(1).getText();
+		else
+			return null;
 	}
 	
 	public String getCity (int i) {
@@ -73,11 +74,22 @@ public class PatientLinkRrAd {
 		return zip.get(i).getText();
 	}
 	
+	public boolean isLogoPresent (int i) {
+		try {
+			return isElementPresent(bottomRow.get(i).findElement(By.cssSelector(".logo")));
+		}
+		catch (NoSuchElementException e) {
+			return false;
+		}
+	}
+	
+	public String getLogoUrl (int i) {
+		return (bottomRow.get(i).findElement(By.cssSelector(".logo a")).getAttribute("href"));
+	}
+	
 	public boolean isBookPresent (int i) {
 		try {
-			if (buttonsDiv.size()<=i)
-				return false;
-			if (isElementPresent (buttonsDiv.get(i).findElement(By.cssSelector(".pl-book-online-button"))))
+			if (isElementPresent (bottomRow.get(i).findElement(By.cssSelector(".book-online"))))
 				return true;
 			else
 				return false;
@@ -88,16 +100,14 @@ public class PatientLinkRrAd {
 	}
 	
 	public PatientLinkBookModal clickBook (int i) {
-		buttonsDiv.get(i).findElement(By.cssSelector(".pl-book-online-button")).click();
+		bottomRow.get(i).findElement(By.cssSelector(".book-online")).click();
 		return PageFactory.initElements(driver, PatientLinkBookModal.class);
 	}
 	
-	public boolean isCallPresent (int i) {
+	public boolean isPhoneNumbePresent (int i) {
 		try {
-			if (buttonsDiv.size()<=i)
-				return false;
-			if (isElementPresent (buttonsDiv.get(i).findElement(By.cssSelector(".pl-call-button"))))
-				return true;
+			if (isElementPresent (bottomRow.get(i).findElement(By.cssSelector(".call-appointment strong"))))
+					return true;
 			else
 				return false;
 		}
@@ -106,35 +116,15 @@ public class PatientLinkRrAd {
 		}
 	}
 	
-	public PatientLinkRrAd clickCall (int i) {
-		buttonsDiv.get(i).findElement(By.cssSelector(".pl-call-button")).click();
-		wait.until(ExpectedConditions.visibilityOf(phoneNumber));
-		return this;
-	}
-	
-	public boolean isLogoPresent (int i) {
-		try {
-			if (buttonsDiv.size()<=i)
-				return false;
-			if (isElementPresent (buttonsDiv.get(i).findElement(By.cssSelector("img"))))
-				return true;
-			else
-				return false;
-		}
-		catch (NoSuchElementException e) {
-			return false;
-		}
-	}
-	
-	public String getPhoneNumber() {
-		return phoneNumber.getText();
+	public String getPhoneNumber (int i) {
+		return bottomRow.get(i).findElement(By.cssSelector(".call-appointment strong")).getText();
 	}
 	
 	public int getSize() {
 		return name.size();
 	}
 	
-	public static boolean isElementPresent (WebElement el) {
+	public boolean isElementPresent (WebElement el) {
 		try {
 			if (el.isDisplayed())
 				return true;

@@ -7,11 +7,11 @@
         <listener class-name="com.vitals.WebDriverListener"/>
     </listeners>
     
-<!--<test name="Patientlink Specific Tests">
+	<test name="Patientlink Specific Tests">
 		<classes>
 			<class name="com.vitals.test.PatientLinkTest" />
 		</classes>
-	</test> -->
+	</test>
 	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />

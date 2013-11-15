@@ -24,11 +24,11 @@ import com.vitals.pages.UccStatePage;
 
 public class UccTest {
 	
-	WebDriver driver;
-	SoftAssert m_assert;
-    String url;
-    List<String> profileUrl = new ArrayList<String>();
-    List<String> cityUrl = new ArrayList<String>();
+	private WebDriver driver;
+	private SoftAssert m_assert;
+	private String url;
+	private List<String> profileUrl = new ArrayList<String>();
+	private List<String> cityUrl = new ArrayList<String>();
     
     @Parameters({"url"})
     @BeforeMethod

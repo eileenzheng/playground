@@ -1,55 +1,53 @@
 package com.vitals.pages;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.DriverManager;
 
 public class PatientLinkCenterAd {
 	private WebDriver driver;
-	private WebDriverWait wait;
 	
 	public PatientLinkCenterAd () {
 		driver = DriverManager.getDriver();
-		this.wait = new WebDriverWait(driver, 5, 300);
 	}
 	
-	@FindBy(css=".result.sponsored.patient-link .tab>span")
+	@FindBy(css=".result.sponsored.patient-link .tabs span")
 	private WebElement sponsor;
 	
-	@FindBy(css=".result.sponsored.patient-link .avatar>.pic>a>img")
+	@FindBy(css=".result.sponsored.patient-link .avatar .pic a img")
 	private WebElement photo;
 	
-	@FindBy(css=".result.sponsored.patient-link .head>h4>a")
+	@FindBy(css=".result.sponsored.patient-link .logo")
+	private WebElement logo;
+	
+	@FindBy(css=".result.sponsored.patient-link .head h4 a")
 	private WebElement name;
 	
 	@FindBy(css=".result.sponsored.patient-link .info .specialty")
 	private WebElement specialty;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice>address>[itemprop=streetAddress]>span")
-	private WebElement address;
+	@FindBy(css=".result.sponsored.patient-link .info .practice address span>span")
+	private List<WebElement> address;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice>address>[itemprop=addressLocality]")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(2)")
 	private WebElement city;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice>address>[itemprop=addressRegion]")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(3)")
 	private WebElement state;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice>address>[itemprop=postalCode]")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(4)")
 	private WebElement zip;
 	
-	@FindBy(css=".result.sponsored.patient-link .patientlink-buttons .pl-book-online-button")
+	@FindBy(css=".result.sponsored.patient-link .book-online")
 	private WebElement bookButton;
 	
-	@FindBy(css=".result.sponsored.patient-link .patientlink-buttons .pl-call-button")
-	private WebElement callButton;
-	
-	@FindBy(css=".qtip-focus .pl-phone")
+	@FindBy(css=".result.sponsored.patient-link .call-appointment strong")
 	private WebElement phoneNumber;
 	
 	public String getName() {
@@ -64,8 +62,15 @@ public class PatientLinkCenterAd {
 		return specialty.getText();
 	}
 	
-	public String getAddress() {
-		return address.getText();
+	public String getAddressLine1() {
+		return address.get(0).getText();
+	}
+	
+	public String getAddressLine2() {
+		if (address.size()>1)
+			return address.get(1).getText();
+		else
+			return null;
 	}
 	
 	public String getCity() {
@@ -80,6 +85,14 @@ public class PatientLinkCenterAd {
 		return zip.getText();
 	}
 	
+	public boolean isLogoPresent() {
+		return isElementPresent(logo);
+	}
+	
+	public String getLogoUrl() {
+		return logo.findElement(By.cssSelector("a")).getAttribute("href");
+	}
+	
 	public boolean isBookPresent() {
 		return isElementPresent(bookButton);
 	}
@@ -89,21 +102,15 @@ public class PatientLinkCenterAd {
 		return PageFactory.initElements(driver, PatientLinkBookModal.class);
 	}
 	
-	public boolean isCallPresent() {
-		return isElementPresent(callButton);
-	}
-	
-	public PatientLinkCenterAd clickCall() {
-		callButton.click();
-		wait.until(ExpectedConditions.visibilityOf(phoneNumber));
-		return this;
+	public boolean isPhoneNumberPresent() {
+		return isElementPresent(phoneNumber);
 	}
 	
 	public String getPhoneNumber() {
 		return phoneNumber.getText();
 	}
 	
-	public static boolean isElementPresent (WebElement el) {
+	public boolean isElementPresent (WebElement el) {
 		try {
 			if (el.isDisplayed())
 				return true;

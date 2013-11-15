@@ -59,10 +59,10 @@ public class ProfilePage {
     @FindBy(linkText="Doctor's site")
     private WebElement plDrSite;
 
-    @FindBy(css=".ribbon.wide>div>a")
+    @FindBy(css=".patient-link .book-online")
     private WebElement plBookAppt;
 
-    @FindBy(css=".ribbon.wide>div")
+    @FindBy(css=".patient-link .call-appointment strong")
     private WebElement plPhoneNumber;
     
     @FindBy(css=".claim-profile>a")
@@ -171,14 +171,7 @@ public class ProfilePage {
     }
 
     public boolean isPLPhoneNumberPresent() {
-        if (isElementPresent (plPhoneNumber)) {
-            if (getPLPhoneNumber().equals("Book appointment"))
-                return false;
-            else
-                return true;
-        }
-        else
-            return false;
+        return isElementPresent (plPhoneNumber);
     }
 
     public String getPLPhoneNumber() {
