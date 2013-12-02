@@ -6,7 +6,7 @@
     <listeners>
         <listener class-name="com.vitals.WebDriverListener"/>
     </listeners>
-    
+
 	<test name="Patientlink Specific Tests">
 		<classes>
 			<class name="com.vitals.test.PatientLinkTest" />

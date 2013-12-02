@@ -27,7 +27,7 @@ public class PatientLinkTest {
     
     private static final String serpUrl = "/search?type=specialty&provider_type=1&q=110-Internist&specialist_id=110&location=New+York%2C+NY";
     private static final String citySpecUrl = "/specialists/internists/new-york/new-york";
-    private static final String profileUrl = "/doctors/Dr_Daniel_Stephens/profile";
+    private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
     private static final String uccUrl = "/urgent-care/ny/yonkers";
     
@@ -177,7 +177,7 @@ public class PatientLinkTest {
     	PatientLinkBookModal modal;
         
         for (int i=0; i<ad.getSize(); i++) {
-        
+
             pl.setExpected(ad.getName(i));
 
             m_assert.assertEquals(ad.getSpecialty(i), pl.getExpectedSpecialty(),

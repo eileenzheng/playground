@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
+import org.testng.Reporter;
 
 public class PatientLinkSetFeatures {
 	
@@ -63,6 +64,7 @@ public class PatientLinkSetFeatures {
 				plList.add(pl);
 			}
 		} catch (IOException e) {
+			Reporter.log("Error opening patient link feature file!");
 		} 
 	}
 	
