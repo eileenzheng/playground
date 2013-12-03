@@ -4,7 +4,6 @@ import com.vitals.DriverManager;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -48,11 +47,13 @@ public class PatientLinkTest {
         driver.get(url + profileHeaderUrl);
         ProfilePage profile = PageFactory.initElements(driver, ProfilePage.class);
         
-        Assert.assertTrue(profile.isDrSitePresent(), "Doctor's site is missing!");
-        Assert.assertEquals(profile.getSiteUrl(), "http://www.laserandmohs.com", "Doctor's site url is wrong!");
-        Assert.assertTrue(profile.isPLPhoneNumberPresent(), "Phone number is missing!");
-        Assert.assertTrue(profile.getPLPhoneNumber().contains("(646) 499-2330") , "Phone number is incorrect!");
-        Assert.assertTrue(profile.isBookApptPresent(), "Book online button is missing!");
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(profile.isDrSitePresent(), "Doctor's site is missing!");
+        m_assert.assertEquals(profile.getSiteUrl(), "http://www.laserandmohs.com", "Doctor's site url is wrong!");
+        m_assert.assertTrue(profile.isPLPhoneNumberPresent(), "Phone number is missing!");
+        m_assert.assertTrue(profile.getPLPhoneNumber().contains("(646) 499-2330") , "Phone number is incorrect!");
+        m_assert.assertTrue(profile.isBookApptPresent(), "Book online button is missing!");
+        m_assert.assertAll();
     }
     
     /* - tests the right rail ad on provider serp

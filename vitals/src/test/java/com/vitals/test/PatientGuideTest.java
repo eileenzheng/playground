@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import com.vitals.DriverManager;
 import com.vitals.pages.PatientGuideLandingPage;
 import com.vitals.pages.PatientGuidePage;
@@ -13,6 +14,7 @@ import com.vitals.pages.PatientGuidePage;
 public class PatientGuideTest {
     
     WebDriver driver;
+    SoftAssert m_assert;
     static final String pglink = "/patient-education";
     
     String url;
@@ -87,27 +89,31 @@ public class PatientGuideTest {
         
         PatientGuidePage pgpage = PageFactory.initElements(driver, PatientGuidePage.class);
         
-        Assert.assertTrue(pgpage.isOverviewPage(), 
+        m_assert = new SoftAssert();
+        
+        m_assert.assertTrue(pgpage.isOverviewPage(), 
                 "Overview page did not load on: " + driver.getCurrentUrl());
 
         pgpage = pgpage.clickTeam();
-        Assert.assertTrue(pgpage.isTeamPage(),
+        m_assert.assertTrue(pgpage.isTeamPage(),
                 "The Team page did not load on: " + driver.getCurrentUrl());
         
         pgpage = pgpage.clickPrepare();
-        Assert.assertTrue(pgpage.isPreparePage(),
+        m_assert.assertTrue(pgpage.isPreparePage(),
                 "How to Prepare page did not load on " + driver.getCurrentUrl());
         
         pgpage = pgpage.clickQuestion();
-        Assert.assertTrue(pgpage.isQuestionPage(),
+        m_assert.assertTrue(pgpage.isQuestionPage(),
                 "Questions to Ask page did not load on " + driver.getCurrentUrl());
         
         pgpage = pgpage.clickExpect();
-        Assert.assertTrue(pgpage.isExpectPage(),
+        m_assert.assertTrue(pgpage.isExpectPage(),
                 "What to Expect page did not load on " + driver.getCurrentUrl());
         
         pgpage = pgpage.clickTreatment();
-        Assert.assertTrue(pgpage.isTreatmentPage(),
+        m_assert.assertTrue(pgpage.isTreatmentPage(),
                 "Treatment Options page did not load on " + driver.getCurrentUrl());
+        
+        m_assert.assertAll();
     }
 }
