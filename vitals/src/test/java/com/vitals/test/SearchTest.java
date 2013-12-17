@@ -14,6 +14,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
+import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class SearchTest {
     }
 
     /* - enter zip code '1000' in location box of global header
-     * - verify that at least 1 suggstion of 'New York' is returned in auto-complete */
+     * - verify that at least 1 suggestion of 'New York' is returned in auto-complete */
     @Test
     public void autoSuggestLocation() {
     	driver = DriverManager.getDriver();
@@ -44,11 +45,12 @@ public class SearchTest {
         String location = "1000";
         String city = "New York";
 
+        homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
         Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
     }
 
-    /* - enter 'Smith' in name search box of global hearder
+    /* - enter 'Smith' in name search box of global header
      * - verify that at least 1 suggestion containing 'Smith' is returned in auto-complete */
     @Test
     public void autoSuggestName() {
@@ -59,12 +61,11 @@ public class SearchTest {
 
         String name = "Smith";
 
-        homePage.header.enterName(name);
+        homePage.header.enterSearchTerm(name);
 
-        Reporter.log("The Docs> " + homePage.header.getSearchSuggestions());
+        Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
 
-        Assert.assertTrue(homePage.header.checkSearchSuggestions(name));
-
+        Assert.assertTrue(homePage.header.checkNameSuggestions(name));
     }
 
     /* - search for 'Smith' in zip '10036' 
@@ -81,8 +82,10 @@ public class SearchTest {
         String name = "Smith";
         String location = "10036";
 
-        homePage.header.enterName(name);
+        homePage.header.enterSearchTerm(name);
+        homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
+        homePage.header.locationPressEnterKey();
 
         SearchResultsPage results = homePage.header.clickSearch();
         for (WebElement el : results.drList()) {
@@ -104,15 +107,13 @@ public class SearchTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
-        homePage.header.clickSpecialtyLink();
         String spec = "Cardiologist";
-        homePage.header.enterSpecialty(spec);
-        homePage.header.clickFirstMenuItem();
+        homePage.header.enterSearchTerm("Cardiologist");
 
         Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
         Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickFirstSpecialty();
 
         Reporter.log(results.getResultsCount() + " for search: " + spec);
     }
@@ -127,21 +128,18 @@ public class SearchTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
-        homePage.header.clickSpecialtyLink();
         String spec = "Cardiologist";
-        homePage.header.enterSpecialty(spec);
+        homePage.header.enterSearchTerm(spec);
 
-        Reporter.log(homePage.header.getSubSpecialtySearchSuggestions());
+        Reporter.log(homePage.header.getSpecialtySearchSuggestions());
 
-        homePage.header.clickSubSpec();
-
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickRandomSpecialty();
 
         Reporter.log(results.getResultsCount() + " for search: " + spec);
 
     }
 
-    /* - search for 'heart aneurysm' in global header 
+    /* - search for 'asthma' in global header 
      * - click a sub-condition in the middle and search
      * - log the number of results returned by the serp*/
     @Test
@@ -151,15 +149,12 @@ public class SearchTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
-        homePage.header.clickConditionLink();
-        String cond = "Heart Aneurysm";
-        homePage.header.enterCondition(cond);
+        String cond = "Asthma";
+        homePage.header.enterSearchTerm(cond);
 
-        Reporter.log(homePage.header.getSubSpecialtySearchSuggestions());
+        Reporter.log(homePage.header.getConditionSearchSuggestions());
 
-        homePage.header.clickSubSpec();
-
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickRandomCondition();
 
         Reporter.log(results.getResultsCount() + " for search: " + cond);
 
@@ -179,8 +174,10 @@ public class SearchTest {
 
         String name = "Smith";
 
-        homePage.header.enterName(name);
+        homePage.header.enterSearchTerm(name);
+        homePage.header.openLocationBox();
         homePage.header.enterLocation(zipCodes);
+        homePage.header.locationPressEnterKey();
 
         SearchResultsPage results = homePage.header.clickSearch();
 
@@ -189,24 +186,27 @@ public class SearchTest {
         Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
         for (Profile doc : docs) {
             driver.get(doc.getUrl());
-            doc.setProfileName(driver.findElement(By.cssSelector(".name.awards .current")).getText().trim());
+            ProfilePage profilePg = PageFactory.initElements(driver, ProfilePage.class);
+            doc.setProfileName(profilePg.getName().getText().trim());
             m_assert.assertTrue(doc.searchAndProfileMatches(),"Did not match: " + doc.toString());
             Reporter.log(doc.toString());
 
         }
+        
+        m_assert.assertAll();
 
     }
 
     @DataProvider(name = "zipCodes")
     public Object[][] generateZipCodes() {
         return new Object[][] {
-                {"18102"},
+                {"33021"},
                 /*{"18015"},
                 {"16434"},
                 {"02201"},
                 {"10001"},
                 {"07801"},*/
-                {"90210"}
+                {"18102"}
         };
     }
 

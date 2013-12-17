@@ -23,7 +23,7 @@ public class MyVitalsEditAccountPage {
     @FindBy(css="#user_current_password")
     private WebElement passwordCurrentTextBox;
     
-    @FindBy(css="button")
+    @FindBy(css="button[type=submit]")
     private WebElement saveChangesButton;
     
     @FindBy(css=".span3 .button")

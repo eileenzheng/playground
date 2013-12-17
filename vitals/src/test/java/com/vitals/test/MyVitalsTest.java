@@ -59,8 +59,8 @@ public class MyVitalsTest {
         editAccountPage.typePassword("test1234");
         editAccountPage.typePasswordConfirmation("test1234");
         editAccountPage.typePasswordCurrent("test1234");
+
         myVitalsHome = editAccountPage.clickSaveChanges();
-        
         // verify successful alert 
         Assert.assertTrue(myVitalsHome.isAccountUpdateSuccessful());
     }
@@ -134,7 +134,7 @@ public class MyVitalsTest {
     		Assert.assertTrue(basicInfoPage.isProfileLinkSuccessAlertShown(), "Profile link success text is NOT shown");
     		
     		// remove profile link after test
-    		MyVitalsEditAccountPage editAccountPage = basicInfoPage.header.clickSignedInEmail();
+    		MyVitalsEditAccountPage editAccountPage = basicInfoPage.header.clickSignedInEmail().clickEditProfile();
     		MyVitalsProfessionalsPage professionalsPage = editAccountPage.clickEditProfileHasProfile();
     		MyVitalsLocateProfilePage locateProfilePage = professionalsPage.clickDeleteButton();
     		Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect(), "No Profile alert is not shown");

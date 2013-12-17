@@ -60,13 +60,16 @@ public class ProfilePage {
     private WebElement plDrSite;
 
     @FindBy(css=".patient-link .book-online")
-    private WebElement plBookAppt;
+    private List<WebElement> plBookAppt;
 
     @FindBy(css=".patient-link .call-appointment strong")
-    private WebElement plPhoneNumber;
+    private List<WebElement> plPhoneNumber;
     
     @FindBy(css=".claim-profile>a")
-    private WebElement claimProfileLink;
+    private List<WebElement> claimProfileLink;
+    
+    @FindBy(css=".name.awards .current")
+    private List<WebElement> name;
 
     public boolean viewFullProfileButtonIsVisible() {
         return viewFullProfileButton.isDisplayed();
@@ -162,20 +165,32 @@ public class ProfilePage {
     }
 
     public boolean isBookApptPresent() {
-        return isElementPresent (plBookAppt);
+    	if (plBookAppt.size()==1)
+    		return isElementPresent (plBookAppt.get(0));
+    	else
+    		return isElementPresent (plBookAppt.get(1));
     }
 
     public PatientLinkBookModal clickBookAppt() {
-        plBookAppt.click();
+    	if (plBookAppt.size()==1)
+    		plBookAppt.get(0).click();
+    	else
+    		plBookAppt.get(1).click();
         return PageFactory.initElements(driver, PatientLinkBookModal.class);
     }
 
     public boolean isPLPhoneNumberPresent() {
-        return isElementPresent (plPhoneNumber);
+    	if (plPhoneNumber.size()==1)
+    		return isElementPresent (plPhoneNumber.get(0));
+    	else
+    		return isElementPresent (plPhoneNumber.get(1));
     }
 
     public String getPLPhoneNumber() {
-        return plPhoneNumber.getText();
+    	if (plPhoneNumber.size()==1)
+    		return plPhoneNumber.get(0).getText();
+    	else
+    		return plPhoneNumber.get(1).getText();
     }
 
     public boolean isElementPresent (WebElement el) {
@@ -191,7 +206,17 @@ public class ProfilePage {
     }
     
     public MyVitalsClaimProfilePage clickClaimProfileLink () {
-    	claimProfileLink.click();
+    	if (claimProfileLink.size()==1)
+    		claimProfileLink.get(0).click();
+    	else
+    		claimProfileLink.get(1).click();
     	return PageFactory.initElements(driver, MyVitalsClaimProfilePage.class);
+    }
+    
+    public WebElement getName() {
+    	if (name.size()==1)
+    		return name.get(0);
+    	else
+    		return name.get(1);
     }
 }

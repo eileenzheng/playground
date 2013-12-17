@@ -54,7 +54,6 @@ public class UccTest {
         	List<Ucc> uccs = cityPage.getResults();
         	for (Ucc ucc:uccs) {
         		if (profileUrl.size() < 15) {
-        			System.out.println("#################profile size: " + profileUrl.size());
         			profileUrl.add(ucc.getUrl());
         		}
         		else
@@ -180,11 +179,9 @@ public class UccTest {
     public Object[][] generateProfileUrls() {
     	
         Object[][] obj = new Object[profileUrl.size()][];
-        
-        System.out.println("*******profileUrl size: " +profileUrl.size());
+
         for (int i=0; i<profileUrl.size(); i++) {
         	obj[i] = new Object[]{profileUrl.get(i)};
-        	System.out.println(i);
         }
         
         return obj;

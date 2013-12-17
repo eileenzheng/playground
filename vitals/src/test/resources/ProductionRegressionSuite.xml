@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="3">
     <parameter name="url" value="http://www.vitals.com"/>
-    <parameter name="testLocation" value="remoteWD"/>
+<!--     <parameter name="testLocation" value="remoteWD"/> -->
 
     <listeners>
         <listener class-name="com.vitals.WebDriverListener"/>
     </listeners>
+    
 
 	<test name="Patientlink Specific Tests">
 		<classes>
-			<class name="com.vitals.test.PatientLinkTest" />
+			<class name="com.vitals.test.PatientGuideTest" />
 		</classes>
 	</test>
 	<test name="Search Specfic Tests">

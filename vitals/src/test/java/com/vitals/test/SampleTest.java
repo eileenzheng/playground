@@ -20,6 +20,7 @@ public class SampleTest {
     WebDriver driver;
     static final String url = "http://www.vitals.com";
 
+    
     Object[][] docs;
     //List<String> links;
     List<DrInfo> links;
@@ -43,7 +44,7 @@ public class SampleTest {
 
         System.out.println(homePage.homePhotoImage());
 
-        homePage.header.enterName("Smith");
+        homePage.header.enterSearchTerm("Smith");
         SearchResultsPage results = homePage.header.clickSearch();
 
         System.out.println("TOTAL RESULTS> " + results.getResultsCount());
@@ -65,7 +66,7 @@ public class SampleTest {
 
         System.out.println(homePage.homePhotoImage());
 
-        homePage.header.enterName("Smith");
+        homePage.header.enterSearchTerm("Smith");
         SearchResultsPage results = homePage.header.clickSearch();
 
         System.out.println("TOTAL RESULTS> " + results.getResultsCount());
