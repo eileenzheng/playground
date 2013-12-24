@@ -20,6 +20,8 @@ import com.vitals.pages.UccProfileAboutPage;
 import com.vitals.pages.UccProfileReviewsPage;
 import com.vitals.pages.UccProfileServicesPage;
 import com.vitals.pages.UccProfileSummaryPage;
+import com.vitals.pages.UccSearchResultsPage;
+import com.vitals.pages.UccSearchResultsRefinement;
 import com.vitals.pages.UccStatePage;
 
 public class UccTest {
@@ -185,5 +187,51 @@ public class UccTest {
         }
         
         return obj;
+    }
+    
+    /* - search the word 'city' from masthead
+     * - check number of results
+     * - check number of results after setting some filters
+     * - check number of results after resetting filter */
+    @Test
+    public void uccSearchTest() {
+    	driver = DriverManager.getDriver();
+        driver.get(url);
+        
+        HomePage home = PageFactory.initElements(driver,HomePage.class);
+        home.header.openFindDropdown().clickFindByUcc();
+        home.header.enterSearchTerm("city");
+        home.header.openLocationBox();
+        home.header.enterLocation("New York");
+        home.header.locationPressEnterKey();
+        
+        UccSearchResultsPage uccSerp = home.header.clickSearchUcc();
+        Assert.assertTrue(uccSerp.getResultsCountNumber()>70 && uccSerp.getResultsCountNumber()<100,
+        		"Number of results not within expected range");
+        int count = uccSerp.getResultsCountNumber();
+        int initialCount = uccSerp.getResultsCountNumber();
+        Reporter.log(count + " results with no filters");
+        
+        UccSearchResultsRefinement uccFilter = PageFactory.initElements(driver, UccSearchResultsRefinement.class);
+        uccFilter = uccFilter.clickPhysicals();
+        uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
+        Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
+        		"Number of results incorrect with 'Physicals' filter");
+        count = uccSerp.getResultsCountNumber();
+        Reporter.log(count + " results with physicals filter");
+        
+        /*uccFilter = uccFilter.clickInjuries();
+        uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
+        Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
+        		"Number of results incorrect with 'Injuries' filter");
+        count = uccSerp.getResultsCountNumber();
+        System.out.println(count + " results with injuries filter");*/
+        
+        uccFilter = uccFilter.clickPhysicals();
+        // uccFilter = uccFilter.clickInjuries();
+        uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
+        Assert.assertTrue(uccSerp.getResultsCountNumber()==initialCount,
+        		"Number of results incorrect after resetting filters");
+        Reporter.log(uccSerp.getResultsCountNumber() + " results after resetting filters");
     }
 }

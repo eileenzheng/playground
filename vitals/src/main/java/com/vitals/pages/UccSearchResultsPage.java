@@ -1,26 +1,25 @@
 package com.vitals.pages;
 
-import com.vitals.DriverManager;
-import com.vitals.helpers.Profile;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import com.vitals.DriverManager;
+import com.vitals.helpers.Ucc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SearchResultsPage {
-
-    private final WebDriver driver;
+public class UccSearchResultsPage {
+	private final WebDriver driver;
     public final HeaderPage header;
     public final FooterPage footer;
     public final SearchResultsRefinement refinement;
     public final PatientLinkCenterAd centerAd;
     public final PatientLinkRrAd rrAd;
 
-    public SearchResultsPage() {
+    public UccSearchResultsPage() {
     	driver = DriverManager.getDriver();
         this.header = PageFactory.initElements(driver, HeaderPage.class);
         this.footer = PageFactory.initElements(driver, FooterPage.class);
@@ -29,23 +28,14 @@ public class SearchResultsPage {
         this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
-    @FindBy(css="#leaderboard_top")
-    private WebElement topAdBox;
-
-    @FindBy (css=".advert.rectangle.cbox")
-    private WebElement rightTopAdBox;
-
     @FindBy (css="#result-count")
     private WebElement resultsTotal;
 
     @FindBy (css="#sort")
     private WebElement sortByDropdown;
 
-    @FindBy (css="#results>.result")
+    @FindBy (css=".featured-results-body")
     private List<WebElement> searchResults;
-
-    @FindBy (css=".block.patientguide")
-    private WebElement rightPatientGuideBlock;
 
     public String getResultsCount() {
         return resultsTotal.getText();
@@ -61,26 +51,27 @@ public class SearchResultsPage {
     		return Integer.parseInt(split[0].concat(split[1]));
     }
 
-    public List<WebElement> drList() {
+    public List<WebElement> uccList() {
         return searchResults;
     }
 
-    public List<Profile> doctorResults(List<WebElement> searchResults) {
-        List<Profile> doc = new ArrayList<Profile>();
+    public List<Ucc> uccResults(List<WebElement> searchResults) {
+        List<Ucc> ucc = new ArrayList<Ucc>();
 
         for (WebElement el : searchResults) {
-            String name = el.findElement(By.cssSelector(".details>.head>h4>a")).getText().trim();
-            String url = el.findElement(By.cssSelector(".details>.head>h4>a")).getAttribute("href");
-            doc.add(new Profile(name,url));
+            String name = el.findElement(By.cssSelector(".info-head>h4>a")).getText().trim();
+            String url = el.findElement(By.cssSelector(".info-head>h4>a")).getAttribute("href");
+            String address = el.findElement(By.cssSelector(".info address>[itemprop=streetAddress]>span")).getText();
+            String city = el.findElement(By.cssSelector(".info address>[itemprop=addressLocality]")).getText();
+            String state = el.findElement(By.cssSelector(".info address>[itemprop=addressRegion]")).getText();
+            String zip = el.findElement(By.cssSelector(".info address>[itemprop=postalCode]")).getText();
+            ucc.add(new Ucc(name,url,address,city,state,zip));
         }
 
-        return doc;
+        return ucc;
     }
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
-
 }
-
-

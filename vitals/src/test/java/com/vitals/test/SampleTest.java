@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import com.vitals.DriverManager;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class SampleTest {
 
     WebDriver driver;
     static final String url = "http://www.vitals.com";
-
     
     Object[][] docs;
     //List<String> links;

@@ -16,6 +16,8 @@ import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
+import com.vitals.pages.SearchResultsRefinement;
+
 import java.util.List;
 
 /**
@@ -97,27 +99,6 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
-    /* - search for 'cardiologist' in global header
-     * - click on the first menu item and search
-     * - log the number of results returned by the serp */
-    @Test
-    public void searchBySpecialty() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-        String spec = "Cardiologist";
-        homePage.header.enterSearchTerm("Cardiologist");
-
-        Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
-        Reporter.log(homePage.header.getCurrentPopulatedLocation());
-
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
-
-        Reporter.log(results.getResultsCount() + " for search: " + spec);
-    }
-
     /* - search for 'cardiologist' in global header 
      * - click a sub-specialty in the middle and search
      * - log the number of results returned by the serp*/
@@ -132,11 +113,13 @@ public class SearchTest {
         homePage.header.enterSearchTerm(spec);
 
         Reporter.log(homePage.header.getSpecialtySearchSuggestions());
+        
+        Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
+        Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
-        SearchResultsPage results = homePage.header.clickRandomSpecialty();
+        SearchResultsPage results = homePage.header.clickFirstSpecialty();
 
         Reporter.log(results.getResultsCount() + " for search: " + spec);
-
     }
 
     /* - search for 'asthma' in global header 
@@ -153,11 +136,67 @@ public class SearchTest {
         homePage.header.enterSearchTerm(cond);
 
         Reporter.log(homePage.header.getConditionSearchSuggestions());
+        
+        Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
+        Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
         SearchResultsPage results = homePage.header.clickRandomCondition();
 
         Reporter.log(results.getResultsCount() + " for search: " + cond);
+    }
+    
+    /* - search for Cardiologists in New York
+     * - check number of results is within expected range
+     * - turn on different filters
+     * - make sure filter is working by checking result number narrows */
+    @Test
+    public void serpFilters() {
+    	driver = DriverManager.getDriver();
 
+        driver.get(url);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        
+        homePage.header.openLocationBox();
+        homePage.header.enterLocation("10036");
+        homePage.header.enterSearchTerm("Cardiologist");
+
+        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+       
+        Assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
+        		"# of result for Cardiologists in New York not within expected range! ");     
+        int count = results.getResultsCountNumber();
+        Reporter.log(count + " results with default filter settings");
+        SearchResultsRefinement filter = PageFactory.initElements(driver, SearchResultsRefinement.class);
+ 
+        filter = filter.clickWithinFiveMiles();
+        results = PageFactory.initElements(driver, SearchResultsPage.class);
+        Assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+        		"5 mile filter not returning proper number of results!");
+        count = results.getResultsCountNumber();
+        Reporter.log(count + " results after 5 miles filter");
+        
+        filter = filter.genderSelectMale();
+        results = PageFactory.initElements(driver, SearchResultsPage.class);
+        Assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+        		"Gender filter not returning proper number of results!");
+        count = results.getResultsCountNumber();
+        Reporter.log(count + " results after male gender filter");
+        
+        filter = filter.clickBoardCertified();
+        results = PageFactory.initElements(driver, SearchResultsPage.class);
+        Assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+        		"Board certified filter not returning proper number of results!");
+        count = results.getResultsCountNumber();
+        Reporter.log(count + " results after board certified filter");
+        
+        filter = filter.clickUSEducated();
+        results = PageFactory.initElements(driver, SearchResultsPage.class);
+        Assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+        		"U.S. educated filter not returning proper number of results!");
+        count = results.getResultsCountNumber();
+        Reporter.log(count + " results after U.S. educated filter");
+        
+        filter = filter.clickResetFilters();
     }
 
     /* - loop through the provided zip codes, for each do:

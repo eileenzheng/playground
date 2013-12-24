@@ -21,6 +21,18 @@ public class HeaderPage {
     @FindBy(css=".masthead-logo>a")
     private WebElement logo;
     
+    @FindBy(css=".find .type-select .mini-selector")
+    private WebElement findDropdown;
+    
+    @FindBy(css="a[data-type=\"1\"]")
+    private WebElement findByDoctor;
+    
+    @FindBy(css="a[data-type=\"4\"]")
+    private WebElement findByDentist;
+    
+    @FindBy(css="a[data-type=\"10\"]")
+    private WebElement findByUcc;
+    
     @FindBy(css="#q")
     private WebElement searchTextBox;
     
@@ -71,6 +83,26 @@ public class HeaderPage {
 
     @FindBy(css=".nav-tab.write-review")
     private WebElement writeReviewTab;
+    
+    public HeaderPage openFindDropdown () {
+    	findDropdown.click();
+    	return this;
+    }
+    
+    public HeaderPage clickFindByDoctor() {
+    	findByDoctor.click();
+    	return this;
+    }
+    
+    public HeaderPage clickFindByDentist() {
+    	findByDentist.click();
+    	return this;
+    }
+    
+    public HeaderPage clickFindByUcc() {
+    	findByUcc.click();
+    	return this;
+    }
 
     public HeaderPage enterSearchTerm (String text) {
         searchTextBox.sendKeys(text);
@@ -82,6 +114,10 @@ public class HeaderPage {
         return PageFactory.initElements(driver,SearchResultsPage.class);
     }
 
+    public UccSearchResultsPage clickSearchUcc() {
+        goButton.click();
+        return PageFactory.initElements(driver,UccSearchResultsPage.class);
+    }
 
     public boolean checkNameSuggestions(String suggestion) {
         Boolean flag = false;
