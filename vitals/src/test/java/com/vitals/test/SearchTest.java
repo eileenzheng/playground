@@ -237,12 +237,12 @@ public class SearchTest {
     @DataProvider(name = "zipCodes")
     public Object[][] generateZipCodes() {
         return new Object[][] {
-                /*{"33021"},
+                {"33021"},
                 {"18015"},
                 {"16434"},
                 {"02201"},
                 {"10001"},
-                {"07801"},*/
+                {"07801"},
                 {"18102"}
         };
     }
