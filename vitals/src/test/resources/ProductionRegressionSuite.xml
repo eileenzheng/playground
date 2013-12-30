@@ -2,7 +2,7 @@
 <suite name="Vitals Production Regression" verbose="5" parallel="tests"
 	thread-count="1">
 	<parameter name="url" value="http://www.vitals.com" />
-	<parameter name="testLocation" value="remoteWD" />
+	<!-- <parameter name="testLocation" value="remoteWD" /> -->
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
@@ -11,6 +11,10 @@
 	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />
+			<methods>
+				<exclude name="compareResultsToProfile" />
+			</methods>
+
 		</classes>
 	</test>
 	<test name="Profile Specific Tests">

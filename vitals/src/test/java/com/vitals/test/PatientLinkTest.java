@@ -24,7 +24,7 @@ public class PatientLinkTest {
     private boolean alreadyInit = false;
     private String url;
     
-    private static final String serpUrl = "/search?type=specialty&provider_type=1&q=110-Internist&specialist_id=110&location=New+York%2C+NY";
+    private static final String serpUrl = "/search?type=specialty&provider_type=1&specialist_id=110&field_specialty_id=&disorder_id=&location=New+York%2C+NY&q=Internist&insurance=&name=";
     private static final String citySpecUrl = "/specialists/internists/new-york/new-york";
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
