@@ -36,27 +36,27 @@ public class PatientGuidePage {
 	private WebElement menuTreatmentOptions;
 	
 	public boolean isOverviewPage() {
-		return breadcrumb.getText().equals("Overview");
+		return breadcrumb.getText().equalsIgnoreCase("Overview");
 	}
 	
 	public boolean isTeamPage() {
-		return breadcrumb.getText().equals("The Team");
+		return breadcrumb.getText().equalsIgnoreCase("The Team");
 	}
 	
 	public boolean isPreparePage() {
-		return breadcrumb.getText().equals("How to Prepare");
+		return breadcrumb.getText().equalsIgnoreCase("How to Prepare");
 	}
 	
 	public boolean isQuestionPage() {
-		return breadcrumb.getText().equals("Questions to Ask");
+		return breadcrumb.getText().equalsIgnoreCase("Questions to Ask");
 	}
 	
 	public boolean isExpectPage() {
-		return breadcrumb.getText().equals("What to Expect");
+		return breadcrumb.getText().equalsIgnoreCase("What to Expect");
 	}
 	
 	public boolean isTreatmentPage() {
-		return breadcrumb.getText().equals("Treatment Options");
+		return breadcrumb.getText().equalsIgnoreCase("Treatment Options");
 	}
 	
 	public PatientGuidePage clickTeam() {

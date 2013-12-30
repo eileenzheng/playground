@@ -47,7 +47,7 @@
                 <artifactId>selenium-server</artifactId>
                 <version>${selenium.version}</version>
             </dependency>
-            <dependency>
+<!--             <dependency>
                 <groupId>com.github.detro.ghostdriver</groupId>
                 <artifactId>phantomjsdriver</artifactId>
                 <version>${ghostdriver.version}</version>
@@ -57,7 +57,7 @@
                         <artifactId>selenium-remote-driver</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
+            </dependency> -->
             <dependency>
                 <groupId>org.seleniumhq.selenium.fluent</groupId>
                 <artifactId>fluent-selenium</artifactId>

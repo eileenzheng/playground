@@ -84,7 +84,7 @@ public class PatientGuideTest {
     }
 
     /* shared function for testing a single guide, navigate thru the tabs and check breadcrumb */
-    public void testPatientGuide() {
+    private void testPatientGuide() {
         // This is a common function for testing one patient guide page
         
         PatientGuidePage pgpage = PageFactory.initElements(driver, PatientGuidePage.class);

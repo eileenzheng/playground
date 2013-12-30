@@ -34,7 +34,7 @@ public class MastheadTest {
 			this.url[1] = "https://my.vitals.com";
 	}
 
-		@Test
+	@Test
 	public void doctorSearchGo() {
 		driver = DriverManager.getDriver();
 
@@ -256,7 +256,7 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("John");
+			homePage.header.enterReviewSearchTerm("city");
 
 			ReviewPage reviewPage = homePage.header.clickRandomUccReview();
 			Assert.assertTrue(reviewPage.isFacilityReview());

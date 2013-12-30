@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Vitals Production Regression" verbose="5" parallel="tests"
-	thread-count="3">
+	thread-count="1">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="testLocation" value="remoteWD" />
 
@@ -8,11 +8,6 @@
 		<listener class-name="com.vitals.WebDriverListener" />
 	</listeners>
 
-	<test name="Patientlink Specific Tests">
-		<classes>
-			<class name="com.vitals.test.PatientGuideTest" />
-		</classes>
-	</test>
 	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />
@@ -33,6 +28,11 @@
 			<class name="com.vitals.test.PatientGuideTest" />
 		</classes>
 	</test>
+	<test name="Patientlink Specific Tests">
+		<classes>
+			<class name="com.vitals.test.PatientLinkTest" />
+		</classes>
+	</test>
 	<test name="MyVitals Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
@@ -42,7 +42,7 @@
 		<classes>
 			<class name="com.vitals.test.UccTest" />
 		</classes>
-	</test>
+	</test> 
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
