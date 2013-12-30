@@ -1,11 +1,13 @@
 package com.vitals.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import com.vitals.DriverManager;
 import java.util.List;
@@ -36,6 +38,9 @@ public class HeaderPage {
     @FindBy(css="#q")
     private WebElement searchTextBox;
     
+    @FindBy(css="#review_q")
+    private WebElement reviewSearchTextBox;
+    
     @FindBy(css=".ui-autocomplete-category")
     private List<WebElement> autocompleteCategories;
     
@@ -47,6 +52,18 @@ public class HeaderPage {
     
     @FindBy(css=".ui-menu-item[data-provider-id]>a")
     private List<WebElement> nameSuggestions;
+    
+    @FindBy(css=".ui-menu-item[data-facility-id]>a")
+    private List<WebElement> uccSuggestions;
+    
+    @FindBy(css=".ui-menu-item:last-child>a")
+    private WebElement showAllLink;
+    
+    @FindBy(linkText="Show all doctors...")
+    private WebElement showAllDoctors;
+    
+    @FindBy(linkText="Show all facilities...")
+    private WebElement showAllFacilities;
 
     @FindBy(css=".location .location-textbox")
     private WebElement locationTextBoxSelector;
@@ -57,8 +74,11 @@ public class HeaderPage {
     @FindBy(css=".ui-menu-item>a")
     private List<WebElement> locationSuggestions;
 
-    @FindBy(css=".go-button")
+    @FindBy(css=".go-button>button")
     private WebElement goButton;
+    
+    @FindBy(css=".review button")
+    private WebElement reviewGoButton;
     
     @FindBy(css=".session-info li>a:nth-child(2)")
     private WebElement urgentCareLink;
@@ -106,15 +126,29 @@ public class HeaderPage {
 
     public HeaderPage enterSearchTerm (String text) {
         searchTextBox.sendKeys(text);
+        WebDriverWait wait = new WebDriverWait(driver,15,2000);
+        wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
     }
     
-    public SearchResultsPage clickSearch() {
+    public HeaderPage enterReviewSearchTerm (String text) {
+        reviewSearchTextBox.sendKeys(text);
+        WebDriverWait wait = new WebDriverWait(driver,15,2000);
+        wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
+        return this;
+    }
+    
+    public SearchResultsPage clickGoButton() {
         goButton.click();
         return PageFactory.initElements(driver,SearchResultsPage.class);
     }
+    
+    public ReviewSearchResultsPage clickReviewGoButton() {
+    	reviewGoButton.click();
+        return PageFactory.initElements(driver,ReviewSearchResultsPage.class);
+    }
 
-    public UccSearchResultsPage clickSearchUcc() {
+    public UccSearchResultsPage clickGoButtonUcc() {
         goButton.click();
         return PageFactory.initElements(driver,UccSearchResultsPage.class);
     }
@@ -139,9 +173,37 @@ public class HeaderPage {
 
         return drs.toString();
     }
+    
+    public ProfilePage clickRandomName() {
+    	int mid = nameSuggestions.size() / 2;
+    	nameSuggestions.get(mid).click();
+    	
+    	return PageFactory.initElements(driver, ProfilePage.class);
+    }
+    
+    public UccProfileSummaryPage clickRandomUcc() {
+    	int mid = uccSuggestions.size() / 2;
+    	uccSuggestions.get(mid).click();
+    	
+    	return PageFactory.initElements(driver, UccProfileSummaryPage.class);
+    }
+    
+    public ReviewPage clickRandomNameReview() {
+    	int mid = nameSuggestions.size() / 2;
+    	nameSuggestions.get(mid).click();
+    	
+    	return PageFactory.initElements(driver, ReviewPage.class);
+    }
+    
+    public ReviewPage clickRandomUccReview() {
+    	int mid = uccSuggestions.size() / 2;
+    	uccSuggestions.get(mid).click();
+    	
+    	return PageFactory.initElements(driver, ReviewPage.class);
+    }
 
     public String getSpecialtySearchSuggestions() {
-        StringBuffer specs = new StringBuffer();
+    	StringBuffer specs = new StringBuffer();
         
         for (WebElement el : specialtySuggestions) {
             specs.append(el.getText().toString() + "\n");
@@ -181,6 +243,26 @@ public class HeaderPage {
         return PageFactory.initElements(driver, SearchResultsPage.class);
     }
     
+    public SearchResultsPage clickShowAllLink() {
+    	showAllLink.click();
+    	return PageFactory.initElements(driver, SearchResultsPage.class);
+    }
+    
+    public UccSearchResultsPage clickShowAllLinkUcc() {
+    	showAllLink.click();
+    	return PageFactory.initElements(driver, UccSearchResultsPage.class);
+    }
+    
+    public ReviewSearchResultsPage clickShowAllDoctorsReview() {
+    	showAllDoctors.click();
+    	return PageFactory.initElements(driver, ReviewSearchResultsPage.class);
+    }
+    
+    public ReviewSearchResultsPage clickShowAllFacilitiesReview() {
+    	showAllFacilities.click();
+    	return PageFactory.initElements(driver, ReviewSearchResultsPage.class);
+    }
+    
     public HeaderPage openLocationBox() {
     	locationTextBoxSelector.click();
     	return this;
@@ -189,11 +271,6 @@ public class HeaderPage {
     public HeaderPage enterLocation(String location) {
     	locationTextBox.clear();
     	locationTextBox.sendKeys(location);
-    	return this;
-    }
-    
-    public HeaderPage locationPressEnterKey() {
-    	locationTextBox.sendKeys(Keys.ENTER);
     	return this;
     }
     
@@ -208,11 +285,18 @@ public class HeaderPage {
     }
 
     public boolean locationSearchIsPopulated() {
-        return !locationTextBox.getAttribute("value").isEmpty();
+        return !locationTextBox.getAttribute("value").equalsIgnoreCase("enter location");
     }
 
     public String getCurrentPopulatedLocation() {
         return locationTextBox.getAttribute("value").toString();
+    }
+    
+    public HeaderPage hoverReviewTab() {
+    	Actions builder = new Actions(driver); 
+    	Actions hoverOver = builder.moveToElement(writeReviewTab);
+    	hoverOver.perform();
+    	return this;
     }
     
     public UccLandingPage clickUrgentCareLink() {

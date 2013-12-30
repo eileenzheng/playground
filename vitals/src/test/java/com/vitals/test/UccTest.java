@@ -203,9 +203,8 @@ public class UccTest {
         home.header.enterSearchTerm("city");
         home.header.openLocationBox();
         home.header.enterLocation("New York");
-        home.header.locationPressEnterKey();
         
-        UccSearchResultsPage uccSerp = home.header.clickSearchUcc();
+        UccSearchResultsPage uccSerp = home.header.clickGoButtonUcc();
         Assert.assertTrue(uccSerp.getResultsCountNumber()>70 && uccSerp.getResultsCountNumber()<100,
         		"Number of results not within expected range");
         int count = uccSerp.getResultsCountNumber();

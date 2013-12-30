@@ -87,9 +87,8 @@ public class SearchTest {
         homePage.header.enterSearchTerm(name);
         homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
-        homePage.header.locationPressEnterKey();
 
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickGoButton();
         for (WebElement el : results.drList()) {
             String drName = el.findElement(By.cssSelector(".head>h4>a")).getText();
             Reporter.log(drName);
@@ -163,7 +162,7 @@ public class SearchTest {
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
        
         Assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
-        		"# of result for Cardiologists in New York not within expected range! ");     
+        		"# of result for Cardiologists in New York not within expected range! " + results.getResultsCountNumber());     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
         SearchResultsRefinement filter = PageFactory.initElements(driver, SearchResultsRefinement.class);
@@ -216,9 +215,8 @@ public class SearchTest {
         homePage.header.enterSearchTerm(name);
         homePage.header.openLocationBox();
         homePage.header.enterLocation(zipCodes);
-        homePage.header.locationPressEnterKey();
 
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickGoButton();
 
         List<Profile> docs = results.doctorResults(results.drList());
 
@@ -239,8 +237,8 @@ public class SearchTest {
     @DataProvider(name = "zipCodes")
     public Object[][] generateZipCodes() {
         return new Object[][] {
-                {"33021"},
-                /*{"18015"},
+                /*{"33021"},
+                {"18015"},
                 {"16434"},
                 {"02201"},
                 {"10001"},

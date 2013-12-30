@@ -43,7 +43,7 @@ public class SampleTest {
         System.out.println(homePage.homePhotoImage());
 
         homePage.header.enterSearchTerm("Smith");
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickGoButton();
 
         System.out.println("TOTAL RESULTS> " + results.getResultsCount());
 
@@ -65,7 +65,7 @@ public class SampleTest {
         System.out.println(homePage.homePhotoImage());
 
         homePage.header.enterSearchTerm("Smith");
-        SearchResultsPage results = homePage.header.clickSearch();
+        SearchResultsPage results = homePage.header.clickGoButton();
 
         System.out.println("TOTAL RESULTS> " + results.getResultsCount());
 

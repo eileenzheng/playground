@@ -3,8 +3,8 @@ package com.vitals;
 import com.vitals.helpers.Constants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+/*import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;*/
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -63,7 +63,7 @@ public class DriverFactory {
         return driver;
     }
 
-    public static WebDriver createPhantomInstance() {
+/*    public static WebDriver createPhantomInstance() {
         WebDriver driver = null;
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,
@@ -78,7 +78,7 @@ public class DriverFactory {
         setDriverFeatures(driver);
 
         return driver;
-    }
+    }*/
 
     private static void setDriverFeatures(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
