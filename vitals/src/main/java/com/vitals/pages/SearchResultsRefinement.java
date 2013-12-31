@@ -7,11 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.DriverManager;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class SearchResultsRefinement {
 
@@ -203,11 +200,14 @@ public class SearchResultsRefinement {
     }
 
     private void spinnerWait() {
-        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver,15,2000);
-
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
-
-        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        
+        // not ideal...but haven't found a better way to solve the problem (page updates after spinner disappears)
+        try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 }

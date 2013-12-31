@@ -46,9 +46,10 @@ public class SearchTest {
 
         String location = "1000";
         String city = "New York";
-
+       
         homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
+        
         Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
     }
 
@@ -157,14 +158,17 @@ public class SearchTest {
         
         m_assert = new SoftAssert();
         
-        homePage.header.openLocationBox();
-        homePage.header.enterLocation("10036");
-        homePage.header.enterSearchTerm("Cardiologist");
+		do {
+			homePage.header.openLocationBox();
+			homePage.header.enterLocation("10036");
+		} while (!homePage.header.locationSearchIsPopulated());
+		
+		homePage.header.enterSearchTerm("Cardiologist");
 
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
        
         m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
-        		"# of result for Cardiologists in New York not within expected range! " + results.getResultsCountNumber());     
+        		"# of result for Cardiologists in New York not within expected range! ");     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
         SearchResultsRefinement filter = PageFactory.initElements(driver, SearchResultsRefinement.class);
