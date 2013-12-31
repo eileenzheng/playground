@@ -35,13 +35,13 @@ public class PatientLinkCenterAd {
 	@FindBy(css=".result.sponsored.patient-link .info .practice address span>span")
 	private List<WebElement> address;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(2)")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):nth-last-of-type(3)")
 	private WebElement city;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(3)")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):nth-last-of-type(2)")
 	private WebElement state;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address span:nth-of-type(4)")
+	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):last-of-type")
 	private WebElement zip;
 	
 	@FindBy(css=".result.sponsored.patient-link .book-online")

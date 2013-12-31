@@ -2,7 +2,7 @@
 <suite name="Vitals Production Regression" verbose="5" parallel="tests"
 	thread-count="1">
 	<parameter name="url" value="http://www.vitals.com" />
-	<parameter name="testLocation" value="remoteWD" />
+	<!-- <parameter name="testLocation" value="remoteWD" /> -->
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
