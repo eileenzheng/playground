@@ -4,17 +4,16 @@
     <parameter name="testLocation" value="remoteWD"/>
 
     <listeners>
-        <listener class-name="com.vitals.WebDriverListener"/>
-    </listeners>
+		<listener class-name="com.vitals.WebDriverListener" />
+	</listeners>
 
-	<test name="Patientlink Specific Tests">
-		<classes>
-			<class name="com.vitals.test.PatientLinkTest" />
-		</classes>
-	</test>
 	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />
+			<methods>
+				<exclude name="compareResultsToProfile" />
+			</methods>
+
 		</classes>
 	</test>
 	<test name="Profile Specific Tests">
@@ -32,7 +31,12 @@
 			<class name="com.vitals.test.PatientGuideTest" />
 		</classes>
 	</test>
-	<test name="MyVitals Tests">
+	<test name="Patientlink Specific Tests">
+		<classes>
+			<class name="com.vitals.test.PatientLinkTest" />
+		</classes>
+	</test>
+	<test name="MyVitals Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
 		</classes>
@@ -40,6 +44,11 @@
 	<test name="Urgent Care Specific Tests">
 		<classes>
 			<class name="com.vitals.test.UccTest" />
+		</classes>
+	</test> 
+	<test name="Masthead Specific Tests">
+		<classes>
+			<class name="com.vitals.test.MastheadTest" />
 		</classes>
 	</test>
 </suite>
