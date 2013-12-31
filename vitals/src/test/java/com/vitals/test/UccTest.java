@@ -142,23 +142,23 @@ public class UccTest {
     	
     	UccProfileSummaryPage summary = PageFactory.initElements(driver, UccProfileSummaryPage.class);
     	Assert.assertTrue(summary.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(summary.isSummaryPage());
+    	Assert.assertTrue(summary.isSummaryPage(), "Summary page did not load");
     	Assert.assertTrue(summary.isAddressMatched(), "Address in profile header card does not match the map.");
     	
     	UccProfileServicesPage services = summary.clickSeeAllLink();
     	Assert.assertTrue(services.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(services.isServicesPage());
+    	Assert.assertTrue(services.isServicesPage(), "Services page did not load");
     	Assert.assertTrue(services.getNumberOfUnavailableService()<6, "Too many unavailable services!");
     	
     	services = services.clickMenu();
     	UccProfileAboutPage about = services.clickMenuAbout();
     	Assert.assertTrue(about.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(about.isAboutPage());
+    	Assert.assertTrue(about.isAboutPage(), "About page did not load");
     	
     	about = about.clickMenu();
     	UccProfileReviewsPage reviews = about.clickMenuReviews();
     	Assert.assertTrue(reviews.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(reviews.isReviewsPage());
+    	Assert.assertTrue(reviews.isReviewsPage(), "Review page did not load");
     	Assert.assertEquals(reviews.getTotalRating(), reviews.getTotalRatingFromBreakDown(), "Total rating and breadown do not match! ");
     	Reporter.log("Total Rating: " + reviews.getTotalRating() + " vs Rating Breakdown: " 
     			+ reviews.getTotalRatingFromBreakDown() + " " + driver.getCurrentUrl());
