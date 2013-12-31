@@ -26,13 +26,13 @@ public class PatientLinkRrAd {
 	@FindBy(css=".related.block.border .rr-row .specialty")
 	private List<WebElement> specialty;
 	
-	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(2)")
+	@FindBy(css=".related.block.border .rr-row .details address span:nth-last-child(3)")
 	private List<WebElement> city;
 	
-	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(3)")
+	@FindBy(css=".related.block.border .rr-row .details address span:nth-last-child(2)")
 	private List<WebElement> state;
 	
-	@FindBy(css=".related.block.border .rr-row .details>address>span:nth-child(4)")
+	@FindBy(css=".related.block.border .rr-row .details>address>span:last-of-type")
 	private List<WebElement> zip;
 	
 	@FindBy(css=".related.block.border .row2")

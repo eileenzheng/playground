@@ -155,13 +155,15 @@ public class SearchTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         
+        m_assert = new SoftAssert();
+        
         homePage.header.openLocationBox();
         homePage.header.enterLocation("10036");
         homePage.header.enterSearchTerm("Cardiologist");
 
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
        
-        Assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
+        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
         		"# of result for Cardiologists in New York not within expected range! " + results.getResultsCountNumber());     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
@@ -169,33 +171,35 @@ public class SearchTest {
  
         filter = filter.clickWithinFiveMiles();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
-        Assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
         		"5 mile filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
         
         filter = filter.genderSelectMale();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
-        Assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
         		"Gender filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after male gender filter");
         
         filter = filter.clickBoardCertified();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
-        Assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
         		"Board certified filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after board certified filter");
         
         filter = filter.clickUSEducated();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
-        Assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
         		"U.S. educated filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after U.S. educated filter");
         
         filter = filter.clickResetFilters();
+        
+        m_assert.assertAll();
     }
 
     /* - loop through the provided zip codes, for each do:

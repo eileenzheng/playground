@@ -4,6 +4,7 @@ import com.vitals.DriverManager;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -179,7 +180,10 @@ public class PatientLinkTest {
         
         for (int i=0; i<ad.getSize(); i++) {
 
+        	pl.resetMatched();
             pl.setExpected(ad.getName(i));
+            
+            Assert.assertTrue(pl.isMatched(), ad.getName(i) + " is not in property file.");
 
             m_assert.assertEquals(ad.getSpecialty(i), pl.getExpectedSpecialty(),
                     "Featured specialty for " + ad.getName(i) + " did not match");
@@ -237,8 +241,11 @@ public class PatientLinkTest {
     	init();
     	m_assert = new SoftAssert();
     	PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
+    	pl.resetMatched();
     	pl.setExpected(ad.getName());
     	PatientLinkBookModal modal;
+    	
+    	Assert.assertTrue(pl.isMatched(), ad.getName() + " is not in property file.");
 
     	m_assert.assertEquals(ad.getSpecialty(), pl.getExpectedSpecialty(),
                 "Featured specialty for " + ad.getName() + " did not match");

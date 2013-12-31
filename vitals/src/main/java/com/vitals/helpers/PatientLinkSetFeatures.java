@@ -20,6 +20,7 @@ public class PatientLinkSetFeatures {
 	private boolean hasLogo;
 	private boolean hasBookOnline;
 	private int bookType;
+	private boolean isMatched;
 	
 	private static List<PatientLink> plList = new ArrayList<PatientLink>();
 	
@@ -83,6 +84,7 @@ public class PatientLinkSetFeatures {
 				hasBookOnline = item.hasBookOnline;
 				bookType = item.bookType;
 				hasLogo = item.hasLogo;
+				isMatched = true;
 			}
 		}
 	}
@@ -129,5 +131,13 @@ public class PatientLinkSetFeatures {
 	
 	public boolean hasLogo() {
 		return hasLogo;
+	}
+	
+	public boolean isMatched() {
+		return isMatched;
+	}
+	
+	public void resetMatched() {
+		isMatched = false;
 	}
 }
