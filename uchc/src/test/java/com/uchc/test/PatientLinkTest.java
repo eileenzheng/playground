@@ -1,25 +1,28 @@
 package com.uchc.test;
 
 import com.uchc.DriverManager;
-import com.uchc.helpers.PatientLinkFeatures;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import com.uchc.pages.PatientLinkAd;
 import com.uchc.pages.PatientLinkBookForm;
 import com.uchc.pages.PatientLinkCenterAd;
 import com.uchc.pages.PatientLinkRrAd;
+import com.uchc.helpers.PatientLinkSetFeatures;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientLinkTest {
     private WebDriver driver;
+    private boolean alreadyInit = false;
+    private SoftAssert m_assert;
 
     private static List<String> apptUrl = new ArrayList<String>();
     private static String serpUrl = "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=7&x=36&y=5";
-    private static String profileUrl = "/drs/roopal_kundu/";
+    private static String profileUrl = "/drs/carrie_aaron/";
     
     
     @Parameters({"url"})
@@ -46,44 +49,74 @@ public class PatientLinkTest {
         testAd(ad, driver);
     }
     
-    public static void testAd(PatientLinkAd ad, WebDriver driver) {
-       
-       Assert.assertTrue(ad.getSize()>0, "Ad is not showing up!");
+ // only need to call init function once for all the tests
+    public void init() {
+    	if (!alreadyInit) {
+        	PatientLinkSetFeatures.init();
+        	alreadyInit = true;
+    	}
+    }
+    
+    public void testAd(PatientLinkAd ad, WebDriver driver) {
+    	
+    	init();
+    	m_assert = new SoftAssert();
+    	PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
+    	PatientLinkBookForm form;
         
         for (int i=0; i<ad.getSize(); i++) {
+
+        	pl.resetMatched();
+            pl.setExpected(ad.getName(i));
             
-            PatientLinkFeatures.setExpected(ad.getName(i));
+            Assert.assertTrue(pl.isMatched(), ad.getName(i) + " is not in property file.");
             
-            Assert.assertEquals(ad.getAddress(i), PatientLinkFeatures.getExpectedAddress(),
-                    "Address for " + ad.getName(i) + " did not match");
+            m_assert.assertEquals(ad.getAddressLine1(i), pl.getExpectedAddress(),
+                    "Address Line 1 for " + ad.getName(i) + " did not match");
             
-            Assert.assertEquals(ad.getCity(i), PatientLinkFeatures.getExpectedCity(),
+    		if (ad.getAddressLine2(i) != null) {
+    			m_assert.assertEquals(ad.getAddressLine2(i), pl.getExpectedAddressLine2(),
+    					"Address Line 2 for " + ad.getName(i) + " did not match");
+    		}
+            
+            m_assert.assertEquals(ad.getCity(i), pl.getExpectedCity(),
                     "City for " + ad.getName(i) + " did not match");
             
-            Assert.assertEquals(ad.getState(i), PatientLinkFeatures.getExpectedState(),
+            m_assert.assertEquals(ad.getState(i), pl.getExpectedState(),
                     "State for " + ad.getName(i) + " did not match");
             
-            Assert.assertEquals(ad.getZip(i), PatientLinkFeatures.getExpectedZip(),
+            m_assert.assertEquals(ad.getZip(i), pl.getExpectedZip(),
                     "Zip for " + ad.getName(i) + " did not match");
             
-            if (ad.isBookPresent(i)) {
-                apptUrl.add(ad.getApptUrl(i));
+            if (!pl.getExpectedNumber().equals("")) {
+            	m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(),
+            			"Phone number for " + ad.getName(i) + " did not match");
             }
             
-            if (ad.isPhonePresent(i)) {
-                Assert.assertEquals(ad.getPhoneNumber(i),PatientLinkFeatures.getExpectedNumberUchc(),
-                        "Phone number for " + ad.getName(i) + " did not match");
+            if (pl.hasBookOnline()) {
+            	m_assert.assertTrue(ad.isBookPresent(i), "Book Online button is not displayed for " + ad.getName(i));
+            	if (pl.getBookType()==1) {
+            		if (ad.isBookPresent(i)) {
+                        apptUrl.add(ad.getApptUrl(i));
+                    }
+            	}
+            }
+            
+            if (pl.hasLogo()) {
+            	m_assert.assertTrue(ad.isLogoPresent(i), "Logo is not displayed for " + ad.getName(i));
             }
         }
         
         for (int i=0; i<apptUrl.size(); i++) {
             driver.get(apptUrl.get(i));
-            PatientLinkBookForm form = PageFactory.initElements(driver, PatientLinkBookForm.class);
+            form = PageFactory.initElements(driver, PatientLinkBookForm.class);
             form.typeFirstName("test");
             form.typeLastName("test_last");
             form.selectRadioAfternoon();
             form.selectDrop1Week();
             form.submit();
         }
+        
+        m_assert.assertAll();
     }
 }

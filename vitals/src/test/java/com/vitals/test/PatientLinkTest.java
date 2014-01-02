@@ -206,7 +206,7 @@ public class PatientLinkTest {
                     "Zip for " + ad.getName(i) + " did not match");
             
             if (!pl.getExpectedNumber().equals("")) {
-            	m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumber(),
+            	m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(),
             			"Phone number for " + ad.getName(i) + " did not match");
             }
             

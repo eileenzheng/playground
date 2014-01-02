@@ -2,20 +2,12 @@ package com.uchc.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import com.uchc.DriverManager;
 import java.util.List;
 
 public class HomePage {
-
-    private WebDriver driver;
-
-    public HomePage () {
-        driver = DriverManager.getDriver();
-    }
 
     @FindBy(name="q")
     private WebElement largeSearchBox;
