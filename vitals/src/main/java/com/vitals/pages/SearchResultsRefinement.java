@@ -205,7 +205,7 @@ public class SearchResultsRefinement {
         
         // not ideal...but haven't found a better way to solve the problem (page updates after spinner disappears)
         try {
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
