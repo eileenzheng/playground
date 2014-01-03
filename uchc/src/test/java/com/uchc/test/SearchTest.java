@@ -2,6 +2,8 @@ package com.uchc.test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.uchc.DriverManager;
@@ -12,17 +14,27 @@ import com.uchc.pages.HomePage;
  */
 public class SearchTest {
 
-    private WebDriver driver;
+    WebDriver driver;
+
+    private String url;
 
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) {
+        this.url = url;
+
+    }
+
+    @AfterMethod
+    public void shutdown() {
+    }
+
     @Test
-    public void simpleTest(String url) {
-        driver = DriverManager.getDriver();
+    public void simpleTest() {
 
-        driver.get(url);
+        DriverManager.getDriver().get(url);
 
-
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        HomePage homePage = PageFactory.initElements(DriverManager.getDriver(), HomePage.class);
 
         homePage.selectDentistSearch();
         homePage.selectPhysicianSearch();

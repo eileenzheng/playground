@@ -4,6 +4,8 @@ import com.uchc.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -23,9 +25,19 @@ public class PatientLinkTest {
     private static List<String> apptUrl = new ArrayList<String>();
     private static String serpUrl = "/drs/physician_search.html?looking_for=physician&last_name=&location=10036&range=15&specialty_id=7&x=36&y=5";
     private static String profileUrl = "/drs/carrie_aaron/";
-    
-    
+
+    String url;
+
     @Parameters({"url"})
+    @BeforeMethod
+    public void setup(String url) {
+        this.url = url;
+    }
+
+    @AfterMethod
+    public void shutdown() {
+    }
+    
     @Test
     public void testCenter(String url) {
         driver = DriverManager.getDriver();
@@ -37,7 +49,6 @@ public class PatientLinkTest {
         testAd(ad,driver);
     }
 
-    @Parameters({"url"})
     @Test
     public void testRight(String url) {
         driver = DriverManager.getDriver();
@@ -51,22 +62,22 @@ public class PatientLinkTest {
     
  // only need to call init function once for all the tests
     public void init() {
-    	if (!alreadyInit) {
-        	PatientLinkSetFeatures.init();
-        	alreadyInit = true;
-    	}
+        if (!alreadyInit) {
+            PatientLinkSetFeatures.init();
+            alreadyInit = true;
+        }
     }
     
     public void testAd(PatientLinkAd ad, WebDriver driver) {
-    	
-    	init();
-    	m_assert = new SoftAssert();
-    	PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
-    	PatientLinkBookForm form;
+        
+        init();
+        m_assert = new SoftAssert();
+        PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
+        PatientLinkBookForm form;
         
         for (int i=0; i<ad.getSize(); i++) {
 
-        	pl.resetMatched();
+            pl.resetMatched();
             pl.setExpected(ad.getName(i));
             
             Assert.assertTrue(pl.isMatched(), ad.getName(i) + " is not in property file.");
@@ -74,10 +85,10 @@ public class PatientLinkTest {
             m_assert.assertEquals(ad.getAddressLine1(i), pl.getExpectedAddress(),
                     "Address Line 1 for " + ad.getName(i) + " did not match");
             
-    		if (ad.getAddressLine2(i) != null) {
-    			m_assert.assertEquals(ad.getAddressLine2(i), pl.getExpectedAddressLine2(),
-    					"Address Line 2 for " + ad.getName(i) + " did not match");
-    		}
+            if (ad.getAddressLine2(i) != null) {
+                m_assert.assertEquals(ad.getAddressLine2(i), pl.getExpectedAddressLine2(),
+                        "Address Line 2 for " + ad.getName(i) + " did not match");
+            }
             
             m_assert.assertEquals(ad.getCity(i), pl.getExpectedCity(),
                     "City for " + ad.getName(i) + " did not match");
@@ -89,26 +100,26 @@ public class PatientLinkTest {
                     "Zip for " + ad.getName(i) + " did not match");
             
             if (!pl.getExpectedNumber().equals("")) {
-            	m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(),
-            			"Phone number for " + ad.getName(i) + " did not match");
+                m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(),
+                        "Phone number for " + ad.getName(i) + " did not match");
             }
             
             if (pl.hasBookOnline()) {
-            	m_assert.assertTrue(ad.isBookPresent(i), "Book Online button is not displayed for " + ad.getName(i));
-            	if (pl.getBookType()==1) {
-            		if (ad.isBookPresent(i)) {
+                m_assert.assertTrue(ad.isBookPresent(i), "Book Online button is not displayed for " + ad.getName(i));
+                if (pl.getBookType()==1) {
+                    if (ad.isBookPresent(i)) {
                         apptUrl.add(ad.getApptUrl(i));
                     }
-            	}
+                }
             }
             
             if (pl.hasLogo()) {
-            	m_assert.assertTrue(ad.isLogoPresent(i), "Logo is not displayed for " + ad.getName(i));
+                m_assert.assertTrue(ad.isLogoPresent(i), "Logo is not displayed for " + ad.getName(i));
             }
         }
-        
-        for (int i=0; i<apptUrl.size(); i++) {
-            driver.get(apptUrl.get(i));
+
+        for (String anApptUrl : apptUrl) {
+            driver.get(anApptUrl);
             form = PageFactory.initElements(driver, PatientLinkBookForm.class);
             form.typeFirstName("test");
             form.typeLastName("test_last");

@@ -88,6 +88,10 @@
             <artifactId>velocity</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.saucelabs</groupId>
             <artifactId>saucerest</artifactId>
         </dependency>
@@ -99,10 +103,10 @@
             <groupId>com.saucelabs</groupId>
             <artifactId>sauce_java_common</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>postgresql</groupId>-->
-            <!--<artifactId>postgresql</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.github.detro.ghostdriver</groupId>-->
             <!--<artifactId>phantomjsdriver</artifactId>-->
