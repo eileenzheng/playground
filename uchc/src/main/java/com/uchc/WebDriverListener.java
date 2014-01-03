@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import org.testng.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
