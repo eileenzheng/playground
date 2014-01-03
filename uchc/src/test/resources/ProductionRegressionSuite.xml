@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="UCHC Production Regression" verbose="5" parallel="tests"
-	thread-count="1">
+<suite name="UCHC Production Regression" verbose="5" parallel="tests" thread-count="2">
 
     <parameter name="url" value="http://www.ucomparehealthcare.com"/>
     <parameter name="testLocation" value="remoteWD"/>

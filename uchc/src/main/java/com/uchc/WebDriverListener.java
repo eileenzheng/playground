@@ -104,10 +104,11 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
             } else if (driverType.equals("")) {
                 driver = DriverFactory.createLocalInstance("firefox");
                 DriverManager.setWebDriver(driver);
-            } else if (driverType.equals("phantom")) {
-                driver = DriverFactory.createPhantomInstance();
-                DriverManager.setWebDriver(driver);
             }
+//              else if (driverType.equals("phantom")) {
+//                driver = DriverFactory.createPhantomInstance();
+//                DriverManager.setWebDriver(driver);
+//            }
         }
     }
 
