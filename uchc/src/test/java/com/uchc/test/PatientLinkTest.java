@@ -39,7 +39,7 @@ public class PatientLinkTest {
     }
     
     @Test
-    public void testCenter(String url) {
+    public void testCenter() {
         driver = DriverManager.getDriver();
         
         driver.get(url + serpUrl);
@@ -50,7 +50,7 @@ public class PatientLinkTest {
     }
 
     @Test
-    public void testRight(String url) {
+    public void testRight() {
         driver = DriverManager.getDriver();
         
         driver.get(url + profileUrl);

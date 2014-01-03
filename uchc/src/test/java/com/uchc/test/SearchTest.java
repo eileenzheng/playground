@@ -30,7 +30,7 @@ public class SearchTest {
     }
 
     @Test
-    public void simpleTest() {
+    public void simpleSearchTest() {
 
         DriverManager.getDriver().get(url);
 
