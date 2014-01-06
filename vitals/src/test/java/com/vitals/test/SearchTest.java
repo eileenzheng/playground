@@ -167,7 +167,7 @@ public class SearchTest {
 
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
        
-        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
+        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <4000), 
         		"# of result for Cardiologists in New York not within expected range! ");     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");

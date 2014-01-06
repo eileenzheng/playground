@@ -45,7 +45,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickGoButton();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()==5000);
+			Assert.assertTrue(serp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickShowAllLink();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()==5000);
+			Assert.assertTrue(serp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class MastheadTest {
 
 			SearchResultsPage serp = homePage.header.clickGoButton();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()==5000);
+			Assert.assertTrue(serp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickShowAllLink();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()==5000);
+			Assert.assertTrue(serp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -195,7 +195,7 @@ public class MastheadTest {
 			ReviewSearchResultsPage reviewSerp = homePage.header.clickReviewGoButton();
 			acceptAlertIfPresent(driver);
 			Assert.assertTrue(reviewSerp.isToggleProvider());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()==5000);
+			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -212,7 +212,7 @@ public class MastheadTest {
 			ReviewSearchResultsPage reviewSerp = homePage.header.clickShowAllDoctorsReview();
 			acceptAlertIfPresent(driver);
 			Assert.assertTrue(reviewSerp.isToggleProvider());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()==5000);
+			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 		}
 	}
 
@@ -229,7 +229,7 @@ public class MastheadTest {
 			ReviewSearchResultsPage reviewSerp = homePage.header.clickShowAllFacilitiesReview();
 			acceptAlertIfPresent(driver);
 			Assert.assertTrue(reviewSerp.isToggleFacilities());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
+			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 		}
 	}
 
