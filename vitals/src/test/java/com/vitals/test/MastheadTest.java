@@ -29,7 +29,7 @@ public class MastheadTest {
 		if (url.toLowerCase().contains("staging"))
 			this.url[1] = "https://my.staging.vitals.com";
 		else if (url.toLowerCase().contains("qa"))
-			this.url[1] = "https://my.qa.mdxdev.net";
+			this.url[1] = "http://my.qa.mdxdev.net";
 		else
 			this.url[1] = "https://my.vitals.com";
 	}

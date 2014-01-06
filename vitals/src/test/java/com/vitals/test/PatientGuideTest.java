@@ -43,7 +43,8 @@ public class PatientGuideTest {
      * - perform test for single guide */
     @Test
     public void clickLearnMore() {
-        
+        if (url.toLowerCase().contains("qa"))
+        	return;
     	driver = DriverManager.getDriver();
         driver.get(url + pglink);
         
