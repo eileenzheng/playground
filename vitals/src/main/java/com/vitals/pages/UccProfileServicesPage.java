@@ -24,10 +24,10 @@ public class UccProfileServicesPage {
 	@FindBy(css=".nav-menu")
 	private WebElement menu;
 	
-	@FindBy(css=".nav-menu a[href*=\"review\"]")
+	@FindBy(css=".nav-menu a[href*=\"/review\"]")
 	private WebElement menuReviews;
 	
-	@FindBy(css=".nav-menu a[href*=\"about\"]")
+	@FindBy(css=".nav-menu a[href*=\"/about\"]")
 	private WebElement menuAbout;
 	
 	@FindBy(css=".services-content p")
