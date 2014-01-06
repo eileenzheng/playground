@@ -229,7 +229,7 @@ public class MastheadTest {
 			ReviewSearchResultsPage reviewSerp = homePage.header.clickShowAllFacilitiesReview();
 			acceptAlertIfPresent(driver);
 			Assert.assertTrue(reviewSerp.isToggleFacilities());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
+			Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
 		}
 	}
 
