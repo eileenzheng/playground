@@ -89,6 +89,9 @@ public class PatientLinkTest {
                 m_assert.assertEquals(ad.getAddressLine2(i), pl.getExpectedAddressLine2(),
                         "Address Line 2 for " + ad.getName(i) + " did not match");
             }
+            else {
+            	m_assert.assertTrue(pl.getExpectedAddressLine2().equals(""), "Address Line 2 for " + ad.getName(i) + " is missing");
+            }
             
             m_assert.assertEquals(ad.getCity(i), pl.getExpectedCity(),
                     "City for " + ad.getName(i) + " did not match");
@@ -98,10 +101,13 @@ public class PatientLinkTest {
             
             m_assert.assertEquals(ad.getZip(i), pl.getExpectedZip(),
                     "Zip for " + ad.getName(i) + " did not match");
-            
-            if (!pl.getExpectedNumber().equals("")) {
-                m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(),
-                        "Phone number for " + ad.getName(i) + " did not match");
+
+            if (ad.getPhoneNumber(i) != null) {
+				m_assert.assertEquals(ad.getPhoneNumber(i), pl.getExpectedNumberUchc(), 
+						"Phone number for " + ad.getName(i) + " did not match");
+			}
+            else {
+            	m_assert.assertTrue(pl.getExpectedNumberUchc().equals(""), "Phone number is empty for " + ad.getName(i));
             }
             
             if (pl.hasBookOnline()) {

@@ -1,10 +1,16 @@
 package com.uchc.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import com.uchc.DriverManager;
+import com.uchc.helpers.Constants;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public abstract class PatientLinkAd {
 
@@ -92,10 +98,104 @@ public abstract class PatientLinkAd {
    }
    
    public String getPhoneNumber(int i) {
-      return getPhoneNumber().get(i).getText();
+	   if (getPhoneNumber().get(i) != null)
+		   return getPhoneNumber().get(i).getText();
+	   else
+		   return null;
    }
    
    public boolean isLogoPresent(int i) {
 	   return (getLogo().get(i)!=null);
    }
+   
+   public List<WebElement> parseAddress (List<WebElement> content, String css) {
+	   
+	   List<WebElement> address = new ArrayList<WebElement>();
+
+		for (int i = 0; i < content.size(); i++) {
+			List<WebElement> addr = content.get(i).findElements(
+					By.cssSelector(css));
+			if (addr.size() == 2) {
+				address.add(addr.get(0)); // address line 1
+				address.add(null); // address line 2
+				address.add(addr.get(1)); // city/state/zip
+			} else if (addr.size() == 4) {
+				address.add(addr.get(1)); // address line 1
+				address.add(addr.get(2)); // address line 2
+				address.add(addr.get(3)); // city/state/zip
+			} else if (addr.size() == 3) {
+				if (addr.get(0).getText().matches(".*\\d.*")) { // most likely
+																// first line is
+																// address 1
+					address.add(addr.get(0)); // address line 1
+					address.add(addr.get(1)); // address line 2
+
+				} else { // most likely first line is featured practice name
+					address.add(addr.get(1)); // address line 1
+					address.add(null); // address line 2
+				}
+				address.add(addr.get(2)); // city/state/zip
+			}
+		}
+		
+		return address;
+   }
+   
+	public List<WebElement> parseAppt(List<WebElement> content, String css) {
+
+		List<WebElement> bookButton = new ArrayList<WebElement>();
+
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		for (int i = 0; i < content.size(); i++) {
+			
+			try {
+				WebElement book = content.get(i).findElement(
+						By.cssSelector(css));
+				bookButton.add(book);
+			} catch (NoSuchElementException e) {
+				bookButton.add(null);
+			}
+		}
+		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+
+		return bookButton;
+	}
+	
+	public List<WebElement> parsePhoneNumber(List<WebElement> content, String css) {
+
+		List<WebElement> phoneNumber = new ArrayList<WebElement>();
+
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		for (int i = 0; i < content.size(); i++) {
+			try {
+				WebElement phone = content.get(i).findElement(
+						By.cssSelector(css));
+				phoneNumber.add(phone);
+			} catch (NoSuchElementException e) {
+				phoneNumber.add(null);
+			}
+		}
+		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+
+		return phoneNumber;
+	}
+	
+	public List<WebElement> parseLogo(List<WebElement> content, String css) {
+		
+		List<WebElement> logo = new ArrayList<WebElement>();
+
+		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+		for (int i = 0; i < content.size(); i++) {
+			try {
+				WebElement image = content.get(i).findElement(
+						By.cssSelector(css));
+				logo.add(image);
+			} catch (NoSuchElementException e) {
+				logo.add(null);
+			}
+		}
+		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+
+		return logo;
+	}
 }
