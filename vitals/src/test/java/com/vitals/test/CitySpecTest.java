@@ -1,11 +1,18 @@
 package com.vitals.test;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import com.vitals.DriverManager;
 import com.vitals.pages.CitySpecLandingPage;
 import com.vitals.pages.CitySpecPage;
@@ -79,5 +86,33 @@ public class CitySpecTest{
             Assert.assertTrue(cityPage.getActivePageNumber().equals("2"), 
                     "Incorrect page number, should be on city/spec page 2 now!");
         }
+    }
+    
+    /* - select 10 random city spec pages
+     * - check all the providers on page 1 to make sure name is long enough*/
+    @Test
+    public void testNames() {
+    	
+    	driver = DriverManager.getDriver();
+    	driver.get(url);
+    	SoftAssert m_assert = new SoftAssert();
+    	
+    	HomePage home = PageFactory.initElements(driver,HomePage.class);
+        home.footer.clickSpecialtyLink();
+        
+        CitySpecLandingPage landingPage = home.footer.clickRandomSpecialty();
+        List<String> urls = landingPage.getCityUrl(10);
+        
+        for (String cityurl: urls) {
+        	driver.get(cityurl);
+        	CitySpecPage cityPage = PageFactory.initElements(driver, CitySpecPage.class); 
+        	
+        	for (WebElement el: cityPage.getResults()) {
+        		m_assert.assertTrue((el.findElement(By.cssSelector(".head>h4>a"))).getText().length()>7, "Provider name is too short");
+        		Reporter.log("Name too short: " + el.findElement(By.cssSelector(".head>h4>a")).getText() + "\n");
+        	}
+        }
+        
+        m_assert.assertAll();
     }
 }

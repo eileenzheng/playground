@@ -8,8 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.vitals.DriverManager;
+import com.vitals.helpers.Constants;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class CitySpecPage {
 	private WebDriver driver;
@@ -50,18 +52,34 @@ public class CitySpecPage {
 	
 	public boolean hasResult() {
 		// this page should return at least one result, or it won't be generated
-		if (results.size()>=1)
-			return true;
-		else return false;
+		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		try {
+			if (results.size() >= 1) {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+				return true;
+			} else {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+				return false;
+			}
+		} catch (NoSuchElementException e) {
+			driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
+			return false;
+		}
 	}
 	
 	public boolean hasNext() {
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		try {
-			if (next.isDisplayed())
+			if (next.isDisplayed()) {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return true;
-			else
+			}
+			else {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return false;
+			}
 		} catch (NoSuchElementException e) {
+			driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 			return false;
 		}
 	}
@@ -73,5 +91,9 @@ public class CitySpecPage {
 	
 	public String getActivePageNumber () {
 		return activePage.getText();
+	}
+	
+	public List<WebElement> getResults() {
+		return results;
 	}
 }

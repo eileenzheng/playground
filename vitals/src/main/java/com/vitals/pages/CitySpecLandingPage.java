@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.vitals.DriverManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitySpecLandingPage {
@@ -42,5 +43,15 @@ public class CitySpecLandingPage {
 		int rand = (int) Math.floor(Math.random() * (cities.size() - 1));
 		cities.get(rand).click();
 		return PageFactory.initElements(driver, CitySpecPage.class);
+	}
+	
+	public List<String> getCityUrl(int x) {
+		List<String> urls = new ArrayList<String>();
+		int rand;
+		for (int i=0; i<x; i++) {
+			rand = (int) Math.floor(Math.random() * (cities.size() - 1));
+			urls.add(cities.get(rand).getAttribute("href"));
+		}
+		return urls;
 	}
 }
