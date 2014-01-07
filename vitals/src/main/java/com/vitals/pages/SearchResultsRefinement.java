@@ -1,12 +1,10 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import com.vitals.DriverManager;
 import java.util.List;
 
@@ -92,36 +90,37 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement clickResetFilters() {
         resetFilters.click();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickWithinAMile() {
         withinAMileRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickWithinThreeMiles() {
         threeMileRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickWithinFiveMiles() {
         fiveMileRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickWithinTenMiles() {
         tenMileRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickAnyDistance() {
         tenMileRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -130,13 +129,13 @@ public class SearchResultsRefinement {
 
         Select sel = new Select(aveWaitTimeDropDown);
         sel.selectByIndex(index);
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement genderSelectMale() {
         maleRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -146,7 +145,7 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement genderSelectFemale() {
         femaleRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -156,13 +155,13 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement genderSelectAny() {
         anyGenderRadioButton.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickBoardCertified() {
         boardCertifiedCheckBox.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -172,7 +171,7 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement clickUSEducated() {
         usEducatedCheckBox.click();
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -185,7 +184,7 @@ public class SearchResultsRefinement {
 
         Select sel = new Select(yearsExpDropDown);
         sel.selectByIndex(index);
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
 
@@ -195,19 +194,30 @@ public class SearchResultsRefinement {
 
         Select sel = new Select(otherLanguagesDropDown);
         sel.selectByIndex(index);
-        spinnerWait();
+        waitForJQuery();
         return this;
     }
-
-    private void spinnerWait() {
-        WebDriverWait wait = new WebDriverWait(driver,15,2000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
-        
-        // not ideal...but haven't found a better way to solve the problem (page updates after spinner disappears)
-        try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+    
+    private void waitForJQuery() {
+		if ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==1")) {
+			do {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// do nothing
+				}
+			} while ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==1"));
+			return;
+		}
+		else {
+			do {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e2) {
+					// do nothing
+				}
+			} while ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==0"));
+			waitForJQuery();
 		}
     }
 }

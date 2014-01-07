@@ -21,7 +21,7 @@ public class UccLandingPage {
 	@FindBy(css=".full h1")
 	private WebElement title;
 	
-	@FindBy(css=".state")
+	@FindBy(css=".column-list .state")
 	private List<WebElement> states;
 	
 	@FindBy(css=".column-list>ul>li>ul>li>a")
