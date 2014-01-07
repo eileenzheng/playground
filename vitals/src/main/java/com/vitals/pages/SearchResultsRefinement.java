@@ -90,7 +90,6 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement clickResetFilters() {
         resetFilters.click();
-        waitForJQuery();
         return this;
     }
 
