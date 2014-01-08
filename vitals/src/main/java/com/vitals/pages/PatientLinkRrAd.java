@@ -7,8 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.vitals.DriverManager;
+import com.vitals.helpers.Constants;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PatientLinkRrAd {
 	private final WebDriver driver;
@@ -88,13 +90,19 @@ public class PatientLinkRrAd {
 	}
 	
 	public boolean isBookPresent (int i) {
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		try {
-			if (isElementPresent (bottomRow.get(i).findElement(By.cssSelector(".book-online"))))
+			if (isElementPresent (bottomRow.get(i).findElement(By.cssSelector(".book-online")))) {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return true;
-			else
+			}
+			else {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return false;
+			}
 		}
 		catch (NoSuchElementException e) {
+			driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 			return false;
 		}
 	}

@@ -1,6 +1,7 @@
 package com.vitals.pages;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.vitals.DriverManager;
+import com.vitals.helpers.Constants;
 
 public class PatientLinkCenterAd {
 	private final WebDriver driver;
@@ -111,13 +113,19 @@ public class PatientLinkCenterAd {
 	}
 	
 	public boolean isElementPresent (WebElement el) {
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		try {
-			if (el.isDisplayed())
+			if (el.isDisplayed()) {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return true;
-			else
+			}
+			else {
+				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 				return false;
+			}
 		}
 		catch (NoSuchElementException e) {
+			driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 			return false;
 		}
 	}

@@ -1,6 +1,7 @@
 package com.vitals.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -17,11 +18,13 @@ public class HeaderPage {
     private final WebDriver driver;
     private final Actions builder;
     private final WebDriverWait wait;
+    private final JavascriptExecutor jse;
 
     public HeaderPage() {
     	driver = DriverManager.getDriver();
     	builder = new Actions(driver);
     	wait = new WebDriverWait(driver,15,2000);
+    	jse = (JavascriptExecutor) driver;
     }
 
     @FindBy(css=".masthead-logo>a")
@@ -129,12 +132,14 @@ public class HeaderPage {
     }
 
     public HeaderPage enterSearchTerm (String text) {
+    	searchTextBox.clear();
         searchTextBox.sendKeys(text);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
     }
     
     public HeaderPage enterReviewSearchTerm (String text) {
+    	reviewSearchTextBox.clear();
         reviewSearchTextBox.sendKeys(text);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
@@ -294,9 +299,14 @@ public class HeaderPage {
         return locationTextBox.getAttribute("value").toString();
     }
     
-    public HeaderPage hoverReviewTab() {
+    public HeaderPage hoverReviewTabOld() {
     	Actions hoverOver = builder.moveToElement(writeReviewTab);
     	hoverOver.perform();
+    	return this;
+    }
+    
+    public HeaderPage hoverReviewTab() {
+    	jse.executeScript("jQuery('a.nav-tab.write-review').trigger('mouseenter');");
     	return this;
     }
     

@@ -16,8 +16,6 @@ import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.pages.SearchResultsRefinement;
-
 import java.util.List;
 
 /**
@@ -167,41 +165,40 @@ public class SearchTest {
 
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
        
-        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <4000), 
+        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <2000), 
         		"# of result for Cardiologists in New York not within expected range! ");     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
-        SearchResultsRefinement filter = PageFactory.initElements(driver, SearchResultsRefinement.class);
  
-        filter = filter.clickWithinFiveMiles();
+        results.refinement.clickWithinFiveMiles();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
         		"5 mile filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
         
-        filter = filter.genderSelectMale();
+        results.refinement.genderSelectMale();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
         		"Gender filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after male gender filter");
         
-        filter = filter.clickBoardCertified();
+        results.refinement.clickBoardCertified();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
         		"Board certified filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after board certified filter");
         
-        filter = filter.clickUSEducated();
+        results.refinement.clickUSEducated();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
         		"U.S. educated filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after U.S. educated filter");
         
-        filter = filter.clickResetFilters();
+        results.refinement.clickResetFilters();
         
         m_assert.assertAll();
     }

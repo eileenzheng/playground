@@ -21,7 +21,6 @@ import com.vitals.pages.UccProfileReviewsPage;
 import com.vitals.pages.UccProfileServicesPage;
 import com.vitals.pages.UccProfileSummaryPage;
 import com.vitals.pages.UccSearchResultsPage;
-import com.vitals.pages.UccSearchResultsRefinement;
 import com.vitals.pages.UccStatePage;
 
 public class UccTest {
@@ -211,23 +210,22 @@ public class UccTest {
         int initialCount = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with no filters");
         
-        UccSearchResultsRefinement uccFilter = PageFactory.initElements(driver, UccSearchResultsRefinement.class);
-        uccFilter = uccFilter.clickPhysicals();
+        uccSerp.refinement.clickPhysicals();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
         Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Physicals' filter");
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with physicals filter");
         
-        /*uccFilter = uccFilter.clickInjuries();
+        /*uccSerp.refinement.clickInjuries();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
         Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Injuries' filter");
         count = uccSerp.getResultsCountNumber();
-        System.out.println(count + " results with injuries filter");*/
+        Reporter.log(count + " results with injuries filter");*/
         
-        uccFilter = uccFilter.clickPhysicals();
-        // uccFilter = uccFilter.clickInjuries();
+        uccSerp.refinement.clickPhysicals();
+        // uccSerp.refinement.clickInjuries();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
         Assert.assertTrue(uccSerp.getResultsCountNumber()==initialCount,
         		"Number of results incorrect after resetting filters");
