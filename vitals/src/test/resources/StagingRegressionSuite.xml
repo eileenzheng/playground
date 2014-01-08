@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Staging Regression" verbose="5" parallel="tests" thread-count="3">
+<suite name="Vitals Staging Regression" verbose="5" parallel="tests" thread-count="2">
     <parameter name="url" value="http://staging.vitals.com"/>
-    <parameter name="browser" value="chrome" />
-    <!-- <parameter name="testLocation" value="remoteWD"/> -->
+    <parameter name="browser" value="firefox" />
+    <parameter name="testLocation" value="remoteWD"/>
 
     <listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
