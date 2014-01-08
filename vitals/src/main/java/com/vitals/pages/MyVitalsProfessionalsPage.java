@@ -9,7 +9,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsProfessionalsPage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsProfessionalsPage() {
     	driver = DriverManager.getDriver();

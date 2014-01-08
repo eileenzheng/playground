@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SearchResultsRefinement {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public SearchResultsRefinement () {
     	driver = DriverManager.getDriver();

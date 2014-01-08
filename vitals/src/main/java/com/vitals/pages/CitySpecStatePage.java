@@ -10,7 +10,7 @@ import com.vitals.DriverManager;
 import java.util.List;
 
 public class CitySpecStatePage {
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	public CitySpecStatePage () {
 		driver = DriverManager.getDriver();

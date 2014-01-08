@@ -9,7 +9,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsLocateProfilePage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsLocateProfilePage() {
     	driver = DriverManager.getDriver();

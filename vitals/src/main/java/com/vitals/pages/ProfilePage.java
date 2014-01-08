@@ -14,19 +14,18 @@ import java.util.List;
 
 public class ProfilePage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
     public final HeaderPage header;
     public final FooterPage footer;
     public final PatientLinkRrAd rrAd;
 
-    WebDriverWait wait;
-
     public ProfilePage() {
     	driver = DriverManager.getDriver();
-        this.header = PageFactory.initElements(driver,HeaderPage.class);
-        this.footer = PageFactory.initElements(driver,FooterPage.class);
-        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
-        this.wait = new WebDriverWait(driver, 15, 3000);
+    	wait = new WebDriverWait(driver, 15, 3000);
+        header = PageFactory.initElements(driver,HeaderPage.class);
+        footer = PageFactory.initElements(driver,FooterPage.class);
+        rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
     @FindBy(css="#view-full")

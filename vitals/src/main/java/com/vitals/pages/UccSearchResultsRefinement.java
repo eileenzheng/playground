@@ -12,10 +12,12 @@ import com.vitals.DriverManager;
 
 public class UccSearchResultsRefinement {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
+	private final WebDriverWait wait;
 
     public UccSearchResultsRefinement () {
     	driver = DriverManager.getDriver();
+    	wait = new WebDriverWait(driver,15,2000);
     }
 
     @FindBy (css=".physicals")
@@ -74,7 +76,6 @@ public class UccSearchResultsRefinement {
 
     private void spinnerWait() {
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver,15,2000);
 
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
 

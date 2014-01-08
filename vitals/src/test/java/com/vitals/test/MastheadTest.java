@@ -19,7 +19,7 @@ import com.vitals.pages.UccSearchResultsPage;
 
 public class MastheadTest {
 
-	WebDriver driver;
+	private WebDriver driver;
 	String[] url = new String[2];
 
 	@Parameters({"url"})

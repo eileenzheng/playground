@@ -11,7 +11,7 @@ import com.vitals.DriverManager;
 import java.util.List;
 
 public class PatientLinkRrAd {
-	private WebDriver driver;
+	private final WebDriver driver;
 	
 	public PatientLinkRrAd() {
 		driver = DriverManager.getDriver();

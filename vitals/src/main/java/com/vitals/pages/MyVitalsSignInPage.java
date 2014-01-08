@@ -9,7 +9,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsSignInPage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsSignInPage() {
     	driver = DriverManager.getDriver();

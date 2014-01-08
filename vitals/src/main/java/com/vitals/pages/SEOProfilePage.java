@@ -9,16 +9,16 @@ import com.vitals.DriverManager;
 
 public class SEOProfilePage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
     public final HeaderPage header;
     public final FooterPage footer;
     public final PatientLinkRrAd rrAd;
 
     public SEOProfilePage() {
     	driver = DriverManager.getDriver();
-        this.header = PageFactory.initElements(driver,HeaderPage.class);
-        this.footer = PageFactory.initElements(driver,FooterPage.class);
-        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
+        header = PageFactory.initElements(driver,HeaderPage.class);
+        footer = PageFactory.initElements(driver,FooterPage.class);
+        rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
     @FindBy(css="#view-full")

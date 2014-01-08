@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FooterPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public FooterPage() {
     	driver = DriverManager.getDriver();

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.vitals.DriverManager;
 
 public class UccLandingPage {
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	public UccLandingPage () {
 		driver = DriverManager.getDriver();

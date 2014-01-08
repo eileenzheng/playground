@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals QA Regression" verbose="5" parallel="tests" thread-count="1">
+<suite name="Vitals QA Regression" verbose="5" parallel="tests" thread-count="3">
     <parameter name="url" value="http://qa.mdxdev.net"/>
-    <parameter name="testLocation" value="remoteWD"/>
+    <parameter name="browser" value="chrome" />
+    <!-- <parameter name="testLocation" value="remoteWD"/> -->
 
     <listeners>
 		<listener class-name="com.vitals.WebDriverListener" />

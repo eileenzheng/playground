@@ -39,8 +39,8 @@ public class UccTest {
     }
     
     /* - this is a method serving the data providers
-     * - it fetches up to 3 urgent care city listing urls randomly
-     * - it fetches up to 15 urgent care center urls randomly */
+     * - it fetches up to 2 urgent care city listing urls randomly
+     * - it fetches up to 5 urgent care center urls randomly */
     @Test
     public void testGenerateUrls() {
     	driver = DriverManager.getDriver();
@@ -50,12 +50,12 @@ public class UccTest {
         UccLandingPage landingPage = home.header.clickUrgentCareLink();
         String landingPageUrl = driver.getCurrentUrl();
         
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<2; i++) {
         	UccCityPage cityPage = landingPage.clickCity();
         	cityUrl.add(driver.getCurrentUrl());
         	List<Ucc> uccs = cityPage.getResults();
         	for (Ucc ucc:uccs) {
-        		if (profileUrl.size() < 15) {
+        		if (profileUrl.size() < 5) {
         			profileUrl.add(ucc.getUrl());
         		}
         		else

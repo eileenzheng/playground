@@ -15,17 +15,17 @@ public class UccSearchResultsPage {
 	private final WebDriver driver;
     public final HeaderPage header;
     public final FooterPage footer;
-    public final SearchResultsRefinement refinement;
+    public final UccSearchResultsRefinement refinement;
     public final PatientLinkCenterAd centerAd;
     public final PatientLinkRrAd rrAd;
 
     public UccSearchResultsPage() {
     	driver = DriverManager.getDriver();
-        this.header = PageFactory.initElements(driver, HeaderPage.class);
-        this.footer = PageFactory.initElements(driver, FooterPage.class);
-        this.refinement = PageFactory.initElements(driver, SearchResultsRefinement.class);
-        this.centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
-        this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
+        header = PageFactory.initElements(driver, HeaderPage.class);
+        footer = PageFactory.initElements(driver, FooterPage.class);
+        refinement = PageFactory.initElements(driver, UccSearchResultsRefinement.class);
+        centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
+        rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
     @FindBy (css="#result-count")

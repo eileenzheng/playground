@@ -13,7 +13,7 @@ import com.vitals.DriverManager;
 import com.vitals.helpers.Ucc;
 
 public class UccCityPage {
-	private WebDriver driver;
+	private final WebDriver driver;
 	public final PatientLinkCenterAd centerAd;
 	public final PatientLinkRrAd rrAd;
 	
@@ -21,8 +21,8 @@ public class UccCityPage {
 
 	public UccCityPage () {
 		driver = DriverManager.getDriver();
-		this.centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
-		this.rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
+		centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
+		rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
 	}
 
 	@FindBy(css=".trail")

@@ -95,14 +95,18 @@ public class WebDriverListener implements IInvokedMethodListener, SauceOnDemandS
                     : "";
 
             WebDriver driver;
+            String browser = method.getTestMethod().getXmlTest().getAllParameters().get("browser") != null
+        			? method.getTestMethod().getXmlTest().getAllParameters().get("browser")
+        			: "firefox";
             // Check if we're using sauce
             if (driverType.equals("remoteWD")) {
-                driver = DriverFactory.createRemoteInstance("firefox");
+            	
+                driver = DriverFactory.createRemoteInstance(browser);
                 DriverManager.setWebDriver(driver);
                 DriverManager.setAugmentedWebDriver(driver);
             // Assume local
             } else if (driverType.equals("")) {
-                driver = DriverFactory.createLocalInstance("firefox");
+                driver = DriverFactory.createLocalInstance(browser);
                 DriverManager.setWebDriver(driver);
             } else if (driverType.equals("phantom")) {
 /*                driver = DriverFactory.createPhantomInstance();

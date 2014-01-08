@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.vitals.DriverManager;
 
 public class PatientLinkCenterAd {
-	private WebDriver driver;
+	private final WebDriver driver;
 	
 	public PatientLinkCenterAd () {
 		driver = DriverManager.getDriver();

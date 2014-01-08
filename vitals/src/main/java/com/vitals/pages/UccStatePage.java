@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.vitals.DriverManager;
 
 public class UccStatePage {
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	public UccStatePage () {
 		driver = DriverManager.getDriver();

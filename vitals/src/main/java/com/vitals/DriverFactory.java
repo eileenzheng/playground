@@ -2,6 +2,7 @@ package com.vitals;
 
 import com.vitals.helpers.Constants;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 /*import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;*/
@@ -37,8 +38,12 @@ public class DriverFactory {
         WebDriver driver = null;
         if (browserName.toLowerCase().contains("firefox")) {
             driver = new FirefoxDriver();
-            setDriverFeatures(driver);
         }
+        else if (browserName.toLowerCase().contains("chrome")) {
+        	System.setProperty("webdriver.chrome.driver", "/Users/ezheng/Downloads/chromedriver");
+        	driver = new ChromeDriver();
+        }
+        setDriverFeatures(driver);
         return driver;
     }
 

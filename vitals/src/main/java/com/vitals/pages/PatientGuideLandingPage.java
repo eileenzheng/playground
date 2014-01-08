@@ -10,14 +10,10 @@ import com.vitals.DriverManager;
 import java.util.List;
 
 public class PatientGuideLandingPage {
-	private WebDriver driver;
-	public final HeaderPage header;
-	public final FooterPage footer;
+	private final WebDriver driver;
 
 	public PatientGuideLandingPage () {
 		driver = DriverManager.getDriver();
-		this.header = PageFactory.initElements(driver, HeaderPage.class);
-		this.footer = PageFactory.initElements(driver, FooterPage.class);
 	}
 	
 	@FindBy(css=".breadcrumbs>span:nth-child(2)>a>span")

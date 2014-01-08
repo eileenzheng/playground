@@ -1,21 +1,9 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import com.vitals.DriverManager;
+import org.openqa.selenium.support.FindBy;;
 
 public class PatientGuidePage {
-	private WebDriver driver;
-	public final HeaderPage header;
-	public final FooterPage footer;
-	
-	public PatientGuidePage () {
-		driver = DriverManager.getDriver();
-		this.header = PageFactory.initElements(driver, HeaderPage.class);
-		this.footer = PageFactory.initElements(driver, FooterPage.class);
-	}
 	
 	@FindBy(css=".breadcrumbs>span:nth-child(4)>a>span")
 	private WebElement breadcrumb;

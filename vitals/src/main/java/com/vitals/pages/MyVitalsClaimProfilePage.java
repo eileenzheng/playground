@@ -11,7 +11,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsClaimProfilePage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsClaimProfilePage() {
     	driver = DriverManager.getDriver();

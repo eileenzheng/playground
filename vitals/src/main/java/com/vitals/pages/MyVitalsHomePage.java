@@ -11,7 +11,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsHomePage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsHomePage() {
     	driver = DriverManager.getDriver();

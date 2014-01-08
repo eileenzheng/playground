@@ -8,7 +8,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsEditAccountPage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 
     public MyVitalsEditAccountPage() {
     	driver = DriverManager.getDriver();

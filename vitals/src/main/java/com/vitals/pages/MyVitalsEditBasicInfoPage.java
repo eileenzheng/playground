@@ -9,7 +9,7 @@ import com.vitals.DriverManager;
 
 public class MyVitalsEditBasicInfoPage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 	public final HeaderPage header;
 
     public MyVitalsEditBasicInfoPage() {

@@ -9,7 +9,7 @@ import com.vitals.DriverManager;
 
 public class UccProfileAboutPage {
 	
-	private WebDriver driver;
+	private final WebDriver driver;
 	
 	public UccProfileAboutPage () {
 		driver = DriverManager.getDriver();

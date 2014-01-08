@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CitySpecLandingPage {
-	private WebDriver driver;
+	private final WebDriver driver;
 
 	public CitySpecLandingPage () {
 		driver = DriverManager.getDriver();

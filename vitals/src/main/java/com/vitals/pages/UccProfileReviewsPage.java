@@ -11,7 +11,7 @@ import com.vitals.DriverManager;
 
 public class UccProfileReviewsPage {
 
-	private WebDriver driver;
+	private final WebDriver driver;
 	
 	public UccProfileReviewsPage () {
 		driver = DriverManager.getDriver();

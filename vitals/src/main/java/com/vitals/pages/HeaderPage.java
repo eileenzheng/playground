@@ -14,10 +14,14 @@ import java.util.List;
 
 public class HeaderPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
+    private final Actions builder;
+    private final WebDriverWait wait;
 
     public HeaderPage() {
     	driver = DriverManager.getDriver();
+    	builder = new Actions(driver);
+    	wait = new WebDriverWait(driver,15,2000);
     }
 
     @FindBy(css=".masthead-logo>a")
@@ -126,14 +130,12 @@ public class HeaderPage {
 
     public HeaderPage enterSearchTerm (String text) {
         searchTextBox.sendKeys(text);
-        WebDriverWait wait = new WebDriverWait(driver,15,2000);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
     }
     
     public HeaderPage enterReviewSearchTerm (String text) {
         reviewSearchTextBox.sendKeys(text);
-        WebDriverWait wait = new WebDriverWait(driver,15,2000);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
     }
@@ -293,7 +295,6 @@ public class HeaderPage {
     }
     
     public HeaderPage hoverReviewTab() {
-    	Actions builder = new Actions(driver); 
     	Actions hoverOver = builder.moveToElement(writeReviewTab);
     	hoverOver.perform();
     	return this;
