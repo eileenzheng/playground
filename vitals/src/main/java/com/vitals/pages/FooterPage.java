@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.vitals.DriverManager;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class FooterPage {
 
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public FooterPage() {
     	driver = DriverManager.getDriver();
+    	wait = new WebDriverWait(driver,15,2000);
     }
 
     @FindBy(css=".find-by-nav>.contain>a:nth-child(2)")
@@ -79,6 +83,7 @@ public class FooterPage {
 
     public FooterPage clickSpecialtyLink() {
         findDrBySpecialtyLink.click();
+        wait.until(ExpectedConditions.visibilityOfAllElements(specialtyList));
         return this;
     }
 
