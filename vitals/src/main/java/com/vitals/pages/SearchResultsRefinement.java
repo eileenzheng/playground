@@ -19,12 +19,6 @@ public class SearchResultsRefinement {
     @FindBy(css=".filter-reset")
     private WebElement resetFilters;
 
-    @FindBy (css="#distance-1")
-    private WebElement withinAMileRadioButton;
-
-    @FindBy (css="#distance-3")
-    private WebElement threeMileRadioButton;
-
     @FindBy (css="#distance-5")
     private WebElement fiveMileRadioButton;
 
@@ -90,18 +84,6 @@ public class SearchResultsRefinement {
 
     public SearchResultsRefinement clickResetFilters() {
         resetFilters.click();
-        return this;
-    }
-
-    public SearchResultsRefinement clickWithinAMile() {
-        withinAMileRadioButton.click();
-        waitForJQuery();
-        return this;
-    }
-
-    public SearchResultsRefinement clickWithinThreeMiles() {
-        threeMileRadioButton.click();
-        waitForJQuery();
         return this;
     }
 
