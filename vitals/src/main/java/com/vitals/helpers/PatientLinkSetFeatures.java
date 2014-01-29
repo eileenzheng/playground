@@ -33,8 +33,8 @@ public class PatientLinkSetFeatures {
 			
 			for (Object item: featuresList) {		
 				String[] features = item.toString().split(",", -1);
-				// new PatientLink with name, specialty, address, city, state, zip added in constructor
-				PatientLink pl = new PatientLink(features[0],features[1],features[2],features[3],features[4],features[5],features[6]);
+				// new PatientLink with first name, last name, specialty, address, city, state, zip added in constructor
+				PatientLink pl = new PatientLink(features[0],features[1],features[2],features[3],features[4],features[5],features[6],features[7]);
 				// set vitals phone
 				if (features[7].equals("nophone"))
 					pl.setVitalsPhone("");
@@ -72,7 +72,7 @@ public class PatientLinkSetFeatures {
 	public void setExpected(String name) {
 
 		for (PatientLink item : plList) {
-			if (name.contains(item.getName())) {
+			if (name.contains(item.getFirstName()) && name.contains(item.getLastName())) {
 				expectedSpecialty = item.getSpecialty();
 				expectedAddress = item.getAddress();
 				expectedAddressLine2 = item.getAddressLine2();

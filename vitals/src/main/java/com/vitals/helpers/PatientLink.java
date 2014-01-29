@@ -1,7 +1,8 @@
 package com.vitals.helpers;
 
 public class PatientLink {
-	String name;
+	String firstName;
+	String lastName;
 	String specialty;
 	String address;
 	String addressLine2;
@@ -14,8 +15,9 @@ public class PatientLink {
 	boolean hasBookOnline;
 	int bookType;
 	
-	public PatientLink(String name, String specialty, String address, String addressLine2, String city, String state, String zip) {
-		this.name = name;
+	public PatientLink(String firstName, String lastName, String specialty, String address, String addressLine2, String city, String state, String zip) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.specialty = specialty;
 		this.address = address;
 		this.addressLine2 = addressLine2;
@@ -44,8 +46,12 @@ public class PatientLink {
 		this.bookType = bookType;
 	}
 	
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
 	}
 
 	public String getSpecialty() {
