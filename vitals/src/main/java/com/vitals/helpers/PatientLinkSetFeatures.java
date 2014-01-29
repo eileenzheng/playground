@@ -36,28 +36,28 @@ public class PatientLinkSetFeatures {
 				// new PatientLink with first name, last name, specialty, address, city, state, zip added in constructor
 				PatientLink pl = new PatientLink(features[0],features[1],features[2],features[3],features[4],features[5],features[6],features[7]);
 				// set vitals phone
-				if (features[7].equals("nophone"))
+				if (features[8].equals("nophone"))
 					pl.setVitalsPhone("");
 				else
-					pl.setVitalsPhone(features[7]);
+					pl.setVitalsPhone(features[8]);
 				// set uchc phone
-				if (features[8].equals("nophone"))
+				if (features[9].equals("nophone"))
 					pl.setUchcPhone("");
 				else
-					pl.setUchcPhone(features[8]);
+					pl.setUchcPhone(features[9]);
 				// set has book line or not
-				if (features[9].equals("email")) {
+				if (features[10].equals("email")) {
 					pl.setHasBookOnline(true);
 					pl.setBookType(1); // 1 is email appointment
 				}
-				else if (features[9].equals("online")) {
+				else if (features[10].equals("online")) {
 					pl.setHasBookOnline(true);
 					pl.setBookType(2); // 2 is online appointment
 				}
 				else
 					pl.setHasBookOnline(false);
 				// set has logo or not
-				if (features[10].equals("logo"))
+				if (features[11].equals("logo"))
 					pl.setHasLogo(true);
 				else
 					pl.setHasLogo(false);
