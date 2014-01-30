@@ -41,6 +41,8 @@ public class PatientGuideLandingPage {
 	}
 	
 	public PatientGuidePage clickTopGuide() {
+		if (topGuides.size()==0)
+			return null;
 		int rand = (int) Math.floor(Math.random() * (topGuides.size() - 1));
 		topGuides.get(rand).click();
 		return PageFactory.initElements(driver, PatientGuidePage.class);

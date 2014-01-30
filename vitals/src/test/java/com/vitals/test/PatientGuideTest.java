@@ -64,9 +64,10 @@ public class PatientGuideTest {
         driver.get(url + pglink);
         
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
-        pglanding.clickTopGuide();
+        PatientGuidePage pg = pglanding.clickTopGuide();
         
-        testPatientGuide();
+        if (pg != null)
+        	testPatientGuide();
     }
 
     /* - go to PG landing page
