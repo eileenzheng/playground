@@ -1,50 +1,38 @@
 package com.vitals.pages;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import com.vitals.DriverManager;
-import com.vitals.helpers.Constants;
 
-public class PatientLinkCenterAd {
-	private final WebDriver driver;
+public class PatientLinkCenterAd extends PatientLinkAd {
 	
 	public PatientLinkCenterAd () {
-		driver = DriverManager.getDriver();
+		super();
 	}
 	
-	@FindBy(css=".result.sponsored.patient-link .tabs span")
-	private WebElement sponsor;
+	@FindBy(css=".listing-featured .profile-name>a")
+	private List<WebElement> name;
 	
-	@FindBy(css=".result.sponsored.patient-link .avatar .pic a img")
-	private WebElement photo;
+	@FindBy(css=".listing-featured .location-distance")
+	private List<WebElement> specialty;
 	
-	@FindBy(css=".result.sponsored.patient-link .logo")
-	private WebElement logo;
+	@FindBy(css=".listing-featured span[itemprop=streetAddress]>span:first-child")
+	private List<WebElement> address1;
 	
-	@FindBy(css=".result.sponsored.patient-link .head h4 a")
-	private WebElement name;
+	@FindBy(css=".listing-featured span[itemprop=streetAddress]>span:last-child")
+	private List<WebElement> address2;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .specialty")
-	private WebElement specialty;
+	@FindBy(css=".listing-featured span[itemprop=addressLocality]")
+	private List<WebElement> city;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address span>span")
-	private List<WebElement> address;
+	@FindBy(css=".listing-featured span[itemprop=addressRegion]")
+	private List<WebElement> state;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):nth-last-of-type(3)")
-	private WebElement city;
+	@FindBy(css=".listing-featured span[itemprop=postalCode]")
+	private List<WebElement> zip;
 	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):nth-last-of-type(2)")
-	private WebElement state;
-	
-	@FindBy(css=".result.sponsored.patient-link .info .practice address>span:not(.title):last-of-type")
-	private WebElement zip;
+	@FindBy(css=".listing-featured")
+	private List<WebElement> block;
 	
 	@FindBy(css=".result.sponsored.patient-link .book-online")
 	private WebElement bookButton;
@@ -52,81 +40,43 @@ public class PatientLinkCenterAd {
 	@FindBy(css=".result.sponsored.patient-link .call-appointment strong")
 	private WebElement phoneNumber;
 	
-	public String getName() {
-		return name.getText();
+	public List<WebElement> getName() {
+		return name;
 	}
 	
-	public String getSponsor() {
-		return sponsor.getText();
+	public List<WebElement> getSpecialty () {
+		return specialty;
 	}
 	
-	public String getSpecialty() {
-		return specialty.getText();
+	public List<WebElement> getAddressLine1() {
+		return address1;
 	}
 	
-	public String getAddressLine1() {
-		return address.get(0).getText();
+	public List<WebElement> getAddressLine2() {
+		return address2;
 	}
 	
-	public String getAddressLine2() {
-		if (address.size()>1)
-			return address.get(1).getText();
-		else
-			return null;
+	public List<WebElement> getCity () {
+		return city;
 	}
 	
-	public String getCity() {
-		return city.getText();
+	public List<WebElement> getState () {
+		return state;
 	}
 	
-	public String getState() {
-		return state.getText();
+	public List<WebElement> getZip () {
+		return zip;
 	}
 	
-	public String getZip() {
-		return zip.getText();
+	public List<WebElement> getBookOnline() {
+		return parseElement(block, ".book-button>a");
 	}
 	
-	public boolean isLogoPresent() {
-		return isElementPresent(logo);
+	public List<WebElement> getPhoneNumber() {
+		return parseElement(block, ".appointment-info>strong");
 	}
 	
-	public String getLogoUrl() {
-		return logo.findElement(By.cssSelector("a")).getAttribute("href");
-	}
-	
-	public boolean isBookPresent() {
-		return isElementPresent(bookButton);
-	}
-	
-	public PatientLinkBookModal clickBook() {
-		bookButton.click();
-		return PageFactory.initElements(driver, PatientLinkBookModal.class);
-	}
-	
-	public boolean isPhoneNumberPresent() {
-		return isElementPresent(phoneNumber);
-	}
-	
-	public String getPhoneNumber() {
-		return phoneNumber.getText();
-	}
-	
-	public boolean isElementPresent (WebElement el) {
-		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-		try {
-			if (el.isDisplayed()) {
-				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-				return true;
-			}
-			else {
-				driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-				return false;
-			}
-		}
-		catch (NoSuchElementException e) {
-			driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-			return false;
-		}
+	public List<WebElement> getLogo() {
+		return parseElement(block, ".sponsorship>img");
 	}
 }

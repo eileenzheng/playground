@@ -2,9 +2,7 @@ package com.vitals.test;
 
 import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -18,9 +16,6 @@ import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
 import java.util.List;
 
-/**
- * Vitals.com test
- */
 public class SearchTest {
 
     WebDriver driver;
@@ -33,45 +28,6 @@ public class SearchTest {
         this.url = url;
     }
 
-    /* - enter zip code '1000' in location box of global header
-     * - verify that at least 1 suggestion of 'New York' is returned in auto-complete */
-    @Test
-    public void autoSuggestLocation() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-        String location = "1000";
-        String city = "New York";
-       
-        homePage.header.openLocationBox();
-        homePage.header.enterLocation(location);
-        
-        Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
-    }
-
-    /* - enter 'Smith' in name search box of global header
-     * - verify that at least 1 suggestion containing 'Smith' is returned in auto-complete */
-    @Test
-    public void autoSuggestName() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-        String name = "Smith";
-
-        homePage.header.enterSearchTerm(name);
-
-        Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
-
-        Assert.assertTrue(homePage.header.checkNameSuggestions(name));
-    }
-
-    /* - search for 'Smith' in zip '10036' 
-     * - verify the first page of serp all contains 'smith'*/
-    // not necessarily true - smith can be a middle name and abbreviated 
     @Test
     public void searchByName() {
         m_assert = new SoftAssert();
@@ -80,16 +36,17 @@ public class SearchTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
-        String name = "Smith";
-        String location = "10036";
+        String name = "Todd";
+        String location = "Austin, TX";
 
-        homePage.header.enterSearchTerm(name);
         homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
+        homePage.header.clickFirstLocation();
+        homePage.header.enterSearchTerm(name);
 
         SearchResultsPage results = homePage.header.clickGoButton();
-        for (WebElement el : results.drList()) {
-            String drName = el.findElement(By.cssSelector(".head>h4>a")).getText();
+        for (Profile el : results.doctorResults(results.drList())) {
+            String drName = el.getName();
             Reporter.log(drName);
             m_assert.assertTrue(drName.toLowerCase().contains(name.toLowerCase()),drName + " Does not contain " + name);
         }
@@ -97,11 +54,8 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
-    /* - search for 'cardiologist' in global header 
-     * - click a sub-specialty in the middle and search
-     * - log the number of results returned by the serp*/
     @Test
-    public void selectSubSpecialtySearch() {
+    public void searchBySpecialty() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -117,14 +71,11 @@ public class SearchTest {
 
         SearchResultsPage results = homePage.header.clickFirstSpecialty();
 
-        Reporter.log(results.getResultsCount() + " for search: " + spec);
+        Reporter.log(results.getResultsCountNumber() + " for search: " + spec);
     }
 
-    /* - search for 'asthma' in global header 
-     * - click a sub-condition in the middle and search
-     * - log the number of results returned by the serp*/
     @Test
-    public void selectSubConditionSearch() {
+    public void searchByCondition() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -138,45 +89,35 @@ public class SearchTest {
         Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
         Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
-        SearchResultsPage results = homePage.header.clickRandomCondition();
+        SearchResultsPage results = homePage.header.clickFirstCondition();
 
-        Reporter.log(results.getResultsCount() + " for search: " + cond);
+        Reporter.log(results.getResultsCountNumber() + " for search: " + cond);
     }
     
-    /* - search for Cardiologists in New York
-     * - check number of results is within expected range
-     * - turn on different filters
-     * - make sure filter is working by checking result number narrows */
     @Test
     public void serpFilters() {
     	driver = DriverManager.getDriver();
 
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        driver.get(url + "/cardiologists/ny/new-york");
+        SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
         m_assert = new SoftAssert();
         
-		do {
-			homePage.header.openLocationBox();
-			homePage.header.enterLocation("10036");
-		} while (!homePage.header.locationSearchIsPopulated());
-		
-		homePage.header.enterSearchTerm("Cardiologist");
-
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
-       
-        m_assert.assertTrue((results.getResultsCountNumber()>1500 && results.getResultsCountNumber() <3000), 
+        m_assert.assertTrue((results.getResultsCountNumber()>2500 && results.getResultsCountNumber() <3000), 
         		"# of result for Cardiologists in New York not within expected range! ");     
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
  
-        results.refinement.clickWithinFiveMiles();
+        results.refinement.openDistanceDropDown();
+        results.refinement.clickWithin5Miles();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
         		"5 mile filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
         
+        results.refinement.clickToggleFilter();
+        results.refinement.openGenderDropDown();
         results.refinement.genderSelectMale();
         results = PageFactory.initElements(driver, SearchResultsPage.class);
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
@@ -203,9 +144,6 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
-    /* - loop through the provided zip codes, for each do:
-     * - search for 'smith' in the given zip code
-     * - for each result in serp, check the name in serp matches name in profile */
     @Test (dataProvider = "zipCodes")
     public void compareResultsToProfile(String zipCodes) {
         m_assert = new SoftAssert();
@@ -217,9 +155,11 @@ public class SearchTest {
 
         String name = "Smith";
 
-        homePage.header.enterSearchTerm(name);
         homePage.header.openLocationBox();
         homePage.header.enterLocation(zipCodes);
+        homePage.header.clickFirstLocation();
+        homePage.header.enterSearchTerm(name);
+        
 
         SearchResultsPage results = homePage.header.clickGoButton();
 

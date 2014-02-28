@@ -4,9 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import com.vitals.DriverManager;
-import java.util.List;
 
 public class SearchResultsRefinement {
 
@@ -16,126 +14,127 @@ public class SearchResultsRefinement {
     	driver = DriverManager.getDriver();
     }
 
-    @FindBy(css=".filter-reset")
+    @FindBy(css=".reset")
     private WebElement resetFilters;
+    
+    @FindBy(css=".dropdown-toggle[data-id='sort']")
+    private WebElement sortDropDown;
+    
+    @FindBy (css=".panel-group>.btn-group:nth-of-type(1) .open li:first-child>a")
+    private WebElement sortByRelevancy;
+    
+    @FindBy (css=".panel-group>.btn-group:nth-of-type(1) .open li:nth-last-child(3)>a")
+    private WebElement sortByDistance;
+    
+    @FindBy (css=".panel-group>.btn-group:nth-of-type(1) .open li:nth-last-child(2)>a")
+    private WebElement sortByRating;
+    
+    @FindBy (css=".panel-group>.btn-group:nth-of-type(1) .open li:last-child>a")
+    private WebElement sortByName;
 
-    @FindBy (css="#distance-5")
-    private WebElement fiveMileRadioButton;
+    @FindBy(css=".dropdown-toggle[data-id='distance']")
+    private WebElement distanceDropDown;
+    
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='0']>a")
+    private WebElement distance5;
 
-    @FindBy (css="#distance-10")
-    private WebElement tenMileRadioButton;
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='1']>a")
+    private WebElement distance10;
+    
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='2']>a")
+    private WebElement distance15;
+    
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='3']>a")
+    private WebElement distance25;
+    
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='4']>a")
+    private WebElement distance50;
 
-    @FindBy (css="#distance-any")
-    private WebElement anyDistanceRadioButton;
+    @FindBy (css=".btn-group:nth-of-type(2) .open li[rel='5']>a")
+    private WebElement distance100;
+    
+    @FindBy (css=".panel:nth-last-of-type(2) .toggle-plus-minus")
+    private WebElement toggleFilter;
+    
+    @FindBy (css=".dropdown-toggle[data-id='gender-select']")
+    private WebElement genderDropDown;
 
-    @FindBy (css="#avg-wait-time")
-    private WebElement aveWaitTimeDropDown;
+    @FindBy (css=".panel:nth-last-of-type(2) .form-group:nth-of-type(1) .open li[rel='1']>a")
+    private WebElement genderMale;
 
-    @FindBy (css="#gender-M")
-    private WebElement maleRadioButton;
-
-    @FindBy (css=".body>form>.radio:nth-child(12) .facet.extra")
-    private WebElement maleCountText;
-
-    @FindBy (css="#gender-F")
-    private WebElement femaleRadioButton;
-
-    @FindBy (css=".body>form>.radio:nth-child(13) .facet.extra")
-    private WebElement femaleCountText;
-
-    @FindBy (css="#gender-any")
-    private WebElement anyGenderRadioButton;
+    @FindBy (css=".panel:nth-last-of-type(2) .form-group:nth-of-type(1) .open li[rel='1']>a")
+    private WebElement genderFemale;
 
     @FindBy (css="#board-certified")
     private WebElement boardCertifiedCheckBox;
 
-    @FindBy (css=".body>form>.checkbox:nth-child(16) .facet.extra")
-    private WebElement boardCertifiedCountText;
-
     @FindBy (css="#us-educated")
     private WebElement usEducatedCheckBox;
-
-    @FindBy (css=".body>form>.checkbox:nth-child(17) .facet.extra")
-    private WebElement usEducatedCountText;
-
-    @FindBy (css="#experience")
-    private WebElement yearsExpDropDown;
-
-    @FindBy (css="#language")
-    private WebElement otherLanguagesDropDown;
-
-    @FindBy (css=".apple>li")
-    private List<WebElement> applesScore;
-
-    @FindBy (css=".cross>li")
-    private List<WebElement> hospitalScore;
-
-    @FindBy (css="#top-doctor")
-    private WebElement castleConnolyCheckBox;
-
-    @FindBy (css=".body>form>.checkbox:nth-child(26) .facet.extra")
-    private WebElement castleConnolyCountText;
-
-    @FindBy (css="#patients-choice")
-    private WebElement patientsChoiceCheckBox;
-
-    @FindBy (css=".body>form>.checkbox:nth-child(27) .facet.extra")
-    private WebElement patientsChoiceCountText;
 
     public SearchResultsRefinement clickResetFilters() {
         resetFilters.click();
         return this;
     }
+    
+    public SearchResultsRefinement openDistanceDropDown() {
+    	distanceDropDown.click();
+    	return this;
+    }
 
-    public SearchResultsRefinement clickWithinFiveMiles() {
-        fiveMileRadioButton.click();
+    public SearchResultsRefinement clickWithin5Miles() {
+        distance5.click();
         waitForJQuery();
         return this;
     }
 
-    public SearchResultsRefinement clickWithinTenMiles() {
-        tenMileRadioButton.click();
+    public SearchResultsRefinement clickWithin10Miles() {
+        distance10.click();
+        waitForJQuery();
+        return this;
+    }
+    
+    public SearchResultsRefinement clickWithin15Miles() {
+        distance15.click();
+        waitForJQuery();
+        return this;
+    }
+    
+    public SearchResultsRefinement clickWithin25Miles() {
+        distance25.click();
+        waitForJQuery();
+        return this;
+    }
+    
+    public SearchResultsRefinement clickWithin50Miles() {
+        distance50.click();
         waitForJQuery();
         return this;
     }
 
     public SearchResultsRefinement clickAnyDistance() {
-        tenMileRadioButton.click();
+        distance100.click();
         waitForJQuery();
         return this;
     }
 
-    public SearchResultsRefinement selectAverageWaitTime(int index) {
-        if (index < 0 || index > 3) throw new IllegalArgumentException("Index must be between 0 and 3");
-
-        Select sel = new Select(aveWaitTimeDropDown);
-        sel.selectByIndex(index);
-        waitForJQuery();
+    public SearchResultsRefinement clickToggleFilter() {
+        toggleFilter.click();
         return this;
     }
-
+    
+    public SearchResultsRefinement openGenderDropDown() {
+    	genderDropDown.click();
+    	return this;
+    }
+    
     public SearchResultsRefinement genderSelectMale() {
-        maleRadioButton.click();
+        genderMale.click();
         waitForJQuery();
         return this;
-    }
-
-    public String getMaleDrCount() {
-        return maleCountText.getText();
     }
 
     public SearchResultsRefinement genderSelectFemale() {
-        femaleRadioButton.click();
-        waitForJQuery();
-        return this;
-    }
-
-    public String getFemaleDrCount() {
-        return femaleCountText.getText();
-    }
-
-    public SearchResultsRefinement genderSelectAny() {
-        anyGenderRadioButton.click();
+        genderFemale.click();
         waitForJQuery();
         return this;
     }
@@ -146,35 +145,8 @@ public class SearchResultsRefinement {
         return this;
     }
 
-    public String getBoardCertifiedCount() {
-        return boardCertifiedCountText.getText();
-    }
-
     public SearchResultsRefinement clickUSEducated() {
         usEducatedCheckBox.click();
-        waitForJQuery();
-        return this;
-    }
-
-    public String getUSEducatedCount() {
-        return usEducatedCountText.getText();
-    }
-
-    public SearchResultsRefinement selectYearsExperience(int index) {
-        if (index < 0 || index > 6) throw new IllegalArgumentException("Index must be between 0 and 6");
-
-        Select sel = new Select(yearsExpDropDown);
-        sel.selectByIndex(index);
-        waitForJQuery();
-        return this;
-    }
-
-    // Language names include counts, this could be difficult
-
-    public SearchResultsRefinement selectLanguage(int index) {
-
-        Select sel = new Select(otherLanguagesDropDown);
-        sel.selectByIndex(index);
         waitForJQuery();
         return this;
     }

@@ -13,9 +13,7 @@ import com.vitals.pages.SEOProfilePage;
 public class ProfileTest {
 
     WebDriver driver;
-
-    static final String seoDrProfile = "/doctors/Dr_John_Nemunaitis.html?basic=1";
-    static final String seoDentistProfile = "/dentists/Dr_Grace_Smart?basic=1";
+    
     static final String drProfile = "/doctors/Dr_John_Nemunaitis/profile";
     static final String dentistProfile = "/dentists/Dr_Grace_Smart/profile";
     static final String drVideoProfile = "/doctors/Dr_John_Nemunaitis/video";
@@ -28,36 +26,36 @@ public class ProfileTest {
         this.url = url;
     }
 
-    /* - go to a doctor SEO profile page
-     * - verify View Full button is displayed */
     @Test
     public void doctorSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
-        driver.get(url + seoDrProfile);
-
+        driver.get(url + drProfile);
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
-
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
-                "SEO Doctor Page did not load successfully" + seoProfile);
+                "SEO Doctor Page did not load successfully" + drProfile);
+        
+        driver.get(url + drProfile);
+        ProfilePage fullProfile = PageFactory.initElements(driver, ProfilePage.class);
+        Assert.assertTrue(fullProfile.isSummaryPage(),
+                "Profile page did not load: " + driver.getCurrentUrl());
     }
 
-    /* - go to a dentist SEO profile page
-     * - verify View Full button is displayed */
     @Test
     public void dentistSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
-        driver.get(url + seoDentistProfile);
-
+        driver.get(url + dentistProfile);
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
-
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
-                "SEO Dentist Page did not load successfully: " + seoDentistProfile);
+                "SEO Dentist Page did not load successfully: " + dentistProfile);
+        
+        driver.get(url + dentistProfile);
+        ProfilePage fullProfile = PageFactory.initElements(driver, ProfilePage.class);
+        Assert.assertTrue(fullProfile.isSummaryPage(),
+                "Profile page did not load: " + driver.getCurrentUrl());
     }
 
-    /* - go to a doctor full profile page
-     * - verify breadcrumb contains summary page */
     @Test
     public void viewFullProfileSummaryTest() {
     	driver = DriverManager.getDriver();
@@ -72,8 +70,6 @@ public class ProfileTest {
                 "Summary page was not visible: " + driver.getCurrentUrl());
     }
 
-    /* - go to a doctor full profile page
-     * - verify breadcrumb contains review page */
     @Test
     public void viewFullProfileReviewsTest() {
     	driver = DriverManager.getDriver();
@@ -90,8 +86,6 @@ public class ProfileTest {
                 "Patient Reviews page was not visible: " + driver.getCurrentUrl());
     }
 
-    /* - go to a doctor full profile page
-     * - verify breadcrumb contains credentials page */
     @Test
     public void viewFullProfileCredentialsTest() {
     	driver = DriverManager.getDriver();
@@ -108,10 +102,8 @@ public class ProfileTest {
 
     }
 
-    /* - go to a doctor full profile page
-     * - verify breadcrumb contains location page */
     @Test
-    public void viewLocationsAvailabilityTest() {
+    public void viewFullProfileLocationsTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -126,10 +118,8 @@ public class ProfileTest {
                 "Locations availability page was not visible: " + driver.getCurrentUrl());
     }
 
-    /* - go to a doctor full profile page
-     * - verify breadcrumb contains insurance page */
     @Test
-    public void viewAcceptedInsuranceTest() {
+    public void viewFullProfileInsurancesTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
@@ -144,8 +134,6 @@ public class ProfileTest {
                 "Accepted insurance page was not visible: " + driver.getCurrentUrl());
     }
 
-    /* - go to a doctor's video profile page
-     * - verify video is displayed */
     @Test
     public void viewVideoProfileTest() {
     	driver = DriverManager.getDriver();
@@ -158,44 +146,4 @@ public class ProfileTest {
 
         Assert.assertTrue(profilePage.drVideoIsVisible(), "Dr Video is not visible: " + driver.getCurrentUrl());
     }
-
-    /* - go to a doctor profile for first time
-     * - verify SEO profile is shown*/
-    @Test
-    public void redirectToSeoProfileTest() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url + drProfile);
-
-        SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
-
-        Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
-                "SEO Profile page did not load: " + driver.getCurrentUrl());
-
-    }
-
-    /* - go to a doctor profile for first time
-     * - verify SEO profile is shown
-     * - go to the same profile link again within the same session
-     * - verify full profile (summary tab) is shown */
-    @Test
-    public void seoToFullProfileTest() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url + drProfile);
-
-        SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
-
-        Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
-                "SEO Profile page did not load: " + driver.getCurrentUrl());
-
-        driver.get(url + drProfile);
-
-        ProfilePage fullProfile = PageFactory.initElements(driver, ProfilePage.class);
-
-        Assert.assertTrue(fullProfile.isSummaryPage(),
-                "Profile page did not load: " + driver.getCurrentUrl());
-
-    }
-
 }

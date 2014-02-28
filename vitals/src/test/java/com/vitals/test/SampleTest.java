@@ -45,13 +45,13 @@ public class SampleTest {
         homePage.header.enterSearchTerm("Smith");
         SearchResultsPage results = homePage.header.clickGoButton();
 
-        System.out.println("TOTAL RESULTS> " + results.getResultsCount());
+        System.out.println("TOTAL RESULTS> " + results.getResultsCountNumber());
 
         results.refinement.genderSelectMale();
         results.refinement.clickBoardCertified();
         results.refinement.clickUSEducated();
 
-        System.out.println("TOTAL RESULTS> " + results.getResultsCount());
+        System.out.println("TOTAL RESULTS> " + results.getResultsCountNumber());
 
     }
 
@@ -67,7 +67,7 @@ public class SampleTest {
         homePage.header.enterSearchTerm("Smith");
         SearchResultsPage results = homePage.header.clickGoButton();
 
-        System.out.println("TOTAL RESULTS> " + results.getResultsCount());
+        System.out.println("TOTAL RESULTS> " + results.getResultsCountNumber());
 
         List<WebElement> doctors = results.drList();
         links = new ArrayList<DrInfo>();

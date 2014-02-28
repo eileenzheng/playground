@@ -25,9 +25,8 @@ public class PatientGuideTest {
         this.url = url;
     }
 
-    /* - check breadcrumb of PG landing page */
     @Test
-    public void checkBreadCrumb() {
+    public void checkLandingPage() {
         
     	driver = DriverManager.getDriver();
         driver.get(url + pglink);
@@ -38,9 +37,6 @@ public class PatientGuideTest {
                 "Patient Guide landing page did not load successfully.");
     }
 
-    /* - go to PG landing page
-     * - click a random learn more link
-     * - perform test for single guide */
     @Test
     public void clickLearnMore() {
         if (url.toLowerCase().contains("qa"))
@@ -51,12 +47,9 @@ public class PatientGuideTest {
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         pglanding.clickLearnMore();
         
-        testPatientGuide();
+        testIndividualGuide();
     }
 
-    /* - go to PG landing page
-     * - click a random top guide
-     * - perform test for single guide */
     @Test
     public void clickTopGuide() {
         
@@ -67,12 +60,9 @@ public class PatientGuideTest {
         PatientGuidePage pg = pglanding.clickTopGuide();
         
         if (pg != null)
-        	testPatientGuide();
+        	testIndividualGuide();
     }
 
-    /* - go to PG landing page
-     * - click a random A to Z guide
-     * - perform test for single guide */
     @Test
     public void clickAtoZGuide() {
         
@@ -82,12 +72,10 @@ public class PatientGuideTest {
         PatientGuideLandingPage pglanding = PageFactory.initElements(driver, PatientGuideLandingPage.class);
         pglanding.clickAtoZGuide();
         
-        testPatientGuide();
+        testIndividualGuide();
     }
 
-    /* shared function for testing a single guide, navigate thru the tabs and check breadcrumb */
-    private void testPatientGuide() {
-        // This is a common function for testing one patient guide page
+    private void testIndividualGuide() {
         
         PatientGuidePage pgpage = PageFactory.initElements(driver, PatientGuidePage.class);
         

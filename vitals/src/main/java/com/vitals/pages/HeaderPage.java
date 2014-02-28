@@ -250,6 +250,11 @@ public class HeaderPage {
         return PageFactory.initElements(driver, SearchResultsPage.class);
     }
     
+	public SearchResultsPage clickFirstCondition() {
+		conditionSuggestions.get(0).click();
+        return PageFactory.initElements(driver, SearchResultsPage.class);
+	}
+    
     public SearchResultsPage clickShowAllLink() {
     	showAllLink.click();
     	return PageFactory.initElements(driver, SearchResultsPage.class);
@@ -278,6 +283,12 @@ public class HeaderPage {
     public HeaderPage enterLocation(String location) {
     	locationTextBox.clear();
     	locationTextBox.sendKeys(location);
+    	wait.until(ExpectedConditions.visibilityOfAllElements(locationSuggestions));
+    	return this;
+    }
+    
+    public HeaderPage clickFirstLocation() {
+    	locationSuggestions.get(0).click();
     	return this;
     }
     
@@ -292,7 +303,7 @@ public class HeaderPage {
     }
 
     public boolean locationSearchIsPopulated() {
-        return !locationTextBox.getAttribute("value").equalsIgnoreCase("enter location");
+        return !locationTextBox.getAttribute("value").equals("");
     }
 
     public String getCurrentPopulatedLocation() {

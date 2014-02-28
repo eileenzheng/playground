@@ -18,7 +18,6 @@ public class SearchResultsPage {
     public final FooterPage footer;
     public final SearchResultsRefinement refinement;
     public final PatientLinkCenterAd centerAd;
-    public final PatientLinkRrAd rrAd;
 
     public SearchResultsPage() {
     	driver = DriverManager.getDriver();
@@ -26,35 +25,17 @@ public class SearchResultsPage {
         footer = PageFactory.initElements(driver, FooterPage.class);
         refinement = PageFactory.initElements(driver, SearchResultsRefinement.class);
         centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
-        rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
-
-    @FindBy(css="#leaderboard_top")
-    private WebElement topAdBox;
-
-    @FindBy (css=".advert.rectangle.cbox")
-    private WebElement rightTopAdBox;
 
     @FindBy (css="#result-count")
     private WebElement resultsTotal;
 
-    @FindBy (css="#sort")
-    private WebElement sortByDropdown;
-
-    @FindBy (css="#results>.result")
+    @FindBy (css="#results-content .v-pwl.listing")
     private List<WebElement> searchResults;
-
-    @FindBy (css=".block.patientguide")
-    private WebElement rightPatientGuideBlock;
-
-    public String getResultsCount() {
-        return resultsTotal.getText();
-    }
     
     public int getResultsCountNumber() {
-    	String[] split = getResultsCount().split(" ");
-    	String count = split[split.length-2];
-    	split = count.split(",");
+    	String count = resultsTotal.getText();
+    	String[] split = count.split(",");
     	if (split.length==1)
     		return Integer.parseInt(split[0]);
     	else
@@ -69,16 +50,12 @@ public class SearchResultsPage {
         List<Profile> doc = new ArrayList<Profile>();
 
         for (WebElement el : searchResults) {
-            String name = el.findElement(By.cssSelector(".details>.head>h4>a")).getText().trim();
-            String url = el.findElement(By.cssSelector(".details>.head>h4>a")).getAttribute("href");
+            String name = el.findElement(By.cssSelector(".profile-name>a")).getText().trim();
+            String url = el.findElement(By.cssSelector(".profile-name>a")).getAttribute("href");
             doc.add(new Profile(name,url));
         }
 
         return doc;
-    }
-
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
     }
 
 }

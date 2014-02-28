@@ -5,6 +5,7 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -260,6 +261,46 @@ public class MastheadTest {
 
 			ReviewPage reviewPage = homePage.header.clickRandomUccReview();
 			Assert.assertTrue(reviewPage.isFacilityReview());
+		}
+	}
+
+	/* - enter zip code '1000' in location box of global header
+	 * - verify that at least 1 suggestion of 'New York' is returned in auto-complete */
+	@Test
+	public void autoSuggestLocation() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String location = "1000";
+			String city = "New York";
+
+			homePage.header.openLocationBox();
+			homePage.header.enterLocation(location);
+
+			Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
+		}
+	}
+
+	/* - enter 'Smith' in name search box of global header
+	 * - verify that at least 1 suggestion containing 'Smith' is returned in auto-complete */
+	@Test
+	public void autoSuggestName() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String name = "Smith";
+
+			homePage.header.enterSearchTerm(name);
+
+			Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
+
+			Assert.assertTrue(homePage.header.checkNameSuggestions(name));
 		}
 	}
 

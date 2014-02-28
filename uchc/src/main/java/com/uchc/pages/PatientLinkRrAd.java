@@ -25,14 +25,14 @@ public class PatientLinkRrAd extends PatientLinkAd {
 	}
 
 	public List<WebElement> getMakeAppt() {
-		return parseAppt(content, ".book-online>a");
+		return parseElement(content, ".book-online>a");
 	}
 
 	public List<WebElement> getPhoneNumber() {
-		return parsePhoneNumber(content, ".call-appointment .tel");
+		return parseElement(content, ".call-appointment .tel");
 	}
 
 	public List<WebElement> getLogo() {
-		return parseLogo(content, ".logo");
+		return parseElement(content, ".logo");
 	}
 }

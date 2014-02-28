@@ -20,6 +20,10 @@ public class Profile {
     public String getUrl() {
         return url;
     }
+    
+    public String getName() {
+    	return searchResultName;
+    }
 
     public void setProfileName(String name) {
         this.profileName = name;

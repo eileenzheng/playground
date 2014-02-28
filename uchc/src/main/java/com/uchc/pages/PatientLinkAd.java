@@ -141,61 +141,22 @@ public abstract class PatientLinkAd {
 		return address;
    }
    
-	public List<WebElement> parseAppt(List<WebElement> content, String css) {
-
-		List<WebElement> bookButton = new ArrayList<WebElement>();
-
-		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-		for (int i = 0; i < content.size(); i++) {
-			
-			try {
-				WebElement book = content.get(i).findElement(
-						By.cssSelector(css));
-				bookButton.add(book);
-			} catch (NoSuchElementException e) {
-				bookButton.add(null);
-			}
-		}
-		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-
-		return bookButton;
-	}
-	
-	public List<WebElement> parsePhoneNumber(List<WebElement> content, String css) {
-
-		List<WebElement> phoneNumber = new ArrayList<WebElement>();
-
-		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-		for (int i = 0; i < content.size(); i++) {
-			try {
-				WebElement phone = content.get(i).findElement(
-						By.cssSelector(css));
-				phoneNumber.add(phone);
-			} catch (NoSuchElementException e) {
-				phoneNumber.add(null);
-			}
-		}
-		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-
-		return phoneNumber;
-	}
-	
-	public List<WebElement> parseLogo(List<WebElement> content, String css) {
+	public List<WebElement> parseElement(List<WebElement> content, String css) {
 		
-		List<WebElement> logo = new ArrayList<WebElement>();
+		List<WebElement> els = new ArrayList<WebElement>();
 
 		driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
 		for (int i = 0; i < content.size(); i++) {
 			try {
-				WebElement image = content.get(i).findElement(
+				WebElement el = content.get(i).findElement(
 						By.cssSelector(css));
-				logo.add(image);
+				els.add(el);
 			} catch (NoSuchElementException e) {
-				logo.add(null);
+				els.add(null);
 			}
 		}
 		driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
 
-		return logo;
+		return els;
 	}
 }

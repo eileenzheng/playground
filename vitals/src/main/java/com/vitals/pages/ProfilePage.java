@@ -30,9 +30,6 @@ public class ProfilePage {
         rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
-    @FindBy(css="#view-full")
-    private WebElement viewFullProfileButton;
-
     @FindBy(css=".tabs td:nth-child(1)>a")
     private WebElement summaryTab;
 
@@ -51,30 +48,30 @@ public class ProfilePage {
     @FindBy (css=".tabs td:nth-child(6)>a")
     private WebElement sponsoredTab;
 
-    @FindBy(css=".trail.current>span")
+    @FindBy(css=".additionalInformation>span")
     private List<WebElement> breadCrumbTrail;
 
-    @FindBy(css="#doctor_video")
+    @FindBy(linkText="Video profile")
     private WebElement drVideo;
 
     @FindBy(linkText="Doctor's site")
     private WebElement plDrSite;
 
-    @FindBy(css=".patient-link .book-online")
+    // list because of bug on site returns 3 elements sometimes
+    @FindBy(css=".patient-link .contact-links .modal-call")
     private List<WebElement> plBookAppt;
 
+    // list because of bug on site returns 3 elements sometimes
     @FindBy(css=".patient-link .call-appointment strong")
     private List<WebElement> plPhoneNumber;
     
+    // list because of bug on site returns 3 elements sometimes
     @FindBy(css=".claim-profile>a")
     private List<WebElement> claimProfileLink;
     
+    // list because of bug on site returns 3 elements sometimes
     @FindBy(css=".name.awards .current")
     private List<WebElement> name;
-
-    public boolean viewFullProfileButtonIsVisible() {
-        return viewFullProfileButton.isDisplayed();
-    }
 
     public boolean isSummaryPage() {
         boolean flag = false;
@@ -151,7 +148,7 @@ public class ProfilePage {
     }
 
     public boolean drVideoIsVisible() {
-        return drVideo.isDisplayed();
+        return isElementPresent(drVideo);
     }
 
     public boolean isDrSitePresent() {

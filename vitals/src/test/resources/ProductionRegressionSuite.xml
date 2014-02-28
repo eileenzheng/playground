@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="1">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
-	<parameter name="testLocation" value="remoteWD" />
+	<!-- <parameter name="testLocation" value="remoteWD" /> -->
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
 	</listeners>
 
-	<test name="Search Specfic Tests">
+ <!--	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />
 			<methods>
@@ -16,8 +16,8 @@
 			</methods>
 
 		</classes>
-	</test>
-	 <test name="Profile Specific Tests">
+	</test> 
+	<test name="Profile Specific Tests">
 		<classes>
 			<class name="com.vitals.test.ProfileTest" />
 		</classes>
@@ -31,12 +31,12 @@
 		<classes>
 			<class name="com.vitals.test.PatientGuideTest" />
 		</classes>
-	</test>
+	</test>-->
 	<test name="Patientlink Specific Tests">
 		<classes>
 			<class name="com.vitals.test.PatientLinkTest" />
 		</classes>
-	</test>
+	</test><!--
 	<test name="MyVitals Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
@@ -52,5 +52,5 @@
 			<class name="com.vitals.test.MastheadTest" />
 		</classes>
 	</test>
-
+ -->
 </suite>
