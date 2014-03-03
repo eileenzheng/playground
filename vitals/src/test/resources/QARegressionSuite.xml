@@ -6,6 +6,7 @@
 
     <listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
+        <!--<listener class-name="com.vitals.helpers.TestRailResultListener" />-->
 	</listeners>
 
 	<test name="Search Specfic Tests">
