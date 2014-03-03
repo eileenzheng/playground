@@ -13,10 +13,12 @@ import com.vitals.DriverManager;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.ReviewPage;
+import com.vitals.pages.ReviewWritePage;
 import com.vitals.pages.ReviewSearchResultsPage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.UccProfileSummaryPage;
 import com.vitals.pages.UccSearchResultsPage;
+import com.vitals.helpers.Constants;
 
 public class MastheadTest {
 
@@ -34,6 +36,75 @@ public class MastheadTest {
 		else
 			this.url[1] = "https://my.vitals.com";
 	}
+	
+	@Test
+	public void autoSuggestLocation() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String location = "1000";
+			String city = "New York";
+
+			homePage.header.openLocationBox();
+			homePage.header.enterLocation(location);
+
+			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
+		}
+	}
+	
+	@Test
+	public void autoSuggestName() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String name = "Todd";
+
+			homePage.header.enterSearchTerm(name);
+			Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
+
+			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.NAME, name), env(i));
+		}
+	}
+	
+	@Test
+	public void autoSuggestSpecialty() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String specialty = "Cardio";
+
+			homePage.header.enterSearchTerm(specialty);
+			Reporter.log("The Specialties> " + homePage.header.getSpecialtySearchSuggestions());
+
+			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.SPECIALTY, specialty), env(i));
+		}
+	}
+	
+	@Test
+	public void autoSuggestCondition() {
+		driver = DriverManager.getDriver();
+
+		for (int i=0; i<2; i++) {
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+
+			String condition = "Diab";
+
+			homePage.header.enterSearchTerm(condition);
+			Reporter.log("The Conditions> " + homePage.header.getConditionSearchSuggestions());
+
+			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.CONDITION, condition), env(i));
+		}
+	}
 
 	@Test
 	public void doctorSearchGo() {
@@ -46,7 +117,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickGoButton();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>100);
+			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
 
@@ -61,7 +132,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickShowAllLink();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>100);
+			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
 
@@ -76,7 +147,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			ProfilePage profilePage = homePage.header.clickRandomName();
 
-			Assert.assertTrue(profilePage.isSummaryPage());
+			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
 	}
 
@@ -94,7 +165,7 @@ public class MastheadTest {
 
 			SearchResultsPage serp = homePage.header.clickGoButton();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>100);
+			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
 
@@ -111,7 +182,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickShowAllLink();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>100);
+			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
 
@@ -128,7 +199,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("John");
 			ProfilePage profilePage = homePage.header.clickRandomName();
 
-			Assert.assertTrue(profilePage.isSummaryPage());
+			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
 	}
 
@@ -145,7 +216,7 @@ public class MastheadTest {
 
 			UccSearchResultsPage serp = homePage.header.clickGoButtonUcc();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>=5);
+			Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
 		}
 	}
 
@@ -162,7 +233,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("citymd");
 			UccSearchResultsPage serp = homePage.header.clickShowAllLinkUcc();
 			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>=5);
+			Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
 		}
 	}
 
@@ -179,7 +250,7 @@ public class MastheadTest {
 			homePage.header.enterSearchTerm("citymd");
 			UccProfileSummaryPage profilePage = homePage.header.clickRandomUcc();
 
-			Assert.assertTrue(profilePage.isSummaryPage());
+			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
 	}
 
@@ -187,121 +258,68 @@ public class MastheadTest {
 	public void reviewSearchGo() {
 		driver = DriverManager.getDriver();
 
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("John");
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		ReviewPage reviewPage = homePage.header.clickReviewTab();
+		reviewPage.header.enterReviewSearchTerm("John");
 
-			ReviewSearchResultsPage reviewSerp = homePage.header.clickReviewGoButton();
-			acceptAlertIfPresent(driver);
-			Assert.assertTrue(reviewSerp.isToggleProvider());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
-		}
+		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickReviewGoButton();
+		Assert.assertTrue(reviewSerp.isToggleProvider());
+		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 	}
 
 	@Test
 	public void reviewSearchSeeAllDoctors() {
 		driver = DriverManager.getDriver();
 
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("John");
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		ReviewPage reviewPage = homePage.header.clickReviewTab();
+		reviewPage.header.enterReviewSearchTerm("John");
 
-			ReviewSearchResultsPage reviewSerp = homePage.header.clickShowAllDoctorsReview();
-			acceptAlertIfPresent(driver);
-			Assert.assertTrue(reviewSerp.isToggleProvider());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
-		}
+		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickShowAllDoctorsReview();
+		Assert.assertTrue(reviewSerp.isToggleProvider());
+		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 	}
 
 	@Test
 	public void reviewSearchSeeAllFacilities() {
 		driver = DriverManager.getDriver();
 
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("city");
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		ReviewPage reviewPage = homePage.header.clickReviewTab();
+		reviewPage.header.enterReviewSearchTerm("city");
 
-			ReviewSearchResultsPage reviewSerp = homePage.header.clickShowAllFacilitiesReview();
-			acceptAlertIfPresent(driver);
-			Assert.assertTrue(reviewSerp.isToggleFacilities());
-			Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
-		}
+		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickShowAllFacilitiesReview();
+		Assert.assertTrue(reviewSerp.isToggleFacilities());
+		Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
 	}
 
 	@Test
 	public void reviewSearchClickDoctor() {
 		driver = DriverManager.getDriver();
 
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("John");
-
-			ReviewPage reviewPage = homePage.header.clickRandomNameReview();
-			Assert.assertTrue(reviewPage.isDoctorReview());
-		}
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		ReviewPage reviewPage = homePage.header.clickReviewTab();
+		reviewPage.header.enterReviewSearchTerm("John");
+		
+		ReviewWritePage reviewWritePage = reviewPage.header.clickRandomNameReview();
+			Assert.assertTrue(reviewWritePage.isDoctorReview());
 	}
 
 	@Test
 	public void reviewSearchClickFacility() {
 		driver = DriverManager.getDriver();
 
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.hoverReviewTab();
-			homePage.header.enterReviewSearchTerm("city");
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		ReviewPage reviewPage = homePage.header.clickReviewTab();
+		reviewPage.header.enterReviewSearchTerm("city");
 
-			ReviewPage reviewPage = homePage.header.clickRandomUccReview();
-			Assert.assertTrue(reviewPage.isFacilityReview());
-		}
-	}
-
-	/* - enter zip code '1000' in location box of global header
-	 * - verify that at least 1 suggestion of 'New York' is returned in auto-complete */
-	@Test
-	public void autoSuggestLocation() {
-		driver = DriverManager.getDriver();
-
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-			String location = "1000";
-			String city = "New York";
-
-			homePage.header.openLocationBox();
-			homePage.header.enterLocation(location);
-
-			Assert.assertTrue(homePage.header.checkLocationSuggestions(city), location + " does not contain " + city);
-		}
-	}
-
-	/* - enter 'Smith' in name search box of global header
-	 * - verify that at least 1 suggestion containing 'Smith' is returned in auto-complete */
-	@Test
-	public void autoSuggestName() {
-		driver = DriverManager.getDriver();
-
-		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-
-			String name = "Smith";
-
-			homePage.header.enterSearchTerm(name);
-
-			Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
-
-			Assert.assertTrue(homePage.header.checkNameSuggestions(name));
-		}
+		ReviewWritePage reviewWritePage = reviewPage.header.clickRandomUccReview();
+		Assert.assertTrue(reviewWritePage.isFacilityReview());
 	}
 
 	private void acceptAlertIfPresent(WebDriver driver) {
@@ -312,5 +330,13 @@ public class MastheadTest {
 		} catch (NoAlertPresentException e) {
 			// do nothing
 		}
+	}
+	
+	private String env(int i) {
+		
+		if (i==0)
+			return "Vitals: ";
+		else
+			return "MyVitals: ";
 	}
 }

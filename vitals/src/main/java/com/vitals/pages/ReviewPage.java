@@ -1,18 +1,16 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import com.vitals.DriverManager;
 
 public class ReviewPage {
 	
-	@FindBy(css="#post-review h1")
-    private WebElement headlineText;
-	
-	public boolean isDoctorReview() {
-		return (headlineText.getText().equals("Tell us about your experience with this doctor."));
-	}
-	
-	public boolean isFacilityReview() {
-		return (headlineText.getText().contains("Tell us about your experience at"));
-	}
+    private final WebDriver driver;
+    public final HeaderPage header;
+    
+    public ReviewPage() {
+    	driver = DriverManager.getDriver();
+        this.header = PageFactory.initElements(driver, HeaderPage.class);
+    }
 }

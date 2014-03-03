@@ -29,10 +29,8 @@ public class MyVitalsTest {
         this.url = url;
     }
 
-    /* - login to myvitals from homepage
-     * - verify 'login successful' text is shown */
     @Test
-    public void testLogin() {
+    public void loginMyVitals() {
     	driver = DriverManager.getDriver();
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
@@ -42,11 +40,8 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isSignInSuccessful());
     }
     
-    /* - sign in to myvitals
-     * - change password
-     * - verify success message */
     @Test
-    public void testEditAccount() {
+    public void editAccount() {
     	driver = DriverManager.getDriver();
         driver.get(url);
         
@@ -65,53 +60,26 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isAccountUpdateSuccessful());
     }
     
-    /* - sign in to myvitals
-     * - go to claim profile page and check for 'no profile' alert text
-     * - type in location and verify auto-complete
-     * - type in name and verify auto-complete
-     * - select random profile to claim
-     * - claim profile without filling in anything and verify alert text */
-    // pre-requisite: account is not linked to any profile
     @Test
-    public void testLocateProfile() {
+    public void claimProfileFail() {
     	driver = DriverManager.getDriver();
     	driver.get(url);
     	
-    	// sign in to myvitals & click "edit profile"
+    	// sign in to myvitals & click "claim profile"
     	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         MyVitalsHomePage myVitalsHome = login(homePage);
-        MyVitalsEditAccountPage editAccountPage = myVitalsHome.clickChangeSetting();
-        MyVitalsLocateProfilePage locateProfilePage = editAccountPage.clickEditProfileNoProfile();
+        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
         
-        // no profile is linked message should be shown
-        Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect());
-        
-        // search for ny in city/state box
-        locateProfilePage.enterCityState("NY");
-        Reporter.log("Location Suggestions: " + locateProfilePage.getLocationSuggestions());
-        Assert.assertTrue(locateProfilePage.checkLocationSuggestions("NY"));
-        locateProfilePage = locateProfilePage.clickRandomLocation();
-        
-        // refresh page
-        String currentUrl = driver.getCurrentUrl();
-        driver.get(currentUrl);
-        
-        // search for 'smith' in name box
-        locateProfilePage.enterName("smith");
-        Reporter.log("Name Suggestions: " + locateProfilePage.getNameSuggestions());
-        //Assert.assertTrue(locateProfilePage.checkNameSuggestions("smith"));
+        // search for 'Todd' and click a random provider
+        locateProfilePage.enterName("Todd");
         MyVitalsClaimProfilePage claimPage = locateProfilePage.clickRandomProvider();
         
         // click submit button and expect alert because nothing is filled out
         Assert.assertTrue(claimPage.clickClaimExpectFailure().isEmptyAlertShown());
     }
-    
-    /* - sign in to my vitals
-     * - go to provider's profile and click claim profile
-     * - fill in info and submit
-     * - unlink profile */
+
     @Test
-    public void testClaimProfile() {
+    public void claimProfileSuccess() {
     	// only perform this test on staging or qa
     	if (url.contains("staging") || url.contains("qa")) {
             driver = DriverManager.getDriver();
@@ -132,9 +100,25 @@ public class MyVitalsTest {
     		claimPage.clickFillLinks();
     		MyVitalsEditBasicInfoPage basicInfoPage = claimPage.clickClaimExpectSuccess();
     		Assert.assertTrue(basicInfoPage.isProfileLinkSuccessAlertShown(), "Profile link success text is NOT shown");
-    		
-    		// remove profile link after test
-    		MyVitalsEditAccountPage editAccountPage = basicInfoPage.header.clickSignedInEmail().clickEditProfile();
+    	}
+    	else {
+    		// do not perform this on production
+    	}
+    }
+    
+    @Test (dependsOnMethods = {"claimProfileSuccess"})
+    public void removeProfileLink() {
+    	// only perform this test on staging or qa
+    	if (url.contains("staging") || url.contains("qa")) {
+            driver = DriverManager.getDriver();
+            
+            // sign in to myvitals first
+            driver.get(url);
+            HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            login(homePage);
+            
+    		// remove profile link
+    		MyVitalsEditAccountPage editAccountPage = homePage.header.clickSignedInEmail().clickEditProfile();
     		MyVitalsProfessionalsPage professionalsPage = editAccountPage.clickEditProfileHasProfile();
     		MyVitalsLocateProfilePage locateProfilePage = professionalsPage.clickDeleteButton();
     		Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect(), "No Profile alert is not shown");
@@ -142,6 +126,53 @@ public class MyVitalsTest {
     	else {
     		// do not perform this on production
     	}
+    }
+    
+    @Test (dependsOnMethods = {"removeProfileLink"})
+    public void editNoProfile() {
+    	driver = DriverManager.getDriver();
+    	driver.get(url);
+    	
+    	// sign in to myvitals & click "edit profile"
+    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        MyVitalsHomePage myVitalsHome = login(homePage);
+        MyVitalsEditAccountPage editAccountPage = myVitalsHome.clickChangeSetting();
+        MyVitalsLocateProfilePage locateProfilePage = editAccountPage.clickEditProfileNoProfile();
+        
+        // no profile is linked message should be shown
+        Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect());
+    }
+    
+    @Test (dependsOnMethods = {"removeProfileLink"})
+    public void locateProfileAutoSuggestLocation() {
+    	driver = DriverManager.getDriver();
+    	driver.get(url);
+    	
+    	// sign in to myvitals & click "claim profile"
+    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        MyVitalsHomePage myVitalsHome = login(homePage);
+        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
+        
+        // search for NY in city/state box
+        locateProfilePage.enterCityState("NY");
+        Reporter.log("Location Suggestions: " + locateProfilePage.getLocationSuggestions());
+        Assert.assertTrue(locateProfilePage.checkLocationSuggestions("NY"), "Location suggestions does not contain NY");
+    }
+    
+    @Test (dependsOnMethods = {"removeProfileLink"})
+    public void locateProfileAutoSuggestName() {
+    	driver = DriverManager.getDriver();
+    	driver.get(url);
+    	
+    	// sign in to myvitals & click "claim profile"
+    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        MyVitalsHomePage myVitalsHome = login(homePage);
+        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
+        
+        // search for 'Todd' in name box
+        locateProfilePage.enterName("Todd");
+        Reporter.log("Name Suggestions: " + locateProfilePage.getNameSuggestions());
+        Assert.assertTrue(locateProfilePage.checkNameSuggestions("Todd"));
     }
     
     public MyVitalsHomePage login(HomePage home) {

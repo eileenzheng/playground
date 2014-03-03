@@ -15,7 +15,7 @@ public class UccProfileServicesPage {
 		driver = DriverManager.getDriver();
 	}
 
-	@FindBy(css="span[itemprop=title]")
+	@FindBy(css=".full.ucc>span")
 	private List<WebElement> breadcrumbs;
 
 	@FindBy(css="h1")
