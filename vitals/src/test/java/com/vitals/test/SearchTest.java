@@ -2,6 +2,8 @@ package com.vitals.test;
 
 import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
+import com.vitals.helpers.TestCase;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -28,6 +30,7 @@ public class SearchTest {
         this.url = url;
     }
 
+    @TestCase(id = 1548)
     @Test
     public void searchByName() {
         m_assert = new SoftAssert();
@@ -54,6 +57,7 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
+    @TestCase (id = 1549)
     @Test
     public void searchBySpecialty() {
     	driver = DriverManager.getDriver();
@@ -74,6 +78,7 @@ public class SearchTest {
         Reporter.log(results.getResultsCountNumber() + " for search: " + spec);
     }
 
+    @TestCase (id=1550)
     @Test
     public void searchByCondition() {
     	driver = DriverManager.getDriver();
@@ -94,6 +99,7 @@ public class SearchTest {
         Reporter.log(results.getResultsCountNumber() + " for search: " + cond);
     }
     
+    @TestCase (id=1551)
     @Test
     public void serpFilters() {
     	driver = DriverManager.getDriver();
@@ -144,6 +150,7 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1552)
     @Test (dataProvider = "zipCodes")
     public void compareResultsToProfile(String zipCodes) {
         m_assert = new SoftAssert();
