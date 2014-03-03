@@ -8,4 +8,6 @@ public interface Constants {
     static public final String SAML_URL = "http://cbc-qa.mle.mdx.med/simplesaml/module.php/core/authenticate.php?as=cbc-local";
     static public final String SAML_USER = "mleuser_2";
     static public final String SAML_PW = "mle";
+    
+    static public enum SearchType {NAME, LOCATION, SPECIALTY, CONDITION, UCC}
 }

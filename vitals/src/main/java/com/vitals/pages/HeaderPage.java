@@ -4,25 +4,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import com.vitals.DriverManager;
+import com.vitals.helpers.Constants.SearchType;
+
 import java.util.List;
 
 public class HeaderPage {
 
     private final WebDriver driver;
-    private final Actions builder;
     private final WebDriverWait wait;
     private final JavascriptExecutor jse;
 
     public HeaderPage() {
     	driver = DriverManager.getDriver();
-    	builder = new Actions(driver);
     	wait = new WebDriverWait(driver,15,2000);
     	jse = (JavascriptExecutor) driver;
     }
@@ -160,13 +159,29 @@ public class HeaderPage {
         return PageFactory.initElements(driver,UccSearchResultsPage.class);
     }
 
-    public boolean checkNameSuggestions(String suggestion) {
+
+    public boolean checkSuggestions(SearchType type, String suggestion) {
+    	List<WebElement> suggestions = null;
+    	
+    	switch (type) {
+    	case NAME:
+    		suggestions = nameSuggestions;
+    	case SPECIALTY:
+    		suggestions = specialtySuggestions;
+    	case CONDITION:
+    		suggestions = conditionSuggestions;
+    	case UCC:
+    		suggestions = uccSuggestions;
+    	case LOCATION:
+    		suggestions = locationSuggestions;
+    	}
+    	
         Boolean flag = false;
-        for (WebElement el : nameSuggestions) {
-            if (el.getText().contains(suggestion)) flag = true;
+        for (WebElement el : suggestions) {
+            if (el.getText().toLowerCase().contains(suggestion.toLowerCase())) flag = true;
             if (flag == true) break;
         }
-
+ 
         return flag;
     }
 
@@ -195,18 +210,18 @@ public class HeaderPage {
     	return PageFactory.initElements(driver, UccProfileSummaryPage.class);
     }
     
-    public ReviewPage clickRandomNameReview() {
+    public ReviewWritePage clickRandomNameReview() {
     	int mid = nameSuggestions.size() / 2;
     	nameSuggestions.get(mid).click();
     	
-    	return PageFactory.initElements(driver, ReviewPage.class);
+    	return PageFactory.initElements(driver, ReviewWritePage.class);
     }
     
-    public ReviewPage clickRandomUccReview() {
+    public ReviewWritePage clickRandomUccReview() {
     	int mid = uccSuggestions.size() / 2;
     	uccSuggestions.get(mid).click();
     	
-    	return PageFactory.initElements(driver, ReviewPage.class);
+    	return PageFactory.initElements(driver, ReviewWritePage.class);
     }
 
     public String getSpecialtySearchSuggestions() {
@@ -291,16 +306,6 @@ public class HeaderPage {
     	locationSuggestions.get(0).click();
     	return this;
     }
-    
-    public boolean checkLocationSuggestions(String suggestion) {
-        Boolean flag = false;
-        for (WebElement el : locationSuggestions) {
-            if (el.getText().contains(suggestion)) flag = true;
-            if (flag == true) break;
-        }
-
-        return flag;
-    }
 
     public boolean locationSearchIsPopulated() {
         return !locationTextBox.getAttribute("value").equals("");
@@ -310,10 +315,9 @@ public class HeaderPage {
         return locationTextBox.getAttribute("value").toString();
     }
     
-    public HeaderPage hoverReviewTabOld() {
-    	Actions hoverOver = builder.moveToElement(writeReviewTab);
-    	hoverOver.perform();
-    	return this;
+    public ReviewPage clickReviewTab() {
+    	writeReviewTab.click();
+    	return PageFactory.initElements(driver, ReviewPage.class);
     }
     
     public HeaderPage hoverReviewTab() {

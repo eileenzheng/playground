@@ -13,7 +13,6 @@ public class HomePage {
     public final HeaderPage header;
     public final FooterPage footer;
 
-
     public HomePage() {
     	driver = DriverManager.getDriver();
         this.header = PageFactory.initElements(driver, HeaderPage.class);
