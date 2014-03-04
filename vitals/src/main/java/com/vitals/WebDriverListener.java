@@ -203,9 +203,9 @@ public class WebDriverListener extends TestListenerAdapter {
     private void reportLogScreenshot(File file, String date, String methodName, String FailedURL) {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
 
-        Reporter.log("<a href=\"html/testfailureimages/" + file + "\"><p align=\"left\">Error for " + methodName + " screenshot at " + date + "</p>");
+        Reporter.log("<a href=\"testfailureimages/" + file + "\"><p align=\"left\">Error for " + methodName + " screenshot at " + date + "</p>");
         Reporter.log("<p align=\"left\">URL At Failure: " + FailedURL + "</p>");
-        Reporter.log("<p><img width=\"768\" src=\"html/testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
+        Reporter.log("<p><img width=\"768\" src=\"testfailureimages/" + file  + "\" alt=\"screenshot at " + date + "\"/></p></a><br />");
     }
 
 }
