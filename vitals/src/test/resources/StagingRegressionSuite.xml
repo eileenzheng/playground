@@ -4,11 +4,11 @@
     <parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
-	<parameter name="testLocation" value="remote" />
+	<parameter name="testLocation" value="local" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
-		<listener class-name="com.vitals.TestRailResultListener" />
+		<!-- <listener class-name="com.vitals.TestRailResultListener" /> -->
 	</listeners>
 
 	<test name="Profile Specific Tests">

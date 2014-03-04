@@ -15,10 +15,10 @@ public class MyVitalsSignInPage {
     	driver = DriverManager.getDriver();
     }
     
-    @FindBy(css=".sign-in #user_email")
+    @FindBy(css=".sign-in input[type=email]")
     private WebElement emailTextBox;
     
-    @FindBy(css=".sign-in #user_password")
+    @FindBy(css=".sign-in input[type=password]")
     private WebElement passwordTextBox;
     
     @FindBy(css=".sign-in .button")
