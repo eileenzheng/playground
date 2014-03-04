@@ -191,7 +191,7 @@ public class ProfilePage {
     		return plPhoneNumber.get(1).getText();
     }
 
-    public boolean isElementPresent (WebElement el) {
+    private boolean isElementPresent (WebElement el) {
     	driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         try {
             if (el.isDisplayed()) {

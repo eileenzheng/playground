@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.ReviewPage;
@@ -37,6 +38,7 @@ public class MastheadTest {
 			this.url[1] = "https://my.vitals.com";
 	}
 	
+	@TestCase(id=1603)
 	@Test
 	public void autoSuggestLocation() {
 		driver = DriverManager.getDriver();
@@ -53,8 +55,11 @@ public class MastheadTest {
 
 			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
 		}
+		
+		driver.manage().deleteAllCookies();
 	}
 	
+	@TestCase(id=1604)
 	@Test
 	public void autoSuggestName() {
 		driver = DriverManager.getDriver();
@@ -72,6 +77,7 @@ public class MastheadTest {
 		}
 	}
 	
+	@TestCase(id=1605)
 	@Test
 	public void autoSuggestSpecialty() {
 		driver = DriverManager.getDriver();
@@ -89,6 +95,7 @@ public class MastheadTest {
 		}
 	}
 	
+	@TestCase(id=1606)
 	@Test
 	public void autoSuggestCondition() {
 		driver = DriverManager.getDriver();
@@ -106,6 +113,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1616)
 	@Test
 	public void doctorSearchGo() {
 		driver = DriverManager.getDriver();
@@ -121,6 +129,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1617)
 	@Test
 	public void doctorSearchSeeAll() {
 		driver = DriverManager.getDriver();
@@ -136,6 +145,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1618)
 	@Test
 	public void doctorSearchClick() {
 		driver = DriverManager.getDriver();
@@ -151,6 +161,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1619)
 	@Test
 	public void dentistSearchGo() {
 		driver = DriverManager.getDriver();
@@ -169,6 +180,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1620)
 	@Test
 	public void dentistSearchSeeAll() {
 		driver = DriverManager.getDriver();
@@ -186,6 +198,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1621)
 	@Test
 	public void dentistSearchClick() {
 		driver = DriverManager.getDriver();
@@ -203,6 +216,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1622)
 	@Test
 	public void uccSearchGo() {
 		driver = DriverManager.getDriver();
@@ -220,6 +234,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1623)
 	@Test
 	public void uccSearchSeeAll() {
 		driver = DriverManager.getDriver();
@@ -237,6 +252,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1624)
 	@Test
 	public void uccSearchClick() {
 		driver = DriverManager.getDriver();
@@ -254,6 +270,7 @@ public class MastheadTest {
 		}
 	}
 
+	@TestCase(id=1625)
 	@Test
 	public void reviewSearchGo() {
 		driver = DriverManager.getDriver();
@@ -268,6 +285,7 @@ public class MastheadTest {
 		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 	}
 
+	@TestCase(id=1626)
 	@Test
 	public void reviewSearchSeeAllDoctors() {
 		driver = DriverManager.getDriver();
@@ -282,6 +300,7 @@ public class MastheadTest {
 		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
 	}
 
+	@TestCase(id=1627)
 	@Test
 	public void reviewSearchSeeAllFacilities() {
 		driver = DriverManager.getDriver();
@@ -296,6 +315,7 @@ public class MastheadTest {
 		Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
 	}
 
+	@TestCase(id=1628)
 	@Test
 	public void reviewSearchClickDoctor() {
 		driver = DriverManager.getDriver();
@@ -309,6 +329,7 @@ public class MastheadTest {
 			Assert.assertTrue(reviewWritePage.isDoctorReview());
 	}
 
+	@TestCase(id=1629)
 	@Test
 	public void reviewSearchClickFacility() {
 		driver = DriverManager.getDriver();

@@ -8,38 +8,31 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.vitals.DriverManager;
 
-public class UccLandingPage {
+public class UccSitemapPage {
 	private final WebDriver driver;
 
-	public UccLandingPage () {
+	public UccSitemapPage () {
 		driver = DriverManager.getDriver();
 	}
 	
-	@FindBy(css=".trail.current>span")
-	private WebElement breadcrumb;
-	
-	@FindBy(css=".full h1")
+	@FindBy(css="h1")
 	private WebElement title;
 	
-	@FindBy(css=".column-list .state")
+	@FindBy(css=".col-sm-4 li>a")
 	private List<WebElement> states;
 	
-	@FindBy(css=".column-list>ul>li>ul>li>a")
+	@FindBy(css=".col-sm-4 li>div>a")
 	private List<WebElement> cities;
 	
-	public boolean isTitleMatched() {
-		return (title.getText().equals(breadcrumb.getText()));
-	}
-	
-	public UccStatePage clickState() {
+	public UccSitemapStatePage clickState() {
 		int rand = (int) Math.floor(Math.random() * (states.size() - 1));
 		states.get(rand).click();
-		return PageFactory.initElements(driver, UccStatePage.class);
+		return PageFactory.initElements(driver, UccSitemapStatePage.class);
 	}
 	
-	public UccCityPage clickCity() {
+	public UccSearchResultsPage clickCity() {
 		int rand = (int) Math.floor(Math.random() * (cities.size() - 1));
 		cities.get(rand).click();
-		return PageFactory.initElements(driver, UccCityPage.class);
+		return PageFactory.initElements(driver, UccSearchResultsPage.class);
 	}
 }

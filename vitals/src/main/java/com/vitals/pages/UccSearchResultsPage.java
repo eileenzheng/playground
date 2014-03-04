@@ -45,10 +45,10 @@ public class UccSearchResultsPage {
         return searchResults;
     }
 
-    public List<Ucc> uccResults(List<WebElement> searchResults) {
+    public List<Ucc> uccResults() {
         List<Ucc> ucc = new ArrayList<Ucc>();
 
-        for (WebElement el : searchResults) {
+        for (WebElement el : uccList()) {
             String name = el.findElement(By.cssSelector(".profile-name>a")).getText().trim();
             String url = el.findElement(By.cssSelector(".profile-name>a")).getAttribute("href");
             String address = el.findElement(By.cssSelector("span[itemprop=streetAddress]")).getText();

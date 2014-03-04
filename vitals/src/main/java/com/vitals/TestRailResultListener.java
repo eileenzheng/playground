@@ -1,9 +1,10 @@
-package com.vitals.helpers;
+package com.vitals;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import org.testng.*;
+
 
 import java.lang.reflect.Method;
 import java.util.Date;

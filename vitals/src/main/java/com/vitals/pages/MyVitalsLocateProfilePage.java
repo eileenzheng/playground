@@ -5,14 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.vitals.DriverManager;
 
 public class MyVitalsLocateProfilePage {
 	
 	private final WebDriver driver;
+	private final WebDriverWait wait;
 
     public MyVitalsLocateProfilePage() {
     	driver = DriverManager.getDriver();
+    	wait = new WebDriverWait(driver,15,2000);
     }
     
     @FindBy(css=".alert>div")
@@ -37,12 +42,14 @@ public class MyVitalsLocateProfilePage {
     public MyVitalsLocateProfilePage enterCityState(String text) {
     	cityStateTextBox.clear();
     	cityStateTextBox.sendKeys(text);
+    	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
     	return this;
     }
     
     public MyVitalsLocateProfilePage enterName(String text) {
     	nameTextBox.clear();
     	nameTextBox.sendKeys(text);
+    	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
     	return this;
     }
     

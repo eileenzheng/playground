@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SEOProfilePage;
 
@@ -26,10 +27,12 @@ public class ProfileTest {
         this.url = url;
     }
 
+    @TestCase(id=1454)
     @Test
     public void doctorSeoProfileTest() {
     	driver = DriverManager.getDriver();
-
+    	
+    	driver.manage().deleteAllCookies();
         driver.get(url + drProfile);
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
@@ -41,10 +44,12 @@ public class ProfileTest {
                 "Profile page did not load: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1455)
     @Test
     public void dentistSeoProfileTest() {
     	driver = DriverManager.getDriver();
 
+    	driver.manage().deleteAllCookies();
         driver.get(url + dentistProfile);
         SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
@@ -56,12 +61,12 @@ public class ProfileTest {
                 "Profile page did not load: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1456)
     @Test
     public void viewFullProfileSummaryTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
-
         driver.get(url + drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
@@ -70,12 +75,12 @@ public class ProfileTest {
                 "Summary page was not visible: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1457)
     @Test
     public void viewFullProfileReviewsTest() {
     	driver = DriverManager.getDriver();
 
         driver.get(url);
-
         driver.get(url+ drProfile);
 
         ProfilePage profilePage = PageFactory.initElements(driver, ProfilePage.class);
@@ -86,6 +91,7 @@ public class ProfileTest {
                 "Patient Reviews page was not visible: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1633)
     @Test
     public void viewFullProfileCredentialsTest() {
     	driver = DriverManager.getDriver();
@@ -102,6 +108,7 @@ public class ProfileTest {
 
     }
 
+    @TestCase(id=1458)
     @Test
     public void viewFullProfileLocationsTest() {
     	driver = DriverManager.getDriver();
@@ -118,6 +125,7 @@ public class ProfileTest {
                 "Locations availability page was not visible: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1459)
     @Test
     public void viewFullProfileInsurancesTest() {
     	driver = DriverManager.getDriver();
@@ -134,6 +142,7 @@ public class ProfileTest {
                 "Accepted insurance page was not visible: " + driver.getCurrentUrl());
     }
 
+    @TestCase(id=1460)
     @Test
     public void viewVideoProfileTest() {
     	driver = DriverManager.getDriver();

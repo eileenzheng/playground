@@ -8,6 +8,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.pages.PatientGuideLandingPage;
 import com.vitals.pages.PatientGuidePage;
 
@@ -25,6 +26,7 @@ public class PatientGuideTest {
         this.url = url;
     }
 
+    @TestCase(id={1533,1535})
     @Test
     public void checkLandingPage() {
         
@@ -37,6 +39,7 @@ public class PatientGuideTest {
                 "Patient Guide landing page did not load successfully.");
     }
 
+    @TestCase(id={1534,1535})
     @Test
     public void clickLearnMore() {
         if (url.toLowerCase().contains("qa"))
@@ -50,6 +53,7 @@ public class PatientGuideTest {
         testIndividualGuide();
     }
 
+    @TestCase(id={1536,1535})
     @Test
     public void clickTopGuide() {
         
@@ -63,6 +67,7 @@ public class PatientGuideTest {
         	testIndividualGuide();
     }
 
+    @TestCase(id={1537,1535})
     @Test
     public void clickAtoZGuide() {
         
@@ -74,7 +79,7 @@ public class PatientGuideTest {
         
         testIndividualGuide();
     }
-
+    
     private void testIndividualGuide() {
         
         PatientGuidePage pgpage = PageFactory.initElements(driver, PatientGuidePage.class);

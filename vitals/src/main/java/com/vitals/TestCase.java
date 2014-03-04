@@ -1,4 +1,4 @@
-package com.vitals.helpers;
+package com.vitals;
 
 
 import java.lang.annotation.Retention;

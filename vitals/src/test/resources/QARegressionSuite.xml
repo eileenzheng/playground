@@ -2,16 +2,20 @@
 <suite name="Vitals QA Regression" verbose="5" parallel="tests" thread-count="2">
     <parameter name="url" value="http://qa.mdxdev.net"/>
     <parameter name="browser" value="firefox" />
-    <parameter name="projectId" value="2"/>
+	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
-	<parameter name="testRunId" value="82"/>
-    <parameter name="testLocation" value="remoteWD"/>
+	<parameter name="testLocation" value="remote" />
 
-    <listeners>
+	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
-        <listener class-name="com.vitals.helpers.TestRailResultListener" />
+		<listener class-name="com.vitals.TestRailResultListener" />
 	</listeners>
 
+	<test name="Profile Specific Tests">
+		<classes>
+			<class name="com.vitals.test.ProfileTest" />
+		</classes>
+	</test>
 	<test name="Search Specfic Tests">
 		<classes>
 			<class name="com.vitals.test.SearchTest" />
@@ -19,16 +23,6 @@
 				<exclude name="compareResultsToProfile" />
 			</methods>
 
-		</classes>
-	</test> 
-	<test name="Profile Specific Tests">
-		<classes>
-			<class name="com.vitals.test.ProfileTest" />
-		</classes>
-	</test>
-	<test name="CitySpec Specific Tests">
-		<classes>
-			<class name="com.vitals.test.CitySpecTest" />
 		</classes>
 	</test>
 	<test name="PatientGuide Specific Tests">
@@ -45,16 +39,20 @@
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
 		</classes>
-	</test>
-	<test name="Urgent Care Specific Tests">
-		<classes>
-			<class name="com.vitals.test.UccTest" />
-		</classes>
 	</test> 
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
 		</classes>
 	</test>
-	
+ 	<test name="Urgent Care Specific Tests">
+		<classes>
+			<class name="com.vitals.test.UccTest" />
+		</classes>
+	</test> 
+<!-- 	<test name="CitySpec Specific Tests">
+		<classes>
+			<class name="com.vitals.test.CitySpecTest" />
+		</classes>
+	</test> -->
 </suite>

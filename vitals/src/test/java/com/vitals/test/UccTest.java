@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -12,16 +11,16 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.helpers.Ucc;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.UccCityPage;
-import com.vitals.pages.UccLandingPage;
+import com.vitals.pages.UccSitemapPage;
 import com.vitals.pages.UccProfileAboutPage;
 import com.vitals.pages.UccProfileReviewsPage;
 import com.vitals.pages.UccProfileServicesPage;
 import com.vitals.pages.UccProfileSummaryPage;
 import com.vitals.pages.UccSearchResultsPage;
-import com.vitals.pages.UccStatePage;
+import com.vitals.pages.UccSitemapStatePage;
 
 public class UccTest {
 	
@@ -37,22 +36,18 @@ public class UccTest {
         this.url = url;
     }
     
-    /* - this is a method serving the data providers
-     * - it fetches up to 2 urgent care city listing urls randomly
-     * - it fetches up to 5 urgent care center urls randomly */
     @Test
-    public void testGenerateUrls() {
+    public void generateUrls() {
     	driver = DriverManager.getDriver();
-        driver.get(url);
-        
-        HomePage home = PageFactory.initElements(driver,HomePage.class);
-        UccLandingPage landingPage = home.header.clickUrgentCareLink();
+        driver.get(url + "/locations/urgent-care");
+   
+        UccSitemapPage locationPage = PageFactory.initElements(driver,UccSitemapPage.class);
         String landingPageUrl = driver.getCurrentUrl();
         
         for (int i=0; i<2; i++) {
-        	UccCityPage cityPage = landingPage.clickCity();
+        	UccSearchResultsPage cityPage = locationPage.clickCity();
         	cityUrl.add(driver.getCurrentUrl());
-        	List<Ucc> uccs = cityPage.getResults();
+        	List<Ucc> uccs = cityPage.uccResults();
         	for (Ucc ucc:uccs) {
         		if (profileUrl.size() < 5) {
         			profileUrl.add(ucc.getUrl());
@@ -63,61 +58,37 @@ public class UccTest {
         	driver.get(landingPageUrl);
         }
     }
-
-    /* - click urgent care from header
-     * - check breadcrumb of landing page
-     * - click random state 
-     * - check breadcrumb of state page
-     * - click random city
-     * - check breadcrumb of city page */
+    
+    @TestCase(id=1647)
     @Test
-    public void testPageTitles() {
-        
+    public void checkStatePages() {
+    	m_assert = new SoftAssert();
     	driver = DriverManager.getDriver();
-        driver.get(url);
-        
-        HomePage home = PageFactory.initElements(driver,HomePage.class);
-        
-        UccLandingPage landingPage = home.header.clickUrgentCareLink();      
-        Assert.assertTrue(landingPage.isTitleMatched(), 
-                "Landing Page title did not match.");
-        
-        UccStatePage statePage = landingPage.clickState();
-        Assert.assertTrue(statePage.isTitleMatched(), 
-                "State Page title did not match.");
-        
-        UccCityPage cityPage = statePage.clickCity();
-        Assert.assertTrue(cityPage.isTitleMatched(), 
-                "City Page title did not match.");
-    }
+    	driver.get(url + "/locations/urgent-care");
+    	
+    	UccSitemapPage locationPage;
+    	UccSitemapStatePage statePage;
 
-    /* - go to urgent care landing page
-     * - click a random city
-     * - verify the page contains at least 1 result */
-    @Test
-    public void testCityPage() {
-        
-    	driver = DriverManager.getDriver();
-        driver.get(url);
-        
-        HomePage home = PageFactory.initElements(driver,HomePage.class);
-        UccLandingPage landingPage = home.header.clickUrgentCareLink();
-        
-        UccCityPage cityPage = landingPage.clickCity();
-        Assert.assertTrue(cityPage.hasResult(), 
-                "City Page does not have result!");
+    	for (int i=0; i<5; i++) {
+    		locationPage = PageFactory.initElements(driver,UccSitemapPage.class);
+    		locationPage.clickState();
+    		statePage = PageFactory.initElements(driver, UccSitemapStatePage.class);
+    		m_assert.assertTrue(statePage.hasResults(), "State page has no result! " + driver.getCurrentUrl());
+    		driver.get(url + "/locations/urgent-care");
+    	}
+    	
+    	m_assert.assertAll();
     }
     
-    /* - for each ucc city page given, check: 
-     * - the names, address for each results seems valid */
-    @Test (dataProvider = "cityUrls", dependsOnMethods = {"testGenerateUrls"})
-    public void testCityPageResults(String urls) {
+    @TestCase(id=1644)
+    @Test (dataProvider = "cityUrls", dependsOnMethods = {"generateUrls"})
+    public void checkCitySerpResults(String urls) {
     	m_assert = new SoftAssert();
     	driver = DriverManager.getDriver();
     	driver.get(urls);
     	
-    	UccCityPage cityPage = PageFactory.initElements(driver, UccCityPage.class);
-    	List<Ucc> uccs = cityPage.getResults();
+    	UccSearchResultsPage serp = PageFactory.initElements(driver, UccSearchResultsPage.class);
+    	List<Ucc> uccs = serp.uccResults();
     	
     	for (Ucc ucc : uccs) {
     		m_assert.assertTrue(ucc.isNameLongEnough(), "Name may be too short: " + ucc.getName());
@@ -130,37 +101,36 @@ public class UccTest {
     	m_assert.assertAll();
     }
     
-    /* - for each ucc profile page give, check:
-     * - breadcrumb and h1 matches on all pages (summary, profile, services, about)
-     * - the map links on summary page matches
-     * - the total rating and rating breakdown adds up correctly*/
-    @Test (dataProvider = "profileUrls", dependsOnMethods = {"testGenerateUrls"})
-    public void testProfilePage(String urls) {
+    @TestCase(id=1645)
+    @Test (dataProvider = "profileUrls", dependsOnMethods = {"generateUrls"})
+    public void checkProfilePages(String urls) {
+    	m_assert = new SoftAssert();
     	driver = DriverManager.getDriver();
     	driver.get(urls);
     	
     	UccProfileSummaryPage summary = PageFactory.initElements(driver, UccProfileSummaryPage.class);
-    	Assert.assertTrue(summary.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(summary.isSummaryPage(), "Summary page did not load");
-    	Assert.assertTrue(summary.isAddressMatched(), "Address in profile header card does not match the map.");
+    	m_assert.assertTrue(summary.isSummaryPage(), "Summary page did not load");
+    	m_assert.assertTrue(summary.isAddressMatched(), "Address in profile header card does not match the map.");
     	
     	UccProfileServicesPage services = summary.clickSeeAllLink();
-    	Assert.assertTrue(services.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(services.isServicesPage(), "Services page did not load");
-    	Assert.assertTrue(services.getNumberOfUnavailableService()<6, "Too many unavailable services!");
+    	m_assert.assertTrue(services.isTitleMatched(), "H1 name does not match breadcrumb.");
+    	m_assert.assertTrue(services.isServicesPage(), "Services page did not load");
+    	m_assert.assertTrue(services.getNumberOfUnavailableService()<6, "Too many unavailable services!");
     	
     	services = services.clickMenu();
     	UccProfileAboutPage about = services.clickMenuAbout();
-    	Assert.assertTrue(about.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(about.isAboutPage(), "About page did not load");
+    	m_assert.assertTrue(about.isTitleMatched(), "H1 name does not match breadcrumb.");
+    	m_assert.assertTrue(about.isAboutPage(), "About page did not load");
     	
     	about = about.clickMenu();
     	UccProfileReviewsPage reviews = about.clickMenuReviews();
-    	Assert.assertTrue(reviews.isTitleMatched(), "H1 name does not match breadcrumb.");
-    	Assert.assertTrue(reviews.isReviewsPage(), "Review page did not load");
-    	Assert.assertEquals(reviews.getTotalRating(), reviews.getTotalRatingFromBreakDown(), "Total rating and breadown do not match! ");
+    	m_assert.assertTrue(reviews.isTitleMatched(), "H1 name does not match breadcrumb.");
+    	m_assert.assertTrue(reviews.isReviewsPage(), "Review page did not load");
+    	m_assert.assertEquals(reviews.getTotalRating(), reviews.getTotalRatingFromBreakDown(), "Total rating and breadown do not match! ");
     	Reporter.log("Total Rating: " + reviews.getTotalRating() + " vs Rating Breakdown: " 
     			+ reviews.getTotalRatingFromBreakDown() + " " + driver.getCurrentUrl());
+    	
+    	m_assert.assertAll();
     }
     
     // used for testCityPageResults method
@@ -188,47 +158,49 @@ public class UccTest {
         return obj;
     }
     
-    /* - search the word 'city' from masthead
-     * - check number of results
-     * - check number of results after setting some filters
-     * - check number of results after resetting filter */
+    @TestCase(id=1646)
     @Test
-    public void uccSearchTest() {
+    public void serpFilters() {
+    	m_assert = new SoftAssert(); 
     	driver = DriverManager.getDriver();
         driver.get(url);
         
         HomePage home = PageFactory.initElements(driver,HomePage.class);
         home.header.openFindDropdown().clickFindByUcc();
         home.header.enterSearchTerm("city");
-        home.header.openLocationBox();
-        home.header.enterLocation("New York");
         
         UccSearchResultsPage uccSerp = home.header.clickGoButtonUcc();
-        Assert.assertTrue(uccSerp.getResultsCountNumber()>70 && uccSerp.getResultsCountNumber()<100,
+        m_assert.assertTrue(uccSerp.getResultsCountNumber()>70 && uccSerp.getResultsCountNumber()<100,
         		"Number of results not within expected range");
         int count = uccSerp.getResultsCountNumber();
         int initialCount = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with no filters");
         
+        uccSerp.refinement.clickToggleServices();
+        
         uccSerp.refinement.clickPhysicals();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
-        Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
+        m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Physicals' filter");
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with physicals filter");
         
-        /*uccSerp.refinement.clickInjuries();
+        uccSerp.refinement.clickInjuries();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
-        Assert.assertTrue(uccSerp.getResultsCountNumber()<count && uccSerp.getResultsCountNumber()>0,
+        m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Injuries' filter");
         count = uccSerp.getResultsCountNumber();
-        Reporter.log(count + " results with injuries filter");*/
+        Reporter.log(count + " results with injuries filter");
         
         uccSerp.refinement.clickPhysicals();
-        // uccSerp.refinement.clickInjuries();
+        uccSerp.refinement.clickInjuries();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
-        Assert.assertTrue(uccSerp.getResultsCountNumber()==initialCount,
-        		"Number of results incorrect after resetting filters");
-        Reporter.log(uccSerp.getResultsCountNumber() + " results after resetting filters");
+        
+        int finalCount = uccSerp.getResultsCountNumber();
+        m_assert.assertTrue(finalCount==initialCount,
+        		"Number of results incorrect after resetting filters" + finalCount + " vs " + initialCount);
+        Reporter.log(finalCount + " results after resetting filters vs " + initialCount + " initially");
+        
+        m_assert.assertAll();
     }
 }

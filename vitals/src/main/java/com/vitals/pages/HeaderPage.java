@@ -325,9 +325,9 @@ public class HeaderPage {
     	return this;
     }
     
-    public UccLandingPage clickUrgentCareLink() {
+    public UccSitemapPage clickUrgentCareLink() {
     	urgentCareLink.click();
-    	return PageFactory.initElements(driver, UccLandingPage.class);
+    	return PageFactory.initElements(driver, UccSitemapPage.class);
     }
     
     public MyVitalsSignInPage clickSignIn() {

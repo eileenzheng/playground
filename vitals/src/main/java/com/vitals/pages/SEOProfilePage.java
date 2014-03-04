@@ -27,7 +27,9 @@ public class SEOProfilePage {
     private List<WebElement> viewFullProfileButton;
 
     public boolean viewFullProfileButtonIsVisible() {
-    	if (viewFullProfileButton.size()==1)
+    	if (viewFullProfileButton.size()==0)
+    		return false;
+    	else if (viewFullProfileButton.size()==1)
     		return viewFullProfileButton.get(0).isDisplayed();
     	else
     		return viewFullProfileButton.get(1).isDisplayed();

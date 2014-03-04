@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.MyVitalsClaimProfilePage;
 import com.vitals.pages.MyVitalsEditAccountPage;
@@ -29,9 +30,11 @@ public class MyVitalsTest {
         this.url = url;
     }
 
+    @TestCase(id=1559)
     @Test
     public void loginMyVitals() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         MyVitalsHomePage myVitalsHome = login(homePage);
@@ -40,9 +43,11 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isSignInSuccessful());
     }
     
+    @TestCase(id=1560)
     @Test
     public void editAccount() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
         driver.get(url);
         
         // sign in to myvitals first
@@ -60,9 +65,11 @@ public class MyVitalsTest {
         Assert.assertTrue(myVitalsHome.isAccountUpdateSuccessful());
     }
     
+    @TestCase(id=1564)
     @Test
     public void claimProfileFail() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
     	driver.get(url);
     	
     	// sign in to myvitals & click "claim profile"
@@ -78,6 +85,7 @@ public class MyVitalsTest {
         Assert.assertTrue(claimPage.clickClaimExpectFailure().isEmptyAlertShown());
     }
 
+    @TestCase(id=1565)
     @Test
     public void claimProfileSuccess() {
     	// only perform this test on staging or qa
@@ -85,6 +93,7 @@ public class MyVitalsTest {
             driver = DriverManager.getDriver();
             
             // sign in to myvitals first
+            driver.manage().deleteAllCookies();
             driver.get(url);
             HomePage homePage = PageFactory.initElements(driver, HomePage.class);
             login(homePage);
@@ -106,6 +115,7 @@ public class MyVitalsTest {
     	}
     }
     
+    @TestCase(id=1566)
     @Test (dependsOnMethods = {"claimProfileSuccess"})
     public void removeProfileLink() {
     	// only perform this test on staging or qa
@@ -113,6 +123,7 @@ public class MyVitalsTest {
             driver = DriverManager.getDriver();
             
             // sign in to myvitals first
+            driver.manage().deleteAllCookies();
             driver.get(url);
             HomePage homePage = PageFactory.initElements(driver, HomePage.class);
             login(homePage);
@@ -128,9 +139,11 @@ public class MyVitalsTest {
     	}
     }
     
+    @TestCase(id=1561)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void editNoProfile() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
     	driver.get(url);
     	
     	// sign in to myvitals & click "edit profile"
@@ -143,9 +156,11 @@ public class MyVitalsTest {
         Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect());
     }
     
+    @TestCase(id=1562)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void locateProfileAutoSuggestLocation() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
     	driver.get(url);
     	
     	// sign in to myvitals & click "claim profile"
@@ -159,9 +174,11 @@ public class MyVitalsTest {
         Assert.assertTrue(locateProfilePage.checkLocationSuggestions("NY"), "Location suggestions does not contain NY");
     }
     
+    @TestCase(id=1563)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void locateProfileAutoSuggestName() {
     	driver = DriverManager.getDriver();
+    	driver.manage().deleteAllCookies();
     	driver.get(url);
     	
     	// sign in to myvitals & click "claim profile"

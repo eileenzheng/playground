@@ -17,8 +17,11 @@ public class UccProfileReviewsPage {
 		driver = DriverManager.getDriver();
 	}
 
-	@FindBy(css=".full.ucc>span")
+	@FindBy(css=".full.ucc>span>a")
 	private List<WebElement> breadcrumbs;
+	
+	@FindBy(css=".full.ucc>span:last-child")
+	private WebElement currentTrail;
 
 	@FindBy(css="h1")
 	private WebElement h1;
@@ -39,14 +42,14 @@ public class UccProfileReviewsPage {
 	private List<WebElement> ratingBreakdown;
 	
 	public boolean isTitleMatched() {
-		if ((breadcrumbs.get(breadcrumbs.size()-2)).getText().equals(h1.getText()))
+		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
 			return true;
 		else
 			return false;
 	}
 	
 	public boolean isReviewsPage() {
-		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equalsIgnoreCase("Reviews"))
+		if (currentTrail.getText().equalsIgnoreCase("Reviews"))
 			return true;
 		else return false;
 	}

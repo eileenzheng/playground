@@ -1,18 +1,27 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.JavascriptExecutor;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.vitals.DriverManager;
 
 public class UccSearchResultsRefinement {
 	
 	private final WebDriver driver;
+	private final WebDriverWait wait;
 
     public UccSearchResultsRefinement () {
     	driver = DriverManager.getDriver();
+    	wait = new WebDriverWait(driver,15,2000);
     }
+    
+    @FindBy (css=".toggle-plus-minus")
+    private WebElement toggleServices;
 
     @FindBy (css=".physicals")
     private WebElement filterPhysicals;
@@ -31,6 +40,11 @@ public class UccSearchResultsRefinement {
 
     @FindBy (css=".preventive")
     private WebElement filterPreventive;
+    
+    public UccSearchResultsRefinement clickToggleServices() {
+    	toggleServices.click();
+    	return this;
+    }
 
     public UccSearchResultsRefinement clickPhysicals() {
         filterPhysicals.click();
@@ -69,26 +83,9 @@ public class UccSearchResultsRefinement {
     }
 
     private void waitForJQuery() {
-		if ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==1")) {
-			do {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// do nothing
-				}
-			} while ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==1"));
-			return;
-		}
-		else {
-			do {
-				try {
-					Thread.sleep(50);
-				} catch (InterruptedException e2) {
-					// do nothing
-				}
-			} while ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==0"));
-			waitForJQuery();
-		}
+    	 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    	 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
+    	 driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
 
 }

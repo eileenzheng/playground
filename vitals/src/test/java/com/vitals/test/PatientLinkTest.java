@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -16,7 +17,7 @@ import com.vitals.pages.PatientLinkRrAd;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.SEOProfilePage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.pages.UccCityPage;
+import com.vitals.pages.UccSearchResultsPage;
 
 public class PatientLinkTest {
 	
@@ -36,6 +37,7 @@ public class PatientLinkTest {
         this.url = url;
     }
     
+    @TestCase(id=1553)
     @Test
     public void checkProfileHeader() {
     	driver = DriverManager.getDriver();
@@ -58,6 +60,7 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id={1554,1558})
     @Test
     public void checkSeoProfile() {
     	driver = DriverManager.getDriver();
@@ -69,6 +72,7 @@ public class PatientLinkTest {
         testIndividualAd(ad);    
     }
 
+    @TestCase(id={1555,1558})
     @Test
     public void checkProfile() {
     	driver = DriverManager.getDriver();
@@ -81,6 +85,7 @@ public class PatientLinkTest {
         testIndividualAd(ad);    
     }
 
+    @TestCase(id={1556,1558})
     @Test
     public void checkSerp() {
     	driver = DriverManager.getDriver();
@@ -92,12 +97,13 @@ public class PatientLinkTest {
         testIndividualAd(ad);
     }
     
+    @TestCase(id={1557,1558})
     @Test
     public void checkUccSerp() {
     	driver = DriverManager.getDriver();
     	
         driver.get(url+ uccUrl);
-        UccCityPage ucc = PageFactory.initElements(driver, UccCityPage.class);
+        UccSearchResultsPage ucc = PageFactory.initElements(driver, UccSearchResultsPage.class);
         
         PatientLinkCenterAd ad = ucc.centerAd;
         testIndividualAd(ad);

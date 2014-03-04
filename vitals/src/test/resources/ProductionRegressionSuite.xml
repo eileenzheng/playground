@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="1">
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
-	<parameter name="testLocation" value="remoteWD" />
+	<parameter name="projectId" value="2"/>
+	<parameter name="suiteId" value="12"/>
+	<parameter name="testLocation" value="remote" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
+		<listener class-name="com.vitals.TestRailResultListener" />
 	</listeners>
 
-	<test name="Profile Specific Tests">
+ 	<test name="Profile Specific Tests">
 		<classes>
 			<class name="com.vitals.test.ProfileTest" />
 		</classes>
@@ -36,19 +39,18 @@
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
 		</classes>
-	</test>
+	</test> 
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
 		</classes>
 	</test>
-	
-<!-- 	<test name="Urgent Care Specific Tests">
+ 	<test name="Urgent Care Specific Tests">
 		<classes>
 			<class name="com.vitals.test.UccTest" />
 		</classes>
 	</test> 
-	<test name="CitySpec Specific Tests">
+<!-- 	<test name="CitySpec Specific Tests">
 		<classes>
 			<class name="com.vitals.test.CitySpecTest" />
 		</classes>

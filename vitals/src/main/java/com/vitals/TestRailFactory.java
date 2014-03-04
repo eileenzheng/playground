@@ -1,4 +1,4 @@
-package com.vitals.helpers;
+package com.vitals;
 
 import com.gurock.testrail.APIClient;
 import com.gurock.testrail.APIException;
