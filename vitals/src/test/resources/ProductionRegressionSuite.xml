@@ -4,7 +4,7 @@
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
-	<parameter name="testLocation" value="remote" />
+	<parameter name="driverType" value="remote" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
