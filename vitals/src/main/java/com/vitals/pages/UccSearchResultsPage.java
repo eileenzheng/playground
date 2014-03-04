@@ -26,7 +26,7 @@ public class UccSearchResultsPage {
         centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
     }
 
-    @FindBy (css="h1>span:first-childt")
+    @FindBy (css="h1>span:first-child")
     private WebElement resultsTotal;
 
     @FindBy (css=".listing>.listing-details")
