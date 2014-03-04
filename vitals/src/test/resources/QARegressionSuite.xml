@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals QA Regression" verbose="5" parallel="tests" thread-count="2">
+<suite name="Vitals QA Regression" verbose="5" parallel="classes" thread-count="2">
     <parameter name="url" value="http://qa.mdxdev.net"/>
     <parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
