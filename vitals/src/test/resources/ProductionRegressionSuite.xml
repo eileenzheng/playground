@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="1">
+<suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="2">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
@@ -8,45 +8,20 @@
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
-		<listener class-name="com.vitals.TestRailResultListener" />
+		<!-- <listener class-name="com.vitals.TestRailResultListener" /> -->
 	</listeners>
 
- 	<test name="Profile Specific Tests">
+ 	<test name="Vitals Regression Tests">
 		<classes>
 			<class name="com.vitals.test.ProfileTest" />
-		</classes>
-	</test>
-	<test name="Search Specfic Tests">
-		<classes>
 			<class name="com.vitals.test.SearchTest" />
 			<methods>
 				<exclude name="compareResultsToProfile" />
 			</methods>
-
-		</classes>
-	</test>
-	<test name="PatientGuide Specific Tests">
-		<classes>
 			<class name="com.vitals.test.PatientGuideTest" />
-		</classes>
-	</test>
-	<test name="Patientlink Specific Tests">
-		<classes>
 			<class name="com.vitals.test.PatientLinkTest" />
-		</classes>
-	</test>
-	<test name="MyVitals Specific Tests">
-		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
-		</classes>
-	</test> 
-	<test name="Masthead Specific Tests">
-		<classes>
 			<class name="com.vitals.test.MastheadTest" />
-		</classes>
-	</test>
- 	<test name="Urgent Care Specific Tests">
-		<classes>
 			<class name="com.vitals.test.UccTest" />
 			<methods>
 				<exclude name="checkCitySerpResults" />
