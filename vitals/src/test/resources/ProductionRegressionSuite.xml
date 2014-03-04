@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="2">
+<suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="1">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
@@ -48,6 +48,10 @@
  	<test name="Urgent Care Specific Tests">
 		<classes>
 			<class name="com.vitals.test.UccTest" />
+			<methods>
+				<exclude name="checkCitySerpResults" />
+				<exclude name="checkProfilePages" />
+			</methods>
 		</classes>
 	</test> 
 <!-- 	<test name="CitySpec Specific Tests">
