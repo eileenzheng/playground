@@ -131,6 +131,7 @@ public class HeaderPage {
     }
 
     public HeaderPage enterSearchTerm (String text) {
+    	wait.until(ExpectedConditions.visibilityOf(searchTextBox));
     	searchTextBox.clear();
         searchTextBox.sendKeys(text);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
@@ -138,6 +139,7 @@ public class HeaderPage {
     }
     
     public HeaderPage enterReviewSearchTerm (String text) {
+    	wait.until(ExpectedConditions.visibilityOf(reviewSearchTextBox));
     	reviewSearchTextBox.clear();
         reviewSearchTextBox.sendKeys(text);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
@@ -296,6 +298,7 @@ public class HeaderPage {
     }
     
     public HeaderPage enterLocation(String location) {
+    	wait.until(ExpectedConditions.visibilityOf(locationTextBox));
     	locationTextBox.clear();
     	locationTextBox.sendKeys(location);
     	wait.until(ExpectedConditions.visibilityOfAllElements(locationSuggestions));

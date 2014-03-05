@@ -83,9 +83,9 @@ public class UccSearchResultsRefinement {
     }
 
     private void waitForJQuery() {
-    	 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    	 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
-    	 driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-    }
+    	driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
+    	driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+   }
 
 }

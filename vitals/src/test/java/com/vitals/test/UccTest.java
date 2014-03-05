@@ -160,7 +160,7 @@ public class UccTest {
     
     @TestCase(id=1646)
     @Test
-    public void serpFilters() {
+    public void serpFilters() throws InterruptedException {
     	m_assert = new SoftAssert(); 
     	driver = DriverManager.getDriver();
         driver.get(url);
@@ -196,9 +196,18 @@ public class UccTest {
         uccSerp.refinement.clickInjuries();
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
         
-        int finalCount = uccSerp.getResultsCountNumber();
+        int finalCount=0;
+        for (int i=0; i<10; i++) {
+        	finalCount = uccSerp.getResultsCountNumber();
+        	if (finalCount==initialCount)
+        		break;
+        	else {
+        		Thread.sleep(1000); // workaround to wait up to 10 seconds (poll every 1 second)
+        		continue;
+        	}
+        }
         m_assert.assertTrue(finalCount==initialCount,
-        		"Number of results incorrect after resetting filters" + finalCount + " vs " + initialCount);
+        		"Number of results incorrect after resetting filters " + finalCount + " vs " + initialCount);
         Reporter.log(finalCount + " results after resetting filters vs " + initialCount + " initially");
         
         m_assert.assertAll();

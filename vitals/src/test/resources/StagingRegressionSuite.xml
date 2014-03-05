@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Staging Regression" verbose="5" parallel="tests" thread-count="2">
+<suite name="Vitals Staging Regression" verbose="5" parallel="classes" thread-count="2">
     <parameter name="url" value="http://staging.vitals.com"/>
     <parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
-	<parameter name="testLocation" value="local" />
+	<parameter name="driverType" value="remote" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
@@ -50,9 +50,4 @@
 			<class name="com.vitals.test.UccTest" />
 		</classes>
 	</test> 
-<!-- 	<test name="CitySpec Specific Tests">
-		<classes>
-			<class name="com.vitals.test.CitySpecTest" />
-		</classes>
-	</test> -->
 </suite>

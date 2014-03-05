@@ -77,6 +77,6 @@ public class PatientLinkCenterAd extends PatientLinkAd {
 	}
 	
 	public List<WebElement> getLogo() {
-		return parseElement(block, ".sponsorship>img");
+		return parseElement(block, ".sponsorship img");
 	}
 }
