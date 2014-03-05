@@ -6,19 +6,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.DriverManager;
 
 public class MyVitalsHomePage {
 	
 	private final WebDriver driver;
-	private final WebDriverWait wait;
 
     public MyVitalsHomePage() {
     	driver = DriverManager.getDriver();
-    	wait = new WebDriverWait(driver,15,2000);
     }
     
     @FindBy(css=".alert>div")
@@ -28,13 +23,11 @@ public class MyVitalsHomePage {
     private List<WebElement> buttons;
     
     public MyVitalsEditAccountPage clickChangeSetting () {
-    	wait.until(ExpectedConditions.visibilityOfAllElements(buttons));
     	buttons.get(0).click();
     	return PageFactory.initElements(driver, MyVitalsEditAccountPage.class);
     }
     
     public MyVitalsLocateProfilePage clickClaimProfile () {
-    	wait.until(ExpectedConditions.visibilityOfAllElements(buttons));
     	buttons.get(1).click();
     	return PageFactory.initElements(driver, MyVitalsLocateProfilePage.class);
     }

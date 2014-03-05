@@ -197,13 +197,12 @@ public class UccTest {
         uccSerp = PageFactory.initElements(driver, UccSearchResultsPage.class);
         
         int finalCount=0;
-        for (int i=0; i<10; i++) {
+        for (int i=0; i<15; i++) {
         	finalCount = uccSerp.getResultsCountNumber();
         	if (finalCount==initialCount)
         		break;
         	else {
-        		Thread.sleep(1000); // workaround to wait up to 10 seconds (poll every 1 second)
-        		continue;
+        		Thread.sleep(1000); // workaround to wait up to 15 seconds (poll every 1 second)
         	}
         }
         m_assert.assertTrue(finalCount==initialCount,

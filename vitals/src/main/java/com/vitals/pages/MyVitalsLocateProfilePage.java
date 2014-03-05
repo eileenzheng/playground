@@ -33,7 +33,6 @@ public class MyVitalsLocateProfilePage {
     private List<WebElement> autoSuggestList;
     
     public boolean isNoProfileAlertCorrect() {
-    	wait.until(ExpectedConditions.visibilityOf(noProfileAlert));
     	if (noProfileAlert.getText().equals("It looks like you haven't claimed your professional profile yet. Let's get started..."))
     		return true;
     	else
@@ -41,7 +40,6 @@ public class MyVitalsLocateProfilePage {
     }
     
     public MyVitalsLocateProfilePage enterCityState(String text) {
-    	wait.until(ExpectedConditions.visibilityOf(cityStateTextBox));
     	cityStateTextBox.clear();
     	cityStateTextBox.sendKeys(text);
     	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
@@ -49,7 +47,6 @@ public class MyVitalsLocateProfilePage {
     }
     
     public MyVitalsLocateProfilePage enterName(String text) {
-    	wait.until(ExpectedConditions.visibilityOf(nameTextBox));
     	nameTextBox.clear();
     	nameTextBox.sendKeys(text);
     	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
