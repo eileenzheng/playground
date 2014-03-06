@@ -23,7 +23,6 @@
 			<methods>
 				<exclude name="compareResultsToProfile" />
 			</methods>
-
 		</classes>
 	</test>
 	<test name="PatientGuide Specific Tests">
