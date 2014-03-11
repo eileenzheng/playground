@@ -1,12 +1,9 @@
 package com.vitals.pages;
 
-import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import com.vitals.DriverManager;
 
 public class SEOProfilePage {
@@ -24,15 +21,10 @@ public class SEOProfilePage {
     }
 
     @FindBy(css="#view-full")
-    private List<WebElement> viewFullProfileButton;
+    private WebElement viewFullProfileButton;
 
     public boolean viewFullProfileButtonIsVisible() {
-    	if (viewFullProfileButton.size()==0)
-    		return false;
-    	else if (viewFullProfileButton.size()==1)
-    		return viewFullProfileButton.get(0).isDisplayed();
-    	else
-    		return viewFullProfileButton.get(1).isDisplayed();
+    	return viewFullProfileButton.isDisplayed();
     }
 
 

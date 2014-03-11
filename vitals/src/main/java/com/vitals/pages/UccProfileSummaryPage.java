@@ -27,14 +27,17 @@ public class UccProfileSummaryPage {
 	@FindBy(css=".services .see-all")
 	private WebElement seeAllLink;
 	
-	@FindBy(css=".about .see-all")
+	@FindBy(css=".col-md-4:first-child .ucc-box:not(.services) .see-all")
 	private WebElement seeMoreLink;
 	
-	@FindBy(css=".col2-reviews .see-all")
+	@FindBy(css=".col-md-4:nth-child(2) .ucc-box:first-child .see-all")
 	private WebElement readWriteReviewsLink;
 	
 	@FindBy(css=".address a")
-	private List<WebElement> mapLinks;
+	private WebElement headerAddress;
+	
+	@FindBy(css=".col-md-4:nth-of-type(2) .col-md-12 a:nth-child(3)")
+	private WebElement mapAddress;
 	
 	public boolean isTitleMatched() {
 		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
@@ -73,8 +76,9 @@ public class UccProfileSummaryPage {
 	}
 	
 	public boolean isAddressMatched() {
-		if (mapLinks.get(0).getAttribute("href").equals(mapLinks.get(1).getAttribute("href")))
+		if (headerAddress.getAttribute("href").equals(mapAddress.getAttribute("href")))
 			return true;
-		else return false;
+		else
+			return false;
 	}
 }

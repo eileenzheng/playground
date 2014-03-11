@@ -106,7 +106,7 @@ public class DriverFactory {
 
     private static void setDriverFeatures(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1024,768));
     }
 
 }

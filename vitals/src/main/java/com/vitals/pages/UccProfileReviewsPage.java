@@ -29,13 +29,13 @@ public class UccProfileReviewsPage {
 	@FindBy(css=".nav-menu")
 	private WebElement menu;
 	
-	@FindBy(css=".nav-menu a[href*=\"services\"]")
+	@FindBy(css=".nav-menu li:nth-child(4)>a")
 	private WebElement menuServices;
 	
-	@FindBy(css=".nav-menu a[href*=\"about\"]")
+	@FindBy(css=".nav-menu li:nth-child(3)>a")
 	private WebElement menuAbout;
 	
-	@FindBy(css=".number-ratings p")
+	@FindBy(css=".overall span.col-md-12")
 	private WebElement totalRating;
 	
 	@FindBy(css=".rating-bars .count")

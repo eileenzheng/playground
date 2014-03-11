@@ -23,6 +23,7 @@
 			<methods>
 				<exclude name="compareResultsToProfile" />
 			</methods>
+			<class name="com.vitals.test.SearchPagePropertiesTest" />
 		</classes>
 	</test>
 	<test name="PatientGuide Specific Tests">

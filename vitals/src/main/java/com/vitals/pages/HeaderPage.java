@@ -50,7 +50,7 @@ public class HeaderPage {
     @FindBy(css=".ui-autocomplete-category")
     private List<WebElement> autocompleteCategories;
     
-    @FindBy(css=".ui-menu-item.parent>a,.ui-menu-item.sub>a")
+    @FindBy(css=".categorical-autosuggest .ui-menu-item.parent>a,.ui-menu-item.sub>a")
     private List<WebElement> specialtySuggestions;
 
     @FindBy(css=".ui-menu-item[data-id]>a")
@@ -110,6 +110,27 @@ public class HeaderPage {
     @FindBy(css=".nav-tab.write-review")
     private WebElement writeReviewTab;
     
+    @FindBy(css=".mini-selector.my-any-insurance")
+    private WebElement insurance;
+    
+    @FindBy(css=".insurance_box")
+    private WebElement insuranceBox;
+    
+    @FindBy(css=".insurance_company.ui-autocomplete-input")
+    private WebElement insuranceCompanyTextBox;
+    
+    @FindBy(css=".ui-menu-item>a")
+    private List<WebElement> insuranceSuggestions;
+    
+    @FindBy(css=".insurance_plan")
+    private WebElement insurancePlanDropDown;
+    
+    @FindBy(css=".plan.ui-menu-item>a")
+    private List<WebElement> insurancePlanSuggestions;
+    
+    @FindBy(css=".save_insurance")
+    private WebElement saveInsuranceButton;
+    
     public HeaderPage openFindDropdown () {
     	findDropdown.click();
     	return this;
@@ -137,11 +158,51 @@ public class HeaderPage {
         return this;
     }
     
+    public String getSearchTerm() {
+    	return searchTextBox.getAttribute("value").toString();
+    }
+    
     public HeaderPage enterReviewSearchTerm (String text) {
     	reviewSearchTextBox.clear();
         reviewSearchTextBox.sendKeys(text);
         wait.until(ExpectedConditions.visibilityOfAllElements(autocompleteCategories));
         return this;
+    }
+    
+    public HeaderPage openInsuranceModal() {
+    	insurance.click();
+    	return this;
+    }
+    
+    public HeaderPage enterInsuranceCompany(String text) {
+    	wait.until(ExpectedConditions.visibilityOf(insuranceBox));
+    	insuranceCompanyTextBox.clear();
+    	insuranceCompanyTextBox.sendKeys(text);
+    	return this;
+    }
+    
+    public HeaderPage selectFirstInsurance() {
+    	wait.until(ExpectedConditions.visibilityOfAllElements(insuranceSuggestions));
+    	insuranceSuggestions.get(0).click();
+    	return this;
+    }
+    
+    public HeaderPage openInsurancePlan() {
+    	insurancePlanDropDown.click();
+    	return this;
+    }
+    
+    public HeaderPage selectFirstInsurancePlan() {
+       	if (insurancePlanSuggestions.size()==0) // workaround to remote random failing
+    		openInsurancePlan();
+    	wait.until(ExpectedConditions.visibilityOfAllElements(insurancePlanSuggestions));
+    	insurancePlanSuggestions.get(0).click();
+    	return this;
+    }
+    
+    public HeaderPage clickSaveInsuranceButton() {
+    	saveInsuranceButton.click();
+    	return this;
     }
     
     public SearchResultsPage clickGoButton() {
@@ -243,6 +304,7 @@ public class HeaderPage {
     }
 
     public SearchResultsPage clickFirstSpecialty() {
+    	wait.until(ExpectedConditions.visibilityOfAllElements(specialtySuggestions));
         specialtySuggestions.get(0).click();
         return PageFactory.initElements(driver, SearchResultsPage.class);
     }
@@ -308,7 +370,7 @@ public class HeaderPage {
     }
 
     public boolean locationSearchIsPopulated() {
-        return !locationTextBox.getAttribute("value").equals("");
+        return (!locationTextBox.getAttribute("value").equals("") && !locationTextBox.getAttribute("value").equals(","));
     }
 
     public String getCurrentPopulatedLocation() {

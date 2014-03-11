@@ -27,16 +27,16 @@ public class UccProfileServicesPage {
 	@FindBy(css=".nav-menu")
 	private WebElement menu;
 	
-	@FindBy(css=".nav-menu a[href*=\"/review\"]")
+	@FindBy(css=".nav-menu li:nth-child(2)>a")
 	private WebElement menuReviews;
 	
-	@FindBy(css=".nav-menu a[href*=\"/about\"]")
+	@FindBy(css=".nav-menu li:nth-child(3)>a")
 	private WebElement menuAbout;
 	
-	@FindBy(css=".services-content p")
+	@FindBy(css=".row.services>div.col-md-9")
 	private List<WebElement> servicesText;
 	
-	@FindBy(css=".services-content h3")
+	@FindBy(css=".row.services h3")
 	private List<WebElement> servicesTitle;
 	
 	public boolean isTitleMatched() {

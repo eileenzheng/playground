@@ -27,10 +27,10 @@ public class UccProfileAboutPage {
 	@FindBy(css=".nav-menu")
 	private WebElement menu;
 	
-	@FindBy(css=".nav-menu a[href*=\"review\"]")
+	@FindBy(css=".nav-menu li:nth-child(2)>a")
 	private WebElement menuReviews;
 	
-	@FindBy(css=".nav-menu a[href*=\"services\"]")
+	@FindBy(css=".nav-menu li:nth-child(4)>a")
 	private WebElement menuServices;
 	
 	public boolean isTitleMatched() {

@@ -30,22 +30,22 @@ public class ProfilePage {
         rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
     }
 
-    @FindBy(css=".tabs td:nth-child(1)>a")
+    @FindBy(css=".nav-tabs li:nth-child(1)>a")
     private WebElement summaryTab;
 
-    @FindBy (css=".tabs td:nth-child(2)>a")
+    @FindBy (css=".nav-tabs li:nth-child(2)>a")
     private WebElement patientReviewsTab;
 
-    @FindBy (css=".tabs td:nth-child(3)>a")
+    @FindBy (css=".nav-tabs li:nth-child(3)>a")
     private WebElement credentialsTab;
 
-    @FindBy (css=".tabs td:nth-child(4)>a")
+    @FindBy (css=".nav-tabs li:nth-child(4)>a")
     private WebElement locationsAvailableTab;
 
-    @FindBy (css=".tabs td:nth-child(5)>a")
+    @FindBy (css=".nav-tabs li:nth-child(5)>a")
     private WebElement acceptedInsuranceTab;
 
-    @FindBy (css=".tabs td:nth-child(6)>a")
+    @FindBy (css=".nav-tabs li:nth-child(6)>a")
     private WebElement sponsoredTab;
 
     @FindBy(css=".additionalInformation>span")
@@ -57,21 +57,17 @@ public class ProfilePage {
     @FindBy(linkText="Doctor's site")
     private WebElement plDrSite;
 
-    // list because of bug on site returns 3 elements sometimes
-    @FindBy(css=".patient-link .contact-links .modal-call")
-    private List<WebElement> plBookAppt;
+    @FindBy(css=".btn.modal-call")
+    private WebElement plBookAppt;
 
-    // list because of bug on site returns 3 elements sometimes
-    @FindBy(css=".patient-link .call-appointment strong")
-    private List<WebElement> plPhoneNumber;
+    @FindBy(css=".call-appointment strong")
+    private WebElement plPhoneNumber;
     
-    // list because of bug on site returns 3 elements sometimes
     @FindBy(css=".claim-profile>a")
-    private List<WebElement> claimProfileLink;
+    private WebElement claimProfileLink;
     
-    // list because of bug on site returns 3 elements sometimes
-    @FindBy(css=".name.awards .current")
-    private List<WebElement> name;
+    @FindBy(css="h1>a")
+    private WebElement name;
 
     public boolean isSummaryPage() {
         boolean flag = false;
@@ -163,32 +159,20 @@ public class ProfilePage {
     }
 
     public boolean isBookApptPresent() {
-    	if (plBookAppt.size()==1)
-    		return isElementPresent (plBookAppt.get(0));
-    	else
-    		return isElementPresent (plBookAppt.get(1));
+    	return isElementPresent (plBookAppt);
     }
 
     public PatientLinkBookModal clickBookAppt() {
-    	if (plBookAppt.size()==1)
-    		plBookAppt.get(0).click();
-    	else
-    		plBookAppt.get(1).click();
+    	plBookAppt.click();
         return PageFactory.initElements(driver, PatientLinkBookModal.class);
     }
 
     public boolean isPLPhoneNumberPresent() {
-    	if (plPhoneNumber.size()==1)
-    		return isElementPresent (plPhoneNumber.get(0));
-    	else
-    		return isElementPresent (plPhoneNumber.get(1));
+    	return isElementPresent (plPhoneNumber);
     }
 
     public String getPLPhoneNumber() {
-    	if (plPhoneNumber.size()==1)
-    		return plPhoneNumber.get(0).getText();
-    	else
-    		return plPhoneNumber.get(1).getText();
+    	return plPhoneNumber.getText();
     }
 
     private boolean isElementPresent (WebElement el) {
@@ -210,17 +194,11 @@ public class ProfilePage {
     }
     
     public MyVitalsClaimProfilePage clickClaimProfileLink () {
-    	if (claimProfileLink.size()==1)
-    		claimProfileLink.get(0).click();
-    	else
-    		claimProfileLink.get(1).click();
+    	claimProfileLink.click();
     	return PageFactory.initElements(driver, MyVitalsClaimProfilePage.class);
     }
     
     public WebElement getName() {
-    	if (name.size()==1)
-    		return name.get(0);
-    	else
-    		return name.get(1);
+    	return name;
     }
 }

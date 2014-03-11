@@ -35,7 +35,7 @@ public class UccTest {
     public void setup(String url) throws Exception {
         this.url = url;
     }
-    
+
     @Test
     public void generateUrls() {
     	driver = DriverManager.getDriver();
@@ -170,7 +170,7 @@ public class UccTest {
         home.header.enterSearchTerm("city");
         
         UccSearchResultsPage uccSerp = home.header.clickGoButtonUcc();
-        m_assert.assertTrue(uccSerp.getResultsCountNumber()>70 && uccSerp.getResultsCountNumber()<100,
+        m_assert.assertTrue(uccSerp.getResultsCountNumber()>30 && uccSerp.getResultsCountNumber()<40,
         		"Number of results not within expected range");
         int count = uccSerp.getResultsCountNumber();
         int initialCount = uccSerp.getResultsCountNumber();

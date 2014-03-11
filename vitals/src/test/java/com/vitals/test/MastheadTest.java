@@ -312,7 +312,7 @@ public class MastheadTest {
 
 		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickShowAllFacilitiesReview();
 		Assert.assertTrue(reviewSerp.isToggleFacilities());
-		Assert.assertTrue(reviewSerp.getResultsCountNumber()==80);
+		Assert.assertTrue(reviewSerp.getResultsCountNumber()>30 && reviewSerp.getResultsCountNumber()<40);
 	}
 
 	@TestCase(id=1628)

@@ -33,6 +33,18 @@ public class SearchResultsPage {
     @FindBy (css="#results-content .v-pwl.listing")
     private List<WebElement> searchResults;
     
+    @FindBy (css=".breadcrumb .trail")
+    private List<WebElement> breadcrumb;
+    
+    @FindBy (css=".breadcrumb li:last-child")
+    private WebElement breadcrumbCurrent;
+    
+    @FindBy (css="h1>span:not(#result-count)")
+    private List<WebElement> h1;
+    
+    @FindBy (css="meta[name=description]")
+    private WebElement description;
+    
     public int getResultsCountNumber() {
     	String count = resultsTotal.getText();
     	String[] split = count.split(",");
@@ -57,7 +69,38 @@ public class SearchResultsPage {
 
         return doc;
     }
-
+    
+    public List<String> getBreadcrumbText() {
+    	List<String> text = new ArrayList<String>();
+    	for (int i=0; i<breadcrumb.size(); i++) {
+    		text.add(breadcrumb.get(i).getText());
+    	}
+    	return text;
+    }
+    
+    public List<String> getBreadcrumbUrl() {
+    	List<String> url = new ArrayList<String>();
+    	for (int i=0; i<breadcrumb.size(); i++) {
+    		url.add(breadcrumb.get(i).getAttribute("href"));
+    	}
+    	return url;
+    }
+    
+    public String getBreadcrumbCurrentText() {
+    	return breadcrumbCurrent.getText();
+    }
+    
+    public List<String> getH1Text() {
+    	List<String> text = new ArrayList<String>();
+    	for (int i=0; i<h1.size(); i++) {
+    		text.add(h1.get(i).getText());
+    	}
+    	return text;
+    }
+    
+    public String getDescription() {
+    	return description.getAttribute("content");
+    }
 }
 
 
