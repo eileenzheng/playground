@@ -2,100 +2,119 @@ package com.vitals;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import org.testng.*;
-
-
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class TestRailResultListener extends TestListenerAdapter {
+public class TestRailResultListener implements ISuiteListener {
 
-    private final static int PASS = 1;
-    private final static int FAIL = 5;
+	private final static int PASS = 1;
+	private final static int FAIL = 5;
 
-    TestRailFactory trf;
-    int test_run_id;
+	TestRailFactory trf;
+	int test_run_id;
 
+	@Override
+	public void onStart(ISuite suite) {
 
-    public void onStart(ITestContext context) {
+	}
 
-    }
+	@Override
+	public void onFinish(ISuite suite) {
+		List<IInvokedMethod> methods = suite.getAllInvokedMethods();
 
-    public void onFinish(ITestContext context) {
-        trf = new TestRailFactory();
+		List<ITestResult> passedTests = new ArrayList<ITestResult>();
+		List<ITestResult> failedTests = new ArrayList<ITestResult>();
 
-        String runName = "TestNG Test Run " + new Date();
+		ITestResult result;
+		int status;
 
-        ISuite suite = context.getSuite();
-        int project_id = Integer.parseInt(suite.getParameter("projectId"));
-        int suite_id = Integer.parseInt(suite.getParameter("suiteId"));
+		for (IInvokedMethod method : methods) {
+			if (method.isTestMethod()) {
+				result = method.getTestResult();
+				status = result.getStatus();
+				if (status == ITestResult.SUCCESS) {
+					passedTests.add(result);
+				} else if (status == ITestResult.FAILURE) {
+					failedTests.add(result);
+				}
+			}
+		}
 
-        if (context.getCurrentXmlTest().getParameter("testRunId") != null) {
-            test_run_id = Integer.parseInt(context.getCurrentXmlTest().getParameter("testRunId"));
-        } else {
-            test_run_id = trf.createRun(project_id,suite_id,runName);
-        }
+		JSONArray passed = processResults(passedTests, PASS);
+		JSONArray failed = processResults(failedTests, FAIL);
+		// Concat both arrays
+		JSONArray testResults = concatArray(passed, failed);
 
-        JSONArray passed = processResults(getPassedTests(), PASS);
-        JSONArray failed = processResults(getFailedTests(), FAIL);
+		trf = new TestRailFactory();
 
-        //Concat both arrays
-        JSONArray testResults = concatArray(passed,failed);
+		int project_id = Integer.parseInt(suite.getParameter("projectId"));
+		int suite_id = Integer.parseInt(suite.getParameter("suiteId"));
 
-        // Send the results
-        trf.sendResults(test_run_id, testResults);
+		if (suite.getParameter("testRunId") != null) {
+			test_run_id = Integer.parseInt(suite.getParameter("testRunId"));
+		} else {
+			String runName = "TestNG Test Run " + new Date();
+			test_run_id = trf.createRun(project_id, suite_id, runName);
+		}
 
-    }
+		// Send the results
+		trf.sendResults(test_run_id, testResults);
 
-    private JSONArray processResults(List<ITestResult> tests, int status) {
-        JSONArray testResults = new JSONArray();
-        String comment = "";
+	}
 
-        for(ITestResult testMethod : tests) {
-            Method method = testMethod.getMethod().getConstructorOrMethod().getMethod();
+	private JSONArray processResults(List<ITestResult> tests, int status) {
+		JSONArray testResults = new JSONArray();
+		String comment = "";
 
-            if (method.getAnnotation(TestCase.class) != null) {
+		for (ITestResult testMethod : tests) {
+			Method method = testMethod.getMethod().getConstructorOrMethod()
+					.getMethod();
 
-                // Test Execution time
-                Long totalTime = testMethod.getEndMillis() - testMethod.getStartMillis();
-                String time = TimeUnit.MILLISECONDS.toSeconds(totalTime) + "s" ;
-                time = time.equals("0s") ? "1s" : time;
+			if (method.getAnnotation(TestCase.class) != null) {
 
-                //If it failed get the cause from the error
-                if (testMethod.getStatus() == ITestResult.FAILURE) {
-                    comment = testMethod.getThrowable() != null ? testMethod.getThrowable().getMessage() : "";
-                }
+				// Test Execution time
+				Long totalTime = testMethod.getEndMillis()
+						- testMethod.getStartMillis();
+				String time = TimeUnit.MILLISECONDS.toSeconds(totalTime) + "s";
+				time = time.equals("0s") ? "1s" : time;
 
-                //Get the array of ids associated to the test
-                long[] ids = method.getAnnotation(TestCase.class).id();
+				// If it failed get the cause from the error
+				if (testMethod.getStatus() == ITestResult.FAILURE) {
+					comment = testMethod.getThrowable() != null ? testMethod
+							.getThrowable().getMessage() : "";
+				}
 
-                //Set the results for each test id
-                for (long id : ids) {
-                    HashMap<String,Object> tr = new HashMap<String, Object>();
-                    tr.put("case_id", id);
-                    tr.put("status_id", status);
-                    tr.put("comment", comment);
-                    tr.put("elapsed",  time);
+				// Get the array of ids associated to the test
+				long[] ids = method.getAnnotation(TestCase.class).id();
 
-                    testResults.add(new JSONObject(tr));
-                }
-            }
-        }
-        return testResults;
-    }
+				// Set the results for each test id
+				for (long id : ids) {
+					HashMap<String, Object> tr = new HashMap<String, Object>();
+					tr.put("case_id", id);
+					tr.put("status_id", status);
+					tr.put("comment", comment);
+					tr.put("elapsed", time);
 
-    private JSONArray concatArray(JSONArray... arrs) {
-        JSONArray result = new JSONArray();
-        for (JSONArray arr : arrs) {
-            for (Object anArr : arr) {
-                result.add(anArr);
-            }
-        }
-        return result;
-    }
+					testResults.add(new JSONObject(tr));
+				}
+			}
+		}
+		return testResults;
+	}
+
+	private JSONArray concatArray(JSONArray... arrs) {
+		JSONArray result = new JSONArray();
+		for (JSONArray arr : arrs) {
+			for (Object anArr : arr) {
+				result.add(anArr);
+			}
+		}
+		return result;
+	}
 
 }
