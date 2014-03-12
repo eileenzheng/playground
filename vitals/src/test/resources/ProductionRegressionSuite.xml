@@ -5,14 +5,14 @@
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
 	<parameter name="testRunId" value="113"/>
-	<parameter name="driverType" value="remote" />
+	<parameter name="driverType" value="local" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
 		<listener class-name="com.vitals.TestRailResultListener" />
 	</listeners>
 
-	<test name="Profile Specific Tests">
+ 	<test name="Profile Specific Tests">
 		<classes>
 			<class name="com.vitals.test.ProfileTest" />
 		</classes>
@@ -40,12 +40,12 @@
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
 		</classes>
-	</test>
+	</test> 
  	<test name="Urgent Care Specific Tests">
 		<classes>
 			<class name="com.vitals.test.UccTest" />

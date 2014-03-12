@@ -32,6 +32,9 @@ public class UccSearchResultsPage {
     @FindBy (css=".listing>.listing-details")
     private List<WebElement> searchResults;
     
+    @FindBy (css="#map")
+    private WebElement map;
+    
     public int getResultsCountNumber() {
     	String count = resultsTotal.getText();
     	String[] split = count.split(",");
@@ -63,5 +66,12 @@ public class UccSearchResultsPage {
 
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+    
+    public boolean isMapEmpty() {
+    	if (map.getText().equals(""))
+    		return true;
+    	else
+    		return false;
     }
 }

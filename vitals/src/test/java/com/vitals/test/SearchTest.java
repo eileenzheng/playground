@@ -43,10 +43,12 @@ public class SearchTest {
 
         homePage.header.openLocationBox();
         homePage.header.enterLocation(location);
-        homePage.header.clickFirstLocation();
+        homePage.header.selectFirstLocation();
         homePage.header.enterSearchTerm(name);
 
         SearchResultsPage results = homePage.header.clickGoButton();
+        Assert.assertTrue(results.drList().size()>0, "No results for name search!");
+        
         for (Profile el : results.doctorResults(results.drList())) {
             String drName = el.getName();
             Reporter.log(drName);
@@ -68,11 +70,9 @@ public class SearchTest {
         homePage.header.enterSearchTerm(spec);
 
         Reporter.log(homePage.header.getSpecialtySearchSuggestions());
-        
-        Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
-        Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+        SearchResultsPage results = homePage.header.selectFirstSpecialty();
+        Assert.assertTrue(results.drList().size()>0, "No results for specialty search!");
 
         Reporter.log(results.getResultsCountNumber() + " for search: " + spec);
     }
@@ -89,11 +89,9 @@ public class SearchTest {
         homePage.header.enterSearchTerm(cond);
 
         Reporter.log(homePage.header.getConditionSearchSuggestions());
-        
-        Assert.assertTrue(homePage.header.locationSearchIsPopulated(),"Location search is not populated");
-        Reporter.log(homePage.header.getCurrentPopulatedLocation());
 
-        SearchResultsPage results = homePage.header.clickFirstCondition();
+        SearchResultsPage results = homePage.header.selectFirstCondition();
+        Assert.assertTrue(results.drList().size()>0, "No results for condition search!");
 
         Reporter.log(results.getResultsCountNumber() + " for search: " + cond);
     }
@@ -149,6 +147,35 @@ public class SearchTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1733)
+    @Test
+    public void checkMap() {
+    	m_assert = new SoftAssert(); 
+    	driver = DriverManager.getDriver();
+    	
+        driver.get(url + "/dermatologists");
+        SearchResultsPage serp = PageFactory.initElements(driver, SearchResultsPage.class);
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for specialty browse path");
+        
+        driver.get(url + "/condition/diabetes");
+        serp = PageFactory.initElements(driver, SearchResultsPage.class);
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition browse path");
+        
+        serp.header.enterSearchTerm("Todd");
+        serp = serp.header.clickGoButton();
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for name search path");
+        
+        serp.header.enterSearchTerm("Cardiologist");
+        serp.header.selectFirstSpecialty();
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for specialty search path");
+        
+        serp.header.enterSearchTerm("Diabetes");
+        serp.header.selectFirstCondition();
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition serach path");
+        
+        m_assert.assertAll();
+    }
+    
     @TestCase(id=1552)
     @Test (dataProvider = "zipCodes")
     public void compareResultsToProfile(String zipCodes) {
@@ -163,7 +190,7 @@ public class SearchTest {
 
         homePage.header.openLocationBox();
         homePage.header.enterLocation(zipCodes);
-        homePage.header.clickFirstLocation();
+        homePage.header.selectFirstLocation();
         homePage.header.enterSearchTerm(name);
         
 

@@ -134,7 +134,7 @@ public class SearchPagePropertiesTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.openFindDropdown();
-        homePage.header.clickFindByDentist();
+        homePage.header.selectFindByDentist();
         homePage.header.enterSearchTerm(name);
 
         SearchResultsPage results = homePage.header.clickGoButton();
@@ -171,7 +171,7 @@ public class SearchPagePropertiesTest {
         homePage.header.clickSaveInsuranceButton();
         homePage.header.enterSearchTerm(condition);
         
-        SearchResultsPage results = homePage.header.clickFirstCondition();
+        SearchResultsPage results = homePage.header.selectFirstCondition();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -204,7 +204,7 @@ public class SearchPagePropertiesTest {
         homePage.header.clickSaveInsuranceButton();
         homePage.header.enterSearchTerm(condition);
         
-        SearchResultsPage results = homePage.header.clickFirstCondition();
+        SearchResultsPage results = homePage.header.selectFirstCondition();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -232,7 +232,7 @@ public class SearchPagePropertiesTest {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.enterSearchTerm(condition);
         
-        SearchResultsPage results = homePage.header.clickFirstCondition();
+        SearchResultsPage results = homePage.header.selectFirstCondition();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -265,7 +265,7 @@ public class SearchPagePropertiesTest {
         homePage.header.selectFirstInsurancePlan();
         homePage.header.clickSaveInsuranceButton();
         homePage.header.enterSearchTerm(specialty);
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+        SearchResultsPage results = homePage.header.selectFirstSpecialty();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -298,7 +298,7 @@ public class SearchPagePropertiesTest {
         homePage.header.clickSaveInsuranceButton();
         homePage.header.enterSearchTerm(specialty);
         
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+        SearchResultsPage results = homePage.header.selectFirstSpecialty();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -326,7 +326,7 @@ public class SearchPagePropertiesTest {
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.enterSearchTerm(specialty);
         
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+        SearchResultsPage results = homePage.header.selectFirstSpecialty();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);
@@ -352,10 +352,10 @@ public class SearchPagePropertiesTest {
         driver.get(url);
         HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         homePage.header.openFindDropdown();
-        homePage.header.clickFindByDentist();
+        homePage.header.selectFindByDentist();
         homePage.header.enterSearchTerm(dentistSpecialty);
         
-        SearchResultsPage results = homePage.header.clickFirstSpecialty();
+        SearchResultsPage results = homePage.header.selectFirstSpecialty();
         
         m_assert = new SoftAssert();
         boolean breadcrumb = breadcrumbSearch(results);

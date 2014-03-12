@@ -45,6 +45,9 @@ public class SearchResultsPage {
     @FindBy (css="meta[name=description]")
     private WebElement description;
     
+    @FindBy (css="#map")
+    private WebElement map;
+    
     public int getResultsCountNumber() {
     	String count = resultsTotal.getText();
     	String[] split = count.split(",");
@@ -100,6 +103,13 @@ public class SearchResultsPage {
     
     public String getDescription() {
     	return description.getAttribute("content");
+    }
+    
+    public boolean isMapEmpty() {
+    	if (map.getText().equals(""))
+    		return true;
+    	else
+    		return false;
     }
 }
 

@@ -136,17 +136,17 @@ public class HeaderPage {
     	return this;
     }
     
-    public HeaderPage clickFindByDoctor() {
+    public HeaderPage selectFindByDoctor() {
     	findByDoctor.click();
     	return this;
     }
     
-    public HeaderPage clickFindByDentist() {
+    public HeaderPage selectFindByDentist() {
     	findByDentist.click();
     	return this;
     }
     
-    public HeaderPage clickFindByUcc() {
+    public HeaderPage selectFindByUcc() {
     	findByUcc.click();
     	return this;
     }
@@ -257,28 +257,28 @@ public class HeaderPage {
         return drs.toString();
     }
     
-    public ProfilePage clickRandomName() {
+    public ProfilePage selectRandomName() {
     	int mid = nameSuggestions.size() / 2;
     	nameSuggestions.get(mid).click();
     	
     	return PageFactory.initElements(driver, ProfilePage.class);
     }
     
-    public UccProfileSummaryPage clickRandomUcc() {
+    public UccProfileSummaryPage selectRandomUcc() {
     	int mid = uccSuggestions.size() / 2;
     	uccSuggestions.get(mid).click();
     	
     	return PageFactory.initElements(driver, UccProfileSummaryPage.class);
     }
     
-    public ReviewWritePage clickRandomNameReview() {
+    public ReviewWritePage selectRandomNameReview() {
     	int mid = nameSuggestions.size() / 2;
     	nameSuggestions.get(mid).click();
     	
     	return PageFactory.initElements(driver, ReviewWritePage.class);
     }
     
-    public ReviewWritePage clickRandomUccReview() {
+    public ReviewWritePage selectRandomUccReview() {
     	int mid = uccSuggestions.size() / 2;
     	uccSuggestions.get(mid).click();
     	
@@ -295,7 +295,7 @@ public class HeaderPage {
         return specs.toString();
     }
 
-    public SearchResultsPage clickRandomSpecialty() {
+    public SearchResultsPage selectRandomSpecialty() {
         int mid = specialtySuggestions.size() / 2;
         Reporter.log("Clicking> " + specialtySuggestions.get(mid).getText().toString());
         specialtySuggestions.get(mid).click();
@@ -303,7 +303,7 @@ public class HeaderPage {
         return PageFactory.initElements(driver, SearchResultsPage.class);
     }
 
-    public SearchResultsPage clickFirstSpecialty() {
+    public SearchResultsPage selectFirstSpecialty() {
     	wait.until(ExpectedConditions.visibilityOfAllElements(specialtySuggestions));
         specialtySuggestions.get(0).click();
         return PageFactory.initElements(driver, SearchResultsPage.class);
@@ -319,7 +319,7 @@ public class HeaderPage {
         return conds.toString();
     }
     
-    public SearchResultsPage clickRandomCondition() {
+    public SearchResultsPage selectRandomCondition() {
         int mid = conditionSuggestions.size() / 2;
         Reporter.log("Clicking> " + conditionSuggestions.get(mid).getText().toString());
         conditionSuggestions.get(mid).click();
@@ -327,7 +327,7 @@ public class HeaderPage {
         return PageFactory.initElements(driver, SearchResultsPage.class);
     }
     
-	public SearchResultsPage clickFirstCondition() {
+	public SearchResultsPage selectFirstCondition() {
 		conditionSuggestions.get(0).click();
         return PageFactory.initElements(driver, SearchResultsPage.class);
 	}
@@ -364,7 +364,7 @@ public class HeaderPage {
     	return this;
     }
     
-    public HeaderPage clickFirstLocation() {
+    public HeaderPage selectFirstLocation() {
     	locationSuggestions.get(0).click();
     	return this;
     }

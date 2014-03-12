@@ -166,7 +166,7 @@ public class UccTest {
         driver.get(url);
         
         HomePage home = PageFactory.initElements(driver,HomePage.class);
-        home.header.openFindDropdown().clickFindByUcc();
+        home.header.openFindDropdown().selectFindByUcc();
         home.header.enterSearchTerm("city");
         
         UccSearchResultsPage uccSerp = home.header.clickGoButtonUcc();
@@ -208,6 +208,24 @@ public class UccTest {
         m_assert.assertTrue(finalCount==initialCount,
         		"Number of results incorrect after resetting filters " + finalCount + " vs " + initialCount);
         Reporter.log(finalCount + " results after resetting filters vs " + initialCount + " initially");
+        
+        m_assert.assertAll();
+    }
+    
+    @TestCase(id=1734)
+    @Test
+    public void checkMap() {
+    	m_assert = new SoftAssert(); 
+    	driver = DriverManager.getDriver();
+    	
+        driver.get(url + "/urgent-care");
+        UccSearchResultsPage serp = PageFactory.initElements(driver, UccSearchResultsPage.class);
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for browse path");
+        
+        serp.header.openFindDropdown();
+        serp.header.selectFindByUcc();
+        serp = serp.header.clickGoButtonUcc();
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for search path");
         
         m_assert.assertAll();
     }

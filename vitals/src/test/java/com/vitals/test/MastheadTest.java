@@ -155,7 +155,7 @@ public class MastheadTest {
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 
 			homePage.header.enterSearchTerm("John");
-			ProfilePage profilePage = homePage.header.clickRandomName();
+			ProfilePage profilePage = homePage.header.selectRandomName();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -170,7 +170,7 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByDentist();
+			homePage.header.selectFindByDentist();
 
 			homePage.header.enterSearchTerm("John");
 
@@ -189,7 +189,7 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByDentist();
+			homePage.header.selectFindByDentist();
 
 			homePage.header.enterSearchTerm("John");
 			SearchResultsPage serp = homePage.header.clickShowAllLink();
@@ -207,10 +207,10 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByDentist();
+			homePage.header.selectFindByDentist();
 
 			homePage.header.enterSearchTerm("John");
-			ProfilePage profilePage = homePage.header.clickRandomName();
+			ProfilePage profilePage = homePage.header.selectRandomName();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -225,7 +225,7 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByUcc();
+			homePage.header.selectFindByUcc();
 			homePage.header.enterSearchTerm("citymd");
 
 			UccSearchResultsPage serp = homePage.header.clickGoButtonUcc();
@@ -243,7 +243,7 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByUcc();
+			homePage.header.selectFindByUcc();
 
 			homePage.header.enterSearchTerm("citymd");
 			UccSearchResultsPage serp = homePage.header.clickShowAllLinkUcc();
@@ -261,10 +261,10 @@ public class MastheadTest {
 			driver.get(url[i]);
 			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
 			homePage.header.openFindDropdown();
-			homePage.header.clickFindByUcc();
+			homePage.header.selectFindByUcc();
 
 			homePage.header.enterSearchTerm("citymd");
-			UccProfileSummaryPage profilePage = homePage.header.clickRandomUcc();
+			UccProfileSummaryPage profilePage = homePage.header.selectRandomUcc();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -325,7 +325,7 @@ public class MastheadTest {
 		ReviewPage reviewPage = homePage.header.clickReviewTab();
 		reviewPage.header.enterReviewSearchTerm("John");
 		
-		ReviewWritePage reviewWritePage = reviewPage.header.clickRandomNameReview();
+		ReviewWritePage reviewWritePage = reviewPage.header.selectRandomNameReview();
 			Assert.assertTrue(reviewWritePage.isDoctorReview());
 	}
 
@@ -339,8 +339,39 @@ public class MastheadTest {
 		ReviewPage reviewPage = homePage.header.clickReviewTab();
 		reviewPage.header.enterReviewSearchTerm("city");
 
-		ReviewWritePage reviewWritePage = reviewPage.header.clickRandomUccReview();
+		ReviewWritePage reviewWritePage = reviewPage.header.selectRandomUccReview();
 		Assert.assertTrue(reviewWritePage.isFacilityReview());
+	}
+	
+	@TestCase(id=1735)
+	@Test
+	public void isLocationPopulated() {
+		driver = DriverManager.getDriver();
+		
+		for (int i=0; i<2; i++) {
+			driver.manage().deleteAllCookies();
+			driver.get(url[i]);
+			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+			Assert.assertTrue(homePage.header.locationSearchIsPopulated(), env(i));
+	        Reporter.log(homePage.header.getCurrentPopulatedLocation());
+		}
+	}
+	
+	@TestCase(id=1736)
+	@Test
+	public void isLocationSynced() {
+		driver = DriverManager.getDriver();
+		
+		driver.manage().deleteAllCookies();
+		driver.get(url[0]);
+		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+		homePage.header.openLocationBox();
+		homePage.header.enterLocation("Fort Lee, NJ");
+		homePage.header.selectFirstLocation();
+		
+		driver.get(url[1]);
+		homePage = PageFactory.initElements(driver, HomePage.class);
+		Assert.assertTrue(homePage.header.getCurrentPopulatedLocation().equals("Fort lee, NJ"));
 	}
 
 	private void acceptAlertIfPresent(WebDriver driver) {
