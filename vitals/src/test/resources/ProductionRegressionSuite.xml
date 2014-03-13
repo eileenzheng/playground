@@ -5,7 +5,7 @@
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
 	<parameter name="testRunId" value="113"/>
-	<parameter name="driverType" value="local" />
+	<parameter name="driverType" value="remote" />
 
 	<listeners>
 		<listener class-name="com.vitals.WebDriverListener" />
