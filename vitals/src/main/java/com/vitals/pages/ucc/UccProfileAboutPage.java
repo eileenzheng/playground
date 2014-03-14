@@ -1,19 +1,17 @@
-package com.vitals.pages;
+package com.vitals.pages.ucc;
 
 import java.util.List;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import com.vitals.DriverManager;
 
-public class UccProfileReviewsPage {
-
+public class UccProfileAboutPage {
+	
 	private final WebDriver driver;
 	
-	public UccProfileReviewsPage () {
+	public UccProfileAboutPage () {
 		driver = DriverManager.getDriver();
 	}
 
@@ -29,17 +27,11 @@ public class UccProfileReviewsPage {
 	@FindBy(css=".nav-menu")
 	private WebElement menu;
 	
+	@FindBy(css=".nav-menu li:nth-child(2)>a")
+	private WebElement menuReviews;
+	
 	@FindBy(css=".nav-menu li:nth-child(4)>a")
 	private WebElement menuServices;
-	
-	@FindBy(css=".nav-menu li:nth-child(3)>a")
-	private WebElement menuAbout;
-	
-	@FindBy(css=".overall span.col-md-12")
-	private WebElement totalRating;
-	
-	@FindBy(css=".rating-bars .count")
-	private List<WebElement> ratingBreakdown;
 	
 	public boolean isTitleMatched() {
 		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
@@ -48,38 +40,25 @@ public class UccProfileReviewsPage {
 			return false;
 	}
 	
-	public boolean isReviewsPage() {
-		if (currentTrail.getText().equalsIgnoreCase("Reviews"))
+	public boolean isAboutPage() {
+		if (currentTrail.getText().equalsIgnoreCase("About"))
 			return true;
 		else return false;
 	}
 	
-	public int getTotalRating() {
-		String rating = totalRating.getText().split(" ")[0];
-		return Integer.parseInt(rating);
-	}
-	
-	public int getTotalRatingFromBreakDown() {
-		int total = 0;
-		for (WebElement el : ratingBreakdown) {
-			total = total + Integer.parseInt(el.getText());
-		}
-		return total;
-	}
-	
-	public UccProfileReviewsPage clickMenu() {
+	public UccProfileAboutPage clickMenu() {
 		menu.click();
 		return this;
+	}
+	
+	public UccProfileReviewsPage clickMenuReviews() {
+		menuReviews.click();
+		return PageFactory.initElements(driver, UccProfileReviewsPage.class);
 	}
 	
 	public UccProfileServicesPage clickMenuServices() {
 		menuServices.click();
 		return PageFactory.initElements(driver, UccProfileServicesPage.class);
-	}
-	
-	public UccProfileAboutPage clickMenuAbout() {
-		menuAbout.click();
-		return PageFactory.initElements(driver, UccProfileAboutPage.class);
 	}
 	
 	public UccProfileSummaryPage goBackToSummaryPage() {

@@ -1,8 +1,11 @@
-package com.vitals.pages;
+package com.vitals.pages.ucc;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vitals.pages.FooterPage;
+import com.vitals.pages.HeaderPage;
+import com.vitals.pages.patientlink.PatientLinkCenterAd;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

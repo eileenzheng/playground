@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.pages.ProfileSeoPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -9,7 +10,6 @@ import org.testng.annotations.Test;
 import com.vitals.DriverManager;
 import com.vitals.TestCase;
 import com.vitals.pages.ProfilePage;
-import com.vitals.pages.SEOProfilePage;
 
 public class ProfileTest {
 
@@ -34,7 +34,7 @@ public class ProfileTest {
     	
     	driver.manage().deleteAllCookies();
         driver.get(url + drProfile);
-        SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
+        ProfileSeoPage seoProfile = PageFactory.initElements(driver, ProfileSeoPage.class);
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
                 "SEO Doctor Page did not load successfully" + drProfile);
         
@@ -51,7 +51,7 @@ public class ProfileTest {
 
     	driver.manage().deleteAllCookies();
         driver.get(url + dentistProfile);
-        SEOProfilePage seoProfile = PageFactory.initElements(driver, SEOProfilePage.class);
+        ProfileSeoPage seoProfile = PageFactory.initElements(driver, ProfileSeoPage.class);
         Assert.assertTrue(seoProfile.viewFullProfileButtonIsVisible(),
                 "SEO Dentist Page did not load successfully: " + dentistProfile);
         

@@ -10,13 +10,13 @@ import org.testng.annotations.Test;
 import com.vitals.DriverManager;
 import com.vitals.TestCase;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.MyVitalsClaimProfilePage;
-import com.vitals.pages.MyVitalsEditAccountPage;
-import com.vitals.pages.MyVitalsEditBasicInfoPage;
-import com.vitals.pages.MyVitalsHomePage;
-import com.vitals.pages.MyVitalsLocateProfilePage;
-import com.vitals.pages.MyVitalsProfessionalsPage;
-import com.vitals.pages.MyVitalsSignInPage;
+import com.vitals.pages.myvitals.MyVitalsClaimProfilePage;
+import com.vitals.pages.myvitals.MyVitalsEditAccountPage;
+import com.vitals.pages.myvitals.MyVitalsEditBasicInfoPage;
+import com.vitals.pages.myvitals.MyVitalsHomePage;
+import com.vitals.pages.myvitals.MyVitalsLocateProfilePage;
+import com.vitals.pages.myvitals.MyVitalsProfessionalsPage;
+import com.vitals.pages.myvitals.MyVitalsSignInPage;
 import com.vitals.pages.ProfilePage;
 
 public class MyVitalsTest {

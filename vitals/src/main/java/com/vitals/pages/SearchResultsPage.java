@@ -2,6 +2,7 @@ package com.vitals.pages;
 
 import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
+import com.vitals.pages.patientlink.PatientLinkCenterAd;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

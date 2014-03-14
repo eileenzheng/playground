@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.myvitals;
 
 import java.util.List;
 

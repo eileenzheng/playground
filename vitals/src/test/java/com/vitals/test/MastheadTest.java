@@ -17,8 +17,8 @@ import com.vitals.pages.ReviewPage;
 import com.vitals.pages.ReviewWritePage;
 import com.vitals.pages.ReviewSearchResultsPage;
 import com.vitals.pages.SearchResultsPage;
-import com.vitals.pages.UccProfileSummaryPage;
-import com.vitals.pages.UccSearchResultsPage;
+import com.vitals.pages.ucc.UccProfileSummaryPage;
+import com.vitals.pages.ucc.UccSearchResultsPage;
 import com.vitals.helpers.Constants;
 
 public class MastheadTest {

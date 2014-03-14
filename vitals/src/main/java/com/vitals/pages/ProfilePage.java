@@ -1,5 +1,8 @@
 package com.vitals.pages;
 
+import com.vitals.pages.myvitals.MyVitalsClaimProfilePage;
+import com.vitals.pages.patientlink.ModalEmail;
+import com.vitals.pages.patientlink.PatientLinkRrAd;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -162,9 +165,9 @@ public class ProfilePage {
     	return isElementPresent (plBookAppt);
     }
 
-    public PatientLinkBookModal clickBookAppt() {
+    public ModalEmail clickBookAppt() {
     	plBookAppt.click();
-        return PageFactory.initElements(driver, PatientLinkBookModal.class);
+        return PageFactory.initElements(driver, ModalEmail.class);
     }
 
     public boolean isPLPhoneNumberPresent() {

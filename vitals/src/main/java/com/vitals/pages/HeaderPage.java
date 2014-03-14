@@ -1,5 +1,10 @@
 package com.vitals.pages;
 
+import com.vitals.pages.myvitals.MyVitalsEditAccountPage;
+import com.vitals.pages.myvitals.MyVitalsSignInPage;
+import com.vitals.pages.ucc.UccProfileSummaryPage;
+import com.vitals.pages.ucc.UccSearchResultsPage;
+import com.vitals.pages.ucc.UccSitemapPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

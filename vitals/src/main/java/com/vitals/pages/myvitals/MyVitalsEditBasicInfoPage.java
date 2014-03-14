@@ -1,5 +1,6 @@
-package com.vitals.pages;
+package com.vitals.pages.myvitals;
 
+import com.vitals.pages.HeaderPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

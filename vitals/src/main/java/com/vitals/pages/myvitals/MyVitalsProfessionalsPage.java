@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.myvitals;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

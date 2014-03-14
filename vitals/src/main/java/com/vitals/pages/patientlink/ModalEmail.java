@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.patientlink;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +8,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.vitals.DriverManager;
 
-public class PatientLinkBookModal {
+public class ModalEmail {
 	private final WebDriver driver;
 	private final WebDriverWait wait;
 	
-	public PatientLinkBookModal () {
+	public ModalEmail() {
 		driver = DriverManager.getDriver();
 		wait = new WebDriverWait(driver, 5, 300);
 	}
@@ -59,87 +59,87 @@ public class PatientLinkBookModal {
 	@FindBy(css=".modal.in .modal-header .close")
 	private WebElement close;
 	
-	public PatientLinkBookModal typeFirstName(String text) {
+	public ModalEmail typeFirstName(String text) {
 		fname.clear();
 		fname.sendKeys(text);
 		return this;
 	}
 	
-	public PatientLinkBookModal typeLastName(String text) {
+	public ModalEmail typeLastName(String text) {
 		lname.clear();
 		lname.sendKeys(text);
 		return this;
 	}
 	
-	public PatientLinkBookModal typePhone(String text) {
+	public ModalEmail typePhone(String text) {
 		phone.clear();
 		phone.sendKeys(text);
 		return this;
 	}
 	
-	public PatientLinkBookModal typeEmail(String text) {
+	public ModalEmail typeEmail(String text) {
 		email.clear();
 		email.sendKeys(text);
 		return this;
 	}
 	
-	public PatientLinkBookModal selectRadioAny() {
+	public ModalEmail selectRadioAny() {
 		radioAny.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal selectRadioAm() {
+	public ModalEmail selectRadioAm() {
 		radioAm.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal selectRadioMidday() {
+	public ModalEmail selectRadioMidday() {
 		radioMidday.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal selectRadioAfternoon() {
+	public ModalEmail selectRadioAfternoon() {
 		radioAfternoon.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal selectRadioPm() {
+	public ModalEmail selectRadioPm() {
 		radioPm.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal openDropWhen() {
+	public ModalEmail openDropWhen() {
 		dropDownWhen.click();
 		return this;
 	}
 	
-	public PatientLinkBookModal selectDropAsap() {
+	public ModalEmail selectDropAsap() {
 		dropDownWhen.sendKeys("ASAP");
 		return this;
 	}
 	
-	public PatientLinkBookModal selectDrop1Week() {
+	public ModalEmail selectDrop1Week() {
 		dropDownWhen.sendKeys("1 week");
 		return this;
 	}
 	
-	public PatientLinkBookModal selectDrop2Weeks() {
+	public ModalEmail selectDrop2Weeks() {
 		dropDownWhen.sendKeys("2 weeks");
 		return this;
 	}
 	
-	public PatientLinkBookModal selectDrop1Month() {
+	public ModalEmail selectDrop1Month() {
 		dropDownWhen.sendKeys("1 month");
 		return this;
 	}
 	
-	public PatientLinkBookModal typeInsurance(String text) {
+	public ModalEmail typeInsurance(String text) {
 		insurance.clear();
 		insurance.sendKeys(text);
 		return this;
 	}
 	
-	public PatientLinkBookModal submit() {
+	public ModalEmail submit() {
 		submitButton.click();
 		wait.until(ExpectedConditions.visibilityOf(alert));
 		return this;

@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.ucc;
 
 import java.util.List;
 import org.openqa.selenium.WebDriver;

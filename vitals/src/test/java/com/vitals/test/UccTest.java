@@ -14,13 +14,13 @@ import com.vitals.DriverManager;
 import com.vitals.TestCase;
 import com.vitals.helpers.Ucc;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.UccSitemapPage;
-import com.vitals.pages.UccProfileAboutPage;
-import com.vitals.pages.UccProfileReviewsPage;
-import com.vitals.pages.UccProfileServicesPage;
-import com.vitals.pages.UccProfileSummaryPage;
-import com.vitals.pages.UccSearchResultsPage;
-import com.vitals.pages.UccSitemapStatePage;
+import com.vitals.pages.ucc.UccSitemapPage;
+import com.vitals.pages.ucc.UccProfileAboutPage;
+import com.vitals.pages.ucc.UccProfileReviewsPage;
+import com.vitals.pages.ucc.UccProfileServicesPage;
+import com.vitals.pages.ucc.UccProfileSummaryPage;
+import com.vitals.pages.ucc.UccSearchResultsPage;
+import com.vitals.pages.ucc.UccSitemapStatePage;
 
 public class UccTest {
 	

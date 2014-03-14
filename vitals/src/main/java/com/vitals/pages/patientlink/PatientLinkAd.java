@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.patientlink;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -111,9 +111,9 @@ public abstract class PatientLinkAd {
       return (getBookOnline().get(i)!=null);
    }
    
-   public PatientLinkBookModal clickBook(int i) {
+   public ModalEmail clickBook(int i) {
       getBookOnline().get(i).click();
-      return PageFactory.initElements(driver, PatientLinkBookModal.class);
+      return PageFactory.initElements(driver, ModalEmail.class);
    }
    
    public boolean isPhonePresent(int i) {

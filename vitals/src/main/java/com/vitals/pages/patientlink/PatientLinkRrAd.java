@@ -1,4 +1,4 @@
-package com.vitals.pages;
+package com.vitals.pages.patientlink;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

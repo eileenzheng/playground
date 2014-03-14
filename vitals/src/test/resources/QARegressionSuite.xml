@@ -39,7 +39,7 @@
 		<classes>
 			<class name="com.vitals.test.MyVitalsTest" />
 		</classes>
-	</test> 
+	</test>
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
@@ -49,5 +49,5 @@
 		<classes>
 			<class name="com.vitals.test.UccTest" />
 		</classes>
-	</test>  
+	</test>
 </suite>

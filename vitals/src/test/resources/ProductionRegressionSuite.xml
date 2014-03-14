@@ -45,10 +45,10 @@
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
 		</classes>
-	</test> 
+	</test>
  	<test name="Urgent Care Specific Tests">
 		<classes>
 			<class name="com.vitals.test.UccTest" />
 		</classes>
-	</test> 
+	</test>
 </suite>
