@@ -54,16 +54,22 @@ public class SearchPage {
     @FindBy(css="#specialist_id option")
     private List<WebElement> options;
 
-    public LandingPage selectOption(String text){
+    @FindBy(css="#sort")
+    private WebElement sortDropDown;
+
+    @FindBy(css="#sort options")
+    private List<WebElement> sortOptions;
+
+    public SearchPage selectOption(String text){
         Select drop = new Select(specialtyDropDown);
         drop.selectByVisibleText(text);
-        return PageFactory.initElements(driver,LandingPage.class);
+        return PageFactory.initElements(driver, SearchPage.class);
     }
 
-    public LandingPage enterZipCode(String text){
+    public SearchPage enterZipCode(String text){
         locationTextBox.clear();
         locationTextBox.sendKeys(text);
-        return PageFactory.initElements(driver,LandingPage.class);
+        return PageFactory.initElements(driver, SearchPage.class);
     }
 
     public SearchPage clickSearch(){
@@ -78,6 +84,12 @@ public class SearchPage {
             return Integer.parseInt(split[0]);
         else
             return Integer.parseInt(split[0].concat(split[1]));
+    }
+
+    public SearchPage sortBy(String byText) {
+        Select sortDrop = new Select(sortDropDown);
+        sortDrop.selectByVisibleText(byText);
+        return PageFactory.initElements(driver, SearchPage.class);
     }
 
     public SearchPage clickNext() {

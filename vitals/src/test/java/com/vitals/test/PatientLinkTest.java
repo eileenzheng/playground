@@ -1,12 +1,12 @@
 package com.vitals.test;
 
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import com.vitals.pages.ProfileSeoPage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.patientlink.*;
 import com.vitals.pages.ucc.UccSearchResultsPage;
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;

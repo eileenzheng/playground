@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.pages.ProfileSeoPage;
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -8,7 +9,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.pages.ProfilePage;
 
 public class ProfileTest {

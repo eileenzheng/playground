@@ -1,12 +1,12 @@
 package com.vitals.test;
 
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.helpers.Profile;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.wlw.LandingPage;
 import com.vitals.pages.wlw.SearchPage;
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
@@ -84,15 +84,29 @@ public class WLWTest {
     public void compareWithVitals() {
         m_assert = new SoftAssert();
         driver = DriverManager.getDriver();
+
         driver.get(vitalsUrl);
         HomePage home = PageFactory.initElements(driver, HomePage.class);
         home.header.enterSearchTerm("Family Practitioner");
         home.header.selectFirstSpecialty();
         String serpUrl = driver.getCurrentUrl();
         driver.get(serpUrl + "&location=10036");
+
         SearchResultsPage vitalsSerp = PageFactory.initElements(driver,SearchResultsPage.class);
-        List<Profile> vitalsProfiles = vitalsSerp.doctorResults(vitalsSerp.drList());
+        List<Profile> relevancyProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
         int vitalsResultCount = vitalsSerp.getResultsCountNumber();
+        vitalsSerp.refinement.openSortDropDown();
+        vitalsSerp.refinement.clickSortByDistance();
+        vitalsSerp = PageFactory.initElements(driver,SearchResultsPage.class);
+        List<Profile> distanceProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
+        vitalsSerp.refinement.openSortDropDown();
+        vitalsSerp.refinement.clickSortByName();
+        vitalsSerp = PageFactory.initElements(driver, SearchResultsPage.class);
+        List<Profile> nameProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
+        vitalsSerp.refinement.openSortDropDown();
+        vitalsSerp.refinement.clickSortByRating();
+        vitalsSerp = PageFactory.initElements(driver, SearchResultsPage.class);
+        List<Profile> ratingProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
 
         driver.get(url);
         LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
@@ -100,8 +114,17 @@ public class WLWTest {
         landingPage.selectOption("Family Physicians");
         SearchPage serp = landingPage.clickSearch();
 
-        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals");
-        m_assert.assertTrue(serp.isProviderMatchingVitals(vitalsProfiles), "First X results does not match Vitals");
+        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals (sort by relevancy)");
+        m_assert.assertTrue(serp.isProviderMatchingVitals(relevancyProfile), "First X results does not match Vitals(sort by relevancy)");
+        serp = serp.sortBy("Distance");
+        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by distance)");
+        m_assert.assertTrue(serp.isProviderMatchingVitals(distanceProfile), "First X results does not match Vitals(sort by distance)");
+        serp = serp.sortBy("Name");
+        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by name)");
+        m_assert.assertTrue(serp.isProviderMatchingVitals(nameProfile), "First X results does not match Vitals(sort by name)");
+        serp = serp.sortBy("Rating");
+        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by rating)");
+        m_assert.assertTrue(serp.isProviderMatchingVitals(ratingProfile), "First X results does not match Vitals(sort by rating)");
 
         m_assert.assertAll();
     }

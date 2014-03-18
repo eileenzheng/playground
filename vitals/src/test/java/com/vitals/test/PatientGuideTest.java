@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -8,7 +9,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.pages.PatientGuideLandingPage;
 import com.vitals.pages.PatientGuidePage;
 

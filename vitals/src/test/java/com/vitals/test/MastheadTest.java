@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +11,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ProfilePage;
 import com.vitals.pages.ReviewPage;

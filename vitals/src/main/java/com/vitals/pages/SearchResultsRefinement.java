@@ -75,7 +75,30 @@ public class SearchResultsRefinement {
         resetFilters.click();
         return this;
     }
-    
+
+    public SearchResultsRefinement openSortDropDown() {
+        sortDropDown.click();
+        return this;
+    }
+
+    public SearchResultsRefinement clickSortByDistance() {
+        sortByDistance.click();
+        waitForJQuery();
+        return this;
+    }
+
+    public SearchResultsRefinement clickSortByName() {
+        sortByName.click();
+        waitForJQuery();
+        return this;
+    }
+
+    public SearchResultsRefinement clickSortByRating() {
+        sortByRating.click();
+        waitForJQuery();
+        return this;
+    }
+
     public SearchResultsRefinement openDistanceDropDown() {
     	distanceDropDown.click();
     	return this;

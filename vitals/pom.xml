@@ -145,6 +145,10 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vitalsqa</groupId>
+            <artifactId>testrail</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -174,6 +178,11 @@
                     <systemPropertyVariables>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                         <org.uncommons.reportng.title>Vitals QA Test Report</org.uncommons.reportng.title>
+                        <driverType>${driverType}</driverType>
+                        <remoteUrl>${remoteUrl}</remoteUrl>
+                        <TestRail.url>${TestRail.url}</TestRail.url>
+                        <TestRail.user>${TestRail.user}</TestRail.user>
+                        <TestRail.password>${TestRail.password}</TestRail.password>
                     </systemPropertyVariables>
                     <properties>
                         <property>

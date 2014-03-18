@@ -1,8 +1,8 @@
 package com.vitals.test;
 
 import com.vitals.DriverManager;
-import com.vitals.TestCase;
 import com.vitals.helpers.Profile;
+import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
