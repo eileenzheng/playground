@@ -30,10 +30,7 @@ public class IframeHealthPost {
     private List<WebElement> week;
 
     public boolean isThereSlot() {
-        if (timeSlots.size()>0)
-            return true;
-        else
-            return false;
+        return timeSlots.size() > 0;
     }
 
     public IframeHealthPost clickNext() {

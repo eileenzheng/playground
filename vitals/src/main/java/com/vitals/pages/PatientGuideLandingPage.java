@@ -29,10 +29,7 @@ public class PatientGuideLandingPage {
 	private List<WebElement> guidesAtoZ;
 	
 	public boolean isLandingPage() {
-		if (breadcrumb.getText().equals("Patient Education"))
-			return true;
-		else
-			return false;
+        return breadcrumb.getText().equals("Patient Education");
 	}
 	
 	public PatientGuidePage clickLearnMore() {

@@ -40,16 +40,11 @@ public class UccProfileSummaryPage {
 	private WebElement mapAddress;
 	
 	public boolean isTitleMatched() {
-		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
-			return true;
-		else
-			return false;
+        return (breadcrumbs.get(breadcrumbs.size() - 1)).getText().equals(h1.getText());
 	}
 	
 	public boolean isSummaryPage() {
-		if (currentTrail.getText().equalsIgnoreCase("Summary"))
-			return true;
-		else return false;
+        return currentTrail.getText().equalsIgnoreCase("Summary");
 	}
 	
 	public UccProfileServicesPage clickSeeAllLink() {
@@ -63,10 +58,7 @@ public class UccProfileSummaryPage {
 	}
 	
 	public boolean hasRating() {
-		if (readWriteReviewsLink.getText().equals("Read patient reviews"))
-			return true;
-		else
-			return false;
+        return readWriteReviewsLink.getText().equals("Read patient reviews");
 	}
 	
 	// this method should only be used when hasRating() returns true
@@ -76,9 +68,6 @@ public class UccProfileSummaryPage {
 	}
 	
 	public boolean isAddressMatched() {
-		if (headerAddress.getAttribute("href").equals(mapAddress.getAttribute("href")))
-			return true;
-		else
-			return false;
+		return (headerAddress.getAttribute("href").equals(mapAddress.getAttribute("href")));
 	}
 }

@@ -33,17 +33,11 @@ public class MyVitalsHomePage {
     }
     
     public boolean isSignInSuccessful() {
-    	if (alertText.getText().equals("Signed in successfully."))
-    		return true;
-    	else
-    		return false;
+        return alertText.getText().equals("Signed in successfully.");
     }
     
     public boolean isAccountUpdateSuccessful() {
-    	if (alertText.getText().equals("You updated your account successfully."))
-    		return true;
-    	else
-    		return false;
+        return alertText.getText().equals("You updated your account successfully.");
     }
 
 }

@@ -38,10 +38,7 @@ public class MyVitalsClaimProfilePage {
     }
 
     public boolean isEmptyAlertShown() {
-    	if (alertText.getText().equals("We could not verify your information. You must enter your full date of birth."))
-    		return true;
-    	else
-    		return false;
+        return alertText.getText().equals("We could not verify your information. You must enter your full date of birth.");
     }
     
     public MyVitalsClaimProfilePage clickFillLinks() {

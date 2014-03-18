@@ -34,16 +34,11 @@ public class UccProfileAboutPage {
 	private WebElement menuServices;
 	
 	public boolean isTitleMatched() {
-		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
-			return true;
-		else
-			return false;
+        return (breadcrumbs.get(breadcrumbs.size() - 1)).getText().equals(h1.getText());
 	}
 	
 	public boolean isAboutPage() {
-		if (currentTrail.getText().equalsIgnoreCase("About"))
-			return true;
-		else return false;
+        return currentTrail.getText().equalsIgnoreCase("About");
 	}
 	
 	public UccProfileAboutPage clickMenu() {

@@ -42,16 +42,11 @@ public class UccProfileReviewsPage {
 	private List<WebElement> ratingBreakdown;
 	
 	public boolean isTitleMatched() {
-		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
-			return true;
-		else
-			return false;
+        return (breadcrumbs.get(breadcrumbs.size() - 1)).getText().equals(h1.getText());
 	}
 	
 	public boolean isReviewsPage() {
-		if (currentTrail.getText().equalsIgnoreCase("Reviews"))
-			return true;
-		else return false;
+        return currentTrail.getText().equalsIgnoreCase("Reviews");
 	}
 	
 	public int getTotalRating() {

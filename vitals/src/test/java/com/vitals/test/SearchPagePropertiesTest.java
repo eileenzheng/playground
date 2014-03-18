@@ -378,7 +378,7 @@ public class SearchPagePropertiesTest {
     public void conditionBrowse() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/condition/diabetes");;
+        driver.get(url + "/condition/diabetes");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -403,7 +403,7 @@ public class SearchPagePropertiesTest {
     public void specialtyBrowse() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/dermatologists");;
+        driver.get(url + "/dermatologists");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -428,7 +428,7 @@ public class SearchPagePropertiesTest {
     public void specialtyBrowseInsurance() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/dermatologists/united-healthcare");;
+        driver.get(url + "/dermatologists/united-healthcare");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -453,7 +453,7 @@ public class SearchPagePropertiesTest {
     public void specialtyBrowseInsurancePlan() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/dermatologists/united-healthcare/definity-choice-plus");;
+        driver.get(url + "/dermatologists/united-healthcare/definity-choice-plus");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -479,7 +479,7 @@ public class SearchPagePropertiesTest {
     public void specialtyBrowseCity() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/dermatologists/ny/new-york");;
+        driver.get(url + "/dermatologists/ny/new-york");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -504,7 +504,7 @@ public class SearchPagePropertiesTest {
     public void specialtyBrowseCityInsurance() {
         driver = DriverManager.getDriver();
 
-        driver.get(url + "/dermatologists/ny/new-york/united-healthcare");;
+        driver.get(url + "/dermatologists/ny/new-york/united-healthcare");
         
         SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
         
@@ -535,10 +535,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!h1.get(len-2).equals("in"))
     		return false;
-    	else if (!h1.get(len-1).equals(locationTerm))
-    		return false;
-    	else
-    		return true;
+    	else return h1.get(len - 1).equals(locationTerm);
     }
     
     private boolean h1ConditionSearch (List<String> h1, String locationTerm) {
@@ -551,10 +548,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!h1.get(len-2).equals("in"))
     		return false;
-    	else if (!h1.get(len-1).equals(locationTerm))
-    		return false;
-    	else
-    		return true;
+    	else return h1.get(len - 1).equals(locationTerm);
     }
     
     private boolean h1SpecialtySearch (List<String> h1, String locationTerm, String spec) {
@@ -563,10 +557,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!h1.get(len-2).equals("in"))
     		return false;
-    	else if (!h1.get(len-1).equals(locationTerm))
-    		return false;
-    	else
-    		return true;
+    	else return h1.get(len - 1).equals(locationTerm);
     }
     
     private boolean breadcrumbSearch(SearchResultsPage results) {
@@ -574,10 +565,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(0).equals("Home"))
     	   return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
-    		return false;
-    	else
-    		return true;
+    	else return results.getBreadcrumbUrl().get(0).contains(url.toLowerCase());
     }
     
     private boolean breadcrumbCondition(SearchResultsPage results) {
@@ -589,11 +577,8 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) || 
-    			!results.getBreadcrumbUrl().get(1).contains("/conditions"))
-    			return false;
-    	else
-    		return true;
+    	else return !(!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+                    !results.getBreadcrumbUrl().get(1).contains("/conditions"));
     }
     
     private boolean breadcrumbSpecialty(SearchResultsPage results) {
@@ -601,10 +586,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(0).equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
-    		return false;
-    	else
-    		return true;
+    	else return results.getBreadcrumbUrl().get(0).contains(url.toLowerCase());
     }
     
     private boolean breadcrumbSpecialtyInsurance(SearchResultsPage results) {
@@ -616,11 +598,8 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) || 
-    			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
-    			return false;
-    	else
-    		return true;
+    	else return !(!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+                    !results.getBreadcrumbUrl().get(1).contains("/dermatologists"));
     }
     
     private boolean breadcrumbSpecialtyInsurancePlan(SearchResultsPage results) {
@@ -637,11 +616,8 @@ public class SearchPagePropertiesTest {
     	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) || 
     			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) || 
-    			!results.getBreadcrumbUrl().get(2).contains("/dermatologists/united-healthcare"))
-    			return false;
-    	else
-    		return true;
+    	else return !(!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+                    !results.getBreadcrumbUrl().get(2).contains("/dermatologists/united-healthcare"));
     }
     
     private boolean breadcrumbSpecialtyCity(SearchResultsPage results) {
@@ -658,11 +634,8 @@ public class SearchPagePropertiesTest {
     	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) || 
     			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) || 
-    			!results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"))
-    			return false;
-    	else
-    		return true;
+    	else return !(!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+                    !results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"));
     }
     
     private boolean breadcrumbSpecialtyCityInsurance(SearchResultsPage results) {

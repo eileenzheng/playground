@@ -22,10 +22,7 @@ public class MyVitalsEditBasicInfoPage {
     private WebElement alertText;
     
     public boolean isProfileLinkSuccessAlertShown() {
-    	if (alertText.getText().equals("Your profile is now linked."))
-    		return true;
-    	else
-    		return false;
+        return alertText.getText().equals("Your profile is now linked.");
     }
 
 }

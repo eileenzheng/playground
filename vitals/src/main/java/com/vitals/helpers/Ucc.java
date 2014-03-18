@@ -24,33 +24,23 @@ public class Ucc {
     }
     
     public boolean isNameLongEnough() {
-    	if (searchResultName.length() >= 5)
-    		return true;
-    	else return false;
+        return searchResultName.length() >= 5;
     }
     
     public boolean isAddressLongEnough() {
-    	if (address.length() >= 5)
-    		return true;
-    	else return false;
+        return address.length() >= 5;
     }
     
     public boolean isCityLongEnough() {
-    	if (city.length() >=3)
-    		return true;
-    	else return false;
+        return city.length() >= 3;
     }
     
     public boolean isStateValid() {
-    	if (state.matches("[A-Z]{2}"))
-    		return true;
-    	else return false;
+        return state.matches("[A-Z]{2}");
     }
     
     public boolean isZipValid() {
-    	if (zip.matches("[0-9]{5}"))
-    		return true;
-    	else return false;
+        return zip.matches("[0-9]{5}");
     }
 
     public String getUrl() {

@@ -40,16 +40,11 @@ public class UccProfileServicesPage {
 	private List<WebElement> servicesTitle;
 	
 	public boolean isTitleMatched() {
-		if ((breadcrumbs.get(breadcrumbs.size()-1)).getText().equals(h1.getText()))
-			return true;
-		else
-			return false;
+        return (breadcrumbs.get(breadcrumbs.size() - 1)).getText().equals(h1.getText());
 	}
 	
 	public boolean isServicesPage() {
-		if (currentTrail.getText().equalsIgnoreCase("Services"))
-			return true;
-		else return false;
+        return currentTrail.getText().equalsIgnoreCase("Services");
 	}
 	
 	public String getServicesTitle() {

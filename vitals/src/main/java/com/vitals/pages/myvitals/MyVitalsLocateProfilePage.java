@@ -33,10 +33,7 @@ public class MyVitalsLocateProfilePage {
     private List<WebElement> autoSuggestList;
     
     public boolean isNoProfileAlertCorrect() {
-    	if (noProfileAlert.getText().equals("It looks like you haven't claimed your professional profile yet. Let's get started..."))
-    		return true;
-    	else
-    		return false;
+        return noProfileAlert.getText().equals("It looks like you haven't claimed your professional profile yet. Let's get started...");
     }
     
     public MyVitalsLocateProfilePage enterCityState(String text) {
@@ -69,7 +66,7 @@ public class MyVitalsLocateProfilePage {
         Boolean flag = false;
         for (WebElement el : autoSuggestList) {
             if (el.getText().contains(text)) flag = true;
-            if (flag == true) break;
+            if (flag) break;
         }
 
         return flag;
@@ -79,7 +76,7 @@ public class MyVitalsLocateProfilePage {
         Boolean flag = false;
         for (WebElement el : autoSuggestList) {
             if (el.getText().contains(text)) flag = true;
-            if (flag == true) break;
+            if (flag) break;
         }
 
         return flag;
@@ -89,7 +86,7 @@ public class MyVitalsLocateProfilePage {
         StringBuffer suggestList = new StringBuffer();
 
         for (WebElement el : autoSuggestList) {
-                suggestList.append(el.getText().toString() + "\n");
+                suggestList.append(el.getText() + "\n");
         }
 
         return suggestList.toString();
@@ -99,7 +96,7 @@ public class MyVitalsLocateProfilePage {
         StringBuffer suggestList = new StringBuffer();
 
         for (WebElement el : autoSuggestList) {
-                suggestList.append(el.getText().toString() + "\n");
+                suggestList.append(el.getText() + "\n");
         }
 
         return suggestList.toString();

@@ -183,8 +183,7 @@ public class SearchResultsRefinement {
 					// do nothing
 				}
 			} while ((Boolean) ((JavascriptExecutor) driver).executeScript("return jQuery.active==1"));
-			return;
-		}
+        }
 		else {
 			do {
 				try {

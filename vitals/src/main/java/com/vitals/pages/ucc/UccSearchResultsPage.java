@@ -72,9 +72,6 @@ public class UccSearchResultsPage {
     }
     
     public boolean isMapEmpty() {
-    	if (map.getText().equals(""))
-    		return true;
-    	else
-    		return false;
+        return map.getText().equals("");
     }
 }

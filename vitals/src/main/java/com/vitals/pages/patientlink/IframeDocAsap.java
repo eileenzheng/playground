@@ -33,17 +33,11 @@ public class IframeDocAsap {
     private WebElement calendar;
 
     public boolean isNameCorrect(String name) {
-        if (this.name.getText().equals(name))
-            return true;
-        else
-            return false;
+        return this.name.getText().equals(name);
     }
 
     public boolean isThereSlot() {
-        if (timeSlots.size()>0)
-            return true;
-        else
-            return false;
+        return timeSlots.size() > 0;
     }
 
     public IframeDocAsap clickNext() {

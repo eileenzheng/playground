@@ -164,7 +164,7 @@ public class HeaderPage {
     }
     
     public String getSearchTerm() {
-    	return searchTextBox.getAttribute("value").toString();
+    	return searchTextBox.getAttribute("value");
     }
     
     public HeaderPage enterReviewSearchTerm (String text) {
@@ -245,7 +245,7 @@ public class HeaderPage {
         Boolean flag = false;
         for (WebElement el : suggestions) {
             if (el.getText().toLowerCase().contains(suggestion.toLowerCase())) flag = true;
-            if (flag == true) break;
+            if (flag) break;
         }
  
         return flag;
@@ -256,7 +256,7 @@ public class HeaderPage {
 
         for (WebElement el : nameSuggestions) {
             if (el.findElements(By.tagName("span")).size() > 0)
-                drs.append(el.findElements(By.tagName("span")).get(0).getText().toString() + "\n");
+                drs.append(el.findElements(By.tagName("span")).get(0).getText() + "\n");
         }
 
         return drs.toString();
@@ -294,7 +294,7 @@ public class HeaderPage {
     	StringBuffer specs = new StringBuffer();
         
         for (WebElement el : specialtySuggestions) {
-            specs.append(el.getText().toString() + "\n");
+            specs.append(el.getText() + "\n");
         }
 
         return specs.toString();
@@ -302,7 +302,7 @@ public class HeaderPage {
 
     public SearchResultsPage selectRandomSpecialty() {
         int mid = specialtySuggestions.size() / 2;
-        Reporter.log("Clicking> " + specialtySuggestions.get(mid).getText().toString());
+        Reporter.log("Clicking> " + specialtySuggestions.get(mid).getText());
         specialtySuggestions.get(mid).click();
 
         return PageFactory.initElements(driver, SearchResultsPage.class);
@@ -318,7 +318,7 @@ public class HeaderPage {
         StringBuffer conds = new StringBuffer();
 
         for (WebElement el : conditionSuggestions) {
-            conds.append(el.getText().toString() + "\n");
+            conds.append(el.getText() + "\n");
         }
 
         return conds.toString();
@@ -326,7 +326,7 @@ public class HeaderPage {
     
     public SearchResultsPage selectRandomCondition() {
         int mid = conditionSuggestions.size() / 2;
-        Reporter.log("Clicking> " + conditionSuggestions.get(mid).getText().toString());
+        Reporter.log("Clicking> " + conditionSuggestions.get(mid).getText());
         conditionSuggestions.get(mid).click();
 
         return PageFactory.initElements(driver, SearchResultsPage.class);
@@ -379,7 +379,7 @@ public class HeaderPage {
     }
 
     public String getCurrentPopulatedLocation() {
-        return locationTextBox.getAttribute("value").toString();
+        return locationTextBox.getAttribute("value");
     }
     
     public ReviewPage clickReviewTab() {
