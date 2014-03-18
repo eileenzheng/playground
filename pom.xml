@@ -211,5 +211,18 @@
             <id>clojars</id>
             <url>http://clojars.org/repo</url>
         </repository>
+        <repository>
+            <id>thqatrprd01.mdx.med</id>
+            <name>thqatrprd01.mdx.med-releases</name>
+            <url>http://thqatrprd01.mdx.med:8081/artifactory/repo1</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>http://thqatrprd01.mdx.med:8081/artifactory/libs-release</url>
+        </repository>
     </repositories>
 </project>
