@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.DriverManager;
+import com.vitals.TestCase;
 import com.vitals.helpers.Profile;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
@@ -32,6 +33,7 @@ public class WLWTest {
             vitalsUrl = "http://www.vitals.com";
     }
 
+    @TestCase(id=1780)
     @Test
     public void checkHeader() {
         driver = DriverManager.getDriver();
@@ -42,8 +44,7 @@ public class WLWTest {
         m_assert.assertEquals(landingPage.header.getHeaderText(), "Find a Physician in Your Area", "Incorrect header text on landing page");
         m_assert.assertTrue(landingPage.header.isLogoDisplayed(), "Logo not displayed on landing page");
 
-        landingPage.openDropDown();
-        landingPage.typeInDropDown("Internists");
+        landingPage.selectOption("Internists");
         landingPage.enterZipCode("10036");
 
         SearchPage serp = landingPage.clickSearch();
@@ -53,6 +54,7 @@ public class WLWTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1781)
     @Test
     public void checkSerpProfileUrl() {
         driver = DriverManager.getDriver();
@@ -60,8 +62,7 @@ public class WLWTest {
         driver.get(url);
 
         LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
-        landingPage.openDropDown();
-        landingPage.typeInDropDown("Internists");
+        landingPage.selectOption("Internists");
         landingPage.enterZipCode("10036");
 
         SearchPage serp = landingPage.clickSearch();
@@ -78,6 +79,7 @@ public class WLWTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1782)
     @Test
     public void compareWithVitals() {
         m_assert = new SoftAssert();
@@ -95,8 +97,7 @@ public class WLWTest {
         driver.get(url);
         LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
         landingPage.enterZipCode("10036");
-        landingPage.openDropDown();
-        landingPage.typeInDropDown("Family Practice");
+        landingPage.selectOption("Family Physicians");
         SearchPage serp = landingPage.clickSearch();
 
         m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals");

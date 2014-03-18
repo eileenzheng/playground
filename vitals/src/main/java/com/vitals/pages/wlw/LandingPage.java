@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+import java.util.List;
 
 public class LandingPage {
 
@@ -23,19 +26,18 @@ public class LandingPage {
     @FindBy(css="#specialist_id")
     private WebElement specialtyDropDown;
 
+    @FindBy(css="#specialist_id option")
+    private List<WebElement> options;
+
     @FindBy(css="#location")
     private WebElement locationTextBox;
 
     @FindBy(css="input[type='image']")
     private WebElement searchButton;
 
-    public LandingPage openDropDown(){
-        specialtyDropDown.click();
-        return PageFactory.initElements(driver,LandingPage.class);
-    }
-
-    public LandingPage typeInDropDown(String text){
-        specialtyDropDown.sendKeys(text);
+    public LandingPage selectOption(String text){
+        Select drop = new Select(specialtyDropDown);
+        drop.selectByVisibleText(text);
         return PageFactory.initElements(driver,LandingPage.class);
     }
 
