@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress MavenModelInspection -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -49,6 +50,19 @@
             </activation>
             <properties>
                 <suite.filename>QARegressionSuite.xml</suite.filename>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>white_label_widget</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>wlw</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>WLWRegressionSuite.xml</suite.filename>
             </properties>
         </profile>
     </profiles>
