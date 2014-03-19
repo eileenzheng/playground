@@ -5,6 +5,7 @@ import com.vitals.pages.myvitals.MyVitalsSignInPage;
 import com.vitals.pages.ucc.UccProfileSummaryPage;
 import com.vitals.pages.ucc.UccSearchResultsPage;
 import com.vitals.pages.ucc.UccSitemapPage;
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +15,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
-import com.vitals.DriverManager;
 import com.vitals.helpers.Constants.SearchType;
 
 import java.util.List;

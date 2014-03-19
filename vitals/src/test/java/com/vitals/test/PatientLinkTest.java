@@ -1,11 +1,11 @@
 package com.vitals.test;
 
-import com.vitals.DriverManager;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import com.vitals.pages.ProfileSeoPage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.patientlink.*;
 import com.vitals.pages.ucc.UccSearchResultsPage;
+import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -31,6 +31,8 @@ public class PatientLinkTest {
     @Parameters({"url"})
     @BeforeMethod
     public void setup(String url) throws Exception {
+
+
         this.url = url;
     }
     
@@ -38,7 +40,7 @@ public class PatientLinkTest {
     @Test
     public void checkProfileHeader() {
     	driver = DriverManager.getDriver();
-
+//        driver.manage().window().maximize();
         driver.get(url);
         // launch again to go to profile instead of seo profile
         driver.get(url + profileHeaderUrl);

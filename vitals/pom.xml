@@ -70,6 +70,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <TestRail.url>http://testrail.mdx.med/</TestRail.url>
+        <TestRail.user>tester@vitals.com</TestRail.user>
+        <TestRail.password>vitals123</TestRail.password>
+        <remoteUrl>http://thvitdatadev01.mdx.med:4444/wd/hub</remoteUrl>
     </properties>
 
     <dependencies>
@@ -149,6 +153,10 @@
             <groupId>com.vitalsqa</groupId>
             <artifactId>testrail</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vitalsqa</groupId>
+            <artifactId>listener</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -191,7 +199,7 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            <value>org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
+                            <value>com.vitalsqa.listener.WebDriverListener,org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
                         </property>
                         <property>
                             <name>outputDir</name>

@@ -1,11 +1,11 @@
 package com.vitals.pages.patientlink;
 
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import com.vitals.DriverManager;
 import com.vitals.helpers.Constants;
 import java.util.ArrayList;
 import java.util.List;

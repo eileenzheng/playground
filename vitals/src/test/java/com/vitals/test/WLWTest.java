@@ -1,11 +1,11 @@
 package com.vitals.test;
 
-import com.vitals.DriverManager;
 import com.vitals.helpers.Profile;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.wlw.LandingPage;
 import com.vitals.pages.wlw.SearchPage;
+import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

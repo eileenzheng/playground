@@ -1,7 +1,6 @@
 package com.vitals.pages.wlw;
 
-import com.vitals.DriverManager;
-import com.vitals.pages.wlw.HeaderPage;
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

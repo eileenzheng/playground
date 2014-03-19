@@ -28,9 +28,7 @@
         <cucumber-jvm.version>1.1.5</cucumber-jvm.version>
         <junit.version>4.11</junit.version>
         <ghostdriver.version>1.1.0</ghostdriver.version>
-        <TestRail.url>http://testrail.mdx.med/</TestRail.url>
-        <TestRail.user>tester@vitals.com</TestRail.user>
-        <TestRail.password>vitals123</TestRail.password>
+
     </properties>
 
     <dependencyManagement>
@@ -152,6 +150,11 @@
             <dependency>
                 <groupId>com.vitalsqa</groupId>
                 <artifactId>testrail</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vitalsqa</groupId>
+                <artifactId>listener</artifactId>
                 <version>1.0.1</version>
             </dependency>
         </dependencies>

@@ -3,6 +3,7 @@ package com.vitals.pages;
 import com.vitals.pages.myvitals.MyVitalsClaimProfilePage;
 import com.vitals.pages.patientlink.ModalEmail;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,13 +12,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.vitals.DriverManager;
 import com.vitals.helpers.Constants;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class ProfilePage {
+public class ProfilePage extends BasePage {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -26,7 +26,8 @@ public class ProfilePage {
     public final PatientLinkRrAd rrAd;
 
     public ProfilePage() {
-    	driver = DriverManager.getDriver();
+
+    	driver = getDriver();
     	wait = new WebDriverWait(driver, 15, 3000);
         header = PageFactory.initElements(driver,HeaderPage.class);
         footer = PageFactory.initElements(driver,FooterPage.class);

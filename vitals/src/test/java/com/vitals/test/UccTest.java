@@ -3,6 +3,7 @@ package com.vitals.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -12,7 +13,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.vitals.DriverManager;
 import com.vitals.helpers.Ucc;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.ucc.UccSitemapPage;

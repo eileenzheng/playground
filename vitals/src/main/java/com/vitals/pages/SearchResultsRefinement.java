@@ -1,10 +1,10 @@
 package com.vitals.pages;
 
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.vitals.DriverManager;
 
 public class SearchResultsRefinement {
 

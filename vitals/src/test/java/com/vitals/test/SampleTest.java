@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,6 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.vitals.DriverManager;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
 import java.util.ArrayList;
