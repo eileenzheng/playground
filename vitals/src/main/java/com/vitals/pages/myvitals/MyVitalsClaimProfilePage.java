@@ -1,66 +1,40 @@
 package com.vitals.pages.myvitals;
 
-import java.util.List;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+public class MyVitalsClaimProfilePage extends BasePage {
 
-public class MyVitalsClaimProfilePage {
-	
-	private final WebDriver driver;
-
-    public MyVitalsClaimProfilePage() {
-    	driver = DriverManager.getDriver();
+    public FluentWebElement firstNameTextBox() {
+        return input(cssSelector("#claim_first_name"));
     }
-    
-    @FindBy(css="#claim_first_name")
-    private WebElement firstNameTextBox;
-    
-    @FindBy(css="#claim_last_name")
-    private WebElement lastNameTextBox;
-    
-    @FindBy(css="#new_claim p a")
-    private List<WebElement> fillInfoLinks;
-    
-    @FindBy(css=".form-actions>button")
-    private WebElement claimProfileButton;
-    
-    @FindBy(css=".alert>p")
-    private WebElement alertText;
-    
-    public MyVitalsClaimProfilePage clickClaimExpectFailure() {
-    	claimProfileButton.click();
-    	return this;
+
+    public FluentWebElement lastNameTextBox() {
+        return input(cssSelector("#claim_last_name"));
     }
+
+    public FluentWebElements fillInfoLinks() {
+        return links(cssSelector("#new_claim p a"));
+    }
+
+    public FluentWebElement claimProfileButton() {
+        return button(cssSelector(".form-actions>button"));
+    }
+
+    public FluentWebElement alertText() {
+        return p(cssSelector(".alert>p"));
+    }
+
 
     public boolean isEmptyAlertShown() {
-        return alertText.getText().equals("We could not verify your information. You must enter your full date of birth.");
+        return alertText().getText().toString().equals("We could not verify your information. You must enter your full date of birth.");
     }
     
-    public MyVitalsClaimProfilePage clickFillLinks() {
-    	for (WebElement el: fillInfoLinks) {
+    public void clickFillLinks() {
+    	for (FluentWebElement el: fillInfoLinks()) {
     		el.click();
     	}
-    	return this;
-    }
-    
-    public MyVitalsEditBasicInfoPage clickClaimExpectSuccess() {
-    	claimProfileButton.click();
-    	return PageFactory.initElements(driver, MyVitalsEditBasicInfoPage.class);
-    }
-    
-    public MyVitalsClaimProfilePage typeFirstName (String text) {
-    	firstNameTextBox.clear();
-    	firstNameTextBox.sendKeys(text);
-    	return this;
-    }
-    
-    public MyVitalsClaimProfilePage typeLastName (String text) {
-    	lastNameTextBox.clear();
-    	lastNameTextBox.sendKeys(text);
-    	return this;
     }
 }

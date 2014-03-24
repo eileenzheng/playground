@@ -1,9 +1,6 @@
 package com.vitals.test;
 
-import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +17,7 @@ import com.vitals.pages.myvitals.MyVitalsSignInPage;
 import com.vitals.pages.ProfilePage;
 
 public class MyVitalsTest {
-	private WebDriver driver;
+
     private String url;
     private final String claimProfileUrl = "/doctors/Dr_Marina_Katz/profile";
     
@@ -33,12 +30,13 @@ public class MyVitalsTest {
     @TestCase(id=1559)
     @Test
     public void loginMyVitals() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        
+    	HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+        login(homePage);
+
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+
         // verify successful alert
         Assert.assertTrue(myVitalsHome.isSignInSuccessful());
     }
@@ -46,43 +44,47 @@ public class MyVitalsTest {
     @TestCase(id=1560)
     @Test
     public void editAccount() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-        driver.get(url);
-        
-        // sign in to myvitals first
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        
-        // go to edit account setting page & change password
-        MyVitalsEditAccountPage editAccountPage = myVitalsHome.clickChangeSetting();
-        editAccountPage.typePassword("test1234");
-        editAccountPage.typePasswordConfirmation("test1234");
-        editAccountPage.typePasswordCurrent("test1234");
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
 
-        myVitalsHome = editAccountPage.clickSaveChanges();
-        // verify successful alert 
+        // sign in to myvitals first
+        login(homePage);
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+
+        // go to edit account setting page & change password
+        myVitalsHome.buttons().get(0).click();
+        MyVitalsEditAccountPage editAccountPage = new MyVitalsEditAccountPage();
+        editAccountPage.passwordTextBox().clearField().sendKeys("test1234");
+        editAccountPage.passwordConfirmationTextBox().clearField().sendKeys("test1234");
+        editAccountPage.passwordCurrentTextBox().clearField().sendKeys(("test1234"));
+        editAccountPage.saveChangesButton().click();
+
+        // verify successful alert
         Assert.assertTrue(myVitalsHome.isAccountUpdateSuccessful());
     }
-    
+
     @TestCase(id=1564)
     @Test
     public void claimProfileFail() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-    	driver.get(url);
-    	
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+
     	// sign in to myvitals & click "claim profile"
-    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
-        
+    	login(homePage);
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+        myVitalsHome.buttons().get(1).click();
+
         // search for 'Todd' and click a random provider
+        MyVitalsLocateProfilePage locateProfilePage = new MyVitalsLocateProfilePage();
         locateProfilePage.enterName("Todd");
-        MyVitalsClaimProfilePage claimPage = locateProfilePage.clickRandomProvider();
-        
+        locateProfilePage.getRandom(locateProfilePage.autoSuggestList()).click();
+
         // click submit button and expect alert because nothing is filled out
-        Assert.assertTrue(claimPage.clickClaimExpectFailure().isEmptyAlertShown());
+        MyVitalsClaimProfilePage claimPage = new MyVitalsClaimProfilePage();
+        claimPage.claimProfileButton().click();
+        Assert.assertTrue(claimPage.isEmptyAlertShown());
     }
 
     @TestCase(id=1565)
@@ -90,112 +92,127 @@ public class MyVitalsTest {
     public void claimProfileSuccess() {
     	// only perform this test on staging or qa
     	if (url.contains("staging") || url.contains("qa")) {
-            driver = DriverManager.getDriver();
-            
+            HomePage homePage = new HomePage();
+            homePage.deleteCookies();
+            homePage.get(url);
+
             // sign in to myvitals first
-            driver.manage().deleteAllCookies();
-            driver.get(url);
-            HomePage homePage = PageFactory.initElements(driver, HomePage.class);
             login(homePage);
-            
-    		// go to profile page of doctor 
-    		driver.get(url + claimProfileUrl);
-    		ProfilePage profileToClaim = PageFactory.initElements(driver, ProfilePage.class);
-    		MyVitalsClaimProfilePage claimPage = profileToClaim.clickClaimProfileLink();
-    		
+
+    		// go to profile page of doctor
+            ProfilePage profileToClaim = new ProfilePage();
+            profileToClaim.get(url + claimProfileUrl);
+            profileToClaim.claimProfileLink().click();
+
     		// start filling in stuff on claim page and submit
-    		claimPage.typeFirstName("abc");
-    		claimPage.typeLastName("abc");
+            MyVitalsClaimProfilePage claimPage = new MyVitalsClaimProfilePage();
+    		claimPage.firstNameTextBox().clearField().sendKeys("abc");
+            claimPage.lastNameTextBox().clearField().sendKeys("abc");
     		claimPage.clickFillLinks();
-    		MyVitalsEditBasicInfoPage basicInfoPage = claimPage.clickClaimExpectSuccess();
+            claimPage.claimProfileButton().click();
+
+    		MyVitalsEditBasicInfoPage basicInfoPage = new MyVitalsEditBasicInfoPage();
     		Assert.assertTrue(basicInfoPage.isProfileLinkSuccessAlertShown(), "Profile link success text is NOT shown");
     	}
     	else {
     		// do not perform this on production
     	}
     }
-    
+
     @TestCase(id=1566)
     @Test (dependsOnMethods = {"claimProfileSuccess"})
     public void removeProfileLink() {
     	// only perform this test on staging or qa
     	if (url.contains("staging") || url.contains("qa")) {
-            driver = DriverManager.getDriver();
-            
+            HomePage homePage = new HomePage();
+            homePage.deleteCookies();
+            homePage.get(url);
+
             // sign in to myvitals first
-            driver.manage().deleteAllCookies();
-            driver.get(url);
-            HomePage homePage = PageFactory.initElements(driver, HomePage.class);
             login(homePage);
-            
+            homePage.headerModule().signedInEmailLink().click();
+            homePage.headerModule().editProfileLink().click();
+
     		// remove profile link
-    		MyVitalsEditAccountPage editAccountPage = homePage.header.clickSignedInEmail().clickEditProfile();
-    		MyVitalsProfessionalsPage professionalsPage = editAccountPage.clickEditProfileHasProfile();
-    		MyVitalsLocateProfilePage locateProfilePage = professionalsPage.clickDeleteButton();
+    		MyVitalsEditAccountPage editAccountPage = new MyVitalsEditAccountPage();
+            editAccountPage.editProfileButton().click();
+
+    		MyVitalsProfessionalsPage professionalsPage = new MyVitalsProfessionalsPage();
+            professionalsPage.deleteButton().click();
+            professionalsPage.acceptAlertIfPresent();
+
+    		MyVitalsLocateProfilePage locateProfilePage = new MyVitalsLocateProfilePage();
     		Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect(), "No Profile alert is not shown");
     	}
     	else {
     		// do not perform this on production
     	}
     }
-    
+
     @TestCase(id=1561)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void editNoProfile() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-    	driver.get(url);
-    	
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+
     	// sign in to myvitals & click "edit profile"
-    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        MyVitalsEditAccountPage editAccountPage = myVitalsHome.clickChangeSetting();
-        MyVitalsLocateProfilePage locateProfilePage = editAccountPage.clickEditProfileNoProfile();
-        
+        login(homePage);
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+        myVitalsHome.buttons().get(0).click();
+
+        MyVitalsEditAccountPage editAccountPage = new MyVitalsEditAccountPage();
+        editAccountPage.editProfileButton().click();
+
+        MyVitalsLocateProfilePage locateProfilePage = new MyVitalsLocateProfilePage();
+
         // no profile is linked message should be shown
         Assert.assertTrue(locateProfilePage.isNoProfileAlertCorrect());
     }
-    
+
     @TestCase(id=1562)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void locateProfileAutoSuggestLocation() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-    	driver.get(url);
-    	
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+
     	// sign in to myvitals & click "claim profile"
-    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
-        
+        login(homePage);
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+        myVitalsHome.buttons().get(1).click();
+
         // search for NY in city/state box
+        MyVitalsLocateProfilePage locateProfilePage = new MyVitalsLocateProfilePage();
         locateProfilePage.enterCityState("NY");
         Reporter.log("Location Suggestions: " + locateProfilePage.getLocationSuggestions());
         Assert.assertTrue(locateProfilePage.checkLocationSuggestions("NY"), "Location suggestions does not contain NY");
     }
-    
+
     @TestCase(id=1563)
     @Test (dependsOnMethods = {"removeProfileLink"})
     public void locateProfileAutoSuggestName() {
-    	driver = DriverManager.getDriver();
-    	driver.manage().deleteAllCookies();
-    	driver.get(url);
-    	
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+
     	// sign in to myvitals & click "claim profile"
-    	HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-        MyVitalsHomePage myVitalsHome = login(homePage);
-        MyVitalsLocateProfilePage locateProfilePage = myVitalsHome.clickClaimProfile();
-        
+    	login(homePage);
+        MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
+        myVitalsHome.buttons().get(1).click();
+
         // search for 'Todd' in name box
+        MyVitalsLocateProfilePage locateProfilePage = new MyVitalsLocateProfilePage();
         locateProfilePage.enterName("Todd");
         Reporter.log("Name Suggestions: " + locateProfilePage.getNameSuggestions());
         Assert.assertTrue(locateProfilePage.checkNameSuggestions("Todd"));
     }
     
-    public MyVitalsHomePage login(HomePage home) {
-    	MyVitalsSignInPage signInPage = home.header.clickSignIn();
-    	signInPage.enterEmail("selenium@mailinator.com");
-    	signInPage.enterPassword("test1234");
-    	return signInPage.clickSignIn();
+    public void login(HomePage home) {
+        home.headerModule().signInLink().click();
+    	MyVitalsSignInPage signInPage = new MyVitalsSignInPage();
+        signInPage.emailTextBox().clearField().sendKeys("selenium@mailinator.com");
+        signInPage.passwordTextBox().clearField().sendKeys("test1234");
+        signInPage.signInButton().click();
     }
 }

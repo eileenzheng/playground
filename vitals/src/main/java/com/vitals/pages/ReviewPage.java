@@ -1,16 +1,21 @@
 package com.vitals.pages;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
+public class ReviewPage extends BasePage {
 
-public class ReviewPage {
-	
-    private final WebDriver driver;
-    public final HeaderPage header;
-    
+    HeaderModule headerModule;
+    FooterModule footerModule;
+
     public ReviewPage() {
-    	driver = DriverManager.getDriver();
-        this.header = PageFactory.initElements(driver, HeaderPage.class);
+        headerModule = new HeaderModule();
+        footerModule = new FooterModule();
     }
+
+    public HeaderModule headerModule(){
+        return headerModule;
+    }
+
+    public FooterModule footerModule() {
+        return footerModule;
+    }
+
 }

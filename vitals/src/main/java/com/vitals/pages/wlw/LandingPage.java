@@ -1,53 +1,34 @@
 package com.vitals.pages.wlw;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-import java.util.List;
+public class LandingPage extends BasePage {
 
-public class LandingPage {
-
-    private final WebDriver driver;
-    public final HeaderPage header;
+    HeaderBar headerBar;
 
     public LandingPage() {
-        driver = DriverManager.getDriver();
-        header = PageFactory.initElements(driver,HeaderPage.class);
+        headerBar = new HeaderBar();
     }
 
-    @FindBy(css=".contentHeader")
-    private WebElement heading;
-
-    @FindBy(css="#specialist_id")
-    private WebElement specialtyDropDown;
-
-    @FindBy(css="#specialist_id option")
-    private List<WebElement> options;
-
-    @FindBy(css="#location")
-    private WebElement locationTextBox;
-
-    @FindBy(css="input[type='image']")
-    private WebElement searchButton;
-
-    public LandingPage selectOption(String text){
-        Select drop = new Select(specialtyDropDown);
-        drop.selectByVisibleText(text);
-        return PageFactory.initElements(driver,LandingPage.class);
+    public HeaderBar headerPage(){
+        return headerBar;
     }
 
-    public LandingPage enterZipCode(String text){
-        locationTextBox.clear();
-        locationTextBox.sendKeys(text);
-        return PageFactory.initElements(driver,LandingPage.class);
+    public FluentWebElement heading() {
+        return div(cssSelector(".contentHeader"));
     }
 
-    public SearchPage clickSearch(){
-        searchButton.click();
-        return PageFactory.initElements(driver,SearchPage.class);
+    public FluentWebElement specialtyDropDown() {
+        return select(cssSelector("#specialist_id"));
+    }
+
+    public FluentWebElement locationTextBox() {
+        return input(cssSelector("#location"));
+    }
+
+    public FluentWebElement searchButton() {
+        return input(cssSelector("input[type='image']"));
     }
 }

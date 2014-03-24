@@ -2,44 +2,52 @@ package com.vitals.pages.ucc;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.vitals.pages.FooterPage;
-import com.vitals.pages.HeaderPage;
+import com.vitals.pages.BasePage;
+import com.vitals.pages.HeaderModule;
 import com.vitals.pages.patientlink.PatientLinkCenterAd;
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import com.vitals.helpers.Ucc;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-public class UccSearchResultsPage {
-	private final WebDriver driver;
-    public final HeaderPage header;
-    public final FooterPage footer;
-    public final UccSearchResultsRefinement refinement;
-    public final PatientLinkCenterAd centerAd;
+public class UccSearchResultsPage extends BasePage {
+
+    PatientLinkCenterAd centerAd;
+    UccSearchResultsRefinement refinement;
+    HeaderModule headerModule;
 
     public UccSearchResultsPage() {
-    	driver = DriverManager.getDriver();
-        header = PageFactory.initElements(driver, HeaderPage.class);
-        footer = PageFactory.initElements(driver, FooterPage.class);
-        refinement = PageFactory.initElements(driver, UccSearchResultsRefinement.class);
-        centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
+        centerAd = new PatientLinkCenterAd();
+        refinement = new UccSearchResultsRefinement();
+        headerModule = new HeaderModule();
     }
 
-    @FindBy (css="h1>span:first-child")
-    private WebElement resultsTotal;
+    public PatientLinkCenterAd centerAd() {
+        return centerAd;
+    }
 
-    @FindBy (css=".listing>.listing-details")
-    private List<WebElement> searchResults;
-    
-    @FindBy (css="#map")
-    private WebElement map;
+    public UccSearchResultsRefinement refinement() {
+        return refinement;
+    }
+
+    public HeaderModule headerModule() {
+        return headerModule;
+    }
+
+    public FluentWebElement resultsTotal() {
+        return span(cssSelector("h1>span:first-child"));
+    }
+
+    public FluentWebElements searchResults() {
+        return divs(cssSelector(".listing>.listing-details"));
+    }
+
+    public FluentWebElement map() {
+        return div(cssSelector("#map"));
+    }
     
     public int getResultsCountNumber() {
-    	String count = resultsTotal.getText();
+    	String count = resultsTotal().getText().toString();
     	String[] split = count.split(",");
     	if (split.length==1)
     		return Integer.parseInt(split[0]);
@@ -47,31 +55,27 @@ public class UccSearchResultsPage {
     		return Integer.parseInt(split[0].concat(split[1]));
     }
 
-    public List<WebElement> uccList() {
-        return searchResults;
+    public FluentWebElements uccList() {
+        return searchResults();
     }
 
     public List<Ucc> uccResults() {
         List<Ucc> ucc = new ArrayList<Ucc>();
 
-        for (WebElement el : uccList()) {
-            String name = el.findElement(By.cssSelector(".profile-name>a")).getText().trim();
-            String url = el.findElement(By.cssSelector(".profile-name>a")).getAttribute("href");
-            String address = el.findElement(By.cssSelector("span[itemprop=streetAddress]")).getText();
-            String city = el.findElement(By.cssSelector("span[itemprop=addressLocality]")).getText();
-            String state = el.findElement(By.cssSelector("span[itemprop=addressRegion]")).getText();
-            String zip = el.findElement(By.cssSelector("span[itemprop=postalCode]")).getText();
+        for (FluentWebElement el : uccList()) {
+            String name = el.getWebElement().findElement(cssSelector(".profile-name>a")).getText().toString().trim();
+            String url = el.getWebElement().findElement(cssSelector(".profile-name>a")).getAttribute("href").toString();
+            String address = el.getWebElement().findElement(cssSelector("span[itemprop=streetAddress]")).getText().toString();
+            String city = el.getWebElement().findElement(cssSelector("span[itemprop=addressLocality]")).getText().toString();
+            String state = el.getWebElement().findElement(cssSelector("span[itemprop=addressRegion]")).getText().toString();
+            String zip = el.getWebElement().findElement(cssSelector("span[itemprop=postalCode]")).getText().toString();
             ucc.add(new Ucc(name,url,address,city,state,zip));
         }
 
         return ucc;
     }
 
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-    
     public boolean isMapEmpty() {
-        return map.getText().equals("");
+        return map().getText().toString().equals("");
     }
 }

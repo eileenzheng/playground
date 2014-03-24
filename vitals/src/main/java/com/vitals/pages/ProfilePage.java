@@ -1,208 +1,111 @@
 package com.vitals.pages;
 
-import com.vitals.pages.myvitals.MyVitalsClaimProfilePage;
-import com.vitals.pages.patientlink.ModalEmail;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.vitals.helpers.Constants;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.linkText;
 
 public class ProfilePage extends BasePage {
 
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-    public final HeaderPage header;
-    public final FooterPage footer;
-    public final PatientLinkRrAd rrAd;
+    PatientLinkRrAd rrAd;
 
     public ProfilePage() {
-
-    	driver = getDriver();
-    	wait = new WebDriverWait(driver, 15, 3000);
-        header = PageFactory.initElements(driver,HeaderPage.class);
-        footer = PageFactory.initElements(driver,FooterPage.class);
-        rrAd = PageFactory.initElements(driver, PatientLinkRrAd.class);
+        rrAd = new PatientLinkRrAd();
     }
 
-    @FindBy(css=".nav-tabs li:nth-child(1)>a")
-    private WebElement summaryTab;
+    public PatientLinkRrAd rrAd() {
+        return rrAd;
+    }
 
-    @FindBy (css=".nav-tabs li:nth-child(2)>a")
-    private WebElement patientReviewsTab;
+    public FluentWebElement summaryTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(1)>a"));
+    }
 
-    @FindBy (css=".nav-tabs li:nth-child(3)>a")
-    private WebElement credentialsTab;
+    public FluentWebElement reviewsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(2)>a"));
+    }
 
-    @FindBy (css=".nav-tabs li:nth-child(4)>a")
-    private WebElement locationsAvailableTab;
+    public FluentWebElement credentialsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(3)>a"));
+    }
 
-    @FindBy (css=".nav-tabs li:nth-child(5)>a")
-    private WebElement acceptedInsuranceTab;
+    public FluentWebElement locationsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(4)>a"));
+    }
 
-    @FindBy (css=".nav-tabs li:nth-child(6)>a")
-    private WebElement sponsoredTab;
+    public FluentWebElement insurancesTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(5)>a"));
+    }
 
-    @FindBy(css=".additionalInformation>span")
-    private List<WebElement> breadCrumbTrail;
+    public FluentWebElement sponsoredTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(6)>a"));
+    }
 
-    @FindBy(linkText="Video profile")
-    private WebElement drVideo;
+    public FluentWebElements breadcrumbTrail() {
+        return spans(cssSelector(".additionalInformation>span"));
+    }
 
-    @FindBy(linkText="Doctor's site")
-    private WebElement plDrSite;
+    public FluentWebElement drVideoLink() {
+        return link(linkText("Video profile"));
+    }
 
-    @FindBy(css=".btn.modal-call")
-    private WebElement plBookAppt;
+    public FluentWebElement plDrSite() {
+        return link(linkText("Doctor's site"));
+    }
 
-    @FindBy(css=".call-appointment strong")
-    private WebElement plPhoneNumber;
-    
-    @FindBy(css=".claim-profile>a")
-    private WebElement claimProfileLink;
-    
-    @FindBy(css="h1>a")
-    private WebElement name;
+    public boolean hasPlDrSite() {
+        return has().link(linkText("Doctor's site"));
+    }
+
+    public FluentWebElement plBookAppt() {
+        return link(cssSelector(".btn.modal-call"));
+    }
+
+    public boolean hasPlBookAppt() {
+        return has().link(cssSelector(".btn.modal-call"));
+    }
+
+    public FluentWebElement plPhoneNumber() {
+        return link(cssSelector(".call-appointment a"));
+    }
+
+    public boolean hasPlPhoneNumber() {
+        return has().link(cssSelector(".call-appointment a"));
+    }
+
+    public FluentWebElement claimProfileLink() {
+        return link(cssSelector(".claim-profile>a"));
+    }
+
+    public FluentWebElement name(){
+        return link(cssSelector("h1>a"));
+    }
 
     public boolean isSummaryPage() {
-        boolean flag = false;
-
-        for (WebElement el : breadCrumbTrail) {
-            if (el.getText().equals("Summary")) flag = true;
-        }
-
-        return flag;
-    }
-
-    public ProfilePage clickPatientReviewsTab() {
-        patientReviewsTab.click();
-        wait.until(ExpectedConditions.visibilityOf(patientReviewsTab));
-        return this;
+        return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Summary");
     }
 
     public boolean isPatientReviewsPage() {
-        boolean flag = false;
-
-        for (WebElement el : breadCrumbTrail) {
-            if (el.getText().equals("Patient Reviews")) flag = true;
-        }
-
-        return flag;
-    }
-
-    public ProfilePage clickCredentials() {
-        credentialsTab.click();
-        wait.until(ExpectedConditions.visibilityOf(credentialsTab));
-        return this;
+        return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Patient Reviews");
     }
 
     public boolean isCredentialsPage() {
-        boolean flag = false;
-
-        for (WebElement el : breadCrumbTrail) {
-            if (el.getText().equals("Credentials")) flag = true;
-        }
-
-        return flag;
-    }
-
-    public ProfilePage clickLocationsAvailabilityTab() {
-        locationsAvailableTab.click();
-        wait.until(ExpectedConditions.visibilityOf(locationsAvailableTab));
-        return this;
+        return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Credentials");
     }
 
     public boolean isLocationsAvailabilityPage() {
-        boolean flag = false;
-
-        for (WebElement el : breadCrumbTrail) {
-            if (el.getText().equals("Locations & Availability")) flag = true;
-        }
-
-        return flag;
-    }
-
-    public ProfilePage clickAcceptedInsurance() {
-        acceptedInsuranceTab.click();
-        wait.until(ExpectedConditions.visibilityOf(acceptedInsuranceTab));
-        return this;
+        return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Locations & Availability");
     }
 
     public boolean isAcceptedInsurancePage() {
-        boolean flag = false;
-
-        for (WebElement el : breadCrumbTrail) {
-            if (el.getText().equals("Accepted Insurance")) flag = true;
-        }
-
-        return flag;
-    }
-
-    public boolean drVideoIsVisible() {
-        return isElementPresent(drVideo);
-    }
-
-    public boolean isDrSitePresent() {
-        return isElementPresent (plDrSite);
+        return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Accepted Insurance");
     }
 
     public String getSiteUrl() {
-        String onClick = plDrSite.getAttribute("onclick");
+        String onClick = plDrSite().getAttribute("onclick").toString();
         int begin = onClick.indexOf("http");
         int end = onClick.indexOf("', '_blank'");
         return onClick.substring(begin, end);
-    }
-
-    public boolean isBookApptPresent() {
-    	return isElementPresent (plBookAppt);
-    }
-
-    public ModalEmail clickBookAppt() {
-    	plBookAppt.click();
-        return PageFactory.initElements(driver, ModalEmail.class);
-    }
-
-    public boolean isPLPhoneNumberPresent() {
-    	return isElementPresent (plPhoneNumber);
-    }
-
-    public String getPLPhoneNumber() {
-    	return plPhoneNumber.getText();
-    }
-
-    private boolean isElementPresent (WebElement el) {
-    	driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        try {
-            if (el.isDisplayed()) {
-            	driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-                return true;
-            }
-            else {
-            	driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-                return false;
-            }
-        }
-        catch (NoSuchElementException e) {
-        	driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-            return false;
-        }
-    }
-    
-    public MyVitalsClaimProfilePage clickClaimProfileLink () {
-    	claimProfileLink.click();
-    	return PageFactory.initElements(driver, MyVitalsClaimProfilePage.class);
-    }
-    
-    public WebElement getName() {
-    	return name;
     }
 }

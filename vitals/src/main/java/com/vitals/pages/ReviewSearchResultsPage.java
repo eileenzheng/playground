@@ -1,35 +1,25 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class ReviewSearchResultsPage {
-	
-	@FindBy(css="#result-count")
-    private WebElement resultsTotal;
-	
-	@FindBy(css=".toggle-provider .active")
-	private WebElement activeToggle;
+public class ReviewSearchResultsPage extends BasePage {
 
-	public String getResultsCount() {
-        return resultsTotal.getText();
+    public FluentWebElement resultsTotal() {
+        return p(cssSelector("#result-count"));
+    }
+
+    public FluentWebElement activeToggle() {
+        return link(cssSelector(".toggle-provider .active"));
     }
     
     public int getResultsCountNumber() {
-    	String[] split = getResultsCount().split(" ");
+    	String[] split = resultsTotal().getText().toString().split(" ");
     	String count = split[split.length-2];
     	split = count.split(",");
     	if (split.length==1)
     		return Integer.parseInt(split[0]);
     	else
     		return Integer.parseInt(split[0].concat(split[1]));
-    }
-    
-    public boolean isToggleProvider() {
-    	return (activeToggle.getText().equals("Doctors"));
-    }
-    
-    public boolean isToggleFacilities() {
-    	return (activeToggle.getText().equals("Facilities"));
     }
 }

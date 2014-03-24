@@ -5,20 +5,15 @@ import com.vitals.pages.HomePage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.wlw.LandingPage;
 import com.vitals.pages.wlw.SearchPage;
-import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import java.util.List;
 
 public class WLWTest {
 
-    private WebDriver driver;
     private String url;
     private String vitalsUrl;
     private SoftAssert m_assert;
@@ -36,20 +31,21 @@ public class WLWTest {
     @TestCase(id=1780)
     @Test
     public void checkHeader() {
-        driver = DriverManager.getDriver();
         m_assert = new SoftAssert();
-        driver.get(url);
 
-        LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
-        m_assert.assertEquals(landingPage.header.getHeaderText(), "Find a Physician in Your Area", "Incorrect header text on landing page");
-        m_assert.assertTrue(landingPage.header.isLogoDisplayed(), "Logo not displayed on landing page");
+        LandingPage landingPage = new LandingPage();
+        landingPage.get(url);
 
-        landingPage.selectOption("Internists");
-        landingPage.enterZipCode("10036");
+        m_assert.assertEquals(landingPage.headerPage().header().getText().toString(), "Find a Physician in Your Area", "Incorrect header text on landing page");
+        m_assert.assertTrue(landingPage.headerPage().logo().isDisplayed().value(), "Logo not displayed on landing page");
 
-        SearchPage serp = landingPage.clickSearch();
-        m_assert.assertEquals(serp.header.getHeaderText(), "Find a Physician in Your Area", "Incorrect header text on search page");
-        m_assert.assertTrue(serp.header.isLogoDisplayed(), "Logo not displayed on search page");
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Internists");
+        landingPage.locationTextBox().clearField().sendKeys("10036");
+        landingPage.searchButton().click();
+
+        SearchPage serp = new SearchPage();
+        m_assert.assertEquals(serp.headerPage().header().getText().toString(), "Find a Physician in Your Area", "Incorrect header text on search page");
+        m_assert.assertTrue(serp.headerPage().logo().isDisplayed().value(), "Logo not displayed on search page");
 
         m_assert.assertAll();
     }
@@ -57,23 +53,24 @@ public class WLWTest {
     @TestCase(id=1781)
     @Test
     public void checkSerpProfileUrl() {
-        driver = DriverManager.getDriver();
         m_assert = new SoftAssert();
-        driver.get(url);
 
-        LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
-        landingPage.selectOption("Internists");
-        landingPage.enterZipCode("10036");
+        LandingPage landingPage = new LandingPage();
+        landingPage.get(url);
 
-        SearchPage serp = landingPage.clickSearch();
-        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.getCurrentPageNumber());
-        serp = serp.clickNext();
-        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.getCurrentPageNumber());
-        serp = serp.clickRandomPage();
-        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.getCurrentPageNumber());
-        if (!serp.getCurrentPageNumber().equals("1")) {
-            serp = serp.clickPrev();
-            m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.getCurrentPageNumber());
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Internists");
+        landingPage.locationTextBox().clearField().sendKeys("10036");
+        landingPage.searchButton().click();
+
+        SearchPage serp = new SearchPage();
+        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
+        serp.nextLink().click();
+        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
+        serp.getRandom(serp.pageLinks()).click();
+        m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
+        if (!serp.currentPage().getText().toString().equals("1")) {
+            serp.prevLink().click();
+            m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
         }
 
         m_assert.assertAll();
@@ -83,46 +80,48 @@ public class WLWTest {
     @Test
     public void compareWithVitals() {
         m_assert = new SoftAssert();
-        driver = DriverManager.getDriver();
 
-        driver.get(vitalsUrl);
-        HomePage home = PageFactory.initElements(driver, HomePage.class);
-        home.header.enterSearchTerm("Family Practitioner");
-        home.header.selectFirstSpecialty();
-        String serpUrl = driver.getCurrentUrl();
-        driver.get(serpUrl + "&location=10036");
+        HomePage home = new HomePage();
+        home.get(vitalsUrl);
+        home.headerModule().enterSearchTerm("Family Practitioner");
+        home.headerModule().specialtySuggestions().get(0).click();
 
-        SearchResultsPage vitalsSerp = PageFactory.initElements(driver,SearchResultsPage.class);
+        SearchResultsPage vitalsSerp = new SearchResultsPage();
+        String serpUrl = vitalsSerp.getCurrentUrl();
+        vitalsSerp.get(serpUrl + "&location=10036");
+
         List<Profile> relevancyProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
         int vitalsResultCount = vitalsSerp.getResultsCountNumber();
-        vitalsSerp.refinement.openSortDropDown();
-        vitalsSerp.refinement.clickSortByDistance();
-        vitalsSerp = PageFactory.initElements(driver,SearchResultsPage.class);
+        vitalsSerp.refinement().sortDropDown().click();
+        vitalsSerp.refinement().sortByDistance().click();
+        vitalsSerp.waitForJQuery();
         List<Profile> distanceProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
-        vitalsSerp.refinement.openSortDropDown();
-        vitalsSerp.refinement.clickSortByName();
-        vitalsSerp = PageFactory.initElements(driver, SearchResultsPage.class);
+        vitalsSerp.refinement().sortDropDown().click();
+        vitalsSerp.refinement().sortByName().click();
+        vitalsSerp.waitForJQuery();
         List<Profile> nameProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
-        vitalsSerp.refinement.openSortDropDown();
-        vitalsSerp.refinement.clickSortByRating();
-        vitalsSerp = PageFactory.initElements(driver, SearchResultsPage.class);
+        vitalsSerp.refinement().sortDropDown().click();
+        vitalsSerp.refinement().sortByRating().click();
+        vitalsSerp.waitForJQuery();
         List<Profile> ratingProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
 
-        driver.get(url);
-        LandingPage landingPage = PageFactory.initElements(driver,LandingPage.class);
-        landingPage.enterZipCode("10036");
-        landingPage.selectOption("Family Physicians");
-        SearchPage serp = landingPage.clickSearch();
+        LandingPage landingPage = new LandingPage();
+        landingPage.get(url);
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Family Physicians");
+        landingPage.locationTextBox().clearField().sendKeys("10036");
+        landingPage.searchButton().click();
+
+        SearchPage serp = new SearchPage();
 
         m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals (sort by relevancy)");
         m_assert.assertTrue(serp.isProviderMatchingVitals(relevancyProfile), "First X results does not match Vitals(sort by relevancy)");
-        serp = serp.sortBy("Distance");
+        serp.selectDropDown(serp.sortDropDown(), "Distance");
         m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by distance)");
         m_assert.assertTrue(serp.isProviderMatchingVitals(distanceProfile), "First X results does not match Vitals(sort by distance)");
-        serp = serp.sortBy("Name");
+        serp.selectDropDown(serp.sortDropDown(), "Name");
         m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by name)");
         m_assert.assertTrue(serp.isProviderMatchingVitals(nameProfile), "First X results does not match Vitals(sort by name)");
-        serp = serp.sortBy("Rating");
+        serp.selectDropDown(serp.sortDropDown(), "Rating");
         m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by rating)");
         m_assert.assertTrue(serp.isProviderMatchingVitals(ratingProfile), "First X results does not match Vitals(sort by rating)");
 

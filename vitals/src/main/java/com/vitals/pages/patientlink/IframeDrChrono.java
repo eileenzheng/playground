@@ -1,48 +1,31 @@
 package com.vitals.pages.patientlink;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.vitals.helpers.Constants;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import java.util.List;
+public class IframeDrChrono extends BasePage {
 
-public class IframeDrChrono {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-
-    public IframeDrChrono() {
-        driver = DriverManager.getDriver();
-        wait = new WebDriverWait(driver,15,2000);
+    public FluentWebElement name () {
+        return h3();
     }
 
-    @FindBy(css="h3")
-    private WebElement name;
-
-    @FindBy(css=".timeslot")
-    private List<WebElement> timeSlots;
-
-    @FindBy(css=".btn-next-week")
-    private WebElement nextButton;
-
-    @FindBy(css="#id_tbl_schedule_appointment_times")
-    private WebElement table;
-
-    public boolean isNameCorrect(String name) {
-        return this.name.getText().equals(name);
+    public boolean hasSlots() {
+        return has().link(cssSelector(".timeslot"));
     }
 
-    public boolean isThereSlot() {
-        return timeSlots.size() > 0;
+    public FluentWebElement nextButton () {
+        return link(cssSelector(".btn-next-week"));
     }
 
-    public IframeDrChrono clickNext() {
-        nextButton.click();
-        wait.until(ExpectedConditions.visibilityOf(table));
-        return PageFactory.initElements(driver, IframeDrChrono.class);
+    public FluentWebElement table() {
+        return table(cssSelector("#id_tbl_schedule_appointment_times"));
+    }
+
+    public void clickNext() {
+        nextButton().click();
+        waitUntilVisible(table(), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

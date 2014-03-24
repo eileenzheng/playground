@@ -5,10 +5,9 @@
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
 	<parameter name="testRunId" value="114"/>
-	<parameter name="driverType" value="local" />
+	<parameter name="driverType" value="remote" />
 
 	<listeners>
-        <!--<listener class-name="com.vitalsqa.listener.WebDriverListener"/>-->
 		<!--<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />-->
 	</listeners>
 
@@ -17,38 +16,38 @@
 			<class name="com.vitals.test.ProfileTest" />
 		</classes>
 	</test>
-	<!--<test name="Search Specfic Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.SearchTest" />-->
-			<!--<methods>-->
-				<!--<exclude name="compareResultsToProfile" />-->
-			<!--</methods>-->
-			<!--<class name="com.vitals.test.SearchPagePropertiesTest" />-->
-		<!--</classes>-->
-	<!--</test>-->
-	<!--<test name="PatientGuide Specific Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.PatientGuideTest" />-->
-		<!--</classes>-->
-	<!--</test>-->
-	<!--<test name="Patientlink Specific Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.PatientLinkTest" />-->
-		<!--</classes>-->
-	<!--</test>-->
-	<!--<test name="MyVitals Specific Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.MyVitalsTest" />-->
-		<!--</classes>-->
-	<!--</test> -->
-	<!--<test name="Masthead Specific Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.MastheadTest" />-->
-		<!--</classes>-->
-	<!--</test>-->
- 	<!--<test name="Urgent Care Specific Tests">-->
-		<!--<classes>-->
-			<!--<class name="com.vitals.test.UccTest" />-->
-		<!--</classes>-->
-	<!--</test> -->
+	<test name="Search Specfic Tests">
+		<classes>
+			<class name="com.vitals.test.SearchTest" />
+			<methods>
+				<exclude name="compareResultsToProfile" />
+			</methods>
+			<class name="com.vitals.test.SearchPagePropertiesTest" />
+		</classes>
+	</test>
+	<test name="PatientGuide Specific Tests">
+		<classes>
+			<class name="com.vitals.test.PatientGuideTest" />
+		</classes>
+	</test>
+	<test name="Patientlink Specific Tests">
+		<classes>
+			<class name="com.vitals.test.PatientLinkTest" />
+		</classes>
+	</test>
+	<test name="MyVitals Specific Tests">
+		<classes>
+			<class name="com.vitals.test.MyVitalsTest" />
+		</classes>
+	</test>
+	<test name="Masthead Specific Tests">
+		<classes>
+			<class name="com.vitals.test.MastheadTest" />
+		</classes>
+	</test>
+ 	<test name="Urgent Care Specific Tests">
+		<classes>
+			<class name="com.vitals.test.UccTest" />
+		</classes>
+	</test>
 </suite>

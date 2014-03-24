@@ -1,41 +1,27 @@
 package com.vitals.pages.patientlink;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.vitals.helpers.Constants;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import java.util.List;
+public class IframeHealthPost extends BasePage{
 
-public class IframeHealthPost {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-
-    public IframeHealthPost() {
-        driver = DriverManager.getDriver();
-        wait = new WebDriverWait(driver,15,2000);
+    public boolean hasSlots() {
+        return has().li(cssSelector(".slot"));
     }
 
-    @FindBy(css=".slot")
-    private List<WebElement> timeSlots;
-
-    @FindBy(css=".time_slots_navigation .next_link")
-    private WebElement nextButton;
-
-    @FindBy(css=".day_of_week")
-    private List<WebElement> week;
-
-    public boolean isThereSlot() {
-        return timeSlots.size() > 0;
+    public FluentWebElement nextButton() {
+        return link(cssSelector(".time_slots_navigation .next_link"));
     }
 
-    public IframeHealthPost clickNext() {
-        nextButton.click();
-        wait.until(ExpectedConditions.visibilityOfAllElements(week));
-        return PageFactory.initElements(driver, IframeHealthPost.class);
+    public FluentWebElements week() {
+        return spans(cssSelector(".day_of_week"));
+    }
+
+    public void clickNext() {
+        nextButton().click();
+        waitUntilVisible(week().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

@@ -1,109 +1,96 @@
 package com.vitals.pages.ucc;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import com.vitals.pages.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.vitals.helpers.Constants;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class UccSearchResultsRefinement {
-	
-	private final WebDriver driver;
-	private final WebDriverWait wait;
+public class UccSearchResultsRefinement extends BasePage {
 
-    public UccSearchResultsRefinement () {
-    	driver = DriverManager.getDriver();
-    	wait = new WebDriverWait(driver,15,2000);
+    public FluentWebElement toggleServices() {
+        return link(cssSelector(".panel-title a"));
     }
-    
-    @FindBy (css=".toggle-plus-minus")
-    private WebElement toggleServices;
 
-    @FindBy (css=".physicals")
-    private WebElement filterPhysicals;
+    public FluentWebElement filterPhysicals() {
+        return label(cssSelector(".physicals"));
+    }
 
-    @FindBy (css=".lab")
-    private WebElement filterLab;
+    public FluentWebElement filterLab() {
+        return label(cssSelector(".lab"));
+    }
 
-    @FindBy (css=".diagnostic")
-    private WebElement filterDiagnostic;
+    public FluentWebElement filterDiagnostic() {
+        return label(cssSelector(".diagnostic"));
+    }
 
-    @FindBy (css=".injuries")
-    private WebElement filterInjuries;
+    public FluentWebElement filterInjuries() {
+        return label(cssSelector(".injuries"));
+    }
 
-    @FindBy (css=".ailments")
-    private WebElement filterAilments;
+    public FluentWebElement filterAilments() {
+        return label(cssSelector(".ailments"));
+    }
 
-    @FindBy (css=".preventive")
-    private WebElement filterPreventive;
+    public FluentWebElement filterPreventive() {
+        return label(cssSelector(".preventive"));
+    }
+
+    public boolean isFilterOpen() {
+        return has().div(cssSelector(".service-filters.in"));
+    }
     
     @FindBy (css=".service-filters.in")
     private List<WebElement> filterOpened;
     
-    public UccSearchResultsRefinement clickToggleServices() throws InterruptedException {
-    	driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-    	if (filterOpened.size()==0) {
-    		toggleServices.click();
-    		while (filterOpened.size()!=1) {
+    public void clickToggleServices() throws InterruptedException {
+    	setImplicitWait(0);
+    	if (!isFilterOpen()) {
+    		toggleServices().click();
+    		while (!isFilterOpen()) {
     			Thread.sleep(100); // wait for filter to be opened
     		}
     	}
     	else
-    		toggleServices.click();
-    	driver.manage().timeouts().implicitlyWait(Constants.SELENIUM_IMPLICIT_WAIT, TimeUnit.SECONDS);
-    	return this;
+    		toggleServices().click();
+    	setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
 
-    public UccSearchResultsRefinement clickPhysicals() {
-    	wait.until(ExpectedConditions.visibilityOf(filterPhysicals));
-        filterPhysicals.click();
-        waitForJQuery();
-        return this;
+    public void clickPhysicals() {
+        waitUntilVisible(filterPhysicals(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterPhysicals().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public UccSearchResultsRefinement clickLab() {
-    	wait.until(ExpectedConditions.visibilityOf(filterLab));
-        filterLab.click();
-        waitForJQuery();
-        return this;
+    public void clickLab() {
+    	waitUntilVisible(filterLab(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterLab().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public UccSearchResultsRefinement clickDiagnostic() {
-    	wait.until(ExpectedConditions.visibilityOf(filterDiagnostic));
-        filterDiagnostic.click();
-        waitForJQuery();
-        return this;
+    public void clickDiagnostic() {
+        waitUntilVisible(filterDiagnostic(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterDiagnostic().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public UccSearchResultsRefinement clickInjuries() {
-    	wait.until(ExpectedConditions.visibilityOf(filterInjuries));
-        filterInjuries.click();
-        waitForJQuery();
-        return this;
+    public void clickInjuries() {
+        waitUntilVisible(filterInjuries(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterInjuries().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public UccSearchResultsRefinement clickAilments() {
-    	wait.until(ExpectedConditions.visibilityOf(filterAilments));
-        filterAilments.click();
-        waitForJQuery();
-        return this;
+    public void clickAilments() {
+        waitUntilVisible(filterAilments(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterAilments().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public UccSearchResultsRefinement clickPreventive() {
-    	wait.until(ExpectedConditions.visibilityOf(filterPreventive));
-        filterPreventive.click();
-        waitForJQuery();
-        return this;
-    }
-
-    private void waitForJQuery() {
-    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#loading")));
+    public void clickPreventive() {
+        waitUntilVisible(filterPreventive(), Constants.SELENIUM_EXPLICIT_WAIT);
+        filterPreventive().click();
+        waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

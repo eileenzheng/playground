@@ -1,32 +1,27 @@
 package com.vitals.pages;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.By;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    private final WebDriver driver;
-    public final HeaderPage header;
-    public final FooterPage footer;
+    HeaderModule headerModule;
+    FooterModule footerModule;
 
     public HomePage() {
-    	driver = DriverManager.getDriver();
-        this.header = PageFactory.initElements(driver, HeaderPage.class);
-        this.footer = PageFactory.initElements(driver, FooterPage.class);
+        headerModule = new HeaderModule();
+        footerModule = new FooterModule();
     }
 
-    @FindBy(css="#home-photo")
-    private WebElement homePhoto;
-
-    public String homePhotoImage() {
-        return homePhoto.getAttribute("style");
+    public HeaderModule headerModule(){
+        return headerModule;
     }
 
-    public boolean homePhotoisVisible() {
-        return homePhoto.isDisplayed();
+    public FooterModule footerModule() {
+        return footerModule;
     }
 
+    public FluentWebElement homePhoto() {
+        return div(By.cssSelector("#home-photo"));
+    }
 }

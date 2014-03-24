@@ -1,11 +1,6 @@
 package com.vitals.test;
 
-import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
@@ -20,11 +15,12 @@ import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.ucc.UccProfileSummaryPage;
 import com.vitals.pages.ucc.UccSearchResultsPage;
 import com.vitals.helpers.Constants;
+import org.testng.asserts.SoftAssert;
 
 public class MastheadTest {
 
-	private WebDriver driver;
 	String[] url = new String[2];
+    SoftAssert m_assert;
 
 	@Parameters({"url"})
 	@BeforeMethod
@@ -41,90 +37,90 @@ public class MastheadTest {
 	@TestCase(id=1603)
 	@Test
 	public void autoSuggestLocation() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+			HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
 			String location = "1000";
 			String city = "New York";
 
-			homePage.header.openLocationBox();
-			homePage.header.enterLocation(location);
+            homePage.headerModule().locationTextBoxSelector().click();
+            homePage.headerModule().enterLocation(location);
 
-			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
+			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
+
+            homePage.deleteCookies();
 		}
-		
-		driver.manage().deleteAllCookies();
 	}
-	
-	@TestCase(id=1604)
+
+    @TestCase(id=1604)
 	@Test
 	public void autoSuggestName() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
 			String name = "Todd";
 
-			homePage.header.enterSearchTerm(name);
-			Reporter.log("The Docs> " + homePage.header.getNameSuggestions());
+            homePage.headerModule().enterSearchTerm(name);
+			Reporter.log("The Docs> " + homePage.headerModule().getNameSuggestions());
 
-			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.NAME, name), env(i));
+			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.NAME, name),
+                    env(i) + "One or more autosuggest results do not contain search term");
 		}
 	}
-	
+
 	@TestCase(id=1605)
 	@Test
 	public void autoSuggestSpecialty() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			String specialty = "Cardio";
+			String specialty = "Fam";
 
-			homePage.header.enterSearchTerm(specialty);
-			Reporter.log("The Specialties> " + homePage.header.getSpecialtySearchSuggestions());
+			homePage.headerModule().enterSearchTerm(specialty);
+			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
 
-			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.SPECIALTY, specialty), env(i));
+			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.SPECIALTY, specialty),
+                    env(i) + "One or more autosuggest results do not contain search term");
 		}
 	}
-	
+
 	@TestCase(id=1606)
 	@Test
 	public void autoSuggestCondition() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
 			String condition = "Diab";
 
-			homePage.header.enterSearchTerm(condition);
-			Reporter.log("The Conditions> " + homePage.header.getConditionSearchSuggestions());
+			homePage.headerModule().enterSearchTerm(condition);
+			Reporter.log("The Conditions> " + homePage.headerModule().getConditionSearchSuggestions());
 
-			Assert.assertTrue(homePage.header.checkSuggestions(Constants.SearchType.CONDITION, condition), env(i));
+			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.CONDITION, condition),
+                    env(i) + "One or more autosuggest results do not contain search term");
 		}
 	}
 
 	@TestCase(id=1616)
 	@Test
 	public void doctorSearchGo() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+			HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
-			SearchResultsPage serp = homePage.header.clickGoButton();
-			acceptAlertIfPresent(driver);
+			homePage.headerModule().enterSearchTerm("John");
+			homePage.headerModule().goButton().click();
+            homePage.headerModule().acceptAlertIfPresent();
+
+            SearchResultsPage serp = new SearchResultsPage();
 			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
@@ -132,15 +128,16 @@ public class MastheadTest {
 	@TestCase(id=1617)
 	@Test
 	public void doctorSearchSeeAll() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
-			SearchResultsPage serp = homePage.header.clickShowAllLink();
-			acceptAlertIfPresent(driver);
+			homePage.headerModule().enterSearchTerm("John");
+            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().acceptAlertIfPresent();
+
+            SearchResultsPage serp = new SearchResultsPage();
 			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
@@ -148,14 +145,15 @@ public class MastheadTest {
 	@TestCase(id=1618)
 	@Test
 	public void doctorSearchClick() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
-			ProfilePage profilePage = homePage.header.selectRandomName();
+			homePage.headerModule().enterSearchTerm("John");
+            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
+
+			ProfilePage profilePage = new ProfilePage();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -164,18 +162,18 @@ public class MastheadTest {
 	@TestCase(id=1619)
 	@Test
 	public void dentistSearchGo() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByDentist();
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
+			homePage.headerModule().findDropDown().click();
+			homePage.headerModule().findByDentist().click();
+			homePage.headerModule().enterSearchTerm("John");
+            homePage.headerModule().goButton().click();
+            homePage.headerModule().acceptAlertIfPresent();
 
-			SearchResultsPage serp = homePage.header.clickGoButton();
-			acceptAlertIfPresent(driver);
+            SearchResultsPage serp = new SearchResultsPage();
 			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
 		}
 	}
@@ -183,34 +181,36 @@ public class MastheadTest {
 	@TestCase(id=1620)
 	@Test
 	public void dentistSearchSeeAll() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByDentist();
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
-			SearchResultsPage serp = homePage.header.clickShowAllLink();
-			acceptAlertIfPresent(driver);
+			homePage.headerModule().findDropDown().click();
+			homePage.headerModule().findByDentist().click();
+			homePage.headerModule().enterSearchTerm("John");
+            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().acceptAlertIfPresent();
+
+            SearchResultsPage serp = new SearchResultsPage();
 			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
-		}
+        }
 	}
 
 	@TestCase(id=1621)
 	@Test
 	public void dentistSearchClick() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByDentist();
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("John");
-			ProfilePage profilePage = homePage.header.selectRandomName();
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDentist().click();
+            homePage.headerModule().enterSearchTerm("John");
+            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
+
+			ProfilePage profilePage = new ProfilePage();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -219,176 +219,185 @@ public class MastheadTest {
 	@TestCase(id=1622)
 	@Test
 	public void uccSearchGo() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByUcc();
-			homePage.header.enterSearchTerm("citymd");
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			UccSearchResultsPage serp = homePage.header.clickGoButtonUcc();
-			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByUcc().click();
+            homePage.headerModule().enterSearchTerm("citymd");
+            homePage.headerModule().goButton().click();
+            homePage.headerModule().acceptAlertIfPresent();
+
+            UccSearchResultsPage serp = new UccSearchResultsPage();
+            Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
 		}
 	}
 
 	@TestCase(id=1623)
 	@Test
 	public void uccSearchSeeAll() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByUcc();
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("citymd");
-			UccSearchResultsPage serp = homePage.header.clickShowAllLinkUcc();
-			acceptAlertIfPresent(driver);
-			Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByUcc().click();
+            homePage.headerModule().enterSearchTerm("citymd");
+            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().acceptAlertIfPresent();
+
+            UccSearchResultsPage serp = new UccSearchResultsPage();
+            Assert.assertTrue(serp.getResultsCountNumber()>=5, env(i));
 		}
 	}
 
 	@TestCase(id=1624)
 	@Test
 	public void uccSearchClick() {
-		driver = DriverManager.getDriver();
 
 		for (int i=0; i<2; i++) {
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			homePage.header.openFindDropdown();
-			homePage.header.selectFindByUcc();
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
 
-			homePage.header.enterSearchTerm("citymd");
-			UccProfileSummaryPage profilePage = homePage.header.selectRandomUcc();
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByUcc().click();
+            homePage.headerModule().enterSearchTerm("citymd");
+            homePage.getRandom(homePage.headerModule().uccSuggestions()).click();
 
-			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
+            UccProfileSummaryPage profilePage = new UccProfileSummaryPage();
+
+            Assert.assertTrue(profilePage.currentTrail().getText().toString().equals("Summary"), env(i));
 		}
 	}
 
 	@TestCase(id=1625)
 	@Test
 	public void reviewSearchGo() {
-		driver = DriverManager.getDriver();
 
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		ReviewPage reviewPage = homePage.header.clickReviewTab();
-		reviewPage.header.enterReviewSearchTerm("John");
+        m_assert = new SoftAssert();
 
-		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickReviewGoButton();
-		Assert.assertTrue(reviewSerp.isToggleProvider());
-		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
+		HomePage homePage = new HomePage();
+        homePage.get(url[0]);
+
+        homePage.headerModule().writeReviewTab().click();
+		ReviewPage reviewPage = new ReviewPage();
+		reviewPage.headerModule().enterReviewSearchTerm("John");
+        reviewPage.headerModule().reviewGoButton().click();
+
+		ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
+		m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Doctors"));
+		m_assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
+
+        m_assert.assertAll();
 	}
 
 	@TestCase(id=1626)
 	@Test
 	public void reviewSearchSeeAllDoctors() {
-		driver = DriverManager.getDriver();
 
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		ReviewPage reviewPage = homePage.header.clickReviewTab();
-		reviewPage.header.enterReviewSearchTerm("John");
+        m_assert = new SoftAssert();
+        HomePage homePage = new HomePage();
+        homePage.get(url[0]);
 
-		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickShowAllDoctorsReview();
-		Assert.assertTrue(reviewSerp.isToggleProvider());
-		Assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
+        homePage.headerModule().writeReviewTab().click();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.headerModule().enterReviewSearchTerm("John");
+        reviewPage.headerModule().showAllDoctors().click();
+
+		ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
+        m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Doctors"));
+        m_assert.assertTrue(reviewSerp.getResultsCountNumber()>100);
+
+        m_assert.assertAll();
 	}
 
 	@TestCase(id=1627)
 	@Test
 	public void reviewSearchSeeAllFacilities() {
-		driver = DriverManager.getDriver();
+        m_assert = new SoftAssert();
+        HomePage homePage = new HomePage();
+        homePage.get(url[0]);
 
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		ReviewPage reviewPage = homePage.header.clickReviewTab();
-		reviewPage.header.enterReviewSearchTerm("city");
+        homePage.headerModule().writeReviewTab().click();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.headerModule().enterReviewSearchTerm("city");
+        reviewPage.headerModule().showAllFacilities().click();
 
-		ReviewSearchResultsPage reviewSerp = reviewPage.header.clickShowAllFacilitiesReview();
-		Assert.assertTrue(reviewSerp.isToggleFacilities());
-		Assert.assertTrue(reviewSerp.getResultsCountNumber()>30 && reviewSerp.getResultsCountNumber()<40);
+        ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
+        m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Facilities"));
+        m_assert.assertTrue(reviewSerp.getResultsCountNumber()>30 && reviewSerp.getResultsCountNumber()<40);
+
+        m_assert.assertAll();
 	}
 
 	@TestCase(id=1628)
 	@Test
 	public void reviewSearchClickDoctor() {
-		driver = DriverManager.getDriver();
+        m_assert = new SoftAssert();
+        HomePage homePage = new HomePage();
+        homePage.get(url[0]);
 
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		ReviewPage reviewPage = homePage.header.clickReviewTab();
-		reviewPage.header.enterReviewSearchTerm("John");
-		
-		ReviewWritePage reviewWritePage = reviewPage.header.selectRandomNameReview();
-			Assert.assertTrue(reviewWritePage.isDoctorReview());
+        homePage.headerModule().writeReviewTab().click();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.headerModule().enterReviewSearchTerm("John");
+        reviewPage.getRandom(reviewPage.headerModule().nameSuggestions()).click();
+
+		ReviewWritePage reviewWritePage = new ReviewWritePage();
+		Assert.assertTrue(reviewWritePage.isDoctorReview());
 	}
 
 	@TestCase(id=1629)
 	@Test
 	public void reviewSearchClickFacility() {
-		driver = DriverManager.getDriver();
+        m_assert = new SoftAssert();
+        HomePage homePage = new HomePage();
+        homePage.get(url[0]);
 
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		ReviewPage reviewPage = homePage.header.clickReviewTab();
-		reviewPage.header.enterReviewSearchTerm("city");
+        homePage.headerModule().writeReviewTab().click();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.headerModule().enterReviewSearchTerm("city");
+        reviewPage.getRandom(reviewPage.headerModule().uccSuggestions()).click();
 
-		ReviewWritePage reviewWritePage = reviewPage.header.selectRandomUccReview();
+        ReviewWritePage reviewWritePage = new ReviewWritePage();
 		Assert.assertTrue(reviewWritePage.isFacilityReview());
 	}
-	
+
 	@TestCase(id=1735)
 	@Test
 	public void isLocationPopulated() {
-		driver = DriverManager.getDriver();
-		
+
 		for (int i=0; i<2; i++) {
-			driver.manage().deleteAllCookies();
-			driver.get(url[i]);
-			HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-			Assert.assertTrue(homePage.header.locationSearchIsPopulated(), env(i));
-	        Reporter.log(homePage.header.getCurrentPopulatedLocation());
+			HomePage homePage = new HomePage();
+            homePage.deleteCookies();
+            homePage.get(url[i]);
+
+			Assert.assertTrue(homePage.headerModule().locationSearchIsPopulated(), env(i));
+	        Reporter.log(homePage.headerModule().locationTextBox().getAttribute("value").toString());
 		}
 	}
-	
+
 	@TestCase(id=1736)
 	@Test
 	public void isLocationSynced() {
-		driver = DriverManager.getDriver();
-		
-		driver.manage().deleteAllCookies();
-		driver.get(url[0]);
-		HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-		homePage.header.openLocationBox();
-		homePage.header.enterLocation("Fort Lee, NJ");
-		homePage.header.selectFirstLocation();
-		
-		driver.get(url[1]);
-		homePage = PageFactory.initElements(driver, HomePage.class);
-		Assert.assertTrue(homePage.header.getCurrentPopulatedLocation().equals("Fort lee, NJ"));
+
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url[0]);
+		homePage.headerModule().locationTextBoxSelector().click();
+		homePage.headerModule().enterLocation("Fort Lee, NJ");
+		homePage.headerModule().locationSuggestions().get(0).click();
+
+        homePage.get(url[1]);
+		Assert.assertTrue(homePage.headerModule().locationTextBox().getAttribute("value").equals("Fort lee, NJ"));
 	}
 
-	private void acceptAlertIfPresent(WebDriver driver) {
-		try {
-			Alert alert = driver.switchTo().alert();
-			alert.accept();
-
-		} catch (NoAlertPresentException e) {
-			// do nothing
-		}
-	}
-	
-	private String env(int i) {
-		
-		if (i==0)
-			return "Vitals: ";
-		else
-			return "MyVitals: ";
-	}
+    private String env (int i) {
+        if (i==0)
+            return "Vitals: ";
+        else
+            return "MyVitals: ";
+    }
 }

@@ -1,10 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.helpers.Profile;
-import com.vitalsqa.listener.DriverManager;
 import com.vitalsqa.testrail.TestCase;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
@@ -19,7 +16,6 @@ import java.util.List;
 
 public class SearchTest {
 
-    WebDriver driver;
     SoftAssert m_assert;
     String url;
     
@@ -33,22 +29,22 @@ public class SearchTest {
     @Test
     public void searchByName() {
         m_assert = new SoftAssert();
-        driver = DriverManager.getDriver();
 
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        HomePage home = new HomePage();
+        home.get(url);
 
         String name = "Todd";
         String location = "Austin, TX";
 
-        homePage.header.openLocationBox();
-        homePage.header.enterLocation(location);
-        homePage.header.selectFirstLocation();
-        homePage.header.enterSearchTerm(name);
+        home.headerModule().locationTextBoxSelector().click();
+        home.headerModule().enterLocation(location);
+        home.headerModule().locationSuggestions().get(0).click();
+        home.headerModule().enterSearchTerm(name);
+        home.headerModule().goButton().click();
 
-        SearchResultsPage results = homePage.header.clickGoButton();
+        SearchResultsPage results = new SearchResultsPage();
         Assert.assertTrue(results.drList().size()>0, "No results for name search!");
-        
+
         for (Profile el : results.doctorResults(results.drList())) {
             String drName = el.getName();
             Reporter.log(drName);
@@ -61,153 +57,146 @@ public class SearchTest {
     @TestCase (id=1549)
     @Test
     public void searchBySpecialty() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        HomePage home = new HomePage();
+        home.get(url);
 
         String spec = "Cardiologist";
-        homePage.header.enterSearchTerm(spec);
+        home.headerModule().enterSearchTerm(spec);
+        Reporter.log(home.headerModule().getSpecialtySearchSuggestions());
 
-        Reporter.log(homePage.header.getSpecialtySearchSuggestions());
+        home.headerModule().specialtySuggestions().get(0).click();
+        SearchResultsPage results = new SearchResultsPage();
 
-        SearchResultsPage results = homePage.header.selectFirstSpecialty();
         Assert.assertTrue(results.drList().size()>0, "No results for specialty search!");
-
         Reporter.log(results.getResultsCountNumber() + " for search: " + spec);
     }
 
     @TestCase (id=1550)
     @Test
     public void searchByCondition() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        HomePage home = new HomePage();
+        home.get(url);
 
         String cond = "Asthma";
-        homePage.header.enterSearchTerm(cond);
+        home.headerModule().enterSearchTerm(cond);
+        Reporter.log(home.headerModule().getConditionSearchSuggestions());
 
-        Reporter.log(homePage.header.getConditionSearchSuggestions());
+        home.headerModule().conditionSuggestions().get(0).click();
+        SearchResultsPage results = new SearchResultsPage();
 
-        SearchResultsPage results = homePage.header.selectFirstCondition();
         Assert.assertTrue(results.drList().size()>0, "No results for condition search!");
-
         Reporter.log(results.getResultsCountNumber() + " for search: " + cond);
     }
-    
+
     @TestCase (id=1551)
     @Test
     public void serpFilters() {
-    	driver = DriverManager.getDriver();
-
-        driver.get(url + "/cardiologists/ny/new-york");
-        SearchResultsPage results = PageFactory.initElements(driver, SearchResultsPage.class);
-        
         m_assert = new SoftAssert();
-        
-        m_assert.assertTrue((results.getResultsCountNumber()>2500 && results.getResultsCountNumber() <3000), 
-        		"# of result for Cardiologists in New York not within expected range! ");     
+
+        SearchResultsPage results = new SearchResultsPage();
+        results.get(url + "/cardiologists/ny/new-york");
+
+        m_assert.assertTrue((results.getResultsCountNumber()>2500 && results.getResultsCountNumber() <3000),
+        		"# of result for Cardiologists in New York not within expected range! ");
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
- 
-        results.refinement.openDistanceDropDown();
-        results.refinement.clickWithin5Miles();
-        results = PageFactory.initElements(driver, SearchResultsPage.class);
-        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+
+        results.refinement().distanceDropDown().click();
+        results.refinement().distance5().click();
+        results.waitForJQuery();
+
+        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0,
         		"5 mile filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
-        
-        results.refinement.clickToggleFilter();
-        results.refinement.openGenderDropDown();
-        results.refinement.genderSelectMale();
-        results = PageFactory.initElements(driver, SearchResultsPage.class);
-        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0, 
+
+        results.refinement().toggleFilter().click();
+        results.refinement().genderDropDown().click();
+        results.refinement().genderMale().click();
+        results.waitForJQuery();
+
+        m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0,
         		"Gender filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after male gender filter");
-        
-        results.refinement.clickBoardCertified();
-        results = PageFactory.initElements(driver, SearchResultsPage.class);
-        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+
+        results.refinement().boardCertified().click();
+        results.waitForJQuery();
+
+        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0,
         		"Board certified filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after board certified filter");
-        
-        results.refinement.clickUSEducated();
-        results = PageFactory.initElements(driver, SearchResultsPage.class);
-        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0, 
+
+        results.refinement().usEducated().click();
+        results.waitForJQuery();
+
+        m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0,
         		"U.S. educated filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after U.S. educated filter");
-        
-        results.refinement.clickResetFilters();
-        
+
+        results.refinement().resetFilters().click();
+
         m_assert.assertAll();
     }
 
     @TestCase(id=1733)
     @Test
     public void checkMap() {
-    	m_assert = new SoftAssert(); 
-    	driver = DriverManager.getDriver();
-    	
-        driver.get(url + "/dermatologists");
-        SearchResultsPage serp = PageFactory.initElements(driver, SearchResultsPage.class);
+    	m_assert = new SoftAssert();
+
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + "/dermatologists");
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for specialty browse path");
-        
-        driver.get(url + "/condition/diabetes");
-        serp = PageFactory.initElements(driver, SearchResultsPage.class);
+
+        serp.get(url + "/condition/diabetes");
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition browse path");
-        
-        serp.header.enterSearchTerm("Todd");
-        serp = serp.header.clickGoButton();
+
+        serp.headerModule().enterSearchTerm("Todd");
+        serp.headerModule().goButton().click();
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for name search path");
-        
-        serp.header.enterSearchTerm("Cardiologist");
-        serp.header.selectFirstSpecialty();
+
+        serp.headerModule().enterSearchTerm("Cardiologist");
+        serp.headerModule().specialtySuggestions().get(0).click();
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for specialty search path");
-        
-        serp.header.enterSearchTerm("Diabetes");
-        serp.header.selectFirstCondition();
+
+        serp.headerModule().enterSearchTerm("Diabetes");
+        serp.headerModule().conditionSuggestions().get(0).click();
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition serach path");
-        
+
         m_assert.assertAll();
     }
-    
+
     @TestCase(id=1552)
     @Test (dataProvider = "zipCodes")
     public void compareResultsToProfile(String zipCodes) {
         m_assert = new SoftAssert();
 
-        driver = DriverManager.getDriver();
-
-        driver.get(url);
-        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        HomePage homePage = new HomePage();
+        homePage.get(url);
 
         String name = "Smith";
 
-        homePage.header.openLocationBox();
-        homePage.header.enterLocation(zipCodes);
-        homePage.header.selectFirstLocation();
-        homePage.header.enterSearchTerm(name);
-        
+        homePage.headerModule().locationTextBoxSelector().click();
+        homePage.headerModule().enterLocation(zipCodes);
+        homePage.headerModule().locationSuggestions().get(0).click();
+        homePage.headerModule().enterSearchTerm(name);
+        homePage.headerModule().goButton().click();
 
-        SearchResultsPage results = homePage.header.clickGoButton();
+        SearchResultsPage results = new SearchResultsPage();
+        ProfilePage profile = new ProfilePage();
 
         List<Profile> docs = results.doctorResults(results.drList());
 
         Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
         for (Profile doc : docs) {
-            driver.get(doc.getUrl());
-            ProfilePage profilePg = PageFactory.initElements(driver, ProfilePage.class);
-            doc.setProfileName(profilePg.getName().getText().trim());
+            profile.get(doc.getUrl());
+            doc.setProfileName(profile.name().getText().toString().trim());
             m_assert.assertTrue(doc.searchAndProfileMatches(),"Did not match: " + doc.toString());
             Reporter.log(doc.toString());
-
         }
-        
+
         m_assert.assertAll();
 
     }

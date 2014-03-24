@@ -1,42 +1,20 @@
 package com.vitals.pages.myvitals;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class MyVitalsSignInPage {
-	
-	private final WebDriver driver;
+public class MyVitalsSignInPage extends BasePage {
 
-    public MyVitalsSignInPage() {
-    	driver = DriverManager.getDriver();
+    public FluentWebElement emailTextBox() {
+        return input(cssSelector(".sign-in input[type=email]"));
+    }
+
+    public FluentWebElement passwordTextBox() {
+        return input(cssSelector(".sign-in input[type=password]"));
     }
     
-    @FindBy(css=".sign-in input[type=email]")
-    private WebElement emailTextBox;
-    
-    @FindBy(css=".sign-in input[type=password]")
-    private WebElement passwordTextBox;
-    
-    @FindBy(css=".sign-in .button")
-    private WebElement signInButton;
-    
-    public MyVitalsSignInPage enterEmail(String text) {
-    	emailTextBox.clear();
-    	emailTextBox.sendKeys(text);
-    	return this;
-    }
-    
-    public MyVitalsSignInPage enterPassword(String text) {
-    	passwordTextBox.clear();
-    	passwordTextBox.sendKeys(text);
-    	return this;
-    }
-    
-    public MyVitalsHomePage clickSignIn() {
-    	signInButton.click();
-    	return PageFactory.initElements(driver, MyVitalsHomePage.class);
+    public FluentWebElement signInButton() {
+        return input(cssSelector(".sign-in .button"));
     }
 }

@@ -1,43 +1,26 @@
 package com.vitals.pages.myvitals;
 
-import java.util.List;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+public class MyVitalsHomePage extends BasePage {
 
-public class MyVitalsHomePage {
-	
-	private final WebDriver driver;
-
-    public MyVitalsHomePage() {
-    	driver = DriverManager.getDriver();
+    public FluentWebElement alertText() {
+        return div(cssSelector(".alert>div"));
     }
-    
-    @FindBy(css=".alert>div")
-    private WebElement alertText;
-    
-    @FindBy(css=".button-large")
-    private List<WebElement> buttons;
-    
-    public MyVitalsEditAccountPage clickChangeSetting () {
-    	buttons.get(0).click();
-    	return PageFactory.initElements(driver, MyVitalsEditAccountPage.class);
-    }
-    
-    public MyVitalsLocateProfilePage clickClaimProfile () {
-    	buttons.get(1).click();
-    	return PageFactory.initElements(driver, MyVitalsLocateProfilePage.class);
+
+    public FluentWebElements buttons() {
+        return links(cssSelector(".button-large"));
     }
     
     public boolean isSignInSuccessful() {
-        return alertText.getText().equals("Signed in successfully.");
+        return alertText().getText().toString().equals("Signed in successfully.");
     }
     
     public boolean isAccountUpdateSuccessful() {
-        return alertText.getText().equals("You updated your account successfully.");
+        return alertText().getText().toString().equals("You updated your account successfully.");
     }
 
 }

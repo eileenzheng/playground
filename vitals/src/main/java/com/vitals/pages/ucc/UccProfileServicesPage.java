@@ -1,57 +1,48 @@
 package com.vitals.pages.ucc;
 
-import java.util.List;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+public class UccProfileServicesPage extends BasePage {
 
-public class UccProfileServicesPage {
-	
-	private final WebDriver driver;
-	
-	public UccProfileServicesPage () {
-		driver = DriverManager.getDriver();
-	}
+    public FluentWebElements breadcrumbs() {
+        return links(cssSelector(".full.ucc>span>a"));
+    }
 
-	@FindBy(css=".full.ucc>span>a")
-	private List<WebElement> breadcrumbs;
-	
-	@FindBy(css=".full.ucc>span:last-child")
-	private WebElement currentTrail;
+    public FluentWebElement currentTrail() {
+        return span(cssSelector(".full.ucc>span:last-child"));
+    }
 
-	@FindBy(css="h1")
-	private WebElement h1;
-	
-	@FindBy(css=".nav-menu")
-	private WebElement menu;
-	
-	@FindBy(css=".nav-menu li:nth-child(2)>a")
-	private WebElement menuReviews;
-	
-	@FindBy(css=".nav-menu li:nth-child(3)>a")
-	private WebElement menuAbout;
-	
-	@FindBy(css=".row.services>div.col-md-9")
-	private List<WebElement> servicesText;
-	
-	@FindBy(css=".row.services h3")
-	private List<WebElement> servicesTitle;
-	
-	public boolean isTitleMatched() {
-        return (breadcrumbs.get(breadcrumbs.size() - 1)).getText().equals(h1.getText());
-	}
-	
-	public boolean isServicesPage() {
-        return currentTrail.getText().equalsIgnoreCase("Services");
-	}
+    public FluentWebElement menu() {
+        return div(cssSelector(".nav-menu"));
+    }
+
+    public FluentWebElement menuAbout() {
+        return link(cssSelector(".nav-menu li:nth-child(3)>a"));
+    }
+
+    public FluentWebElement menuReviews() {
+        return link(cssSelector(".nav-menu li:nth-child(2)>a"));
+    }
+
+    public FluentWebElements servicesText() {
+        return divs(cssSelector(".row.services>div.col-md-9"));
+    }
+
+    public FluentWebElements servicesTitle() {
+        return h3s(cssSelector(".row.services h3"));
+    }
+
+    public boolean isTitleMatched() {
+        return (breadcrumbs().get(breadcrumbs().size() - 1)).getText().toString().equals(h1().getText().toString());
+    }
 	
 	public String getServicesTitle() {
 		StringBuilder buf = new StringBuilder();
-		for (WebElement el : servicesTitle) {
-			buf.append(el.getText()).append(",");
+		for (FluentWebElement el : servicesTitle()) {
+			buf.append(el.getText().toString()).append(",");
 		}
 		buf.deleteCharAt(buf.length()-1);
 		return buf.toString();
@@ -59,30 +50,10 @@ public class UccProfileServicesPage {
 	
 	public int getNumberOfUnavailableService() {
 		int i=0;
-		for (WebElement el: servicesText) {
-			if (el.getText().contains("Our data indicates this center does not offer"))
+		for (FluentWebElement el: servicesText()) {
+			if (el.getText().toString().contains("Our data indicates this center does not offer"))
 				i++;
 		}
 		return i;
-	}
-	
-	public UccProfileServicesPage clickMenu() {
-		menu.click();
-		return this;
-	}
-	
-	public UccProfileReviewsPage clickMenuReviews() {
-		menuReviews.click();
-		return PageFactory.initElements(driver, UccProfileReviewsPage.class);
-	}
-	
-	public UccProfileAboutPage clickMenuAbout() {
-		menuAbout.click();
-		return PageFactory.initElements(driver, UccProfileAboutPage.class);
-	}
-	
-	public UccProfileSummaryPage goBackToSummaryPage() {
-		h1.click();
-		return PageFactory.initElements(driver, UccProfileSummaryPage.class);
 	}
 }

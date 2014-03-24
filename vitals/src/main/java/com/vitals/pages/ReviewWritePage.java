@@ -1,18 +1,19 @@
 package com.vitals.pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class ReviewWritePage {
-    
-	@FindBy(css="#post-review h1")
-    private WebElement headlineText;
+public class ReviewWritePage extends BasePage {
+
+    public FluentWebElement headline() {
+        return h1(cssSelector("#post-review h1"));
+    }
 	
 	public boolean isDoctorReview() {
-		return (headlineText.getText().equals("Tell us about your experience with this doctor."));
+		return (headline().getText().toString().equals("Tell us about your experience with this doctor."));
 	}
 	
 	public boolean isFacilityReview() {
-		return (headlineText.getText().contains("Tell us about your experience at"));
+		return (headline().getText().toString().contains("Tell us about your experience at"));
 	}
 }

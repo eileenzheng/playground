@@ -1,27 +1,17 @@
 package com.vitals.pages.myvitals;
 
-import com.vitals.pages.HeaderPage;
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class MyVitalsEditBasicInfoPage {
-	
-	private final WebDriver driver;
-	public final HeaderPage header;
+public class MyVitalsEditBasicInfoPage extends BasePage{
 
-    public MyVitalsEditBasicInfoPage() {
-    	driver = DriverManager.getDriver();
-    	this.header = PageFactory.initElements(driver, HeaderPage.class);
+    public FluentWebElement alertText() {
+        return div(cssSelector(".alert>div"));
     }
     
-    @FindBy(css=".alert>div")
-    private WebElement alertText;
-    
     public boolean isProfileLinkSuccessAlertShown() {
-        return alertText.getText().equals("Your profile is now linked.");
+        return alertText().getText().toString().equals("Your profile is now linked.");
     }
 
 }

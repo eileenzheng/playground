@@ -1,26 +1,12 @@
 package com.vitals.pages.myvitals;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
 
-public class MyVitalsProfessionalsPage {
-	
-	private final WebDriver driver;
+public class MyVitalsProfessionalsPage extends BasePage {
 
-    public MyVitalsProfessionalsPage() {
-    	driver = DriverManager.getDriver();
+    public FluentWebElement deleteButton() {
+        return link(cssSelector(".button-discreet"));
     }
-    
-    @FindBy(css=".button-discreet")
-    private WebElement deleteButton;
-    
-    public MyVitalsLocateProfilePage clickDeleteButton() {
-    	deleteButton.click();
-    	driver.switchTo().alert().accept();
-    	return PageFactory.initElements(driver, MyVitalsLocateProfilePage.class);
-    }
-
 }

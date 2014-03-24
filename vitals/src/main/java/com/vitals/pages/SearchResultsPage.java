@@ -2,55 +2,67 @@ package com.vitals.pages;
 
 import com.vitals.helpers.Profile;
 import com.vitals.pages.patientlink.PatientLinkCenterAd;
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
 import java.util.ArrayList;
 import java.util.List;
+import static org.openqa.selenium.By.cssSelector;
 
-public class SearchResultsPage {
+public class SearchResultsPage extends BasePage {
 
-    private final WebDriver driver;
-    public final HeaderPage header;
-    public final FooterPage footer;
-    public final SearchResultsRefinement refinement;
-    public final PatientLinkCenterAd centerAd;
+    HeaderModule headerModule;
+    SearchResultsRefinement refinement;
+    PatientLinkCenterAd centerAd;
 
     public SearchResultsPage() {
-    	driver = DriverManager.getDriver();
-        header = PageFactory.initElements(driver, HeaderPage.class);
-        footer = PageFactory.initElements(driver, FooterPage.class);
-        refinement = PageFactory.initElements(driver, SearchResultsRefinement.class);
-        centerAd = PageFactory.initElements(driver, PatientLinkCenterAd.class);
+        headerModule = new HeaderModule();
+        refinement = new SearchResultsRefinement();
+        centerAd = new PatientLinkCenterAd();
     }
 
-    @FindBy (css="h1>span:first-child")
-    private WebElement resultsTotal;
+    public HeaderModule headerModule() {
+        return headerModule;
+    }
 
-    @FindBy (css="#results-content .v-pwl.listing")
-    private List<WebElement> searchResults;
-    
-    @FindBy (css=".breadcrumb .trail")
-    private List<WebElement> breadcrumb;
-    
-    @FindBy (css=".breadcrumb li:last-child")
-    private WebElement breadcrumbCurrent;
-    
-    @FindBy (css="h1>span:not(#result-count)")
-    private List<WebElement> h1;
-    
-    @FindBy (css="meta[name=description]")
-    private WebElement description;
-    
-    @FindBy (css="#map")
-    private WebElement map;
-    
+    public PatientLinkCenterAd centerAd() {
+        return centerAd;
+    }
+
+    public SearchResultsRefinement refinement() {
+        return refinement;
+    }
+
+    public FluentWebElement resultsTotal() {
+        return span(cssSelector("h1>span:first-child"));
+    }
+
+    public FluentWebElements searchResults() {
+        return divs(cssSelector("#results-content .v-pwl.listing"));
+    }
+
+    public FluentWebElements breadcrumb() {
+        return links(cssSelector(".breadcrumb .trail"));
+    }
+
+    public FluentWebElement breadcrumbCurrent() {
+        return li(cssSelector(".breadcrumb li:last-child"));
+    }
+
+    public FluentWebElements searchSentence() {
+        return spans(cssSelector("h1>span:not(#result-count)"));
+    }
+
+    public WebElement description() {
+        return webDriver().findElement(cssSelector("meta[name=description]"));
+    }
+
+    public FluentWebElement map() {
+        return div(cssSelector("#map"));
+    }
+
     public int getResultsCountNumber() {
-    	String count = resultsTotal.getText();
+    	String count = resultsTotal().getText().toString();
     	String[] split = count.split(",");
     	if (split.length==1)
     		return Integer.parseInt(split[0]);
@@ -58,16 +70,16 @@ public class SearchResultsPage {
     		return Integer.parseInt(split[0].concat(split[1]));
     }
 
-    public List<WebElement> drList() {
-        return searchResults;
+    public FluentWebElements drList() {
+        return searchResults();
     }
 
-    public List<Profile> doctorResults(List<WebElement> searchResults) {
+    public List<Profile> doctorResults(FluentWebElements searchResults) {
         List<Profile> doc = new ArrayList<Profile>();
 
-        for (WebElement el : searchResults) {
-            String name = el.findElement(By.cssSelector(".profile-name>a")).getText().trim();
-            String url = el.findElement(By.cssSelector(".profile-name>a")).getAttribute("href");
+        for (FluentWebElement el : searchResults()) {
+            String name = el.link(cssSelector(".profile-name>a")).getText().toString().trim();
+            String url = el.link(cssSelector(".profile-name>a")).getAttribute("href").toString();
             doc.add(new Profile(name,url));
         }
 
@@ -76,38 +88,34 @@ public class SearchResultsPage {
     
     public List<String> getBreadcrumbText() {
     	List<String> text = new ArrayList<String>();
-    	for (int i=0; i<breadcrumb.size(); i++) {
-    		text.add(breadcrumb.get(i).getText());
+    	for (int i=0; i<breadcrumb().size(); i++) {
+    		text.add(breadcrumb().get(i).getText().toString());
     	}
     	return text;
     }
     
     public List<String> getBreadcrumbUrl() {
     	List<String> url = new ArrayList<String>();
-    	for (int i=0; i<breadcrumb.size(); i++) {
-    		url.add(breadcrumb.get(i).getAttribute("href"));
+    	for (int i=0; i<breadcrumb().size(); i++) {
+    		url.add(breadcrumb().get(i).getAttribute("href").toString());
     	}
     	return url;
     }
     
-    public String getBreadcrumbCurrentText() {
-    	return breadcrumbCurrent.getText();
-    }
-    
     public List<String> getH1Text() {
     	List<String> text = new ArrayList<String>();
-    	for (int i=0; i<h1.size(); i++) {
-    		text.add(h1.get(i).getText());
+    	for (int i=0; i<searchSentence().size(); i++) {
+    		text.add(searchSentence().get(i).getText().toString());
     	}
     	return text;
     }
     
     public String getDescription() {
-    	return description.getAttribute("content");
+    	return description().getAttribute("content").toString();
     }
     
     public boolean isMapEmpty() {
-        return map.getText().equals("");
+        return map().getText().toString().equals("");
     }
 }
 

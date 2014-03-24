@@ -28,10 +28,10 @@ public class PatientLinkSetFeatures {
 
 		File file = new File("PatientLinkFeatureFile");
 		try {
+
+            Object[] featuresList = FileUtils.readLines(file).toArray();
 			
-			Object[] featuresList = FileUtils.readLines(file).toArray();
-			
-			for (Object item: featuresList) {		
+			for (Object item: featuresList) {
 				String[] features = item.toString().split(",", -1);
 				// new PatientLink with first name, last name, specialty, address, city, state, zip added in constructor
 				PatientLink pl = new PatientLink(features[0],features[1],features[2],features[3],features[4],features[5],features[6],features[7]);

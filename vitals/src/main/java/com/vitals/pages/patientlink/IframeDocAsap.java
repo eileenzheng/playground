@@ -1,48 +1,31 @@
 package com.vitals.pages.patientlink;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.vitals.helpers.Constants;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import java.util.List;
+public class IframeDocAsap extends BasePage {
 
-public class IframeDocAsap {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
-
-    public IframeDocAsap() {
-        driver = DriverManager.getDriver();
-        wait = new WebDriverWait(driver,15,2000);
+    public FluentWebElement name() {
+        return link(cssSelector(".title_blue_small a"));
     }
 
-    @FindBy(css=".title_blue_small a")
-    private WebElement name;
-
-    @FindBy(css="a[title='Click time to book the appointment']")
-    private List<WebElement> timeSlots;
-
-    @FindBy(css=".buttons .old-cal-next")
-    private WebElement nextButton;
-
-    @FindBy(css=".calendar")
-    private WebElement calendar;
-
-    public boolean isNameCorrect(String name) {
-        return this.name.getText().equals(name);
+    public boolean hasSlots() {
+        return has().link(cssSelector("a[title='Click time to book the appointment']"));
     }
 
-    public boolean isThereSlot() {
-        return timeSlots.size() > 0;
+    public FluentWebElement nextButton () {
+        return div(cssSelector(".buttons .old-cal-next"));
     }
 
-    public IframeDocAsap clickNext() {
-        nextButton.click();
-        wait.until(ExpectedConditions.visibilityOf(calendar));
-        return PageFactory.initElements(driver, IframeDocAsap.class);
+    public FluentWebElement calendar() {
+        return div (cssSelector(".calendar"));
+    }
+
+    public void clickNext() {
+        nextButton().click();
+        waitUntilVisible(calendar(), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

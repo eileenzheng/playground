@@ -1,82 +1,92 @@
 package com.vitals.pages.patientlink;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.tools.internal.jxc.apt.Const;
+import com.vitals.helpers.Constants;
+import com.vitals.pages.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
 public class PatientLinkCenterAd extends PatientLinkAd {
-	
-	public PatientLinkCenterAd () {
-		super();
-	}
-	
-	@FindBy(css=".listing-featured .profile-name>a")
-	private List<WebElement> name;
-	
-	@FindBy(css=".listing-featured .location-distance")
-	private List<WebElement> specialty;
-	
-	@FindBy(css=".listing-featured span[itemprop=streetAddress]>span:first-child")
-	private List<WebElement> address1;
-	
-	@FindBy(css=".listing-featured span[itemprop=streetAddress]>span:last-child")
-	private List<WebElement> address2;
-	
-	@FindBy(css=".listing-featured span[itemprop=addressLocality]")
-	private List<WebElement> city;
-	
-	@FindBy(css=".listing-featured span[itemprop=addressRegion]")
-	private List<WebElement> state;
-	
-	@FindBy(css=".listing-featured span[itemprop=postalCode]")
-	private List<WebElement> zip;
-	
-	@FindBy(css=".listing-featured")
-	private List<WebElement> block;
-	
-	@FindBy(css=".result.sponsored.patient-link .book-online")
-	private WebElement bookButton;
-	
-	@FindBy(css=".result.sponsored.patient-link .call-appointment strong")
-	private WebElement phoneNumber;
-	
-	public List<WebElement> getName() {
-		return name;
-	}
-	
-	public List<WebElement> getSpecialty () {
-		return specialty;
-	}
-	
-	public List<WebElement> getAddressLine1() {
-		return address1;
-	}
-	
-	public List<WebElement> getAddressLine2() {
-		return address2;
-	}
-	
-	public List<WebElement> getCity () {
-		return city;
-	}
-	
-	public List<WebElement> getState () {
-		return state;
-	}
-	
-	public List<WebElement> getZip () {
-		return zip;
-	}
-	
-	public List<WebElement> getBookOnline() {
-		return parseElement(block, ".book-button>a");
-	}
-	
-	public List<WebElement> getPhoneNumber() {
-		return parseElement(block, ".appointment-info>strong");
-	}
-	
-	public List<WebElement> getLogo() {
-		return parseElement(block, ".sponsorship img");
-	}
+
+	public FluentWebElements name() {
+        return links(cssSelector(".listing-featured .profile-name>a"));
+    }
+
+    public FluentWebElements specialty() {
+        return divs(cssSelector(".listing-featured .location-distance"));
+    }
+
+    public FluentWebElements address1() {
+        return spans(cssSelector(".listing-featured span[itemprop=streetAddress]>span:first-child"));
+    }
+
+    public FluentWebElements address2() {
+        return spans(cssSelector(".listing-featured span[itemprop=streetAddress]>span:last-child"));
+    }
+
+    public FluentWebElements city() {
+        return spans(cssSelector(".listing-featured span[itemprop=addressLocality]"));
+    }
+
+    public FluentWebElements state() {
+        return spans(cssSelector(".listing-featured span[itemprop=addressRegion]"));
+    }
+
+    public FluentWebElements zip() {
+        return spans(cssSelector(".listing-featured span[itemprop=postalCode]"));
+    }
+
+    public FluentWebElements block() {
+        return divs(cssSelector(".listing-featured"));
+    }
+
+    public FluentWebElements bookButton() {
+        setImplicitWait(0);
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().link(cssSelector(".book-button>a")))
+                list.add(el.link(cssSelector(".book-button>a")));
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return makeFluentWebElements(list,null,null);
+    }
+
+    public List<WebElement> phoneNumber() {
+        setImplicitWait(0);
+        List<WebElement> list = new ArrayList<WebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().span(cssSelector(".appointment-info"))) {
+                list.add(el.span(cssSelector(".appointment-info")).getWebElement().findElement(cssSelector("strong")));
+            }
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return list;
+    }
+
+    public FluentWebElements logo() {
+        setImplicitWait(0);
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().img(cssSelector(".sponsorship img")))
+                list.add(el.img(cssSelector(".sponsorship img")));
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return makeFluentWebElements(list,null,null);
+    }
+
+    public int getSize() {
+        return name().size();
+    }
 }

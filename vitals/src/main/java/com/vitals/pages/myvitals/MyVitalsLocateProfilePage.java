@@ -1,71 +1,49 @@
 package com.vitals.pages.myvitals;
 
-import java.util.List;
+import com.vitals.helpers.Constants;
+import com.vitals.pages.BasePage;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+public class MyVitalsLocateProfilePage extends BasePage{
 
-public class MyVitalsLocateProfilePage {
-	
-	private final WebDriver driver;
-	private final WebDriverWait wait;
-
-    public MyVitalsLocateProfilePage() {
-    	driver = DriverManager.getDriver();
-    	wait = new WebDriverWait(driver,15,2000);
+    public FluentWebElement noProfileAlert() {
+        return div(cssSelector(".alert>div"));
     }
-    
-    @FindBy(css=".alert>div")
-    private WebElement noProfileAlert;
-    
-    @FindBy(css="#my_location")
-    private WebElement cityStateTextBox;
-    
-    @FindBy(css="#my_name")
-    private WebElement nameTextBox;
-    
-    @FindBy(css=".ui-menu-item>a")
-    private List<WebElement> autoSuggestList;
-    
+
+    public FluentWebElement cityStateTextBox() {
+        return input(cssSelector("#my_location"));
+    }
+
+    public FluentWebElement nameTextBox() {
+        return input (cssSelector("#my_name"));
+    }
+
+    public FluentWebElements autoSuggestList() {
+        return links(cssSelector(".ui-menu-item>a"));
+    }
+
     public boolean isNoProfileAlertCorrect() {
-        return noProfileAlert.getText().equals("It looks like you haven't claimed your professional profile yet. Let's get started...");
+        return noProfileAlert().getText().toString().equals("It looks like you haven't claimed your professional profile yet. Let's get started...");
     }
     
-    public MyVitalsLocateProfilePage enterCityState(String text) {
-    	cityStateTextBox.clear();
-    	cityStateTextBox.sendKeys(text);
-    	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
-    	return this;
+    public void enterCityState(String text) {
+    	cityStateTextBox().clearField();
+    	cityStateTextBox().sendKeys(text);
+        waitUntilVisible(autoSuggestList().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
-    public MyVitalsLocateProfilePage enterName(String text) {
-    	nameTextBox.clear();
-    	nameTextBox.sendKeys(text);
-    	wait.until(ExpectedConditions.visibilityOfAllElements(autoSuggestList));
-    	return this;
-    }
-    
-    public MyVitalsLocateProfilePage clickRandomLocation() {
-    	int rand = (int) Math.floor(Math.random() * (autoSuggestList.size() - 1));
-    	autoSuggestList.get(rand).click();
-    	return this;
-    }
-    
-    public MyVitalsClaimProfilePage clickRandomProvider() {
-    	int rand = (int) Math.floor(Math.random() * (autoSuggestList.size() - 1));
-    	autoSuggestList.get(rand).click();
-    	return PageFactory.initElements(driver, MyVitalsClaimProfilePage.class);
+    public void enterName(String text) {
+    	nameTextBox().clearField();
+    	nameTextBox().sendKeys(text);
+    	waitUntilVisible(autoSuggestList().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
     public boolean checkLocationSuggestions(String text) {
         Boolean flag = false;
-        for (WebElement el : autoSuggestList) {
-            if (el.getText().contains(text)) flag = true;
+        for (FluentWebElement el : autoSuggestList()) {
+            if (el.getText().toString().contains(text)) flag = true;
             if (flag) break;
         }
 
@@ -74,8 +52,8 @@ public class MyVitalsLocateProfilePage {
     
     public boolean checkNameSuggestions(String text) {
         Boolean flag = false;
-        for (WebElement el : autoSuggestList) {
-            if (el.getText().contains(text)) flag = true;
+        for (FluentWebElement el : autoSuggestList()) {
+            if (el.getText().toString().contains(text)) flag = true;
             if (flag) break;
         }
 
@@ -85,8 +63,8 @@ public class MyVitalsLocateProfilePage {
     public String getLocationSuggestions() {
         StringBuffer suggestList = new StringBuffer();
 
-        for (WebElement el : autoSuggestList) {
-                suggestList.append(el.getText() + "\n");
+        for (FluentWebElement el : autoSuggestList()) {
+                suggestList.append(el.getText().toString() + "\n");
         }
 
         return suggestList.toString();
@@ -95,8 +73,8 @@ public class MyVitalsLocateProfilePage {
     public String getNameSuggestions() {
         StringBuffer suggestList = new StringBuffer();
 
-        for (WebElement el : autoSuggestList) {
-                suggestList.append(el.getText() + "\n");
+        for (FluentWebElement el : autoSuggestList()) {
+                suggestList.append(el.getText().toString() + "\n");
         }
 
         return suggestList.toString();

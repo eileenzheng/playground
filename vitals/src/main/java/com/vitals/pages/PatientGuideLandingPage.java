@@ -1,53 +1,26 @@
 package com.vitals.pages;
 
-import com.vitalsqa.listener.DriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.linkText;
 
-import java.util.List;
+public class PatientGuideLandingPage extends BasePage{
 
-public class PatientGuideLandingPage {
-	private final WebDriver driver;
+	public FluentWebElement breadcrumb() {
+        return span(cssSelector(".breadcrumbs>span:nth-child(2)>a>span"));
+	}
+	
+	public FluentWebElement learnMore() {
+		return link(linkText("Learn more"));
+	}
 
-	public PatientGuideLandingPage () {
-		driver = DriverManager.getDriver();
-	}
+    public FluentWebElements topGuides() {
+        return links(cssSelector(".top_patient_guides p>a"));
+    }
 	
-	@FindBy(css=".breadcrumbs>span:nth-child(2)>a>span")
-	private WebElement breadcrumb;
-	
-	@FindBy(linkText="Learn more")
-	private WebElement learnMore;
-	
-	@FindBy(css=".top_patient_guides p>a")
-	private List<WebElement> topGuides;
-	
-	@FindBy(css=".column-list li>a")
-	private List<WebElement> guidesAtoZ;
-	
-	public boolean isLandingPage() {
-        return breadcrumb.getText().equals("Patient Education");
-	}
-	
-	public PatientGuidePage clickLearnMore() {
-		learnMore.click();
-		return PageFactory.initElements(driver, PatientGuidePage.class);
-	}
-	
-	public PatientGuidePage clickTopGuide() {
-		if (topGuides.size()==0)
-			return null;
-		int rand = (int) Math.floor(Math.random() * (topGuides.size() - 1));
-		topGuides.get(rand).click();
-		return PageFactory.initElements(driver, PatientGuidePage.class);
-	}
-	
-	public PatientGuidePage clickAtoZGuide() {
-		int rand = (int) Math.floor(Math.random() * (guidesAtoZ.size() - 1));
-		guidesAtoZ.get(rand).click();
-		return PageFactory.initElements(driver, PatientGuidePage.class);
-	}
+	public FluentWebElements alphaGuides() {
+        return links(cssSelector(".column-list li>a"));
+    }
 	
 }
