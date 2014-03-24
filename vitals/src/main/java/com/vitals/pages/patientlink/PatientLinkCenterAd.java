@@ -2,11 +2,7 @@ package com.vitals.pages.patientlink;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.tools.internal.jxc.apt.Const;
 import com.vitals.helpers.Constants;
-import com.vitals.pages.BasePage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
