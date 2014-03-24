@@ -8,7 +8,7 @@
 	<parameter name="driverType" value="remote" />
 
 	<listeners>
-		<!--<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />-->
+		<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
 	</listeners>
 
 	<test name="Profile Specific Tests">
