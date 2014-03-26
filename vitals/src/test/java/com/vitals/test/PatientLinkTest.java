@@ -56,10 +56,10 @@ public class PatientLinkTest {
 
     @TestCase(id={1554,1558})
     @Test
-    public void checkSeoProfile() {
+    public void checkSeoProfile() throws InterruptedException {
 
         ProfileSeoPage profile = new ProfileSeoPage();
-        profile.deleteCookies();;
+        profile.deleteCookies();
         profile.get(url + profileUrl);
 
         testIndividualAd(profile.rrAd());
@@ -67,7 +67,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1555,1558})
     @Test
-    public void checkProfile() {
+    public void checkProfile() throws InterruptedException {
 
         ProfilePage profile = new ProfilePage();
         profile.get(url);
@@ -78,7 +78,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1556,1558})
     @Test
-    public void checkSerp() {
+    public void checkSerp() throws InterruptedException {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
@@ -88,7 +88,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1557,1558})
     @Test
-    public void checkUccSerp() {
+    public void checkUccSerp() throws InterruptedException {
 
         UccSearchResultsPage ucc = new UccSearchResultsPage();
         ucc.get(url + uccUrl);
@@ -105,7 +105,7 @@ public class PatientLinkTest {
     }
 
     // loop through given list of ad and test the patient link features against expected
-    public void testIndividualAd(PatientLinkAd ad) {
+    public void testIndividualAd(PatientLinkAd ad) throws InterruptedException {
 
     	init();
     	m_assert = new SoftAssert();
@@ -153,11 +153,13 @@ public class PatientLinkTest {
             if (pl.hasBookOnline()) {
             	m_assert.assertTrue(!ad.bookButton().equals(null), "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
             	if (pl.getBookType()==1) {
+                    Thread.sleep(1500); // wait for 1.5 seconds to get accurate tracking
                     ad.bookButton().get(i).click();
                     modal.fname().clearField().sendKeys("test_first");
                     modal.lname().clearField().sendKeys("test_last");
                     modal.radioAfternoon().click();
                     modal.selectDropDown(modal.dropDownWhen(), "ASAP");
+                    Thread.sleep(1500); // wait for 1.5 seconds to get accurate tracking
             		modal.submitButton().click();
             		modal.closeButton().click();
             	}
