@@ -80,8 +80,6 @@ public class Ucc {
     }
 
     public String toString() {
-        StringBuilder buf = new StringBuilder();
-        buf.append(searchResultName).append(",").append(profileName).append(",").append(url);
-        return buf.toString();
+        return searchResultName + "," + profileName + "," + url;
     }
 }

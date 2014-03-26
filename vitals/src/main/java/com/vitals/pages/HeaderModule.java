@@ -183,42 +183,40 @@ public class HeaderModule extends BasePage {
     		suggestions = uccSuggestions();
         else if (type.equals(SearchType.LOCATION))
     		suggestions = locationSuggestions();
-    	
-        boolean flag = true;
 
         for (FluentWebElement el : suggestions) {
             if (!el.getText().toString().toLowerCase().contains(suggestion.toLowerCase()))
                 return false;
         }
  
-        return flag;
+        return true;
     }
 
     public String getNameSuggestions() {
-        StringBuffer drs = new StringBuffer();
+        StringBuilder drs = new StringBuilder();
 
         for (FluentWebElement el : nameSuggestions()) {
-            drs.append(el.span().getText().toString() + "\n");
+            drs.append(el.span().getText().toString()).append("\n");
         }
 
         return drs.toString();
     }
 
     public String getSpecialtySearchSuggestions() {
-    	StringBuffer specs = new StringBuffer();
+    	StringBuilder specs = new StringBuilder();
         
         for (FluentWebElement el : specialtySuggestions()) {
-            specs.append(el.getText().toString() + "\n");
+            specs.append(el.getText().toString()).append("\n");
         }
 
         return specs.toString();
     }
 
     public String getConditionSearchSuggestions() {
-        StringBuffer conds = new StringBuffer();
+        StringBuilder conds = new StringBuilder();
 
         for (FluentWebElement el : conditionSuggestions()) {
-            conds.append(el.getText().toString() + "\n");
+            conds.append(el.getText().toString()).append("\n");
         }
 
         return conds.toString();

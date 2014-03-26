@@ -63,12 +63,12 @@ public class UccSearchResultsPage extends BasePage {
         List<Ucc> ucc = new ArrayList<Ucc>();
 
         for (FluentWebElement el : uccList()) {
-            String name = el.getWebElement().findElement(cssSelector(".profile-name>a")).getText().toString().trim();
-            String url = el.getWebElement().findElement(cssSelector(".profile-name>a")).getAttribute("href").toString();
-            String address = el.getWebElement().findElement(cssSelector("span[itemprop=streetAddress]")).getText().toString();
-            String city = el.getWebElement().findElement(cssSelector("span[itemprop=addressLocality]")).getText().toString();
-            String state = el.getWebElement().findElement(cssSelector("span[itemprop=addressRegion]")).getText().toString();
-            String zip = el.getWebElement().findElement(cssSelector("span[itemprop=postalCode]")).getText().toString();
+            String name = el.getWebElement().findElement(cssSelector(".profile-name>a")).getText().trim();
+            String url = el.getWebElement().findElement(cssSelector(".profile-name>a")).getAttribute("href");
+            String address = el.getWebElement().findElement(cssSelector("span[itemprop=streetAddress]")).getText();
+            String city = el.getWebElement().findElement(cssSelector("span[itemprop=addressLocality]")).getText();
+            String state = el.getWebElement().findElement(cssSelector("span[itemprop=addressRegion]")).getText();
+            String zip = el.getWebElement().findElement(cssSelector("span[itemprop=postalCode]")).getText();
             ucc.add(new Ucc(name,url,address,city,state,zip));
         }
 

@@ -42,10 +42,6 @@ public class Profile {
     }
 
     public String toString() {
-        StringBuilder buf = new StringBuilder();
-        buf.append(searchResultName).append(",").append(profileName).append(",").append(url);
-//        buf.append(searchResultName).append(",").append(profileName).append(",").append(url).append(",")
-        //.append(address).append(",").append(starRating).append(",").append(specialty);
-        return buf.toString();
+        return searchResultName + "," + profileName + "," + url;
     }
 }

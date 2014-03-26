@@ -61,20 +61,20 @@ public class MyVitalsLocateProfilePage extends BasePage{
     }
     
     public String getLocationSuggestions() {
-        StringBuffer suggestList = new StringBuffer();
+        StringBuilder suggestList = new StringBuilder();
 
         for (FluentWebElement el : autoSuggestList()) {
-                suggestList.append(el.getText().toString() + "\n");
+                suggestList.append(el.getText().toString()).append("\n");
         }
 
         return suggestList.toString();
     }
     
     public String getNameSuggestions() {
-        StringBuffer suggestList = new StringBuffer();
+        StringBuilder suggestList = new StringBuilder();
 
         for (FluentWebElement el : autoSuggestList()) {
-                suggestList.append(el.getText().toString() + "\n");
+                suggestList.append(el.getText().toString()).append("\n");
         }
 
         return suggestList.toString();

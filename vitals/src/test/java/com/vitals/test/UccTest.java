@@ -79,9 +79,9 @@ public class UccTest {
     public void checkCitySerpResults(String urls) {
     	m_assert = new SoftAssert();
         UccSearchResultsPage serp = new UccSearchResultsPage();
-        serp.get(urls);;
+        serp.get(urls);
 
-    	List<Ucc> uccs = serp.uccResults();
+        List<Ucc> uccs = serp.uccResults();
 
     	for (Ucc ucc : uccs) {
     		m_assert.assertTrue(ucc.isNameLongEnough(), "Name may be too short: " + ucc.getName());

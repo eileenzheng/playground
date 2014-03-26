@@ -111,7 +111,7 @@ public class SearchResultsPage extends BasePage {
     }
     
     public String getDescription() {
-    	return description().getAttribute("content").toString();
+    	return description().getAttribute("content");
     }
     
     public boolean isMapEmpty() {

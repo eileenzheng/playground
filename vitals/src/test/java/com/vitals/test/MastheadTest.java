@@ -391,7 +391,7 @@ public class MastheadTest {
 		homePage.headerModule().locationSuggestions().get(0).click();
 
         homePage.get(url[1]);
-		Assert.assertTrue(homePage.headerModule().locationTextBox().getAttribute("value").equals("Fort lee, NJ"));
+		Assert.assertTrue(homePage.headerModule().locationTextBox().getAttribute("value").toString().equals("Fort lee, NJ"));
 	}
 
     private String env (int i) {

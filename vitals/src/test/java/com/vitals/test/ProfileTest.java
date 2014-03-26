@@ -26,7 +26,7 @@ public class ProfileTest {
     @Test
     public void doctorSeoProfileTest() {
         ProfileSeoPage seoProfile = new ProfileSeoPage();
-        seoProfile.deleteCookies();;
+        seoProfile.deleteCookies();
         seoProfile.get(url + drProfile);
 
         Assert.assertTrue(seoProfile.viewFullProfileButton().isDisplayed().value(),

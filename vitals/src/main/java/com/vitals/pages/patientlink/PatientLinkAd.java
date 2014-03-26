@@ -33,11 +33,6 @@ public abstract class PatientLinkAd extends BasePage {
     public abstract int getSize();
 
     public boolean hasAddress2(int i) {
-        if (address1().get(i).getText().toString().equals(address2().get(i).getText().toString())) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return !address1().get(i).getText().toString().equals(address2().get(i).getText().toString());
     }
 }
