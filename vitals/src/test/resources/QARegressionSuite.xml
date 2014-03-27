@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Vitals QA Regression" verbose="5" parallel="classes" thread-count="2">
-    <parameter name="url" value="http://qa.mdxdev.net"/>
+    <parameter name="url" value="http://www.vitals.com"/>
     <parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
@@ -49,4 +49,9 @@
 			<class name="com.vitals.test.UccTest" />
 		</classes>
 	</test>
+    <test name="Analytics Tests">
+        <classes>
+            <class name="com.vitals.test.AnalyticsTest" />
+        </classes>
+    </test>
 </suite>

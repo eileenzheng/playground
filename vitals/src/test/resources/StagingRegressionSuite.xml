@@ -50,4 +50,9 @@
 			<class name="com.vitals.test.UccTest" />
 		</classes>
 	</test>
+    <test name="Analytics Tests">
+        <classes>
+            <class name="com.vitals.test.AnalyticsTest" />
+        </classes>
+    </test>
 </suite>

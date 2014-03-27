@@ -1,5 +1,8 @@
 package com.vitals.pages;
 
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import static org.openqa.selenium.By.cssSelector;
+
 public class ReviewPage extends BasePage {
 
     HeaderModule headerModule;
@@ -18,4 +21,7 @@ public class ReviewPage extends BasePage {
         return footerModule;
     }
 
+    public FluentWebElement goButton() {
+        return input(cssSelector(".go-btn"));
+    }
 }

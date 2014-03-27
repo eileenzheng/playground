@@ -59,11 +59,6 @@ public class BasePage extends FluentWebDriver{
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    public void waitUntilVisible(final By by, final Integer seconds) {
-        WebDriverWait wait = new WebDriverWait(webDriver(),seconds);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-    }
-
     public void waitUntilVisible(FluentWebElement el, Integer seconds) {
         WebDriverWait wait = new WebDriverWait(webDriver(),seconds);
         wait.until(ExpectedConditions.visibilityOf(el.getWebElement()));
@@ -125,5 +120,9 @@ public class BasePage extends FluentWebDriver{
             } while ((Boolean) ((JavascriptExecutor) webDriver()).executeScript("return jQuery.active==0"));
             waitForJQuery();
         }
+    }
+
+    public String getPageSource() {
+        return webDriver().getPageSource();
     }
 }
