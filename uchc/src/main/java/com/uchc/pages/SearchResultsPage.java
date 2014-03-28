@@ -5,16 +5,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import com.uchc.DriverManager;
-
 import java.util.List;
 
-public class SearchResultsPage {
+public class SearchResultsPage extends BasePage {
 
-    WebDriver driver;
+    PatientLinkCenterAd centerAd;
 
     public SearchResultsPage() {
-        driver = DriverManager.getDriver();
+        centerAd = new PatientLinkCenterAd();
+    }
+
+    public PatientLinkCenterAd centerAd() {
+        return centerAd;
     }
 
     @FindBy(css=".bluebox-featured")

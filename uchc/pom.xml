@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress MavenModelInspection -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
@@ -56,6 +57,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <TestRail.url>http://testrail.mdx.med/</TestRail.url>
+        <TestRail.user>tester@vitals.com</TestRail.user>
+        <TestRail.password>vitals123</TestRail.password>
+        <remoteUrl>http://thvitdatadev01.mdx.med:4444/wd/hub</remoteUrl>
     </properties>
 
     <dependencies>
@@ -107,10 +112,22 @@
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.github.detro.ghostdriver</groupId>-->
-            <!--<artifactId>phantomjsdriver</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vitalsqa</groupId>
+            <artifactId>testrail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vitalsqa</groupId>
+            <artifactId>listener</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -140,7 +157,11 @@
                     <systemPropertyVariables>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                         <org.uncommons.reportng.title>Vitals QA Test Report</org.uncommons.reportng.title>
-                        <!--<testLocation>${test_Location}</testLocation> -->
+                        <driverType>${driverType}</driverType>
+                        <remoteUrl>${remoteUrl}</remoteUrl>
+                        <TestRail.url>${TestRail.url}</TestRail.url>
+                        <TestRail.user>${TestRail.user}</TestRail.user>
+                        <TestRail.password>${TestRail.password}</TestRail.password>
                     </systemPropertyVariables>
                     <properties>
                         <property>
@@ -149,7 +170,7 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            <value>org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
+                            <value>com.vitalsqa.listener.WebDriverListener,org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
                         </property>
                         <property>
                             <name>outputDir</name>

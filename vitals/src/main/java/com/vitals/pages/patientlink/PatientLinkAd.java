@@ -30,7 +30,9 @@ public abstract class PatientLinkAd extends BasePage {
 
     public abstract FluentWebElements logo();
 
-    public abstract int getSize();
+    public int getSize() {
+        return name().size();
+    }
 
     public boolean hasAddress2(int i) {
         return !address1().get(i).getText().toString().equals(address2().get(i).getText().toString());

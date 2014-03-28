@@ -6,7 +6,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.uchc.DriverManager;
 import com.uchc.pages.HomePage;
 
 /**
@@ -29,25 +28,25 @@ public class SearchTest {
     public void shutdown() {
     }
 
-    @Test
-    public void simpleSearchTest() {
-
-        DriverManager.getDriver().get(url);
-
-        HomePage homePage = PageFactory.initElements(DriverManager.getDriver(), HomePage.class);
-
-        homePage.selectDentistSearch();
-        homePage.selectPhysicianSearch();
-
-        homePage.enterFindADoctorLastName("Smith");
-        homePage.enterFindADoctorLocation("10001");
-        homePage.selectFindADoctorSpecialty("Hand Surgery");
-
-        homePage.clickFindADoctorSearchButton();
-//        homePage.clickSearchButton();
+//    @Test
+//    public void simpleSearchTest() {
 //
-//        System.out.println(driver.findElement(By.cssSelector("#content>div>h1")).getText());
-
-    }
+//        DriverManager.getDriver().get(url);
+//
+//        HomePage homePage = PageFactory.initElements(DriverManager.getDriver(), HomePage.class);
+//
+//        homePage.selectDentistSearch();
+//        homePage.selectPhysicianSearch();
+//
+//        homePage.enterFindADoctorLastName("Smith");
+//        homePage.enterFindADoctorLocation("10001");
+//        homePage.selectFindADoctorSpecialty("Hand Surgery");
+//
+//        homePage.clickFindADoctorSearchButton();
+////        homePage.clickSearchButton();
+////
+////        System.out.println(driver.findElement(By.cssSelector("#content>div>h1")).getText());
+//
+//    }
 
 }

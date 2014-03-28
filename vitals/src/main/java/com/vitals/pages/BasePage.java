@@ -10,7 +10,6 @@ import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import java.util.concurrent.TimeUnit;
-
 import static org.openqa.selenium.By.cssSelector;
 
 public class BasePage extends FluentWebDriver{

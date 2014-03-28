@@ -1,38 +1,137 @@
 package com.uchc.pages;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import com.uchc.helpers.Constants;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.openqa.selenium.By.cssSelector;
 
 public class PatientLinkCenterAd extends PatientLinkAd {
 	
-	public PatientLinkCenterAd () {
-		super();
-	}
-	
-	@FindBy(css=".cmt_inner_content .provider-name-cw>a")
-	private List<WebElement> name;
-	
-	@FindBy(css=".cmt_inner_content")
-	private List<WebElement> content;
-	
-	public List<WebElement> getName() {
-		return name;
-	}
-	
-	public List<WebElement> getAddress() {
-		return parseAddress(content, ".address-well");
-	}
-	
-	public List<WebElement> getMakeAppt() {
-		return parseElement(content, ".book-online>a");
-	}
-	
-	public List<WebElement> getPhoneNumber() {
-		return parseElement(content, ".call-appointment .tel");
-	}
-	
-	public List<WebElement> getLogo() {
-		return parseElement(content, ".logo");
-	}
+	public FluentWebElements name() {
+        return links(cssSelector(".featured .panel-body .name"));
+    }
+
+    private FluentWebElements addressBlock() {
+        return ps(cssSelector(".featured .row .address"));
+    }
+
+    public List<String> address1() {
+        List<String> addr = new ArrayList<String>();
+
+        for (int i=0; i<addressBlock().size(); i++) {
+            String[] lines = addressBlock().get(i).getText().toString().split("\n");
+            if (lines.length==2)
+                addr.add(lines[0]);
+            else if (lines.length==4)
+                addr.add(lines[1]);
+            else if (lines.length==3 && lines[0].matches(".*\\d.*"))
+                addr.add(lines[0]);
+            else if (lines.length==3)
+                addr.add(lines[1]);
+            else
+                addr.add(null);
+        }
+
+        return addr;
+    }
+
+    public List<String> address2() {
+        List<String> addr = new ArrayList<String>();
+
+        for (int i=0; i<addressBlock().size(); i++) {
+            String[] lines = addressBlock().get(i).getText().toString().split("\n");
+            if (lines.length==2)
+                addr.add(null);
+            else if (lines.length==4)
+                addr.add(lines[2]);
+            else if (lines.length==3 && lines[0].matches(".*\\d.*"))
+                addr.add(lines[1]);
+            else
+                addr.add(null);
+        }
+
+        return addr;
+    }
+
+    public List<String> city() {
+        List<String> city = new ArrayList<String>();
+
+        for (int i=0; i<addressBlock().size(); i++) {
+            String[] lines = addressBlock().get(i).getText().toString().split("\n");
+            String lastline = lines[lines.length-1];
+            city.add(lastline.substring(0, lastline.indexOf(",")));
+        }
+
+        return city;
+    }
+
+    public List<String> state() {
+        List<String> state = new ArrayList<String>();
+
+        for (int i=0; i<addressBlock().size(); i++) {
+            String[] lines = addressBlock().get(i).getText().toString().split("\n");
+            String lastline = lines[lines.length-1];
+            state.add(lastline.substring(lastline.indexOf(",")+2).split(" ")[0]);
+        }
+
+        return state;
+    }
+
+    public List<String> zip() {
+        List<String> zip = new ArrayList<String>();
+
+        for (int i=0; i<addressBlock().size(); i++) {
+            String[] lines = addressBlock().get(i).getText().toString().split("\n");
+            String lastline = lines[lines.length-1];
+            zip.add(lastline.substring(lastline.indexOf(",")+2).split(" ")[1]);
+        }
+
+        return zip;
+    }
+
+    public FluentWebElements block() {
+        return divs(cssSelector(".featured .row"));
+    }
+
+    public FluentWebElements bookButton() {
+        setImplicitWait(0);
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().link(cssSelector(".bookonline")))
+                list.add(el.link(cssSelector(".bookonline")));
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return makeFluentWebElements(list,null,null);
+    }
+
+    public FluentWebElements phoneNumber() {
+        setImplicitWait(0);
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().link(cssSelector(".phone a")))
+                list.add(el.link(cssSelector(".phone a")));
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return makeFluentWebElements(list,null,null);
+    }
+
+    public FluentWebElements logo() {
+        setImplicitWait(0);
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
+        for (FluentWebElement el : block()){
+            if (el.has().img(cssSelector(".well img")))
+                list.add(el.img(cssSelector(".well img")));
+            else
+                list.add(null);
+        }
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
+        return makeFluentWebElements(list,null,null);
+    }
 }

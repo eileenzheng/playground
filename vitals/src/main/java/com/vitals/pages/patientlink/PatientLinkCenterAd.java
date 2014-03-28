@@ -81,8 +81,4 @@ public class PatientLinkCenterAd extends PatientLinkAd {
         setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
         return makeFluentWebElements(list,null,null);
     }
-
-    public int getSize() {
-        return name().size();
-    }
 }

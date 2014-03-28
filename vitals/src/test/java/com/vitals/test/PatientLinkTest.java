@@ -147,7 +147,7 @@ public class PatientLinkTest {
 						"Phone number for " + ad.name().get(i).getText().toString() + " did not match");
 			}
             else {
-            	m_assert.assertTrue(pl.getExpectedNumberUchc().equals(""), "Phone number is empty for " + ad.name().get(i).getText().toString());
+            	m_assert.assertTrue(pl.getExpectedNumber().equals(""), "Phone number is empty for " + ad.name().get(i).getText().toString());
             }
 
             if (pl.hasBookOnline()) {

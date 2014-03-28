@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="UCHC Production Regression" verbose="5" parallel="tests" thread-count="1">
-
-    <parameter name="url" value="http://www.ucomparehealthcare.com"/>
-    <parameter name="testLocation" value="remoteWD"/>
-    <listeners>
-        <listener class-name="com.uchc.WebDriverListener"/>
-    </listeners>
+<suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="2">
+    <parameter name="url" value="http://www.ucomparehealthcare.com" />
+    <parameter name="browser" value="firefox" />
+    <parameter name="driverType" value="remote" />
     
-    <test name="Search Specfic Tests">
-        <classes>
-            <class name="com.uchc.test.SearchTest"/>
-        </classes>
-    </test>
+    <!--<test name="Search Specfic Tests">-->
+        <!--<classes>-->
+            <!--<class name="com.uchc.test.SearchTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 
     <test name="Patient Link Tests">
         <classes>
