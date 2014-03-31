@@ -2,7 +2,7 @@
 <suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="2">
     <parameter name="url" value="http://www.ucomparehealthcare.com" />
     <parameter name="browser" value="firefox" />
-    <parameter name="driverType" value="remote" />
+    <parameter name="driverType" value="local" />
     
     <!--<test name="Search Specfic Tests">-->
         <!--<classes>-->

@@ -1,6 +1,7 @@
 package com.uchc.test;
 
 import com.uchc.pages.*;
+import com.uchc.pages.patientlink.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -94,7 +95,7 @@ public class PatientLinkTest {
             }
 
             if (pl.hasBookOnline()) {
-                m_assert.assertTrue(!ad.bookButton().equals(null), "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
+                m_assert.assertTrue(ad.bookButton()!=null, "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
                 if (pl.getBookType()==1) {
                     apptUrl.add(ad.bookButton().get(i).getAttribute("href").toString());
                 }
@@ -109,8 +110,66 @@ public class PatientLinkTest {
             form.get(appt);
             form.fname().clearField().sendKeys("first name");
             form.lname().clearField().sendKeys("last name");
-            form.submitButton().click();
         }
+
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void docAsapIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfilePage profile = new ProfilePage();
+        profile.get(url + "/drs/siby_cherian");
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='docasap']");
+
+        IframeDocAsap iframe = new IframeDocAsap();
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Siby Cherian, MD"), "Incorrect name");
+        iframe.nextButton().click();
+        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void healthPostIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfilePage profile = new ProfilePage();
+        profile.get(url + "/drs/victoria_adeleye");
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='healthpost']");
+
+        IframeHealthPost iframe = new IframeHealthPost();
+        iframe.nextButton().click();
+        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void drChronoIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfilePage profile = new ProfilePage();
+        profile.get(url + "/drs/matthew_krasucki");
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='chrono']");
+
+        IframeDrChrono iframe = new IframeDrChrono();
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Matthew D. Krasucki M.D."), "Incorrect name");
+        iframe.nextButton().click();
+        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
     }

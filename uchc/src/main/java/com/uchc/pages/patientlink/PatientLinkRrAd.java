@@ -1,4 +1,4 @@
-package com.uchc.pages;
+package com.uchc.pages.patientlink;
 
 import com.uchc.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;

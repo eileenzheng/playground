@@ -151,7 +151,7 @@ public class PatientLinkTest {
             }
 
             if (pl.hasBookOnline()) {
-            	m_assert.assertTrue(!ad.bookButton().equals(null), "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
+            	m_assert.assertTrue(ad.bookButton()!=null, "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
             	if (pl.getBookType()==1) {
                     Thread.sleep(1500); // wait for 1.5 seconds to get accurate tracking
                     ad.bookButton().get(i).click();
@@ -159,8 +159,6 @@ public class PatientLinkTest {
                     modal.lname().clearField().sendKeys("test_last");
                     modal.radioAfternoon().click();
                     modal.selectDropDown(modal.dropDownWhen(), "ASAP");
-                    Thread.sleep(1500); // wait for 1.5 seconds to get accurate tracking
-            		modal.submitButton().click();
             		modal.closeButton().click();
             	}
             	else if (pl.getBookType()==2) {

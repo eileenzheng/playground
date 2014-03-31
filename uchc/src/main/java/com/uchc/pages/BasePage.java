@@ -11,6 +11,8 @@ import org.seleniumhq.selenium.fluent.FluentWebElement;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.By.cssSelector;
+
 public class BasePage extends FluentWebDriver {
 
     private final WebDriver webDriver;
@@ -48,5 +50,17 @@ public class BasePage extends FluentWebDriver {
     public void waitUntilVisible(FluentWebElement el, Integer seconds) {
         WebDriverWait wait = new WebDriverWait(webDriver(),seconds);
         wait.until(ExpectedConditions.visibilityOf(el.getWebElement()));
+    }
+
+    public void switchIframe(String css) {
+        webDriver().switchTo().frame(webDriver().findElement(cssSelector(css)));
+    }
+
+    public void switchWindow(String window) {
+        webDriver().switchTo().window(window);
+    }
+
+    public String getMainWindow() {
+        return webDriver().getWindowHandle();
     }
 }

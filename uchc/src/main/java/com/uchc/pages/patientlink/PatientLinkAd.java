@@ -1,5 +1,6 @@
-package com.uchc.pages;
+package com.uchc.pages.patientlink;
 
+import com.uchc.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import java.util.List;
 
