@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="White Label Widget Regression" verbose="5" parallel="classes" thread-count="2">
-    <parameter name="url" value="http://feature-adhd_search.features.hb.mdxdev.net/adhd"/>
+    <parameter name="url" value="http://finder.vitals.com/adhd"/>
     <parameter name="browser" value="firefox" />
     <parameter name="projectId" value="2"/>
     <parameter name="suiteId" value="12"/>
