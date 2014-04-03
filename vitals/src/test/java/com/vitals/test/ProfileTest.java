@@ -1,12 +1,12 @@
 package com.vitals.test;
 
-import com.vitals.pages.ProfileSeoPage;
+import com.vitals.pages.profile.ProfileSeoPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.vitals.pages.ProfilePage;
+import com.vitals.pages.profile.ProfilePage;
 
 public class ProfileTest {
     

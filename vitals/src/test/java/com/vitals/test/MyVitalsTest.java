@@ -14,7 +14,7 @@ import com.vitals.pages.myvitals.MyVitalsHomePage;
 import com.vitals.pages.myvitals.MyVitalsLocateProfilePage;
 import com.vitals.pages.myvitals.MyVitalsProfessionalsPage;
 import com.vitals.pages.myvitals.MyVitalsSignInPage;
-import com.vitals.pages.ProfilePage;
+import com.vitals.pages.profile.ProfilePage;
 
 public class MyVitalsTest {
 

@@ -10,7 +10,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.ProfilePage;
+import com.vitals.pages.profile.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
 import java.util.List;
 

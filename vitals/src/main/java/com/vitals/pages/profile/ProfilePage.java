@@ -1,5 +1,6 @@
-package com.vitals.pages;
+package com.vitals.pages.profile;
 
+import com.vitals.pages.BasePage;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;

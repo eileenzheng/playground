@@ -81,9 +81,10 @@ public class SearchPage extends BasePage {
             len = names().size();
 
         for (int i=0; i<len; i++) {
-            Reporter.log(names().get(i).getText().toString() + " vs " + vitalsProfile.get(i).getName());
-            if (!names().get(i).getText().toString().equals(vitalsProfile.get(i).getName()))
+            if (!names().get(i).getText().toString().equals(vitalsProfile.get(i).getName())) {
+                Reporter.log(names().get(i).getText().toString() + " vs " + vitalsProfile.get(i).getName());
                 return false;
+            }
         }
         return true;
     }

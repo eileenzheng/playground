@@ -124,4 +124,12 @@ public class BasePage extends FluentWebDriver{
     public String getPageSource() {
         return webDriver().getPageSource();
     }
+
+    public String getStyle(FluentWebElement element, String property) {
+        return element.getWebElement().getCssValue(property);
+    }
+
+    public FluentWebElement divMaincontent() {
+        return div(cssSelector(".main-content"));
+    }
 }
