@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -7,7 +8,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.profile.ProfilePage;
 import com.vitals.pages.ReviewPage;
 import com.vitals.pages.ReviewWritePage;
 import com.vitals.pages.ReviewSearchResultsPage;
@@ -28,7 +28,7 @@ public class MastheadTest {
 		this.url[0] = url;
 		if (url.toLowerCase().contains("staging"))
 			this.url[1] = "https://my.staging.vitals.com";
-		else if (url.toLowerCase().contains("qa"))
+		else if (url.toLowerCase().contains("mdxdev"))
 			this.url[1] = "http://my.qa.mdxdev.net";
 		else
 			this.url[1] = "https://my.vitals.com";
@@ -153,7 +153,7 @@ public class MastheadTest {
 			homePage.headerModule().enterSearchTerm("John");
             homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
 
-			ProfilePage profilePage = new ProfilePage();
+			ProfileCommonPage profilePage = new ProfileCommonPage();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}
@@ -210,7 +210,7 @@ public class MastheadTest {
             homePage.headerModule().enterSearchTerm("John");
             homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
 
-			ProfilePage profilePage = new ProfilePage();
+			ProfileCommonPage profilePage = new ProfileCommonPage();
 
 			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
 		}

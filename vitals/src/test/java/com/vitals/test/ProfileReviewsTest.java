@@ -53,4 +53,13 @@ public class ProfileReviewsTest {
         reviewsPage.selectDropDown(reviewsPage.sortDropDown(), "Oldest");
         Assert.assertTrue(reviewsPage.sortByOldest(), "Reviews are not sorted by oldest first");
     }
+
+    @TestCase(id=1831)
+    @Test
+    public void nextPage() {
+        ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
+        reviewsPage.get(url + drProfile);
+        reviewsPage.nextPageLink().click();
+        Assert.assertTrue(reviewsPage.common().isCredentialsPage(), "Next page is not credentials page");
+    }
 }

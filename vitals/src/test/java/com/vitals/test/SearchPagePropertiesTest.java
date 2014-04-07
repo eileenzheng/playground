@@ -515,7 +515,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!h1.get(len-3).contains(name))
     		return false;
-    	else if (!h1.get(len-2).equals("in"))
+    	else if (!h1.get(len-2).equals("near"))
     		return false;
     	else return h1.get(len - 1).equals(locationTerm);
     }
@@ -528,7 +528,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!h1.get(len-3).equalsIgnoreCase(condition))
     		return false;
-    	else if (!h1.get(len-2).equals("in"))
+    	else if (!h1.get(len-2).equals("near"))
     		return false;
     	else return h1.get(len - 1).equals(locationTerm);
     }
@@ -537,7 +537,7 @@ public class SearchPagePropertiesTest {
     	int len = h1.size();
     	if (!h1.get(len-3).contains(spec.toLowerCase()))
     		return false;
-    	else if (!h1.get(len-2).equals("in"))
+    	else if (!h1.get(len-2).equals("near"))
     		return false;
     	else return h1.get(len - 1).equals(locationTerm);
     }

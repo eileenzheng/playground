@@ -7,11 +7,11 @@ import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.linkText;
 
-public class ProfilePage extends BasePage {
+public class ProfileCommonPage extends BasePage {
 
     PatientLinkRrAd rrAd;
 
-    public ProfilePage() {
+    public ProfileCommonPage() {
         rrAd = new PatientLinkRrAd();
     }
 

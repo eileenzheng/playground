@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.helpers.Profile;
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -10,7 +11,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.profile.ProfilePage;
 import com.vitals.pages.SearchResultsPage;
 import java.util.List;
 
@@ -185,11 +185,11 @@ public class SearchTest {
         homePage.headerModule().goButton().click();
 
         SearchResultsPage results = new SearchResultsPage();
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
 
         List<Profile> docs = results.doctorResults(results.drList());
 
-        Reporter.log("ResultsPage,ProfilePage,ProfilePageUrl");
+        Reporter.log("ResultsPage,ProfileCommonPage,ProfilePageUrl");
         for (Profile doc : docs) {
             profile.get(doc.getUrl());
             doc.setProfileName(profile.name().getText().toString().trim());

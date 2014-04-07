@@ -15,7 +15,7 @@ public class AnalyticsTest {
     SoftAssert m_assert;
     private final String comScore = "var _comscore = _comscore";
     private final String googleAnalytics = "google-analytics.com";
-    private final String optimizely = "cdn.optimizely.com";
+    private final String googleTagServices = "googletagservices";
     private final String profile = "/doctors/Dr_Todd_Rosengart/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
@@ -170,6 +170,6 @@ public class AnalyticsTest {
     }
 
     private boolean checkAnalytics(String source) {
-        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(optimizely));
+        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googleTagServices));
     }
 }

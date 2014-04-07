@@ -6,6 +6,16 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class ProfileInsurancePage extends BasePage {
 
+    ProfileCommonPage common;
+
+    public ProfileInsurancePage() {
+        common = new ProfileCommonPage();
+    }
+
+    public ProfileCommonPage common() {
+        return common;
+    }
+
     public FluentWebElement company() {
         return link(cssSelector(".company"));
     }

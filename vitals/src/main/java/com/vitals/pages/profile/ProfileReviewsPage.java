@@ -3,12 +3,19 @@ package com.vitals.pages.profile;
 import com.vitals.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
-
-import java.util.List;
-
 import static org.openqa.selenium.By.cssSelector;
 
 public class ProfileReviewsPage extends BasePage {
+
+    ProfileCommonPage common;
+
+    public ProfileReviewsPage() {
+        common = new ProfileCommonPage();
+    }
+
+    public ProfileCommonPage common() {
+        return common;
+    }
 
     public FluentWebElement helpfulLink() {
         return link(cssSelector("a.helpful"));
@@ -36,6 +43,10 @@ public class ProfileReviewsPage extends BasePage {
 
     public FluentWebElements dates() {
         return spans(cssSelector(".value-title"));
+    }
+
+    public FluentWebElement nextPageLink() {
+        return link(cssSelector("a.continue"));
     }
 
     public boolean sortByRecent() {

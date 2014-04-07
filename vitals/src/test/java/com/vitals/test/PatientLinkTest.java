@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.helpers.PatientLinkSetFeatures;
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.profile.ProfileSeoPage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.patientlink.*;
@@ -11,7 +12,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.vitals.pages.profile.ProfilePage;
 
 public class PatientLinkTest {
 
@@ -36,7 +36,7 @@ public class PatientLinkTest {
     @Test
     public void checkProfileHeader() {
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url);
         // launch again to go to profile instead of seo profile
         profile.get(url + profileHeaderUrl);
@@ -69,7 +69,7 @@ public class PatientLinkTest {
     @Test
     public void checkProfile() throws InterruptedException {
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url);
         profile.get(url + profileUrl);
 
@@ -181,7 +181,7 @@ public class PatientLinkTest {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Siby_Cherian/profile");
         profile.plBookAppt().click();
 
@@ -206,7 +206,7 @@ public class PatientLinkTest {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Victoria_Adeleye/profile");
         profile.plBookAppt().click();
 
@@ -230,7 +230,7 @@ public class PatientLinkTest {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Matthew_Krasucki/profile");
         profile.plBookAppt().click();
 

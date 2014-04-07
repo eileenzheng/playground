@@ -1,12 +1,12 @@
 package com.vitals.test;
 
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.profile.ProfileSeoPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.vitals.pages.profile.ProfilePage;
 
 public class ProfileTest {
     
@@ -33,7 +33,7 @@ public class ProfileTest {
                 "SEO Doctor Page did not load successfully" + drProfile);
 
         seoProfile.get(url + drProfile);
-        ProfilePage fullProfile = new ProfilePage();
+        ProfileCommonPage fullProfile = new ProfileCommonPage();
         Assert.assertTrue(fullProfile.isSummaryPage(),
                 "Profile page did not load: " + fullProfile.getCurrentUrl());
     }
@@ -49,7 +49,7 @@ public class ProfileTest {
                 "SEO Dentist Page did not load successfully: " + dentistProfile);
 
         seoProfile.get(url + dentistProfile);
-        ProfilePage fullProfile = new ProfilePage();
+        ProfileCommonPage fullProfile = new ProfileCommonPage();
         Assert.assertTrue(fullProfile.isSummaryPage(),
                 "Profile page did not load: " + fullProfile.getCurrentUrl());
     }
@@ -57,7 +57,7 @@ public class ProfileTest {
     @TestCase(id=1456)
     @Test
     public void viewFullProfileSummaryTest() {
-        ProfilePage profilePage = new ProfilePage();
+        ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
 
@@ -68,7 +68,7 @@ public class ProfileTest {
     @TestCase(id=1457)
     @Test
     public void viewFullProfileReviewsTest() {
-        ProfilePage profilePage = new ProfilePage();
+        ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url+ drProfile);
         profilePage.reviewsTab().click();
@@ -80,7 +80,7 @@ public class ProfileTest {
     @TestCase(id=1633)
     @Test
     public void viewFullProfileCredentialsTest() {
-    	ProfilePage profilePage = new ProfilePage();
+    	ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
         profilePage.credentialsTab().click();
@@ -93,7 +93,7 @@ public class ProfileTest {
     @TestCase(id=1458)
     @Test
     public void viewFullProfileLocationsTest() {
-        ProfilePage profilePage = new ProfilePage();
+        ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
         profilePage.locationsTab().click();
@@ -105,7 +105,7 @@ public class ProfileTest {
     @TestCase(id=1459)
     @Test
     public void viewFullProfileInsurancesTest() {
-        ProfilePage profilePage = new ProfilePage();
+        ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
         profilePage.insurancesTab().click();
@@ -117,7 +117,7 @@ public class ProfileTest {
     @TestCase(id=1460)
     @Test
     public void viewVideoProfileTest() {
-        ProfilePage profilePage = new ProfilePage();
+        ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drVideoProfile);
 

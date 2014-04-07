@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -14,7 +15,6 @@ import com.vitals.pages.myvitals.MyVitalsHomePage;
 import com.vitals.pages.myvitals.MyVitalsLocateProfilePage;
 import com.vitals.pages.myvitals.MyVitalsProfessionalsPage;
 import com.vitals.pages.myvitals.MyVitalsSignInPage;
-import com.vitals.pages.profile.ProfilePage;
 
 public class MyVitalsTest {
 
@@ -100,7 +100,7 @@ public class MyVitalsTest {
             login(homePage);
 
     		// go to profile page of doctor
-            ProfilePage profileToClaim = new ProfilePage();
+            ProfileCommonPage profileToClaim = new ProfileCommonPage();
             profileToClaim.get(url + claimProfileUrl);
             profileToClaim.claimProfileLink().click();
 
@@ -123,7 +123,7 @@ public class MyVitalsTest {
     @Test (dependsOnMethods = {"claimProfileSuccess"})
     public void removeProfileLink() {
     	// only perform this test on staging or qa
-    	if (url.contains("staging") || url.contains("qa")) {
+    	if (url.contains("staging") || url.contains("mdxdev")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
             homePage.get(url);
