@@ -16,6 +16,8 @@ import com.vitals.pages.myvitals.MyVitalsLocateProfilePage;
 import com.vitals.pages.myvitals.MyVitalsProfessionalsPage;
 import com.vitals.pages.myvitals.MyVitalsSignInPage;
 
+import static org.seleniumhq.selenium.fluent.Period.millis;
+
 public class MyVitalsTest {
 
     private String url;
@@ -84,7 +86,9 @@ public class MyVitalsTest {
         // click submit button and expect alert because nothing is filled out
         MyVitalsClaimProfilePage claimPage = new MyVitalsClaimProfilePage();
         claimPage.claimProfileButton().click();
-        Assert.assertTrue(claimPage.isEmptyAlertShown());
+        Assert.assertTrue(claimPage.alertText().within(millis(500)).isDisplayed().value(), "Alert not displayed");
+        Assert.assertTrue(claimPage.alertText().getText().toString().equals("We could not verify your information. You must enter your full date of birth, a valid license number and issuing state, or your NPI."),
+                "Alert texts is incorrect");
     }
 
     @TestCase(id=1565)
@@ -106,8 +110,6 @@ public class MyVitalsTest {
 
     		// start filling in stuff on claim page and submit
             MyVitalsClaimProfilePage claimPage = new MyVitalsClaimProfilePage();
-    		claimPage.firstNameTextBox().clearField().sendKeys("abc");
-            claimPage.lastNameTextBox().clearField().sendKeys("abc");
     		claimPage.clickFillLinks();
             claimPage.claimProfileButton().click();
 

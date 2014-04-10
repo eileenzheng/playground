@@ -7,14 +7,6 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class MyVitalsClaimProfilePage extends BasePage {
 
-    public FluentWebElement firstNameTextBox() {
-        return input(cssSelector("#claim_first_name"));
-    }
-
-    public FluentWebElement lastNameTextBox() {
-        return input(cssSelector("#claim_last_name"));
-    }
-
     public FluentWebElements fillInfoLinks() {
         return links(cssSelector("#new_claim p a"));
     }
@@ -25,11 +17,6 @@ public class MyVitalsClaimProfilePage extends BasePage {
 
     public FluentWebElement alertText() {
         return p(cssSelector(".alert>p"));
-    }
-
-
-    public boolean isEmptyAlertShown() {
-        return alertText().getText().toString().equals("We could not verify your information. You must enter your full date of birth.");
     }
     
     public void clickFillLinks() {
