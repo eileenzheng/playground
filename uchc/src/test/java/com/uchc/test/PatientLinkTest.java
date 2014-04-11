@@ -46,7 +46,7 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=1833)
+    @TestCase(id={1833,1835})
     @Test
     public void checkProfile() {
 
@@ -56,7 +56,7 @@ public class PatientLinkTest {
         testIndividualAd(profile.rrAd());
     }
 
-    @TestCase(id=1834)
+    @TestCase(id={1834,1835})
     @Test
     public void checkSerp() {
 
