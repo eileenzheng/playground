@@ -56,7 +56,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1554,1558})
     @Test
-    public void checkSeoProfile() throws InterruptedException {
+    public void checkSeoProfile() {
 
         ProfileSeoPage profile = new ProfileSeoPage();
         profile.deleteCookies();
@@ -67,7 +67,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1555,1558})
     @Test
-    public void checkProfile() throws InterruptedException {
+    public void checkProfile() {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url);
@@ -78,7 +78,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1556,1558})
     @Test
-    public void checkSerp() throws InterruptedException {
+    public void checkSerp() {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
@@ -88,7 +88,7 @@ public class PatientLinkTest {
 
     @TestCase(id={1557,1558})
     @Test
-    public void checkUccSerp() throws InterruptedException {
+    public void checkUccSerp() {
 
         UccSearchResultsPage ucc = new UccSearchResultsPage();
         ucc.get(url + uccUrl);
@@ -105,7 +105,7 @@ public class PatientLinkTest {
     }
 
     // loop through given list of ad and test the patient link features against expected
-    public void testIndividualAd(PatientLinkAd ad) throws InterruptedException {
+    public void testIndividualAd(PatientLinkAd ad) {
 
     	init();
     	m_assert = new SoftAssert();
@@ -153,7 +153,6 @@ public class PatientLinkTest {
             if (pl.hasBookOnline()) {
             	m_assert.assertTrue(ad.bookButton()!=null, "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
             	if (pl.getBookType()==1) {
-                    Thread.sleep(1500); // wait for 1.5 seconds to get accurate tracking
                     ad.bookButton().get(i).click();
                     modal.fname().clearField().sendKeys("test_first");
                     modal.lname().clearField().sendKeys("test_last");
