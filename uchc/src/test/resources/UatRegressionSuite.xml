@@ -3,13 +3,12 @@
     <parameter name="url" value="http://uchc:maggiegetyourbone@stagea.ucomparehealthcare.com" />
     <parameter name="browser" value="firefox" />
     <parameter name="driverType" value="remote" />
-    
-    <!--<test name="Search Specfic Tests">-->
-        <!--<classes>-->
-            <!--<class name="com.uchc.test.SearchTest"/>-->
-        <!--</classes>-->
-    <!--</test>-->
 
+    <test name="Profile Specfic Tests">
+        <classes>
+            <class name="com.uchc.test.ProfileTest"/>
+        </classes>
+    </test>
     <test name="Patient Link Tests">
         <classes>
             <class name="com.uchc.test.PatientLinkTest"/>

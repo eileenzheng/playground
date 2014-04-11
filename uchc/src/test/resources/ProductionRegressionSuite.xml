@@ -2,14 +2,20 @@
 <suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="2">
     <parameter name="url" value="http://www.ucomparehealthcare.com" />
     <parameter name="browser" value="firefox" />
+    <parameter name="projectId" value="2"/>
+    <parameter name="suiteId" value="22"/>
+    <parameter name="testRunId" value="132"/>
     <parameter name="driverType" value="remote" />
-    
-    <!--<test name="Search Specfic Tests">-->
-        <!--<classes>-->
-            <!--<class name="com.uchc.test.SearchTest"/>-->
-        <!--</classes>-->
-    <!--</test>-->
 
+    <listeners>
+        <listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
+    </listeners>
+    
+    <test name="Profile Specfic Tests">
+        <classes>
+            <class name="com.uchc.test.ProfileTest"/>
+        </classes>
+    </test>
     <test name="Patient Link Tests">
         <classes>
             <class name="com.uchc.test.PatientLinkTest"/>

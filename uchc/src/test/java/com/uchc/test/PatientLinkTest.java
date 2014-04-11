@@ -2,6 +2,7 @@ package com.uchc.test;
 
 import com.uchc.pages.*;
 import com.uchc.pages.patientlink.*;
+import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -17,6 +18,7 @@ public class PatientLinkTest {
     private String url;
     private static String serpUrl = "/drs/new_york/internal_medicine/New_York.html";
     private static String profileUrl = "/drs/carrie_aaron/";
+    private static String profileHeaderUrl = "/drs/adelle_quintana";
 
     @Parameters({"url"})
     @BeforeMethod
@@ -24,17 +26,39 @@ public class PatientLinkTest {
         this.url = url;
     }
 
+    @TestCase(id=1832)
     @Test
-    public void checkProfile() throws InterruptedException {
+    public void checkProfileHeader() {
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + profileHeaderUrl);
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(profile.hasPlDrSite(), "Doctor's site is missing!");
+        if (profile.hasPlDrSite()) {
+            m_assert.assertEquals(profile.getSiteUrl(), "http://www.laserandmohs.com", "Doctor's site url is wrong!");
+        }
+        m_assert.assertTrue(profile.hasPlPhoneNumber(), "Phone number is missing!");
+        if (profile.hasPlPhoneNumber()) {
+            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(646) 499-2346") , "Phone number is incorrect!");
+        }
+        m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=1833)
+    @Test
+    public void checkProfile() {
+
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + profileUrl);
 
         testIndividualAd(profile.rrAd());
     }
 
+    @TestCase(id=1834)
     @Test
-    public void checkSerp() throws InterruptedException {
+    public void checkSerp() {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
@@ -51,7 +75,7 @@ public class PatientLinkTest {
     }
 
     // loop through given list of ad and test the patient link features against expected
-    public void testIndividualAd(PatientLinkAd ad) throws InterruptedException {
+    public void testIndividualAd(PatientLinkAd ad) {
 
         init();
         m_assert = new SoftAssert();
@@ -115,12 +139,13 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1836)
     @Test
     public void docAsapIframe() {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/siby_cherian");
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
@@ -135,12 +160,13 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1837)
     @Test
     public void healthPostIframe() {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/victoria_adeleye");
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
@@ -154,12 +180,13 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1838)
     @Test
     public void drChronoIframe() {
 
         m_assert = new SoftAssert();
 
-        ProfilePage profile = new ProfilePage();
+        ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/matthew_krasucki");
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
