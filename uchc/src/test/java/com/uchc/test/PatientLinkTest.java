@@ -153,7 +153,6 @@ public class PatientLinkTest {
         profile.switchIframe("iframe[src*='docasap']");
 
         IframeDocAsap iframe = new IframeDocAsap();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Siby Cherian, MD"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
