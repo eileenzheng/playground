@@ -1,12 +1,18 @@
 package com.uchc.test;
 
 import com.uchc.pages.ProfileCommonPage;
+import com.uchc.pages.ProfilePageRatings;
+import com.uchc.pages.ProfilePageSummary;
 import com.uchc.pages.patientlink.DoctorReportPage;
 import com.vitalsqa.testrail.TestCase;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.Period;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static org.seleniumhq.selenium.fluent.Period.millis;
 
 public class ProfileTest {
 
@@ -205,6 +211,89 @@ public class ProfileTest {
         profile.get(url + profileUrlHasReview+ "directions.html");
         profile.freeDoctorRpt().click();
         m_assert.assertTrue(report.hasDrInReport(drName), "Directions Page: Free Doctor Report link");
+
+        m_assert.assertAll();
+    }
+
+//    @TestCase(id=1843)
+    @Test
+    public void generalInfoLinks () {
+        m_assert = new SoftAssert();
+        String drName;
+
+        ProfilePageSummary profile = new ProfilePageSummary();
+        ProfileCommonPage common = new ProfileCommonPage();
+        DoctorReportPage report = new DoctorReportPage();
+
+        profile.get(url + profileUrlHasReview);
+        drName = common.drName().getText().toString();
+        profile.phoneNumberLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "Phone Number Link");
+
+        profile.get(url + profileUrlHasReview);
+        m_assert.assertTrue(profile.drivingDirectionsLink().getAttribute("href").toString().equals(url + profileUrlHasReview + "directions.html"), "Driving Directions Link");
+
+        profile.viewAllLocationsLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "View All Locations Link");
+
+        profile.get(url + profileUrlHasReview);
+        profile.compareLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "Compare Dr. Link");
+
+        profile.get(url + profileUrlHasReview);
+        profile.getDoctorSummaryLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "Get Doctor Summary Link");
+
+        profile.get(url + profileUrlHasReview);
+        profile.moreInfoOnReportLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "More Info on Your Free Report Link");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=1844)
+    @Test
+    public void clickToRateFlow() {
+        m_assert = new SoftAssert();
+
+        ProfilePageSummary profile = new ProfilePageSummary();
+        profile.get(url + profileUrlHasReview);
+        profile.ratingStars().get(2).click();
+
+        ProfilePageRatings ratings = new ProfilePageRatings();
+        m_assert.assertTrue(ratings.selectedStars().size()==3, "# of selected stars incorrect");
+
+        ratings.postOverallRatingButton().click();
+        m_assert.assertTrue(ratings.alert().getText().toString().equals("Check the box verifying that you have received services from this Doctor."), "Alert not shown");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=1845)
+    @Test
+    public void checkReviewDetails() {
+        m_assert = new SoftAssert();
+
+        ProfilePageRatings ratings = new ProfilePageRatings();
+        ratings.get(url + profileUrlHasReview + "reviews.html");
+
+        int reviewNumber=0;
+        for (int i=0; i<ratings.showHideDetailsLinks().size(); i++) {
+            if (ratings.showHideDetailsLinks().get(i).getText().toString().contains("show details"))
+            {
+                reviewNumber = i;
+                ratings.showHideDetailsLinks().get(i).click();
+                break;
+            }
+        }
+
+        m_assert.assertTrue(ratings.reviewDetails().get(reviewNumber).within(millis(500)).isDisplayed().value(), "Review details aren't displayed");
+        m_assert.assertTrue(ratings.showHideDetailsLinks().get(reviewNumber).getText().toString().contains("hide details"), "Show details did not change to hide details");
+
+        ratings.showHideDetailsLinks().get(reviewNumber).click();
+
+        m_assert.assertTrue(!ratings.reviewDetails().get(reviewNumber).isDisplayed().value(), "Review details aren't hidden");
+        m_assert.assertTrue(ratings.showHideDetailsLinks().get(reviewNumber).getText().toString().contains("show details"), "Hide details did not change to show details");
 
         m_assert.assertAll();
     }
