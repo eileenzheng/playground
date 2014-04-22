@@ -50,7 +50,7 @@ public class SearchResultsPage extends BasePage {
     }
 
     public FluentWebElements searchSentence() {
-        return spans(cssSelector("h1>span:not(#result-count)"));
+        return spans(cssSelector("#search-sentence-top h1>span:not(#result-count)"));
     }
 
     public WebElement description() {
