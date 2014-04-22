@@ -16,7 +16,7 @@ public class IframeDocAsap extends BasePage {
     }
 
     public FluentWebElement nextButton () {
-        return div(cssSelector("#calendar_next_0"));
+        return link(cssSelector("#calendar_next_0"));
     }
 
     public FluentWebElement calendar() {
