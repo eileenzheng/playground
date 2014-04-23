@@ -1,6 +1,8 @@
 package com.vitals.pages;
 
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+
 import static org.openqa.selenium.By.cssSelector;
 
 public class HomePage extends BasePage {
@@ -23,5 +25,9 @@ public class HomePage extends BasePage {
 
     public FluentWebElement homePhoto() {
         return div(cssSelector("#home-photo"));
+    }
+
+    public FluentWebElements locationLinks() {
+        return links(cssSelector(".specialty-list li:not(.buffered)>a"));
     }
 }

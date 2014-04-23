@@ -2,6 +2,9 @@ package com.vitals.test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.vitals.pages.sitemap.CityStatePage;
+import com.vitals.pages.sitemap.StatePage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
@@ -11,13 +14,11 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import com.vitals.helpers.Ucc;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.ucc.UccSitemapPage;
 import com.vitals.pages.ucc.UccProfileAboutPage;
 import com.vitals.pages.ucc.UccProfileReviewsPage;
 import com.vitals.pages.ucc.UccProfileServicesPage;
 import com.vitals.pages.ucc.UccProfileSummaryPage;
 import com.vitals.pages.ucc.UccSearchResultsPage;
-import com.vitals.pages.ucc.UccSitemapStatePage;
 
 public class UccTest {
 
@@ -35,7 +36,7 @@ public class UccTest {
     @Test
     public void generateUrls() {
 
-        UccSitemapPage locationPage = new UccSitemapPage();
+        CityStatePage locationPage = new CityStatePage();
         locationPage.get(url + "/locations/urgent-care");
 
         String landingPageUrl = locationPage.getCurrentUrl();
@@ -60,10 +61,10 @@ public class UccTest {
     @Test
     public void checkStatePages() {
     	m_assert = new SoftAssert();
-        UccSitemapPage locationPage = new UccSitemapPage();
+        CityStatePage locationPage = new CityStatePage();
         locationPage.get(url + "/locations/urgent-care");
 
-        UccSitemapStatePage statePage = new UccSitemapStatePage();
+        StatePage statePage = new StatePage();
 
     	for (int i=0; i<5; i++) {
             locationPage.getRandom(locationPage.states()).click();

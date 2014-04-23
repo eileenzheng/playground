@@ -52,6 +52,11 @@
             <class name="com.vitals.test.UccTest" />
         </classes>
     </test>
+    <test name="Site Map Tests">
+        <classes>
+            <class name="com.vitals.test.SitemapTest" />
+        </classes>
+    </test>
     <test name="Analytics Tests">
         <classes>
             <class name="com.vitals.test.AnalyticsTest" />

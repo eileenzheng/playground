@@ -2,9 +2,7 @@
 <suite name="Vitals QA Regression" verbose="5" parallel="classes" thread-count="2">
     <parameter name="url" value="http://dev.features.hb.mdxdev.net"/>
     <parameter name="browser" value="firefox" />
-	<parameter name="projectId" value="2"/>
-	<parameter name="suiteId" value="12"/>
-	<parameter name="driverType" value="local" />
+	<parameter name="driverType" value="remote" />
 
 	<test name="Profile Specific Tests">
 		<classes>
@@ -32,11 +30,11 @@
 			<class name="com.vitals.test.PatientLinkTest" />
 		</classes>
 	</test>
-	<test name="MyVitals Specific Tests">
-		<classes>
-			<class name="com.vitals.test.MyVitalsTest" />
-		</classes>
-	</test>
+	<!--<test name="MyVitals Specific Tests">-->
+		<!--<classes>-->
+			<!--<class name="com.vitals.test.MyVitalsTest" />-->
+		<!--</classes>-->
+	<!--</test>-->
 	<test name="Masthead Specific Tests">
 		<classes>
 			<class name="com.vitals.test.MastheadTest" />
@@ -47,6 +45,11 @@
 			<class name="com.vitals.test.UccTest" />
 		</classes>
 	</test>
+    <test name="Site Map Tests">
+        <classes>
+            <class name="com.vitals.test.SitemapTest" />
+        </classes>
+    </test>
     <test name="Analytics Tests">
         <classes>
             <class name="com.vitals.test.AnalyticsTest" />

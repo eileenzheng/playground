@@ -1,10 +1,10 @@
-package com.vitals.pages.ucc;
+package com.vitals.pages.sitemap;
 
 import com.vitals.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 
-public class UccSitemapPage extends BasePage {
+public class CityStatePage extends BasePage {
 
     public FluentWebElements states() {
         return links(cssSelector(".col-sm-4 li>a"));
