@@ -215,7 +215,7 @@ public class ProfileTest {
         m_assert.assertAll();
     }
 
-//    @TestCase(id=1843)
+    @TestCase(id=1843)
     @Test
     public void generalInfoLinks () {
         m_assert = new SoftAssert();
