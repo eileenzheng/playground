@@ -1,17 +1,13 @@
 package com.uchc.test;
 
-import com.uchc.pages.ProfileCommonPage;
-import com.uchc.pages.ProfilePageRatings;
-import com.uchc.pages.ProfilePageSummary;
+import com.uchc.pages.*;
 import com.uchc.pages.patientlink.DoctorReportPage;
 import com.vitalsqa.testrail.TestCase;
-import org.seleniumhq.selenium.fluent.FluentWebElement;
-import org.seleniumhq.selenium.fluent.Period;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import static org.seleniumhq.selenium.fluent.Period.millis;
 
 public class ProfileTest {
@@ -251,6 +247,14 @@ public class ProfileTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=1854)
+    @Test
+    public void generalInfoMap() {
+        ProfilePageSummary profile = new ProfilePageSummary();
+        profile.get(url + profileUrlHasReview);
+        Assert.assertTrue(!profile.map().getText().toString().equals(""), "Map is empty");
+    }
+
     @TestCase(id=1844)
     @Test
     public void clickToRateFlow() {
@@ -296,5 +300,53 @@ public class ProfileTest {
         m_assert.assertTrue(ratings.showHideDetailsLinks().get(reviewNumber).getText().toString().contains("show details"), "Hide details did not change to show details");
 
         m_assert.assertAll();
+    }
+
+    @TestCase(id=1855)
+    @Test
+    public void locationPageLinks() {
+        m_assert = new SoftAssert();
+        String drName;
+
+        ProfilePageLocations locations = new ProfilePageLocations();
+        ProfileCommonPage common = new ProfileCommonPage();
+        DoctorReportPage report = new DoctorReportPage();
+
+        locations.get(url + profileUrlHasReview + "offices.html");
+        drName = common.drName().getText().toString();
+        m_assert.assertTrue(locations.drivingDirectionsLink().getAttribute("href").toString().equals(url + profileUrlHasReview + "directions.html"), "Driving Directions Link");
+
+        locations.viewAllLocationsLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "View All Locations Link");
+
+        locations.get(url + profileUrlHasReview + "offices.html");
+        locations.compareLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "Compare Dr. Link");
+
+        locations.get(url + profileUrlHasReview + "offices.html");
+        locations.getDoctorSummaryLink().click();
+        m_assert.assertTrue(report.hasDrInReport(drName), "Get Doctor Summary Link");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=1856)
+    @Test
+    public void locationPageMap() {
+        ProfilePageLocations locations = new ProfilePageLocations();
+        locations.get(url + profileUrlHasReview + "offices.html");
+        Assert.assertTrue(!locations.map().getText().toString().equals(""), "Map is empty");
+    }
+
+    @TestCase(id=1857)
+    @Test
+    public void getDirections() {
+        ProfilePageDirections directions = new ProfilePageDirections();
+        directions.get(url + profileUrlHasReview + "directions.html");
+        directions.fromAddress().clearField().sendKeys("210 Clay Ave, Lyndhurst, NJ");
+        directions.getDirectionsButton().click();
+
+        Assert.assertTrue(directions.directionSteps().get(0).within(millis(1000)).isDisplayed().value(), "Directions are not displayed");
+        Assert.assertTrue(directions.directionSteps().size()>3, "Too few steps displayed!");
     }
 }

@@ -1,15 +1,10 @@
 package com.uchc.pages;
 
 import org.seleniumhq.selenium.fluent.FluentWebElement;
-import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.linkText;
 
-public class ProfilePageSummary extends BasePage{
-
-    public FluentWebElement phoneNumberLink() {
-        return link(cssSelector("a[title*='Phone Number for Dr.']"));
-    }
+public class ProfilePageLocations extends BasePage {
 
     public FluentWebElement drivingDirectionsLink() {
         return link(cssSelector("a[title*='Directions to Dr. ']"));
@@ -27,15 +22,7 @@ public class ProfilePageSummary extends BasePage{
         return link(cssSelector("a[title*='Get a summary of Dr.']"));
     }
 
-    public FluentWebElement moreInfoOnReportLink() {
-        return link(linkText("More information available on your free report"));
-    }
-
-    public FluentWebElements ratingStars() {
-        return links(cssSelector(".star-rating>a"));
-    }
-
     public FluentWebElement map() {
-        return div(cssSelector("#map-small-1"));
+        return div(cssSelector("#map-combined"));
     }
 }
