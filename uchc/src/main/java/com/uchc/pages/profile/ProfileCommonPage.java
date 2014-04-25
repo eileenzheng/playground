@@ -1,5 +1,6 @@
-package com.uchc.pages;
+package com.uchc.pages.profile;
 
+import com.uchc.pages.BasePage;
 import com.uchc.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;

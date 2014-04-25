@@ -1,7 +1,7 @@
 package com.uchc.test;
 
-import com.uchc.pages.*;
 import com.uchc.pages.patientlink.DoctorReportPage;
+import com.uchc.pages.profile.*;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;

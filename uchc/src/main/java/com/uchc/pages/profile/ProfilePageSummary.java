@@ -1,11 +1,12 @@
-package com.uchc.pages;
+package com.uchc.pages.profile;
 
+import com.uchc.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.linkText;
 
-public class ProfilePageSummary extends BasePage{
+public class ProfilePageSummary extends BasePage {
 
     public FluentWebElement phoneNumberLink() {
         return link(cssSelector("a[title*='Phone Number for Dr.']"));

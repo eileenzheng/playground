@@ -32,8 +32,8 @@ public class SitemapTest {
         home.getRandom(home.locationLinks()).click();
 
         CityStatePage locationPage = new CityStatePage();
-        m_assert.assertTrue(locationPage.states().size()==51, "Less than 51 states! " + locationPage.states().size());
-        m_assert.assertTrue(locationPage.cities().size()==253, "Less than 253 cities! " + locationPage.cities().size());
+        m_assert.assertTrue(locationPage.states().size()>=50, "Less than 50 states! " + locationPage.states().size());
+        m_assert.assertTrue(locationPage.cities().size()>=250, "Less than 250 cities! " + locationPage.cities().size());
 
         m_assert.assertAll();
     }

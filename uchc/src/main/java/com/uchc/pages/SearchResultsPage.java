@@ -4,8 +4,12 @@ import com.uchc.pages.patientlink.PatientLinkCenterAd;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
 
 import java.util.List;
+
+import static org.openqa.selenium.By.cssSelector;
 
 public class SearchResultsPage extends BasePage {
 
@@ -19,60 +23,11 @@ public class SearchResultsPage extends BasePage {
         return centerAd;
     }
 
-    @FindBy(css=".bluebox-featured")
-    private WebElement featuredDoctorsSection;
-
-    @FindBy(css=".bluebox-featured>.content")
-    private List<WebElement> featuredDoctors;
-
-    @FindBy(css=".providers>li")
-    private List<WebElement> drResults;
-
-    @FindBy(css=".blue-bulleted>li>span")
-    private WebElement totalResultsText;
-
-    @FindBy(css="#jump_page_id")
-    private WebElement pageJumpTextBox;
-
-    @FindBy(css=".tabbercontent>div>form")
-    private WebElement lowerPaginationBar;
-
-
-    public SearchResultsPage clickPreviousButton() {
-        List<WebElement> elements = lowerPaginationBar.findElements(By.cssSelector("a"));
-        for (WebElement el : elements) {
-            if (el.getText().toLowerCase().contains("previous")) {
-                el.click();
-                break;
-            } else {
-                // At the first page so button not found
-            }
-        }
-        return this;
+    public FluentWebElement jumpPageDropDown() {
+        return select(cssSelector("#jump_page_link"));
     }
 
-    public SearchResultsPage clickNextButton() {
-        List<WebElement> elements = lowerPaginationBar.findElements(By.cssSelector("a"));
-        for (WebElement el : elements) {
-            if (el.getText().toLowerCase().contains("next")) {
-                el.click();
-                break;
-            } else {
-                // At the Last page so button not found
-            }
-        }
-        return this;
+    public FluentWebElements paginationLinks() {
+        return links(cssSelector(".pagination li>a"));
     }
-
-    public SearchResultsPage jumpToPage(int page) {
-        pageJumpTextBox.clear();
-        pageJumpTextBox.sendKeys(String.valueOf(page));
-        return this;
-    }
-
-    public Integer featuredDrCount() {
-        return featuredDoctors.size();
-    }
-
-
 }
