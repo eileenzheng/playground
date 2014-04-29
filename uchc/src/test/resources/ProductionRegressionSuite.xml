@@ -10,10 +10,15 @@
     <listeners>
         <listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
     </listeners>
-    
+
     <test name="Profile Specfic Tests">
         <classes>
             <class name="com.uchc.test.ProfileTest"/>
+        </classes>
+    </test>
+    <test name="Search Specfic Tests">
+        <classes>
+            <class name="com.uchc.test.SearchTest"/>
         </classes>
     </test>
     <test name="Patient Link Tests">

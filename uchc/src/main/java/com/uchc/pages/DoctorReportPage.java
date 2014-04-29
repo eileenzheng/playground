@@ -1,6 +1,5 @@
-package com.uchc.pages.patientlink;
+package com.uchc.pages;
 
-import com.uchc.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;

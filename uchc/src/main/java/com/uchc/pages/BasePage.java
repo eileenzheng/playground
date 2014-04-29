@@ -5,9 +5,11 @@ import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
 
 import java.util.concurrent.TimeUnit;
 
@@ -62,5 +64,16 @@ public class BasePage extends FluentWebDriver {
 
     public String getMainWindow() {
         return webDriver().getWindowHandle();
+    }
+
+    public FluentWebElement getRandom(FluentWebElements list) {
+        int rand = (int) Math.floor(Math.random() * (list.size() - 1));
+        return list.get(rand);
+    }
+
+    public void selectDropDown(FluentWebElement el) {
+        Select dropdown = new Select(el.getWebElement());
+        int rand = (int) Math.floor(Math.random() * (el.options().size()-1));
+        dropdown.selectByIndex(rand);
     }
 }
