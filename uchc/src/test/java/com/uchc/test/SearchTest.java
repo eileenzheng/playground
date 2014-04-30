@@ -88,7 +88,7 @@ public class SearchTest {
         Assert.assertTrue(resultPageRanges(serp));
     }
 
-    @TestCase(id={1867,1970})
+    @TestCase(id={1867,1870})
     @Test
     public void byNamePagination() {
         SearchResultsPage serp = new SearchResultsPage();
