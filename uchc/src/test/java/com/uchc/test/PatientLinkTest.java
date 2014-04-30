@@ -154,7 +154,7 @@ public class PatientLinkTest {
         profile.switchIframe("iframe[src*='docasap']");
 
         IframeDocAsap iframe = new IframeDocAsap();
-        iframe.nextButton().click();
+        iframe.clickNext();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
@@ -174,7 +174,7 @@ public class PatientLinkTest {
         profile.switchIframe("iframe[src*='healthpost']");
 
         IframeHealthPost iframe = new IframeHealthPost();
-        iframe.nextButton().click();
+        iframe.clickNext();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
@@ -195,7 +195,28 @@ public class PatientLinkTest {
 
         IframeDrChrono iframe = new IframeDrChrono();
         m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Matthew D. Krasucki M.D."), "Incorrect name");
-        iframe.nextButton().click();
+        iframe.clickNext();
+        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=1872)
+    @Test
+    public void bookThatDocIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/drs/debra_ortiz");
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='bookthatdoc']");
+
+        IframeBookThatDoc iframe = new IframeBookThatDoc();
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Debra M Ortiz"), "Incorrect name");
+        iframe.clickNext();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();

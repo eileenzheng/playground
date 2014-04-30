@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="2">
-	<parameter name="url" value="http://www.vitals.com" />
+	<parameter name="url" value="http://staging.vitals.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
