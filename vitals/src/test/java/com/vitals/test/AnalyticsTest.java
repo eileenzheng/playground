@@ -3,6 +3,7 @@ package com.vitals.test;
 import com.vitals.pages.*;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ public class AnalyticsTest {
     SoftAssert m_assert;
     private final String comScore = "var _comscore = _comscore";
     private final String googleAnalytics = "google-analytics.com";
-    private final String googleTagServices = "googletagservices";
+    private final String googletTagManager = "googletagmanager";
     private final String profile = "/doctors/Dr_Todd_Rosengart/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
@@ -170,6 +171,12 @@ public class AnalyticsTest {
     }
 
     private boolean checkAnalytics(String source) {
-        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googleTagServices));
+        if (!source.contains(comScore))
+            Reporter.log("ComScore");
+        if (!source.contains(googleAnalytics))
+            Reporter.log("Google Analytics");
+        if (!source.contains(googletTagManager))
+            Reporter.log("Google Tag Manager");
+        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googletTagManager));
     }
 }

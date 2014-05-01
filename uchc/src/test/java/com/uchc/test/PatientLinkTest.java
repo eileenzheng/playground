@@ -154,7 +154,7 @@ public class PatientLinkTest {
         profile.switchIframe("iframe[src*='docasap']");
 
         IframeDocAsap iframe = new IframeDocAsap();
-        iframe.clickNext();
+        iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
@@ -174,7 +174,7 @@ public class PatientLinkTest {
         profile.switchIframe("iframe[src*='healthpost']");
 
         IframeHealthPost iframe = new IframeHealthPost();
-        iframe.clickNext();
+        iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
@@ -195,7 +195,7 @@ public class PatientLinkTest {
 
         IframeDrChrono iframe = new IframeDrChrono();
         m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Matthew D. Krasucki M.D."), "Incorrect name");
-        iframe.clickNext();
+        iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();
@@ -216,7 +216,7 @@ public class PatientLinkTest {
 
         IframeBookThatDoc iframe = new IframeBookThatDoc();
         m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Debra M Ortiz"), "Incorrect name");
-        iframe.clickNext();
+        iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
         m_assert.assertAll();

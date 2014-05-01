@@ -1,6 +1,5 @@
 package com.vitals.test;
 
-import com.vitals.pages.BasePage;
 import com.vitals.pages.HomePage;
 import com.vitals.pages.sitemap.CityStatePage;
 import com.vitals.pages.sitemap.StatePage;
@@ -15,7 +14,6 @@ public class SitemapTest {
 
     String url;
     SoftAssert m_assert;
-    BasePage page;
 
     @Parameters({"url"})
     @BeforeMethod
@@ -33,7 +31,7 @@ public class SitemapTest {
 
         CityStatePage locationPage = new CityStatePage();
         m_assert.assertTrue(locationPage.states().size()>=50, "Less than 50 states! " + locationPage.states().size());
-        m_assert.assertTrue(locationPage.cities().size()>=250, "Less than 250 cities! " + locationPage.cities().size());
+        m_assert.assertTrue(locationPage.cities().size()>=230, "Less than 230 cities! " + locationPage.cities().size());
 
         m_assert.assertAll();
     }

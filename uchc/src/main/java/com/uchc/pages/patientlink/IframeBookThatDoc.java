@@ -1,6 +1,5 @@
 package com.uchc.pages.patientlink;
 
-import com.uchc.helpers.Constants;
 import com.uchc.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import static org.openqa.selenium.By.cssSelector;
@@ -17,14 +16,5 @@ public class IframeBookThatDoc extends BasePage {
 
     public FluentWebElement nextButton () {
         return link(cssSelector(".doctor_availability_container>a:last-of-type"));
-    }
-
-    public FluentWebElement calendar() {
-        return div (cssSelector(".availability_container"));
-    }
-
-    public void clickNext() {
-        nextButton().click();
-        waitUntilVisible(calendar(), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }
