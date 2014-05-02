@@ -31,7 +31,7 @@ public class SearchTest {
     public void byDoctorCheckResults() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + byDoctorUrl);
-        Assert.assertTrue(checkIndividualResult(serp));
+        Assert.assertTrue(checkIndividualResult(serp, true));
     }
 
     @TestCase(id={1860,1869})
@@ -55,7 +55,7 @@ public class SearchTest {
     public void bySpecialtyCheckResults() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + bySpecialtyUrl);
-        Assert.assertTrue(checkIndividualResult(serp));
+        Assert.assertTrue(checkIndividualResult(serp,true));
     }
 
     @TestCase(id={1863,1869})
@@ -79,7 +79,7 @@ public class SearchTest {
     public void byNameCheckResults() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + byNameUrl);
-        Assert.assertTrue(checkIndividualResult(serp));
+        Assert.assertTrue(checkIndividualResult(serp,true));
     }
 
     @TestCase(id={1866,1869})
@@ -103,7 +103,7 @@ public class SearchTest {
     public void byDentistCheckResults() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + byDentistUrl);
-        Assert.assertTrue(checkIndividualResult(serp));
+        Assert.assertTrue(checkIndividualResult(serp,false));
     }
 
     @TestCase(id={1918,1869})
@@ -127,7 +127,7 @@ public class SearchTest {
     public void byPodiatristCheckResults() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + byPodiatristUrl);
-        Assert.assertTrue(checkIndividualResult(serp));
+        Assert.assertTrue(checkIndividualResult(serp,false));
     }
 
     @TestCase(id={1921,1869})
@@ -146,7 +146,7 @@ public class SearchTest {
         Assert.assertTrue(resultPagination(serp));
     }
 
-    private boolean checkIndividualResult(SearchResultsPage serp) {
+    private boolean checkIndividualResult(SearchResultsPage serp, boolean hasRating) {
         boolean result = true;
         int rand;
         String name;
@@ -194,18 +194,20 @@ public class SearchTest {
             Reporter.log("Report does not contain SERP name when clicking get report link<br>");
         }
 
-        // go back to serp, click rating stars
-        serp.get(currentUrl);
-        rand = (int) Math.floor(Math.random() * (serp.resultNames().size() - 1));
-        name = serp.resultNames().get(rand).getText().toString();
-        serp.resultsRating3().get(rand).click();
-        if (!name.contains(profile.drName().getText().toString())) {
-            result = false;
-            Reporter.log("Profile name does not match SERP name when clicking rating stars<br>");
-        }
-        if (ratings.selectedStars().size()!=3) {
-            result = false;
-            Reporter.log("Selected rating isn't correct on profile page when clicking rating stars<br>");
+        if (hasRating) {
+            // go back to serp, click rating stars
+            serp.get(currentUrl);
+            rand = (int) Math.floor(Math.random() * (serp.resultNames().size() - 1));
+            name = serp.resultNames().get(rand).getText().toString();
+            serp.resultsRating3().get(rand).click();
+            if (!name.contains(profile.drName().getText().toString())) {
+                result = false;
+                Reporter.log("Profile name does not match SERP name when clicking rating stars<br>");
+            }
+            if (ratings.selectedStars().size()!=3) {
+                result = false;
+                Reporter.log("Selected rating isn't correct on profile page when clicking rating stars<br>");
+            }
         }
 
         return result;

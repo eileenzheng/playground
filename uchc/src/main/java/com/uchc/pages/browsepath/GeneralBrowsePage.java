@@ -15,10 +15,6 @@ public class GeneralBrowsePage extends BasePage {
         return li(cssSelector(".tab-menu .nav-tabs .active"));
     }
 
-    public FluentWebElements alphabets() {
-        return h3s();
-    }
-
     public FluentWebElements links() {
         return links(cssSelector("#main-menu~.container~.container .row>div:not(.view-all)>a"));
     }

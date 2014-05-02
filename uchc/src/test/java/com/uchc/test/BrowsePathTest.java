@@ -54,7 +54,6 @@ public class BrowsePathTest {
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
-        m_assert.assertTrue(statePage.alphabets().size()>0, "No alphabet on state page");
         m_assert.assertTrue(statePage.links().size()>0, "No city on state page");
         m_assert.assertTrue(statePage.navTabActive().getText().toString().contains("Doctors"), "Incorrect active tab on state page");
 
@@ -76,7 +75,6 @@ public class BrowsePathTest {
         GeneralBrowsePage specialtyPage = new GeneralBrowsePage();
 
         m_assert.assertTrue(landing.h1().getText().toString().equals("Find Doctors by Specialty"), "Incorrect h1 on specialty page");
-        m_assert.assertTrue(specialtyPage.alphabets().size()>0, "No alphabet on specialty page");
         m_assert.assertTrue(specialtyPage.links().size()>0, "No specialty on specialty page");
         m_assert.assertTrue(specialtyPage.navTabActive().getText().toString().equals("Doctors by Specialty"), "Incorrect active tab on specialty page");
 
@@ -150,7 +148,7 @@ public class BrowsePathTest {
         namePage.getRandom(namePage.links()).click();
         NameAlphabetPage alphabetPage = new NameAlphabetPage();
 
-        m_assert.assertTrue(alphabetPage.alphabets().size()>20, "Less than 20 letters on alphabet page");
+        m_assert.assertTrue(alphabetPage.alphabets().size()==26, "Less than 26 letters on alphabet page");
         m_assert.assertTrue(alphabetPage.navTabActive().getText().toString().contains("Doctors by Name"), "Incorrect active tab on alphabet page");
 
         alphabetPage.getRandom(alphabetPage.alphabets()).click();
@@ -190,7 +188,6 @@ public class BrowsePathTest {
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
-        m_assert.assertTrue(statePage.alphabets().size()>0, "No alphabet on state page");
         m_assert.assertTrue(statePage.links().size()>0, "No city on state page");
         m_assert.assertTrue(statePage.navTabActive().getText().toString().contains("Dentists"), "Incorrect active tab on state page");
 
@@ -212,7 +209,6 @@ public class BrowsePathTest {
         GeneralBrowsePage specialtyPage = new GeneralBrowsePage();
 
         m_assert.assertTrue(landing.h1().getText().toString().equals("Dentists by Specialty"), "Incorrect h1 on specialty page");
-        m_assert.assertTrue(specialtyPage.alphabets().size()>0, "No alphabet on specialty page");
         m_assert.assertTrue(specialtyPage.links().size()>0, "No specialty on specialty page");
         m_assert.assertTrue(specialtyPage.navTabActive().getText().toString().equals("Dentists by Specialty"), "Incorrect active tab on specialty page");
 
@@ -327,7 +323,6 @@ public class BrowsePathTest {
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
-        m_assert.assertTrue(statePage.alphabets().size()>0, "No alphabet on state page");
         m_assert.assertTrue(statePage.links().size()>0, "No city on state page");
         m_assert.assertTrue(statePage.navTabActive().getText().toString().contains("Podiatrists"), "Incorrect active tab on state page");
 
@@ -349,7 +344,6 @@ public class BrowsePathTest {
         GeneralBrowsePage specialtyPage = new GeneralBrowsePage();
 
         m_assert.assertTrue(landing.h1().getText().toString().equals("Podiatrists by Specialty"), "Incorrect h1 on specialty page");
-        m_assert.assertTrue(specialtyPage.alphabets().size()>0, "No alphabet on specialty page");
         m_assert.assertTrue(specialtyPage.links().size()>0, "No specialty on specialty page");
         m_assert.assertTrue(specialtyPage.navTabActive().getText().toString().equals("Podiatrists by Specialty"), "Incorrect active tab on specialty page");
 
@@ -424,7 +418,7 @@ public class BrowsePathTest {
         namePage.getRandom(namePage.links()).click();
         NameAlphabetPage alphabetPage = new NameAlphabetPage();
 
-        m_assert.assertTrue(alphabetPage.alphabets().size()>20, "Less than 20 letters on alphabet page");
+        m_assert.assertTrue(alphabetPage.alphabets().size()>15, "Less than 15 letters on alphabet page");
         m_assert.assertTrue(alphabetPage.navTabActive().getText().toString().contains("Podiatrists by Name"), "Incorrect active tab on alphabet page");
 
         alphabetPage.getRandom(alphabetPage.alphabets()).click();
