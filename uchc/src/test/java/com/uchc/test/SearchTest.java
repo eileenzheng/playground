@@ -17,6 +17,8 @@ public class SearchTest {
     private static String byDoctorUrl = "/drs/massachusetts/BOSTON.html";
     private static String bySpecialtyUrl = "/drs/massachusetts/internal_medicine/Boston.html";
     private static String byNameUrl = "/drs/massachusetts/A.html";
+    private static String byDentistUrl = "/dentist/illinois/chicago.html";
+    private static String byPodiatristUrl = "/podiatrist/pennsylvania/philadelphia.html";
 
     @Parameters({"url"})
     @BeforeMethod
@@ -93,6 +95,54 @@ public class SearchTest {
     public void byNamePagination() {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + byNameUrl);
+        Assert.assertTrue(resultPagination(serp));
+    }
+
+    @TestCase(id={1917,1868})
+    @Test
+    public void byDentistCheckResults() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byDentistUrl);
+        Assert.assertTrue(checkIndividualResult(serp));
+    }
+
+    @TestCase(id={1918,1869})
+    @Test
+    public void byDentistPageRanges() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byDentistUrl);
+        Assert.assertTrue(resultPageRanges(serp));
+    }
+
+    @TestCase(id={1919,1870})
+    @Test
+    public void byDentistPagination() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byDentistUrl);
+        Assert.assertTrue(resultPagination(serp));
+    }
+
+    @TestCase(id={1920,1868})
+    @Test
+    public void byPodiatristCheckResults() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byPodiatristUrl);
+        Assert.assertTrue(checkIndividualResult(serp));
+    }
+
+    @TestCase(id={1921,1869})
+    @Test
+    public void byPodiatristPageRanges() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byPodiatristUrl);
+        Assert.assertTrue(resultPageRanges(serp));
+    }
+
+    @TestCase(id={1922,1870})
+    @Test
+    public void byPodiatristPagination() {
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + byPodiatristUrl);
         Assert.assertTrue(resultPagination(serp));
     }
 
