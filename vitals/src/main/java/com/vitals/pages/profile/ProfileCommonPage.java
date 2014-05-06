@@ -1,5 +1,6 @@
 package com.vitals.pages.profile;
 
+import com.vitals.helpers.Constants;
 import com.vitals.pages.BasePage;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
@@ -76,7 +77,7 @@ public class ProfileCommonPage extends BasePage {
     }
 
     public FluentWebElement claimProfileLink() {
-        return link(cssSelector(".claim-profile>a"));
+        return link(cssSelector(".claim-profile a"));
     }
 
     public FluentWebElement name(){
@@ -110,16 +111,14 @@ public class ProfileCommonPage extends BasePage {
         return onClick.substring(begin, end);
     }
 
-    private FluentWebElement reviewModal () {
-        return div(cssSelector("#post-review-modal"));
-    }
-
     private FluentWebElement reviewClose() {
         return link(cssSelector(".review-requests .close"));
     }
 
     public void dismissReviewIntercept() {
-        if (reviewModal().isDisplayed().value())
+        setImplicitWait(0);
+        if (has().div(cssSelector("#post-review-modal")))
             reviewClose().click();
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
 }

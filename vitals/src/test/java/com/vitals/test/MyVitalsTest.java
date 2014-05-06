@@ -106,6 +106,7 @@ public class MyVitalsTest {
     		// go to profile page of doctor
             ProfileCommonPage profileToClaim = new ProfileCommonPage();
             profileToClaim.get(url + claimProfileUrl);
+            profileToClaim.dismissReviewIntercept();
             profileToClaim.claimProfileLink().click();
 
     		// start filling in stuff on claim page and submit
