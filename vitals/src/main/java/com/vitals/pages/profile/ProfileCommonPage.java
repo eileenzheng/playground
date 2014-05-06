@@ -109,4 +109,17 @@ public class ProfileCommonPage extends BasePage {
         int end = onClick.indexOf("', '_blank'");
         return onClick.substring(begin, end);
     }
+
+    private FluentWebElement reviewModal () {
+        return div(cssSelector("#post-review-modal"));
+    }
+
+    private FluentWebElement reviewClose() {
+        return link(cssSelector(".review-requests .close"));
+    }
+
+    public void dismissReviewIntercept() {
+        if (reviewModal().isDisplayed().value())
+            reviewClose().click();
+    }
 }

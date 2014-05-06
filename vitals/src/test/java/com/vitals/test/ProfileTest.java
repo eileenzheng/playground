@@ -28,6 +28,7 @@ public class ProfileTest {
         ProfileSeoPage seoProfile = new ProfileSeoPage();
         seoProfile.deleteCookies();
         seoProfile.get(url + drProfile);
+        seoProfile.dismissReviewIntercept();
 
         Assert.assertTrue(seoProfile.viewFullProfileButton().isDisplayed().value(),
                 "SEO Doctor Page did not load successfully" + drProfile);
@@ -44,6 +45,7 @@ public class ProfileTest {
         ProfileSeoPage seoProfile = new ProfileSeoPage();
         seoProfile.deleteCookies();
         seoProfile.get(url + dentistProfile);
+        seoProfile.dismissReviewIntercept();
 
         Assert.assertTrue(seoProfile.viewFullProfileButton().isDisplayed().value(),
                 "SEO Dentist Page did not load successfully: " + dentistProfile);
@@ -60,6 +62,7 @@ public class ProfileTest {
         ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
+        profilePage.dismissReviewIntercept();
 
         Assert.assertTrue(profilePage.isSummaryPage(),
                 "Summary page was not visible: " + profilePage.getCurrentUrl());
@@ -71,6 +74,7 @@ public class ProfileTest {
         ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url+ drProfile);
+        profilePage.dismissReviewIntercept();
         profilePage.reviewsTab().click();
 
         Assert.assertTrue(profilePage.isPatientReviewsPage(),
@@ -83,6 +87,7 @@ public class ProfileTest {
     	ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
+        profilePage.dismissReviewIntercept();
         profilePage.credentialsTab().click();
 
         Assert.assertTrue(profilePage.isCredentialsPage(),
@@ -96,6 +101,7 @@ public class ProfileTest {
         ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
+        profilePage.dismissReviewIntercept();
         profilePage.locationsTab().click();
 
         Assert.assertTrue(profilePage.isLocationsAvailabilityPage(),
@@ -108,6 +114,7 @@ public class ProfileTest {
         ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drProfile);
+        profilePage.dismissReviewIntercept();
         profilePage.insurancesTab().click();
 
         Assert.assertTrue(profilePage.isAcceptedInsurancePage(),
@@ -120,6 +127,7 @@ public class ProfileTest {
         ProfileCommonPage profilePage = new ProfileCommonPage();
         profilePage.get(url);
         profilePage.get(url + drVideoProfile);
+        profilePage.dismissReviewIntercept();
 
         Assert.assertTrue(profilePage.drVideoLink().isDisplayed().value(),
                 "Dr Video is not visible: " + profilePage.getCurrentUrl());

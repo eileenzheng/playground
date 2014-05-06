@@ -40,6 +40,7 @@ public class PatientLinkTest {
         profile.get(url);
         // launch again to go to profile instead of seo profile
         profile.get(url + profileHeaderUrl);
+        profile.dismissReviewIntercept();
 
         m_assert = new SoftAssert();
         m_assert.assertTrue(profile.hasPlDrSite(), "Doctor's site is missing!");
@@ -61,6 +62,7 @@ public class PatientLinkTest {
         ProfileSeoPage profile = new ProfileSeoPage();
         profile.deleteCookies();
         profile.get(url + profileUrl);
+        profile.dismissReviewIntercept();
 
         testIndividualAd(profile.rrAd());
     }
@@ -72,6 +74,7 @@ public class PatientLinkTest {
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url);
         profile.get(url + profileUrl);
+        profile.dismissReviewIntercept();
 
         testIndividualAd(profile.rrAd());
     }
@@ -182,6 +185,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Siby_Cherian/profile");
+        profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
         ModalIframe modal = new ModalIframe();
@@ -207,6 +211,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Victoria_Adeleye/profile");
+        profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
         ModalIframe modal = new ModalIframe();
@@ -231,6 +236,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Matthew_Krasucki/profile");
+        profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
         ModalIframe modal = new ModalIframe();
@@ -256,6 +262,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/doctors/Dr_Debra_Ortiz/profile");
+        profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
         ModalIframe modal = new ModalIframe();

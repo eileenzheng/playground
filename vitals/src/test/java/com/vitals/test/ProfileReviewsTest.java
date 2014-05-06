@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.helpers.Constants;
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.profile.ProfileReviewsPage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
@@ -10,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class ProfileReviewsTest {
 
-    static final String drProfile = "/doctors/Dr_Todd_Rosengart/reviews";
+    static final String drProfile = "/doctors/Dr_Donald_Belsito/reviews";
 
     String url;
 
@@ -25,6 +26,8 @@ public class ProfileReviewsTest {
     public void markAsHelpful() {
         ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
         reviewsPage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
 
         reviewsPage.helpfulLink().click();
         reviewsPage.setImplicitWait(1);
@@ -37,6 +40,8 @@ public class ProfileReviewsTest {
     public void reportAbuse() {
         ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
         reviewsPage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
 
         reviewsPage.abuseLink().click();
         reviewsPage.setImplicitWait(1);
@@ -49,6 +54,8 @@ public class ProfileReviewsTest {
     public void sortReviews() {
         ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
         reviewsPage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
         Assert.assertTrue(reviewsPage.sortByRecent(), "Reviews are not sorted by most recent");
         reviewsPage.selectDropDown(reviewsPage.sortDropDown(), "Oldest");
         Assert.assertTrue(reviewsPage.sortByOldest(), "Reviews are not sorted by oldest first");
@@ -59,6 +66,8 @@ public class ProfileReviewsTest {
     public void nextPage() {
         ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
         reviewsPage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
         reviewsPage.nextPageLink().click();
         Assert.assertTrue(reviewsPage.common().isCredentialsPage(), "Next page is not credentials page");
     }

@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.profile.ProfileInsuranceIframe;
 import com.vitals.pages.profile.ProfileInsurancePage;
 import com.vitalsqa.testrail.TestCase;
@@ -28,6 +29,8 @@ public class ProfileInsuranceTest {
         ProfileInsurancePage insurancePage = new ProfileInsurancePage();
         insurancePage.get(url);
         insurancePage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
 
         insurancePage.company().click();
         Assert.assertTrue(insurancePage.plan().within(millis(500)).isDisplayed().value(), "Expand insurance company doesn't work");
@@ -39,6 +42,8 @@ public class ProfileInsuranceTest {
         ProfileInsurancePage insurancePage = new ProfileInsurancePage();
         insurancePage.get(url);
         insurancePage.get(url + drProfile);
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.dismissReviewIntercept();
 
         insurancePage.getQuoteLink().click();
         insurancePage.switchIframe("iframe[src*='getinsurance']");

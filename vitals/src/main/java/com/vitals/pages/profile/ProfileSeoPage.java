@@ -20,4 +20,17 @@ public class ProfileSeoPage extends BasePage {
     public FluentWebElement viewFullProfileButton() {
         return link(cssSelector("#view-full"));
     }
+
+    private FluentWebElement reviewModal () {
+        return div(cssSelector("#post-review-modal"));
+    }
+
+    private FluentWebElement reviewClose() {
+        return link(cssSelector(".review-requests .close"));
+    }
+
+    public void dismissReviewIntercept() {
+        if (reviewModal().isDisplayed().value())
+            reviewClose().click();
+    }
 }

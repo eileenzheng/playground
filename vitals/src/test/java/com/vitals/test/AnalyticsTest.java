@@ -17,7 +17,7 @@ public class AnalyticsTest {
     private final String comScore = "var _comscore = _comscore";
     private final String googleAnalytics = "google-analytics.com";
     private final String googletTagManager = "googletagmanager";
-    private final String profile = "/doctors/Dr_Todd_Rosengart/";
+    private final String profile = "/doctors/Dr_Donald_Belsito/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
 
