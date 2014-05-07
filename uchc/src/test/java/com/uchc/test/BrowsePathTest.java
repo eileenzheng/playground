@@ -88,8 +88,8 @@ public class BrowsePathTest {
     public void doctorsSpecialtyLandingPage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(doctorSpecialtyUrl))
-            landing.get(doctorSpecialtyUrl);
+        landing.get(url);
+        landing.get(doctorSpecialtyUrl);
 
         m_assert.assertTrue(landing.stateLinks().size()>0, "No states on specialty landing page");
         m_assert.assertTrue(landing.cityLinks().size()>0, "No cities on specialty landing page");
@@ -107,8 +107,8 @@ public class BrowsePathTest {
     public void doctorSpecialtyStatePage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(doctorSpecialtyUrl))
-            landing.get(doctorSpecialtyUrl);
+        landing.get(url);
+        landing.get(doctorSpecialtyUrl);
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
@@ -148,7 +148,7 @@ public class BrowsePathTest {
         namePage.getRandom(namePage.links()).click();
         NameAlphabetPage alphabetPage = new NameAlphabetPage();
 
-        m_assert.assertTrue(alphabetPage.alphabets().size()==26, "Less than 26 letters on alphabet page");
+        m_assert.assertTrue(alphabetPage.alphabets().size()>=25, "Less than 25 letters on alphabet page");
         m_assert.assertTrue(alphabetPage.navTabActive().getText().toString().contains("Doctors by Name"), "Incorrect active tab on alphabet page");
 
         alphabetPage.getRandom(alphabetPage.alphabets()).click();
@@ -223,8 +223,8 @@ public class BrowsePathTest {
     public void dentistsSpecialtyLandingPage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(dentistSpecialtyUrl))
-            landing.get(dentistSpecialtyUrl);
+        landing.get(url);
+        landing.get(dentistSpecialtyUrl);
 
         m_assert.assertTrue(landing.stateLinks().size()>0, "No states on specialty landing page");
         m_assert.assertTrue(landing.cityLinks().size()>0, "No cities on specialty landing page");
@@ -242,8 +242,8 @@ public class BrowsePathTest {
     public void dentistsSpecialtyStatePage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(dentistSpecialtyUrl))
-            landing.get(dentistSpecialtyUrl);
+        landing.get(url);
+        landing.get(dentistSpecialtyUrl);
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
@@ -358,8 +358,8 @@ public class BrowsePathTest {
     public void podiatristsSpecialtyLandingPage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(podiatristSpecialtyURl))
-            landing.get(podiatristSpecialtyURl);
+        landing.get(url);
+        landing.get(podiatristSpecialtyURl);
 
         m_assert.assertTrue(landing.stateLinks().size()>0, "No states on specialty landing page");
         m_assert.assertTrue(landing.cityLinks().size()>0, "No cities on specialty landing page");
@@ -377,8 +377,8 @@ public class BrowsePathTest {
     public void podiatristsSpecialtyStatePage() {
         m_assert = new SoftAssert();
         CityStatePage landing = new CityStatePage();
-        if (!landing.getCurrentUrl().equals(podiatristSpecialtyURl))
-            landing.get(podiatristSpecialtyURl);
+        landing.get(url);
+        landing.get(podiatristSpecialtyURl);
         landing.getRandom(landing.stateLinks()).click();
         GeneralBrowsePage statePage = new GeneralBrowsePage();
 
