@@ -10,9 +10,9 @@ import org.testng.annotations.Test;
 
 public class ProfileTest {
     
-    static final String drProfile = "/doctors/Dr_John_Nemunaitis/profile";
+    static final String drProfile = "/doctors/Dr_Emile_Bacha/profile";
     static final String dentistProfile = "/dentists/Dr_Grace_Smart/profile";
-    static final String drVideoProfile = "/doctors/Dr_John_Nemunaitis/video";
+    static final String drVideoProfile = "/doctors/Dr_Emile_Bacha/video";
     
     String url;
     

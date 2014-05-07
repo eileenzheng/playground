@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class ProfileReviewsTest {
 
-    static final String drProfile = "/doctors/Dr_Donald_Belsito/reviews";
+    static final String drProfile = "/doctors/Dr_Emile_Bacha/reviews";
 
     String url;
 

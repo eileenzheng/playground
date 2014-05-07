@@ -11,7 +11,7 @@ public class StylingTest {
     String url;
     SoftAssert m_assert;
     BasePage page;
-    private final String profile = "/doctors/Dr_Donald_Belsito/";
+    private final String profile = "/doctors/Dr_Emile_Bacha/";
 
     @Parameters({"url"})
     @BeforeMethod
