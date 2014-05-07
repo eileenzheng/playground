@@ -63,7 +63,7 @@ public class PatientLinkTest {
         profile.deleteCookies();
         profile.get(url + profileUrl);
         profile.dismissReviewIntercept();
-
+        Assert.assertTrue(profile.rrAd().getSize()>0, "No CMT ads on profile page");
         testIndividualAd(profile.rrAd());
     }
 
@@ -75,7 +75,7 @@ public class PatientLinkTest {
         profile.get(url);
         profile.get(url + profileUrl);
         profile.dismissReviewIntercept();
-
+        Assert.assertTrue(profile.rrAd().getSize()>0, "No CMT ads on profile page");
         testIndividualAd(profile.rrAd());
     }
 
@@ -85,6 +85,7 @@ public class PatientLinkTest {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
+        Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on provider SERP");
 
         testIndividualAd(serp.centerAd());
     }
@@ -95,6 +96,7 @@ public class PatientLinkTest {
 
         UccSearchResultsPage ucc = new UccSearchResultsPage();
         ucc.get(url + uccUrl);
+        Assert.assertTrue(ucc.centerAd().getSize()>0, "No CMT ads on UCC SERP");
 
         testIndividualAd(ucc.centerAd());
     }
