@@ -32,7 +32,7 @@ public class AnalyticsTest {
     public void homePage() {
         page = new BasePage();
         page.get(url);
-        Assert.assertTrue(checkAnalytics(page.getPageSource()));
+        Assert.assertTrue(checkAnalytics(page));
     }
 
     @TestCase(id=1806)
@@ -41,13 +41,13 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + "/dermatologists");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "SERP browse path");
+        m_assert.assertTrue(checkAnalytics(page), "SERP browse path");
         page.get(url + "/urgent-care");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Ucc SERP Browse Path");
+        m_assert.assertTrue(checkAnalytics(page), "Ucc SERP Browse Path");
         page.get(url + "/search?type=name&provider_type=1&q=");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "SERP search path");
+        m_assert.assertTrue(checkAnalytics(page), "SERP search path");
         page.get(url + "/urgent-care/search?type=name&provider_type=10&q=");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Ucc SERP search path");
+        m_assert.assertTrue(checkAnalytics(page), "Ucc SERP search path");
         m_assert.assertAll();
     }
 
@@ -58,17 +58,18 @@ public class AnalyticsTest {
         m_assert = new SoftAssert();
         page.get(url);
         page.get(url + profile + "profile");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Summary tab");
+        System.out.println(page);
+        m_assert.assertTrue(checkAnalytics(page), "Summary tab");
         page.get(url + profile + "reviews");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Reviews tab");
+        m_assert.assertTrue(checkAnalytics(page), "Reviews tab");
         page.get(url + profile + "credentials");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Credentials tab");
+        m_assert.assertTrue(checkAnalytics(page), "Credentials tab");
         page.get(url + profile + "office-locations");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Locations tab");
+        m_assert.assertTrue(checkAnalytics(page), "Locations tab");
         page.get(url + profile + "insurance");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Insurance tab");
+        m_assert.assertTrue(checkAnalytics(page), "Insurance tab");
         page.get(url + profile + "sponsored?utm_campaign=otlerax");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Sponsored tab");
+        m_assert.assertTrue(checkAnalytics(page), "Sponsored tab");
         m_assert.assertAll();
     }
 
@@ -78,13 +79,13 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + uccProfile);
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Summary page");
+        m_assert.assertTrue(checkAnalytics(page), "Summary page");
         page.get(url + uccProfile + "services");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Services page");
+        m_assert.assertTrue(checkAnalytics(page), "Services page");
         page.get(url + uccProfile + "about");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "About page");
+        m_assert.assertTrue(checkAnalytics(page), "About page");
         page.get(url + uccProfile + "reviews");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Reviews page");
+        m_assert.assertTrue(checkAnalytics(page), "Reviews page");
         m_assert.assertAll();
     }
 
@@ -94,13 +95,13 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + "/review");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Review page");
+        m_assert.assertTrue(checkAnalytics(page), "Review page");
         page.get(url + "/review/results?name=&location=New+York%2C+NY");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Review SERP");
+        m_assert.assertTrue(checkAnalytics(page), "Review SERP");
         page.get(url + "/review/citymd-new-york-4");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Review Ucc");
-        page.get(url + "/review/Dr_Todd_Rosengart");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Review Provider");
+        m_assert.assertTrue(checkAnalytics(page), "Review Ucc");
+        page.get(url + "/review/Dr_Emile_Bacha");
+        m_assert.assertTrue(checkAnalytics(page), "Review Provider");
         m_assert.assertAll();
     }
 
@@ -110,21 +111,21 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + "/specialties");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Specialties");
+        m_assert.assertTrue(checkAnalytics(page), "Specialties");
         page.get(url + "/locations");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Locations");
+        m_assert.assertTrue(checkAnalytics(page), "Locations");
         page.get(url + "/locations/cardiologists");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Location Specialty");
+        m_assert.assertTrue(checkAnalytics(page), "Location Specialty");
         page.get(url + "/locations/cardiologists/al");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Location Specialty State");
+        m_assert.assertTrue(checkAnalytics(page), "Location Specialty State");
         page.get(url + "/directory");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Name");
+        m_assert.assertTrue(checkAnalytics(page), "Name");
         page.get(url + "/conditions");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Condition");
+        m_assert.assertTrue(checkAnalytics(page), "Condition");
         page.get(url + "/insurances");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Insurance");
+        m_assert.assertTrue(checkAnalytics(page), "Insurance");
         page.get(url + "/insurances/aetna");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Insurance Company");
+        m_assert.assertTrue(checkAnalytics(page), "Insurance Company");
         m_assert.assertAll();
     }
 
@@ -134,19 +135,19 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + "/patient-education");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Landing Page");
+        m_assert.assertTrue(checkAnalytics(page), "Landing Page");
         page.get(url + pg);
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Overview");
+        m_assert.assertTrue(checkAnalytics(page), "Overview");
         page.get(url + pg + "the-team");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "The Team");
+        m_assert.assertTrue(checkAnalytics(page), "The Team");
         page.get(url + pg + "how-to-prepare");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "How to Prepare");
+        m_assert.assertTrue(checkAnalytics(page), "How to Prepare");
         page.get(url + pg + "questions-to-ask");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Questions to Ask");
+        m_assert.assertTrue(checkAnalytics(page), "Questions to Ask");
         page.get(url + pg + "what-to-expect");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "What to Expect");
+        m_assert.assertTrue(checkAnalytics(page), "What to Expect");
         page.get(url + pg + "treatment-options");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Treatment Options");
+        m_assert.assertTrue(checkAnalytics(page), "Treatment Options");
         m_assert.assertAll();
     }
 
@@ -156,21 +157,30 @@ public class AnalyticsTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url + "/topics");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Landing Page");
+        m_assert.assertTrue(checkAnalytics(page), "Landing Page");
         page.get(url + "/topics/copd");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Step 1");
+        m_assert.assertTrue(checkAnalytics(page), "Step 1");
         page.get(url + "/topics/copd/the-elderly-and-copd");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Step 2");
+        m_assert.assertTrue(checkAnalytics(page), "Step 2");
         page.get(url + "/topics/copd/why-copd");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Step 3");
+        m_assert.assertTrue(checkAnalytics(page), "Step 3");
         page.get(url + "/topics/copd/what-a-specialist-can-do");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Step 4");
+        m_assert.assertTrue(checkAnalytics(page), "Step 4");
         page.get(url + "/topics/copd/things-to-consider");
-        m_assert.assertTrue(checkAnalytics(page.getPageSource()), "Step 5");
+        m_assert.assertTrue(checkAnalytics(page), "Step 5");
         m_assert.assertAll();
     }
 
-    private boolean checkAnalytics(String source) {
+    private boolean checkAnalytics(BasePage page) {
+        String source = page.getPageSource();
+        while (!source.contains("<body")) {
+            source = page.getPageSource();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         if (!source.contains(comScore))
             Reporter.log("ComScore");
         if (!source.contains(googleAnalytics))
