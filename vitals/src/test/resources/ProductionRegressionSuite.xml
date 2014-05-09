@@ -14,8 +14,8 @@
     <test name="Profile Specific Tests">
         <classes>
             <class name="com.vitals.test.ProfileTest" />
-            <class name="com.vitals.test.ProfileReviewsTest" />
             <class name="com.vitals.test.ProfileInsuranceTest" />
+            <class name="com.vitals.test.ProfileReviewsTest" />
         </classes>
     </test>
     <test name="Search Specfic Tests">

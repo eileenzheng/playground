@@ -31,7 +31,7 @@ public class PatientGuideTest {
                 "Patient Guide landing page did not load successfully.");
     }
 
-    @TestCase(id={1534,1535})
+    @TestCase(id={1534})
     @Test
     public void clickLearnMore() {
         if (url.toLowerCase().contains("qa"))
@@ -40,17 +40,21 @@ public class PatientGuideTest {
         lp.get(url + pglink);
         lp.learnMore().click();
 
-        testIndividualGuide();
+        PatientGuidePage pgpage = new PatientGuidePage();
+        Assert.assertTrue(pgpage.isOverviewPage(),
+                "Overview page did not load on: " + pgpage.getCurrentUrl());
     }
 
-    @TestCase(id={1536,1535})
+    @TestCase(id={1536})
     @Test
     public void clickTopGuide() {
         PatientGuideLandingPage lp = new PatientGuideLandingPage();
         lp.get(url + pglink);
         lp.getRandom(lp.topGuides()).click();
 
-        testIndividualGuide();
+        PatientGuidePage pgpage = new PatientGuidePage();
+        Assert.assertTrue(pgpage.isOverviewPage(),
+                "Overview page did not load on: " + pgpage.getCurrentUrl());
     }
 
     @TestCase(id={1537,1535})

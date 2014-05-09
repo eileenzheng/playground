@@ -374,6 +374,19 @@ public class MastheadTest {
             homePage.deleteCookies();
             homePage.get(url[i]);
 
+            // workaround to wait longer for it to load
+            if (!homePage.headerModule().locationSearchIsPopulated()) {
+                for (int j=0; j<10; j++) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (homePage.headerModule().locationSearchIsPopulated())
+                        break;
+                }
+            }
+
 			Assert.assertTrue(homePage.headerModule().locationSearchIsPopulated(), env(i));
 	        Reporter.log(homePage.headerModule().locationTextBox().getAttribute("value").toString());
 		}
