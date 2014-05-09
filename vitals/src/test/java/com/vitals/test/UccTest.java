@@ -66,7 +66,7 @@ public class UccTest {
 
         StatePage statePage = new StatePage();
 
-    	for (int i=0; i<5; i++) {
+    	for (int i=0; i<3; i++) {
             locationPage.getRandom(locationPage.states()).click();
     		m_assert.assertTrue(statePage.cities().size()>0, "State page has no result! " + statePage.getCurrentUrl());
     		statePage.get(url + "/locations/urgent-care");
