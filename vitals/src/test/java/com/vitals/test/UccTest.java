@@ -47,7 +47,7 @@ public class UccTest {
             cityUrl.add(cityPage.getCurrentUrl());
         	List<Ucc> uccs = cityPage.uccResults();
         	for (Ucc ucc:uccs) {
-        		if (profileUrl.size() < 5) {
+        		if (profileUrl.size() < 2) {
         			profileUrl.add(ucc.getUrl());
         		}
         		else
