@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
+<suite name="Vitals Production Regression" verbose="5" parallel="classes" thread-count="2">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
@@ -11,59 +11,23 @@
 		<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
 	</listeners>
 
-    <test name="Profile Specific Tests">
+    <test name="Production Tests">
         <classes>
             <class name="com.vitals.test.ProfileTest" />
             <class name="com.vitals.test.ProfileInsuranceTest" />
             <class name="com.vitals.test.ProfileReviewsTest" />
-        </classes>
-    </test>
-    <test name="Search Specfic Tests">
-        <classes>
             <class name="com.vitals.test.SearchTest" />
             <methods>
                 <exclude name="compareResultsToProfile" />
             </methods>
             <class name="com.vitals.test.SearchPagePropertiesTest" />
-        </classes>
-    </test>
-    <test name="PatientGuide Specific Tests">
-        <classes>
             <class name="com.vitals.test.PatientGuideTest" />
-        </classes>
-    </test>
-    <test name="Patientlink Specific Tests">
-        <classes>
             <class name="com.vitals.test.PatientLinkTest" />
-        </classes>
-    </test>
-    <test name="MyVitals Specific Tests">
-        <classes>
             <class name="com.vitals.test.MyVitalsTest" />
-        </classes>
-    </test>
-    <test name="Masthead Specific Tests">
-        <classes>
             <class name="com.vitals.test.MastheadTest" />
-        </classes>
-    </test>
-    <test name="Urgent Care Specific Tests">
-        <classes>
             <class name="com.vitals.test.UccTest" />
-        </classes>
-    </test>
-    <test name="Site Map Tests">
-        <classes>
             <class name="com.vitals.test.SitemapTest" />
-        </classes>
-    </test>
-    <test name="Analytics Tests">
-        <classes>
             <class name="com.vitals.test.AnalyticsTest" />
-        </classes>
-    </test>
-    <test name="Styling (CSS) Tests">
-        <classes>
             <class name="com.vitals.test.StylingTest" />
         </classes>
     </test>
