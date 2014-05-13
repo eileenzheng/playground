@@ -155,6 +155,7 @@ public class MastheadTest {
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
+            if (i==1) homePage.get(url[0]); // launch vitals to get rid of seo profile later
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
