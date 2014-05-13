@@ -40,7 +40,6 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
 			HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String location = "1000";
@@ -61,11 +60,12 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String name = "Todd";
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
             homePage.headerModule().enterSearchTerm(name);
 			Reporter.log("The Docs> " + homePage.headerModule().getNameSuggestions());
 
@@ -80,11 +80,12 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String specialty = "Fam";
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm(specialty);
 			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
 
@@ -99,11 +100,12 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String condition = "Diab";
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm(condition);
 			Reporter.log("The Conditions> " + homePage.headerModule().getConditionSearchSuggestions());
 
@@ -118,9 +120,10 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
 			HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
 			homePage.headerModule().goButton().click();
             homePage.headerModule().acceptAlertIfPresent();
@@ -136,9 +139,10 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
-            homePage.deleteCookies();
             homePage.get(url[i]);
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
             homePage.headerModule().showAlllink().click();
             homePage.headerModule().acceptAlertIfPresent();
@@ -154,10 +158,10 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
-            homePage.deleteCookies();
-            if (i==1) homePage.get(url[0]); // launch vitals to get rid of seo profile later
             homePage.get(url[i]);
 
+            homePage.headerModule().findDropDown().click();
+            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
             homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
 
