@@ -40,6 +40,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
 			HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String location = "1000";
@@ -60,6 +61,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String name = "Todd";
@@ -78,6 +80,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String specialty = "Fam";
@@ -96,6 +99,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			String condition = "Diab";
@@ -114,6 +118,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
 			HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
@@ -131,6 +136,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
@@ -148,6 +154,7 @@ public class MastheadTest {
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
+            homePage.deleteCookies();
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
