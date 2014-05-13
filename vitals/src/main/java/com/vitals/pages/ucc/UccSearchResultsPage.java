@@ -42,6 +42,10 @@ public class UccSearchResultsPage extends BasePage {
         return divs(cssSelector(".listing>.listing-details"));
     }
 
+    public FluentWebElements searchSentenceNoResult() {
+        return spans(cssSelector("#search-sentence-results h1>span:not(.q)"));
+    }
+
     public FluentWebElement map() {
         return div(cssSelector("#map"));
     }

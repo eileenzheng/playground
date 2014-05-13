@@ -53,6 +53,10 @@ public class SearchResultsPage extends BasePage {
         return spans(cssSelector("#search-sentence-top h1>span:not(#result-count)"));
     }
 
+    public FluentWebElements searchSentenceNoResult() {
+        return spans(cssSelector("#search-sentence-results h1>span"));
+    }
+
     public WebElement description() {
         return webDriver().findElement(cssSelector("meta[name=description]"));
     }
