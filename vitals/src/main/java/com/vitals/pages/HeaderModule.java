@@ -18,7 +18,7 @@ public class HeaderModule extends BasePage {
     }
 
     public FluentWebElement findByDoctor() {
-        return link(cssSelector("a[data-type='1'])"));
+        return link(cssSelector("a[data-type='1']"));
     }
 
     public FluentWebElement findByDentist() {
