@@ -16,10 +16,11 @@
             <class name="com.vitals.test.ProfileTest" />
             <class name="com.vitals.test.ProfileInsuranceTest" />
             <class name="com.vitals.test.ProfileReviewsTest" />
-            <class name="com.vitals.test.SearchTest" />
-            <methods>
-                <exclude name="compareResultsToProfile" />
-            </methods>
+            <class name="com.vitals.test.SearchTest">
+                <methods>
+                    <exclude name="compareResultsToProfile" />
+                </methods>
+            </class>
             <class name="com.vitals.test.SearchPagePropertiesTest" />
             <class name="com.vitals.test.PatientGuideTest" />
             <class name="com.vitals.test.PatientLinkTest" />
