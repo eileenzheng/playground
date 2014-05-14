@@ -20,6 +20,7 @@ public class SearchPagePropertiesTest {
     String condition = "Diabetes";
     String specialty = "Dermatologist";
     String dentistSpecialty = "Dentist";
+    String uccName="citymd";
     
     @Parameters({"url"})
     @BeforeMethod
@@ -319,7 +320,8 @@ public class SearchPagePropertiesTest {
 
     @TestCase(id=1681)
     @Test
-    public void specialtySearchNoInsurance() {HomePage homePage = new HomePage();
+    public void specialtySearchNoInsurance() {
+        HomePage homePage = new HomePage();
         homePage.deleteCookies();
         homePage.get(url);
 
@@ -346,7 +348,8 @@ public class SearchPagePropertiesTest {
 
     @TestCase(id=1682)
     @Test
-    public void specialtySearchDentist() {HomePage homePage = new HomePage();
+    public void specialtySearchDentist() {
+        HomePage homePage = new HomePage();
         homePage.deleteCookies();
         homePage.get(url);
 
@@ -506,6 +509,86 @@ public class SearchPagePropertiesTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=2058)
+    @Test
+    public void nameSearchUcc() {
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url);
+
+        homePage.headerModule().findDropDown().click();
+        homePage.headerModule().findByUcc().click();
+        homePage.headerModule().enterSearchTerm(uccName);
+        homePage.headerModule().goButton().click();
+
+        SearchResultsPage results = new SearchResultsPage();
+
+        m_assert = new SoftAssert();
+        boolean breadcrumb = breadcrumbSearch(results);
+        m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
+        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        boolean h1 = h1UccSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
+        m_assert.assertTrue(h1, "H1 is incorrect");
+        Reporter.log(results.getH1Text().toString());
+
+        m_assert.assertTrue(results.getTitle().equals("Find an Urgent Care Center near you, Read Patient Reviews, & Get Informed - Vitals.com"),
+                "Title is incorrect");
+        m_assert.assertTrue(results.getDescription().equals("Find urgent care centers near you, read patient reviews, and get informed on Vitals.com."),
+                "Meta description is incorrect");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2059)
+    @Test
+    public void mainBrowseUcc() {
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url + "/urgent-care");
+
+        SearchResultsPage results = new SearchResultsPage();
+
+        m_assert = new SoftAssert();
+        boolean breadcrumb = breadcrumbUccMainBrowse(results);
+        m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
+        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        boolean h1 = h1UccBrowse(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
+        m_assert.assertTrue(h1, "H1 is incorrect");
+        Reporter.log(results.getH1Text().toString());
+
+        m_assert.assertTrue(results.getTitle().equals("Find an Urgent Care Center near you, Read Patient Reviews, & Get Informed - Vitals.com"),
+                "Title is incorrect");
+        m_assert.assertTrue(results.getDescription().equals("Find urgent care centers near you, read patient reviews, and get informed on Vitals.com."),
+                "Meta description is incorrect");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2060)
+    @Test
+    public void cityBrowseUcc() {
+        HomePage homePage = new HomePage();
+        homePage.deleteCookies();
+        homePage.get(url + "/urgent-care/ny/new-york");
+
+        SearchResultsPage results = new SearchResultsPage();
+
+        m_assert = new SoftAssert();
+        boolean breadcrumb = breadcrumbUccCityBrowse(results);
+        m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
+        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        boolean h1 = h1UccBrowse(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
+        m_assert.assertTrue(h1, "H1 is incorrect");
+        Reporter.log(results.getH1Text().toString());
+
+        m_assert.assertTrue(results.getTitle().equals("New York, NY Urgent Care Centers - Read Patient Reviews & Get Informed - Vitals.com"),
+                "Title is incorrect");
+        m_assert.assertTrue(results.getDescription().equals("Find urgent care centers in New York, NY, read patient reviews, and get informed on Vitals.com."),
+                "Meta description is incorrect");
+
+        m_assert.assertAll();
+    }
+
 
     private boolean h1NameSearch (List<String> h1, String locationTerm, String type) {
     	int len = h1.size();
@@ -540,6 +623,28 @@ public class SearchPagePropertiesTest {
     	else if (!h1.get(len-2).equals("near"))
     		return false;
     	else return h1.get(len - 1).equals(locationTerm);
+    }
+
+    private boolean h1UccSearch (List<String> h1, String locationTerm) {
+        int len = h1.size();
+        if (!h1.get(len-5).equals("Urgent Care Centers"))
+            return false;
+        else if (!h1.get(len-4).equals("named"))
+            return false;
+        else if (!h1.get(len-3).contains(uccName))
+            return false;
+        else if (!h1.get(len-2).equals("near"))
+            return false;
+        else return h1.get(len - 1).equals(locationTerm);
+    }
+
+    private boolean h1UccBrowse (List<String> h1, String locationTerm) {
+        int len = h1.size();
+        if (!h1.get(len-4).equals("Urgent Care Centers"))
+            return false;
+        else if (!h1.get(len-2).equals("near"))
+            return false;
+        else return h1.get(len - 1).equals(locationTerm);
     }
 
     private boolean breadcrumbSearch(SearchResultsPage results) {
@@ -644,5 +749,37 @@ public class SearchPagePropertiesTest {
     			return false;
     	else
     		return true;
+    }
+
+    private boolean breadcrumbUccCityBrowse(SearchResultsPage results) {
+        if (!results.breadcrumbCurrent().getText().toString().equals("New York urgent care centers"))
+            return false;
+        else if (!results.getBreadcrumbText().get(0).equals("Home"))
+            return false;
+        else if (!results.getBreadcrumbText().get(1).equals("Find an urgent care center"))
+            return false;
+        else if (!results.getBreadcrumbText().get(2).equals("NY"))
+            return false;
+        else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+            return false;
+        else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+                !results.getBreadcrumbUrl().get(1).contains("/urgent-care"))
+            return false;
+        else if (!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+                !results.getBreadcrumbUrl().get(2).contains("/locations/urgent-care/ny"))
+            return false;
+        else
+            return true;
+    }
+
+    private boolean breadcrumbUccMainBrowse(SearchResultsPage results) {
+        if (!results.breadcrumbCurrent().getText().toString().equals("Find an urgent care center"))
+            return false;
+        else if (!results.getBreadcrumbText().get(0).equals("Home"))
+            return false;
+        else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+            return false;
+        else
+            return true;
     }
 }
