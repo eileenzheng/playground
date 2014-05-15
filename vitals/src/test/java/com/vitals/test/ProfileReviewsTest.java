@@ -35,20 +35,6 @@ public class ProfileReviewsTest {
         reviewsPage.setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
 
-    @TestCase(id=1829)
-    @Test
-    public void reportAbuse() {
-        ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
-        reviewsPage.get(url + drProfile);
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.dismissReviewIntercept();
-
-        reviewsPage.abuseLink().click();
-        reviewsPage.setImplicitWait(1);
-        Assert.assertTrue(reviewsPage.hasErrorText() || reviewsPage.hasAbuseText(), "Report abuse link doesn't work");
-        reviewsPage.setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
-    }
-
     @TestCase(id=1830)
     @Test
     public void sortReviews() {
