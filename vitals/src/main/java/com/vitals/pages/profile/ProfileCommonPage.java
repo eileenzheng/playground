@@ -116,7 +116,7 @@ public class ProfileCommonPage extends BasePage {
     }
 
     public void dismissReviewIntercept() {
-        setImplicitWait(0);
+        setImplicitWait(1);
         if (has().div(cssSelector("#post-review-modal")))
             reviewClose().click();
         setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
