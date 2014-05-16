@@ -15,10 +15,11 @@
         <classes>
             <class name="com.vitals.test.ProfileTest" />
             <class name="com.vitals.test.ProfileReviewsTest" />
-            <class name="com.vitals.test.ProfileInsuranceTest" />
-            <methods>
-                <exclude name="getQuotes" />
-            </methods>
+            <class name="com.vitals.test.ProfileInsuranceTest">
+                <methods>
+                    <exclude name="getQuotes" />
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Search Specfic Tests">

@@ -15,10 +15,11 @@
         <classes>
             <class name="com.vitals.test.ProfileTest" />
             <class name="com.vitals.test.ProfileReviewsTest" />
-            <class name="com.vitals.test.ProfileInsuranceTest" />
-            <methods>
-                <exclude name="getQuotes" />
-            </methods>
+            <class name="com.vitals.test.ProfileInsuranceTest">
+                <methods>
+                    <exclude name="getQuotes" />
+                </methods>
+            </class>
         </classes>
     </test>
     <test name="Search Specfic Tests">
@@ -71,25 +72,4 @@
             <class name="com.vitals.test.StylingTest" />
         </classes>
     </test>
-    <!--<test name="Staging Tests">-->
-        <!--<classes>-->
-            <!--<class name="com.vitals.test.ProfileTest" />-->
-            <!--<class name="com.vitals.test.ProfileInsuranceTest" />-->
-            <!--<class name="com.vitals.test.ProfileReviewsTest" />-->
-            <!--<class name="com.vitals.test.SearchTest">-->
-                <!--<methods>-->
-                    <!--<exclude name="compareResultsToProfile" />-->
-                <!--</methods>-->
-            <!--</class>-->
-            <!--<class name="com.vitals.test.SearchPagePropertiesTest" />-->
-            <!--<class name="com.vitals.test.PatientGuideTest" />-->
-            <!--<class name="com.vitals.test.PatientLinkTest" />-->
-            <!--<class name="com.vitals.test.MyVitalsTest" />-->
-            <!--<class name="com.vitals.test.MastheadTest" />-->
-            <!--<class name="com.vitals.test.UccTest" />-->
-            <!--<class name="com.vitals.test.SitemapTest" />-->
-            <!--<class name="com.vitals.test.AnalyticsTest" />-->
-            <!--<class name="com.vitals.test.StylingTest" />-->
-        <!--</classes>-->
-    <!--</test>-->
 </suite>
