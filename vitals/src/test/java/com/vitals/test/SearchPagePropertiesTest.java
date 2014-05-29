@@ -479,7 +479,7 @@ public class SearchPagePropertiesTest {
         m_assert.assertTrue(h1, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
 
-        m_assert.assertTrue(results.getTitle().equals("New York, NY Dermatologists - Read Patient Reviews & Get Informed - Vitals.com"),
+        m_assert.assertTrue(results.getTitle().equals("Dermatologists in New York, NY - Read Patient Reviews - Vitals"),
         		"Title is incorrect");
         m_assert.assertTrue(results.getDescription().equals("Find dermatologists in New York, NY, read patient reviews, and get informed on Vitals.com"),
         		"Meta description is incorrect");
