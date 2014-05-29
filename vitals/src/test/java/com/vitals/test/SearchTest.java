@@ -100,7 +100,7 @@ public class SearchTest {
         m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("dermatologists"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(2).getText().toString().equals("near"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("Kenai, AK"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.h2().getText().toString().equals("Closest dermatologists"), "Closest sentence is wrong");
+        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Closest dermatologists"), "Closest sentence is wrong");
         m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
 
         m_assert.assertAll();

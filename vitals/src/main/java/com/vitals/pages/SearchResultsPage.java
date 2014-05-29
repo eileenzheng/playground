@@ -57,6 +57,8 @@ public class SearchResultsPage extends BasePage {
         return spans(cssSelector("#search-sentence-results h1>span"));
     }
 
+    public FluentWebElement closestSentence() { return h2(cssSelector(".related-search")); }
+
     public WebElement description() {
         return webDriver().findElement(cssSelector("meta[name=description]"));
     }
