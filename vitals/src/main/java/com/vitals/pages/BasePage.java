@@ -100,8 +100,14 @@ public class BasePage extends FluentWebDriver{
     }
 
     public void waitForJQuery() {
+        int counter1=0, counter2=0;
         if ((Boolean) ((JavascriptExecutor) webDriver()).executeScript("return jQuery.active==1")) {
             do {
+                if (counter1 > 600) // just so it's not stuck in while loop forever in case something goes wrong
+                    break;
+                else
+                    counter1++;
+
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -111,6 +117,11 @@ public class BasePage extends FluentWebDriver{
         }
         else {
             do {
+                if (counter2 > 1200)
+                    break;
+                else
+                    counter2++;
+
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e2) {
