@@ -18,6 +18,7 @@ public class DFPTest {
     private String[] rectangleSizes = {"[300, 250]", "[300, 600]", "[300, 1050]"};
     private String[] rectangleBottomSizes = {"[300, 250]", "[160, 600]", "[300, 600]"};
     private String[] skyscraperSizes = {"[160, 600]"};
+    private String[] sponsoredSizes = {"[615, 1840]"};
 
     @Parameters({"url"})
     @BeforeMethod
@@ -57,6 +58,187 @@ public class DFPTest {
         m_assert.assertAll();
     }
 
+    @Test
+    public void profileReviewsYes() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + profile + "reviews");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/reviews_yes"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "reviews_yes"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"ctsg", "surg", "card"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"ctsg"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"77", "374", "383"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13679110"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"35", "107", "311", "270"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void profileReviewsNo() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + "/doctors/Dr_Mary_Banerji/reviews");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/reviews_no"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "reviews_no"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"endo", "intm"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"endo"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"intm-eamt", "intm-intm", "intm-endo"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"1628", "6577", "6578"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13511627"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"40", "66", "96"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void profileCredentials() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + profile + "credentials");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/credentials"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "credentials"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"ctsg", "surg", "card"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"ctsg"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"77", "374", "383"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13679110"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"35", "107", "311", "270"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "skyscraper", skyscraperSizes, "1"), "Incorrect skyscraper");
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void profileLocations() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + profile + "office-locations");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/locations"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "locations"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"ctsg", "surg", "card"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"ctsg"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"77", "374", "383"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13679110"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"35", "107", "311", "270"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void profileInsurance() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + profile + "insurance");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/insurance"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "insurance"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"ctsg", "surg", "card"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"ctsg"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"77", "374", "383"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13679110"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"35", "107", "311", "270"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "skyscraper", skyscraperSizes, "1"), "Incorrect skyscraper");
+        m_assert.assertAll();
+    }
+
+    @Test
+    public void profileSponsored() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + profile + "sponsored?utm_campaign=otlerax");
+
+        m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/sponsored"), "Incorrect ad unit zones");
+
+        String[] znValues = {"profile", "sponsored"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
+        String[] specValues = {"ctsg", "surg", "card"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
+        String[] pspecValues = {"ctsg"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
+        String[] spexValues = {"77", "374", "383"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
+        String[] midValues = {"13679110"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"35", "107", "311", "270"};
+        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
+
+
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
+        m_assert.assertTrue(checkSlots(page.getPageSource(), "sponsored_page", sponsoredSizes, "1"), "Incorrect sponsored_page");
+
+        m_assert.assertAll();
+    }
+
     public boolean checkKeys(String source, String key, String[] values) {
         int start = source.indexOf("googletag.pubads().setTargeting(\"" + key);
         if (start==-1) {
@@ -79,7 +261,7 @@ public class DFPTest {
     public boolean checkSlots(String source, String slot, String[] sizes, String pos) {
         int start = source.indexOf(slot + "').addService");
         if (start==-1) {
-            Reporter.log("Missing slot: " + slot + "not found <br>");
+            Reporter.log("Missing slot: " + slot + " not found <br>");
             return false;
         }
         else {
