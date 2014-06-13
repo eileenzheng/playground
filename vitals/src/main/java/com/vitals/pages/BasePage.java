@@ -133,7 +133,18 @@ public class BasePage extends FluentWebDriver{
     }
 
     public String getPageSource() {
-        return webDriver().getPageSource();
+        int i=0;
+        String source = webDriver().getPageSource();
+        while (!source.contains("<body") && i<100) {
+            source = webDriver().getPageSource();
+            try {
+                Thread.sleep(100);
+                i++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return source;
     }
 
     public String getStyle(FluentWebElement element, String property) {

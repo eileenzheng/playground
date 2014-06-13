@@ -72,4 +72,9 @@
             <class name="com.vitals.test.StylingTest" />
         </classes>
     </test>
+    <test name="DFP and Ad Tests">
+        <classes>
+            <class name="com.vitals.test.DFPTest" />
+        </classes>
+    </test>
 </suite>

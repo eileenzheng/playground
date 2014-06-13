@@ -173,14 +173,7 @@ public class AnalyticsTest {
 
     private boolean checkAnalytics(BasePage page) {
         String source = page.getPageSource();
-        while (!source.contains("<body")) {
-            source = page.getPageSource();
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
         if (!source.contains(comScore))
             Reporter.log("ComScore");
         if (!source.contains(googleAnalytics))
