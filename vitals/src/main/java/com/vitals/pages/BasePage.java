@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
+import org.testng.Reporter;
+
 import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.By.cssSelector;
 
@@ -30,7 +32,14 @@ public class BasePage extends FluentWebDriver{
     }
 
     public void get(String url) {
-        webDriver().get(url);
+        try {
+            webDriver().get(url);
+        }
+        catch (Exception e) {
+            Reporter.log("**********Exception Page: " + url + "**********<br>");
+            Reporter.log(e.toString()+"<br>");
+            Reporter.log("**********End of Trace**********<br>");
+        }
     }
 
     public String getTitle() {
