@@ -60,7 +60,7 @@
         <TestRail.url>http://testrail.mdx.med/</TestRail.url>
         <TestRail.user>tester@vitals.com</TestRail.user>
         <TestRail.password>vitals123</TestRail.password>
-        <remoteUrl>http://thvitdatadev01.mdx.med:4444/wd/hub</remoteUrl>
+        <remoteUrl>http://thqatrprd01.mdx.med:4444/wd/hub</remoteUrl>
     </properties>
 
     <dependencies>
