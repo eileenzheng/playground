@@ -15,6 +15,10 @@ public class DFPTest {
     SoftAssert m_assert;
     private final String profile = "/doctors/Dr_Emile_Bacha/";
     private final String ucc = "/urgent-care/citymd-new-york-3/";
+    private final String[] conditionCenters = {"/topics/high-cholesterol", "/topics/high-cholesterol/should-children-be-checked",
+            "/topics/high-cholesterol/things-to-consider", "/topics/high-cholesterol/lifestyle-matters", "/topics/high-cholesterol/specialist-vs-pcp"};
+    private final String[] patientGuides = {"/patient-education/infertility", "/patient-education/infertility/the-team",
+            "/patient-education/infertility/how-to-prepare", "/patient-education/infertility/questions-to-ask", "/patient-education/infertility/what-to-expect", "/patient-education/infertility/treatment-options"};
     private String[] leaderboardTopSizes = {"[728, 90]", "[880, 150]", "[970, 250]", "[970, 90]"};
     private String[] rectangleSizes = {"[300, 250]", "[300, 600]", "[300, 1050]"};
     private String[] rectangleBottomSizes = {"[300, 250]", "[160, 600]", "[300, 600]"};
@@ -697,6 +701,53 @@ public class DFPTest {
         m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle_bottom", rectangleBottomSizes, "2"), "Incorrect rectangle bottom");
         m_assert.assertAll();
+    }
+
+    @TestCase(id=2108)
+    @Test
+    public void conditionCenter() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        String[] znValues = {"condition_centers"};
+        String[] kwValues = {"cc_high_chole"};
+        String[] specValues = {"card", "ctsg"};
+
+        for (String condUrl: conditionCenters) {
+            page.get(url + condUrl);
+
+            m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/condition_centers"), "Incorrect ad unit zones " + condUrl);
+            //m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn " + condUrl);
+            m_assert.assertTrue(checkKeys(page.getPageSource(), "kw", kwValues), "Incorrect kw " + condUrl);
+            m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec " + condUrl);
+            m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top " + condUrl);
+            m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle " + condUrl);
+        }
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2109)
+    @Test
+    public void patientGuide() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        String[] znValues = {"patient_education"};
+        String[] kwValues = {"pg_infertility"};
+        String[] specValues = {"obgn", "mgen"};
+
+        for (String pgUrl: patientGuides) {
+            page.get(url + pgUrl);
+
+            m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/patient_education"), "Incorrect ad unit zones " + pgUrl);
+            //m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn " + pgUrl);
+            m_assert.assertTrue(checkKeys(page.getPageSource(), "kw", kwValues), "Incorrect kw " + pgUrl);
+            m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec " + pgUrl);
+            m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top " + pgUrl);
+            m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle " + pgUrl);
+        }
+
+        m_assert.assertAll();
+
     }
 
     public boolean checkKeys(String source, String key, String[] values) {
