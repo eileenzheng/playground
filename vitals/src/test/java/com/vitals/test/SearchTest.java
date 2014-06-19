@@ -3,10 +3,11 @@ package com.vitals.test;
 import com.vitals.helpers.Profile;
 import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitalsqa.testrail.TestCase;
+import org.openqa.selenium.By;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -187,8 +188,8 @@ public class SearchTest {
     }
 
     @TestCase(id=1552)
-    @Test (dataProvider = "zipCodes")
-    public void compareResultsToProfile(String zipCodes) {
+    @Test
+    public void compareResultsToProfile() {
         m_assert = new SoftAssert();
 
         HomePage homePage = new HomePage();
@@ -196,9 +197,6 @@ public class SearchTest {
 
         String name = "Smith";
 
-        homePage.headerModule().locationTextBoxSelector().click();
-        homePage.headerModule().enterLocation(zipCodes);
-        homePage.headerModule().locationSuggestions().get(0).click();
         homePage.headerModule().enterSearchTerm(name);
         homePage.headerModule().goButton().click();
 
@@ -208,7 +206,8 @@ public class SearchTest {
         List<Profile> docs = results.doctorResults(results.drList());
 
         Reporter.log("ResultsPage,ProfileCommonPage,ProfilePageUrl");
-        for (Profile doc : docs) {
+        for (int i=0; i<5; i++) {
+            Profile doc = docs.get(i);
             profile.get(doc.getUrl());
             doc.setProfileName(profile.name().getText().toString().trim());
             m_assert.assertTrue(doc.searchAndProfileMatches(),"Did not match: " + doc.toString());
@@ -216,20 +215,28 @@ public class SearchTest {
         }
 
         m_assert.assertAll();
-
     }
 
-    @DataProvider(name = "zipCodes")
-    public Object[][] generateZipCodes() {
-        return new Object[][] {
-                {"33021"},
-                {"18015"},
-                {"16434"},
-                {"02201"},
-                {"10001"},
-                {"07801"},
-                {"18102"}
-        };
-    }
+    @TestCase(id=2110)
+    @Test
+    public void locationParameter() {
+        HomePage home = new HomePage();
+        home.get(url);
+        home.headerModule().enterSearchTerm("Family Practitioner");
+        home.headerModule().specialtySuggestions().get(0).click();
 
+        SearchResultsPage serp = new SearchResultsPage();
+        String serpUrl = serp.getCurrentUrl();
+        serp.get(serpUrl + "&location=33021");
+
+        int i=0;
+        String address;
+        for (FluentWebElement result: serp.searchResults()) {
+            address = result.getWebElement().findElement(By.cssSelector("address")).getText();
+            if (address.contains("Hollywood, FL"))
+                i++;
+        }
+
+        Assert.assertTrue(i>=10, "Less than 10 results are from Hollywood, FL");
+    }
 }

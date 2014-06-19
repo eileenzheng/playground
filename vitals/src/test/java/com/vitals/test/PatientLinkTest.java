@@ -20,8 +20,11 @@ public class PatientLinkTest {
     private String url;
     
     private static final String serpUrl = "/internists/ny/new-york";
+    private static final String dentistSerpUrl = "/search?type=specialty&provider_type=4&specialist_id=196&q=Dentist&location=34787";
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
+    private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
+    private static final String dentistProfileHeaderUrl = "/dentists/Dr_Mark_Falco/profile";
     private static final String uccUrl = "/urgent-care/ny/yonkers";
     
     @Parameters({"url"})
@@ -31,7 +34,7 @@ public class PatientLinkTest {
 
         this.url = url;
     }
-    
+
     @TestCase(id=1553)
     @Test
     public void checkProfileHeader() {
@@ -55,13 +58,32 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=2112)
+    @Test
+    public void checkDentistProfileHeader() {
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url);
+        // launch again to go to profile instead of seo profile
+        profile.get(url + dentistProfileHeaderUrl);
+        profile.dismissReviewIntercept();
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(profile.hasPlPhoneNumber(), "Phone number is missing!");
+        if (profile.hasPlPhoneNumber()) {
+            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 307-3243") , "Phone number is incorrect!");
+        }
+        m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
+        m_assert.assertAll();
+    }
+
     @TestCase(id={1554,1558})
     @Test
     public void checkSeoProfile() {
 
         ProfileSeoPage profile = new ProfileSeoPage();
         profile.deleteCookies();
-        profile.get(url + profileUrl);
+        profile.get(url + dentistProfileUrl);
         profile.dismissReviewIntercept();
         Assert.assertTrue(profile.rrAd().getSize()>0, "No CMT ads on profile page");
         testIndividualAd(profile.rrAd());
@@ -86,6 +108,17 @@ public class PatientLinkTest {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
         Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on provider SERP");
+
+        testIndividualAd(serp.centerAd());
+    }
+
+    @TestCase(id={2113,1558})
+    @Test
+    public void checkDentistSerp() {
+
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + dentistSerpUrl);
+        Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on dentist SERP");
 
         testIndividualAd(serp.centerAd());
     }
@@ -275,6 +308,30 @@ public class PatientLinkTest {
         m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Debra M Ortiz"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        modal.switchWindow(mainWindow);
+        modal.closeButton().click();
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2111)
+    @Test
+    public void greenvilleIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/doctors/Dr_Molly_Adams/profile");
+        profile.dismissReviewIntercept();
+        profile.plBookAppt().click();
+
+        ModalIframe modal = new ModalIframe();
+        String mainWindow = modal.getMainWindow();
+        modal.switchIframe("iframe[src*='ghswebdev.com']");
+
+        IframeGreenville iframe = new IframeGreenville();
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Molly C. Adams, MD"), "Incorrect name");
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();
