@@ -42,39 +42,23 @@ public class SearchResultsPage extends BasePage {
     }
 
     public FluentWebElements resultPhotos() {
-        return links(cssSelector(".search-results:not(.featured) .portrait a"));
+        return divs(cssSelector(".search-results:not(.featured) .img-circle"));
     }
 
     public FluentWebElements resultNames() {
-        return links(cssSelector(".search-results:not(.featured) .name"));
+        return links(cssSelector(".search-results:not(.featured) .name-basic"));
     }
 
-    public FluentWebElements resultsRating1(){
-        return links(cssSelector(".search-results:not(.featured) .star-rating-control a[title='Poor']"));
-    }
-
-    public FluentWebElements resultsRating2() {
-        return links(cssSelector(".search-results:not(.featured) .star-rating-control a[title='Fair']"));
-    }
-
-    public FluentWebElements resultsRating3() {
-        return links(cssSelector(".search-results:not(.featured) .star-rating-control a[title='Good']"));
-    }
-
-    public FluentWebElements resultsRating4() {
-        return links(cssSelector(".search-results:not(.featured) .star-rating-control a[title='Very Good']"));
-    }
-
-    public FluentWebElements resultsRating5() {
-        return links(cssSelector(".search-results:not(.featured) .star-rating-control a[title='Excellent']"));
+    public FluentWebElements resultsRating(){
+        return spans(cssSelector(".search-results:not(.featured) .rating"));
     }
 
     public FluentWebElements resultGetReportLinks() {
-        return links(cssSelector(".search-results:not(.featured) .list-inline li:first-child>a"));
+        return links(cssSelector(".search-results:not(.featured) ul .btn-warning"));
     }
 
     public FluentWebElements resultsViewProfileLinks() {
-        return links(cssSelector(".search-results:not(.featured) .list-inline li:last-child>a"));
+        return links(cssSelector(".search-results:not(.featured) ul .btn-info"));
     }
 
     public FluentWebElements browsePanelNameLinks() {

@@ -1,10 +1,10 @@
 package com.uchc.pages.profile;
 
+import com.uchc.helpers.Constants;
 import com.uchc.pages.BasePage;
 import com.uchc.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
-
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.linkText;
 
@@ -85,5 +85,16 @@ public class ProfileCommonPage extends BasePage {
 
     public FluentWebElement contactLink() {
         return link(cssSelector(".vcard>div>a"));
+    }
+
+    private FluentWebElement reviewClose() {
+        return button(cssSelector(".btn-close"));
+    }
+
+    public void dismissReviewIntercept() {
+        setImplicitWait(1);
+        if (has().div(cssSelector(".review-modal")))
+            reviewClose().click();
+        setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
 }

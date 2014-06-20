@@ -18,8 +18,11 @@ public class PatientLinkTest {
     private boolean alreadyInit = false;
     private String url;
     private static String serpUrl = "/drs/new_york/internal_medicine/New_York.html";
+    private static String dentistSerpUrl = "/dentist/florida/Lake_Mary.html";
     private static String profileUrl = "/drs/carrie_aaron/";
+    private static String dentistProfileUrl = "/dentist/kevin_bonn/";
     private static String profileHeaderUrl = "/drs/adelle_quintana";
+    private static String dentistProfileHeaderUrl = "/dentist/mark_falco/";
 
     @Parameters({"url"})
     @BeforeMethod
@@ -33,6 +36,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + profileHeaderUrl);
+        profile.dismissReviewIntercept();
 
         m_assert = new SoftAssert();
         m_assert.assertTrue(profile.hasPlDrSite(), "Doctor's site is missing!");
@@ -47,12 +51,41 @@ public class PatientLinkTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=2114)
+    @Test
+    public void checkDentistProfileHeader() {
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + dentistProfileHeaderUrl);
+        profile.dismissReviewIntercept();
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(profile.hasPlPhoneNumber(), "Phone number is missing!");
+        if (profile.hasPlPhoneNumber()) {
+            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 307-3240") , "Phone number is incorrect!");
+        }
+        m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
+        m_assert.assertAll();
+    }
+
     @TestCase(id={1833,1835})
     @Test
     public void checkProfile() {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + profileUrl);
+        profile.dismissReviewIntercept();
+
+        testIndividualAd(profile.rrAd());
+    }
+
+    @TestCase(id=2115)
+    @Test
+    public void checkDentistProfile() {
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + dentistProfileUrl);
+        profile.dismissReviewIntercept();
 
         testIndividualAd(profile.rrAd());
     }
@@ -63,6 +96,16 @@ public class PatientLinkTest {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
+
+        testIndividualAd(serp.centerAd());
+    }
+
+    @TestCase(id=2116)
+    @Test
+    public void checkDentistSerp() {
+
+        SearchResultsPage serp = new SearchResultsPage();
+        serp.get(url + dentistSerpUrl);
 
         testIndividualAd(serp.centerAd());
     }
@@ -148,6 +191,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/siby_cherian");
+        profile.dismissReviewIntercept();
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
 
@@ -168,6 +212,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/victoria_adeleye");
+        profile.dismissReviewIntercept();
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
 
@@ -188,6 +233,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/matthew_krasucki");
+        profile.dismissReviewIntercept();
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
 
@@ -209,6 +255,7 @@ public class PatientLinkTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + "/drs/debra_ortiz");
+        profile.dismissReviewIntercept();
         Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
         profile.plBookAppt().click();
 
@@ -218,6 +265,26 @@ public class PatientLinkTest {
         m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Debra M Ortiz"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2117)
+    @Test
+    public void greenvilleIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/drs/molly_adams/");
+        profile.dismissReviewIntercept();
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='ghswebdev.com']");
+
+        IframeGreenville iframe = new IframeGreenville();
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Molly C. Adams, MD"), "Incorrect name");
 
         m_assert.assertAll();
     }

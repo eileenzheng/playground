@@ -3,7 +3,6 @@ package com.uchc.test;
 import com.uchc.pages.DoctorReportPage;
 import com.uchc.pages.SearchResultsPage;
 import com.uchc.pages.profile.ProfileCommonPage;
-import com.uchc.pages.profile.ProfilePageRatings;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -152,7 +151,6 @@ public class SearchTest {
         String name;
         String currentUrl=serp.getCurrentUrl();
         ProfileCommonPage profile = new ProfileCommonPage();
-        ProfilePageRatings ratings = new ProfilePageRatings();
         DoctorReportPage report = new DoctorReportPage();
 
         // click photo
@@ -201,14 +199,10 @@ public class SearchTest {
             serp.get(currentUrl);
             rand = (int) Math.floor(Math.random() * (serp.resultNames().size() - 1));
             name = serp.resultNames().get(rand).getText().toString();
-            serp.resultsRating3().get(rand).click();
+            serp.resultsRating().get(rand).click();
             if (!name.contains(profile.drName().getText().toString())) {
                 result = false;
                 Reporter.log("Profile name does not match SERP name when clicking rating stars<br>");
-            }
-            if (ratings.selectedStars().size()!=3) {
-                result = false;
-                Reporter.log("Selected rating isn't correct on profile page when clicking rating stars<br>");
             }
         }
 
@@ -283,7 +277,6 @@ public class SearchTest {
             if (serp.resultNames().size()!=(serp.totalResults()%50)) {
                 result = false;
                 Reporter.log("Not showing correct # of results on 2nd (last) page<br>");
-                return result;
             }
         }
 

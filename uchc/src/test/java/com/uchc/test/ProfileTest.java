@@ -31,6 +31,7 @@ public class ProfileTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + profileUrlNoReview);
+        profile.dismissReviewIntercept();
         urlToCheck = profile.beTheFirstLink().getAttribute("href").toString();
         m_assert.assertTrue(urlToCheck.equals(url + profileUrlNoReview + "reviews.html#pr"), "General Info Page Rate Link");
         urlToCheck = profile.reviewsButton().getAttribute("href").toString();
@@ -71,6 +72,7 @@ public class ProfileTest {
 
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.get(url + profileUrlHasReview);
+        profile.dismissReviewIntercept();
         urlToCheck = profile.ratingLinks().get(0).getAttribute("href").toString();
         m_assert.assertTrue(urlToCheck.equals(url + profileUrlHasReview + "reviews.html"), "General Info Page 0");
         urlToCheck = profile.ratingLinks().get(1).getAttribute("href").toString();
@@ -143,6 +145,7 @@ public class ProfileTest {
         DoctorReportPage report = new DoctorReportPage();
 
         profile.get(url + profileUrlHasReview);
+        profile.dismissReviewIntercept();
         drName = profile.drName().getText().toString();
         profile.compareButton().click();
         m_assert.assertTrue(report.hasDrInReport(drName), "General Info Page: Compare Button");
@@ -222,6 +225,7 @@ public class ProfileTest {
         DoctorReportPage report = new DoctorReportPage();
 
         profile.get(url + profileUrlHasReview);
+        common.dismissReviewIntercept();
         drName = common.drName().getText().toString();
         profile.phoneNumberLink().click();
         m_assert.assertTrue(report.hasDrInReport(drName), "Phone Number Link");
@@ -252,6 +256,8 @@ public class ProfileTest {
     public void generalInfoMap() {
         ProfilePageSummary profile = new ProfilePageSummary();
         profile.get(url + profileUrlHasReview);
+        ProfileCommonPage common = new ProfileCommonPage();
+        common.dismissReviewIntercept();
         Assert.assertTrue(!profile.map().getText().toString().equals(""), "Map is empty");
     }
 
@@ -262,6 +268,8 @@ public class ProfileTest {
 
         ProfilePageSummary profile = new ProfilePageSummary();
         profile.get(url + profileUrlHasReview);
+        ProfileCommonPage common = new ProfileCommonPage();
+        common.dismissReviewIntercept();
         profile.ratingStars().get(2).click();
 
         ProfilePageRatings ratings = new ProfilePageRatings();
@@ -280,6 +288,8 @@ public class ProfileTest {
 
         ProfilePageRatings ratings = new ProfilePageRatings();
         ratings.get(url + profileUrlHasReview + "reviews.html");
+        ProfileCommonPage common = new ProfileCommonPage();
+        common.dismissReviewIntercept();
 
         int reviewNumber=0;
         for (int i=0; i<ratings.showHideDetailsLinks().size(); i++) {
@@ -313,6 +323,7 @@ public class ProfileTest {
         DoctorReportPage report = new DoctorReportPage();
 
         locations.get(url + profileUrlHasReview + "offices.html");
+        common.dismissReviewIntercept();
         drName = common.drName().getText().toString();
         m_assert.assertTrue(locations.drivingDirectionsLink().getAttribute("href").toString().equals(url + profileUrlHasReview + "directions.html"), "Driving Directions Link");
 
@@ -335,6 +346,8 @@ public class ProfileTest {
     public void locationPageMap() {
         ProfilePageLocations locations = new ProfilePageLocations();
         locations.get(url + profileUrlHasReview + "offices.html");
+        ProfileCommonPage common = new ProfileCommonPage();
+        common.dismissReviewIntercept();
         Assert.assertTrue(!locations.map().getText().toString().equals(""), "Map is empty");
     }
 
@@ -343,6 +356,8 @@ public class ProfileTest {
     public void getDirections() {
         ProfilePageDirections directions = new ProfilePageDirections();
         directions.get(url + profileUrlHasReview + "directions.html");
+        ProfileCommonPage common = new ProfileCommonPage();
+        common.dismissReviewIntercept();
         directions.fromAddress().clearField().sendKeys("210 Clay Ave, Lyndhurst, NJ");
         directions.getDirectionsButton().click();
 
