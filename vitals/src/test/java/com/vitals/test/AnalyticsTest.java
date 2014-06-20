@@ -17,6 +17,8 @@ public class AnalyticsTest {
     private final String comScore = "var _comscore = _comscore";
     private final String googleAnalytics = "google-analytics.com";
     private final String googletTagManager = "googletagmanager";
+    private final String tynt = "tynt.com";
+    private final String quant = "quantserve.com";
     private final String profile = "/doctors/Dr_Emile_Bacha/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
@@ -173,6 +175,8 @@ public class AnalyticsTest {
 
     private boolean checkAnalytics(BasePage page) {
         String source = page.getPageSource();
+        String head = page.getConsoleLog("document.head.innerHTML");
+        String body = page.getConsoleLog("document.body.innerHTML");
 
         if (!source.contains(comScore))
             Reporter.log("ComScore");
@@ -180,6 +184,10 @@ public class AnalyticsTest {
             Reporter.log("Google Analytics");
         if (!source.contains(googletTagManager))
             Reporter.log("Google Tag Manager");
-        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googletTagManager));
+        if (!head.contains(tynt))
+            Reporter.log("Tynt");
+        if (!body.contains(quant))
+            Reporter.log("Quant");
+        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googletTagManager) && head.contains(tynt) && body.contains(quant));
     }
 }

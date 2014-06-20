@@ -141,6 +141,10 @@ public class BasePage extends FluentWebDriver{
         }
     }
 
+    public String getConsoleLog(String part) {
+        return (String) ((JavascriptExecutor)webDriver()).executeScript("return " + part);
+    }
+
     public String getPageSource() {
         int i=0;
         String source = webDriver().getPageSource();
