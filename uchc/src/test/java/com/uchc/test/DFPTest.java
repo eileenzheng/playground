@@ -583,15 +583,15 @@ public class DFPTest {
     public void profileReviewsNo() {
         page = new BasePage();
         m_assert = new SoftAssert();
-        page.get(url + "/drs/lawrence_i_harrison/reviews.html");
+        page.get(url + "/drs/todd_rosengart/reviews.html");
 
-        String[] specValues = {"radi", "nmed"};
+        String[] specValues = {"surg", "ctsg"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String[] fspecValues = {"radi-radi", "nmed-nmed"};
+        String[] fspecValues = {"surg-vssg", "ctsg-ctsg"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] pspecValues = {"radi"};
+        String[] pspecValues = {"surg"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] midValues = {"1158889"};
+        String[] midValues = {"193060"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
 
         m_assert.assertTrue(page.getPageSource().contains("/8905/uchc/reviews_no"), "Incorrect ad unit zones");
