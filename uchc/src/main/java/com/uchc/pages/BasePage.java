@@ -4,9 +4,7 @@ import com.uchc.helpers.Constants;
 import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
@@ -49,21 +47,23 @@ public class BasePage extends FluentWebDriver {
         webDriver().manage().timeouts().implicitlyWait(sec, TimeUnit.SECONDS);
     }
 
-    public void waitUntilVisible(FluentWebElement el, Integer seconds) {
-        WebDriverWait wait = new WebDriverWait(webDriver(),seconds);
-        wait.until(ExpectedConditions.visibilityOf(el.getWebElement()));
-    }
-
     public void switchIframe(String css) {
         webDriver().switchTo().frame(webDriver().findElement(cssSelector(css)));
     }
 
-    public void switchWindow(String window) {
-        webDriver().switchTo().window(window);
-    }
-
-    public String getMainWindow() {
-        return webDriver().getWindowHandle();
+    public String getPageSource() {
+        int i=0;
+        String source = webDriver().getPageSource();
+        while (!source.contains("<body") && i<100) {
+            source = webDriver().getPageSource();
+            try {
+                Thread.sleep(100);
+                i++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return source;
     }
 
     public FluentWebElement getRandom(FluentWebElements list) {

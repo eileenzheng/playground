@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="2">
+<suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="6">
     <parameter name="url" value="http://uchc:maggiegetyourbone@stagea.ucomparehealthcare.com" />
     <parameter name="browser" value="firefox" />
     <parameter name="driverType" value="remote" />
@@ -34,6 +34,11 @@
     <test name="Patient Link Tests">
         <classes>
             <class name="com.uchc.test.PatientLinkTest"/>
+        </classes>
+    </test>
+    <test name="DFP Tests">
+        <classes>
+            <class name="com.uchc.test.DFPTest"/>
         </classes>
     </test>
 </suite>
