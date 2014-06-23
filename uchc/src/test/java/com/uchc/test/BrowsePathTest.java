@@ -418,7 +418,7 @@ public class BrowsePathTest {
         namePage.getRandom(namePage.links()).click();
         NameAlphabetPage alphabetPage = new NameAlphabetPage();
 
-        m_assert.assertTrue(alphabetPage.alphabets().size()>15, "Less than 15 letters on alphabet page");
+        m_assert.assertTrue(alphabetPage.alphabets().size()>10, "Less than 10 letters on alphabet page");
         m_assert.assertTrue(alphabetPage.navTabActive().getText().toString().contains("Podiatrists by Name"), "Incorrect active tab on alphabet page");
 
         alphabetPage.getRandom(alphabetPage.alphabets()).click();

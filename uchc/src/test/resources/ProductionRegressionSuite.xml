@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="UCHC Production Regression" verbose="5" parallel="classes" thread-count="6">
+<suite name="UCHC Production Regression" verbose="5" parallel="tests" thread-count="6">
     <parameter name="url" value="http://www.ucomparehealthcare.com" />
     <parameter name="browser" value="firefox" />
     <parameter name="projectId" value="2"/>
@@ -8,7 +8,7 @@
     <parameter name="driverType" value="remote" />
 
     <listeners>
-        <listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
+        <!--<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />-->
         <listener class-name="com.vitalsqa.listener.DotTestListener" />
     </listeners>
 
