@@ -14,14 +14,18 @@ public class AnalyticsTest {
     String url;
     BasePage page;
     SoftAssert m_assert;
-    private final String comScore = "var _comscore = _comscore";
+    private final String comScore = "scorecardresearch.com";
     private final String googleAnalytics = "google-analytics.com";
     private final String googletTagManager = "googletagmanager";
     private final String tynt = "tynt.com";
     private final String quant = "quantserve.com";
+    private final String adroll = "adroll.com";
+    private final String pardot = "cdn.partdot.com";
     private final String profile = "/doctors/Dr_Emile_Bacha/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
+    private final String head = "document.head.innerHTML";
+    private final String body = "document.body.innerHTML";
 
     @Parameters({"url"})
     @BeforeMethod
@@ -60,7 +64,6 @@ public class AnalyticsTest {
         m_assert = new SoftAssert();
         page.get(url);
         page.get(url + profile + "profile");
-        System.out.println(page);
         m_assert.assertTrue(checkAnalytics(page), "Summary tab");
         page.get(url + profile + "reviews");
         m_assert.assertTrue(checkAnalytics(page), "Reviews tab");
@@ -173,21 +176,110 @@ public class AnalyticsTest {
         m_assert.assertAll();
     }
 
+    @TestCase(id=2161)
+    @Test
+    public void groupPractice() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + "/group-practice");
+        m_assert.assertTrue(checkAnalytics(page), "Main Page");
+        page.get(url + "/group-practice/alabama");
+        m_assert.assertTrue(checkAnalytics(page), "State Page");
+        page.get(url + "/group-practice/alabama/shelby/birmingham");
+        m_assert.assertTrue(checkAnalytics(page), "City Page");
+        page.get(url + "/group-practice/alabama/shelby/birmingham/greenvale-pediatric-assoc/");
+        m_assert.assertTrue(checkAnalytics(page), "Group Page");
+    }
+
+    @TestCase(id=2162)
+    @Test
+    public void about() {
+        page = new BasePage();
+        m_assert = new SoftAssert();
+        page.get(url + "/about");
+        m_assert.assertTrue(checkAnalytics(page), "Main Page");
+        m_assert.assertTrue(checkTag(page, head, pardot), "Main Page: Pardot");
+        page.get(url + "/about/patients");
+        m_assert.assertTrue(checkAnalytics(page), "For Consumers");
+        m_assert.assertTrue(checkTag(page, head, pardot), "For Consumers: Pardot");
+        page.get(url + "/about/healthplans");
+        m_assert.assertTrue(checkAnalytics(page), "For Health Plans");
+        m_assert.assertTrue(checkTag(page, head, pardot), "For Health Plans: Pardot");
+        page.get(url + "/about/providers");
+        m_assert.assertTrue(checkAnalytics(page), "For Providers");
+        m_assert.assertTrue(checkTag(page, head, pardot), "For Providers: Pardot");
+        page.get(url + "/about/advertisers");
+        m_assert.assertTrue(checkAnalytics(page), "For Advertisers");
+        m_assert.assertTrue(checkTag(page, head, pardot), "For Advertisers: Pardot");
+        m_assert.assertTrue(checkTag(page, head, adroll), "For Advertisers: Adroll");
+        page.get(url + "/about/vitals-team");
+        m_assert.assertTrue(checkAnalytics(page), "The Team");
+        m_assert.assertTrue(checkTag(page, head, pardot), "The Team: Pardot");
+        page.get(url + "/about/press");
+        m_assert.assertTrue(checkAnalytics(page), "News");
+        m_assert.assertTrue(checkTag(page, head, pardot), "News: Pardot");
+        page.get(url + "/about/resources");
+        m_assert.assertTrue(checkAnalytics(page), "Resources");
+        m_assert.assertTrue(checkTag(page, head, pardot), "Resources: Pardot");
+        page.get(url + "/about/doctor-awards");
+        m_assert.assertTrue(checkAnalytics(page), "Awards");
+        m_assert.assertTrue(checkTag(page, head, pardot), "Awards: Pardot");
+        page.get(url + "/about/careers");
+        m_assert.assertTrue(checkAnalytics(page), "Careers");
+        m_assert.assertTrue(checkTag(page, head, pardot), "Careers: Pardot");
+        page.get(url + "/contact");
+        m_assert.assertTrue(checkAnalytics(page), "Contact Us");
+        m_assert.assertTrue(checkTag(page, head, pardot), "Contact Us: Pardot");
+    }
+
     private boolean checkAnalytics(BasePage page) {
         String source = page.getPageSource();
-        String head = page.getConsoleLog("document.head.innerHTML");
-        String body = page.getConsoleLog("document.body.innerHTML");
 
-        if (!source.contains(comScore))
-            Reporter.log("ComScore");
-        if (!source.contains(googleAnalytics))
-            Reporter.log("Google Analytics");
-        if (!source.contains(googletTagManager))
-            Reporter.log("Google Tag Manager");
-        if (!head.contains(tynt))
-            Reporter.log("Tynt");
-        if (!body.contains(quant))
-            Reporter.log("Quant");
-        return (source.contains(comScore) && source.contains(googleAnalytics) && source.contains(googletTagManager) && head.contains(tynt) && body.contains(quant));
+        boolean result = true;
+
+        if (!source.contains(googletTagManager)) {
+            Reporter.log("Google Tag Manager<br>");
+            result = false;
+        }
+
+        if (!checkTag(page, head, comScore)) {
+            Reporter.log("ComScore<br>");
+            result = false;
+        }
+
+        if (!checkTag(page, head, tynt)) {
+            Reporter.log("Tynt<br>");
+            result = false;
+        }
+
+        if (!checkTag(page, body, quant)) {
+            Reporter.log("Quant<br>");
+            result = false;
+        }
+
+        if (!checkTag(page, body, googleAnalytics)) {
+            Reporter.log("Google Analytics<br>");
+            result = false;
+        }
+
+        return result;
+    }
+
+    private boolean checkTag(BasePage page, String element, String search) {
+
+        String elementOutput = page.getConsoleLog(element);
+
+        int i=0;
+        while (i<20 && !elementOutput.contains(search)) {
+            try {
+                Thread.sleep(500);
+                i++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            elementOutput = page.getConsoleLog(element);
+        }
+
+        return elementOutput.contains(element);
     }
 }

@@ -41,19 +41,6 @@
         </profile>
 
         <profile>
-            <id>vitals_qa</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>qa</value>
-                </property>
-            </activation>
-            <properties>
-                <suite.filename>QARegressionSuite.xml</suite.filename>
-            </properties>
-        </profile>
-
-        <profile>
             <id>white_label_widget</id>
             <activation>
                 <property>
