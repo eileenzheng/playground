@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="6">
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="8">
 	<parameter name="url" value="http://www.vitals.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
@@ -12,6 +12,17 @@
         <listener class-name="com.vitalsqa.listener.DotTestListener" />
 	</listeners>
 
+    <test name="Analytics Tests">
+        <classes>
+            <class name="com.vitals.test.AnalyticsTest" />
+        </classes>
+    </test>
+    <test name="Search Specfic Tests">
+        <classes>
+            <class name="com.vitals.test.SearchTest" />
+            <class name="com.vitals.test.SearchPagePropertiesTest" />
+        </classes>
+    </test>
     <test name="Profile Specific Tests">
         <classes>
             <class name="com.vitals.test.ProfileTest" />
@@ -19,10 +30,14 @@
             <class name="com.vitals.test.ProfileInsuranceTest" />
         </classes>
     </test>
-    <test name="Search Specfic Tests">
+    <test name="Masthead Specific Tests">
         <classes>
-            <class name="com.vitals.test.SearchTest" />
-            <class name="com.vitals.test.SearchPagePropertiesTest" />
+            <class name="com.vitals.test.MastheadTest" />
+        </classes>
+    </test>
+    <test name="DFP and Ad Tests">
+        <classes>
+            <class name="com.vitals.test.DFPTest" />
         </classes>
     </test>
     <test name="PatientGuide Specific Tests">
@@ -40,11 +55,6 @@
             <class name="com.vitals.test.MyVitalsTest" />
         </classes>
     </test>
-    <test name="Masthead Specific Tests">
-        <classes>
-            <class name="com.vitals.test.MastheadTest" />
-        </classes>
-    </test>
     <test name="Urgent Care Specific Tests">
         <classes>
             <class name="com.vitals.test.UccTest" />
@@ -55,19 +65,9 @@
             <class name="com.vitals.test.SitemapTest" />
         </classes>
     </test>
-    <test name="Analytics Tests">
-        <classes>
-            <class name="com.vitals.test.AnalyticsTest" />
-        </classes>
-    </test>
     <test name="Styling (CSS) Tests">
         <classes>
             <class name="com.vitals.test.StylingTest" />
-        </classes>
-    </test>
-    <test name="DFP and Ad Tests">
-        <classes>
-            <class name="com.vitals.test.DFPTest" />
         </classes>
     </test>
 </suite>

@@ -20,7 +20,7 @@ public class AnalyticsTest {
     private final String tynt = "tynt.com";
     private final String quant = "quantserve.com";
     private final String adroll = "adroll.com";
-    private final String pardot = "cdn.partdot.com";
+    private final String pardot = "cdn.pardot.com";
     private final String profile = "/doctors/Dr_Emile_Bacha/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
