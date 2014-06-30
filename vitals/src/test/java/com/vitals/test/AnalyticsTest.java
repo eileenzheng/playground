@@ -280,6 +280,6 @@ public class AnalyticsTest {
             elementOutput = page.getConsoleLog(element);
         }
 
-        return elementOutput.contains(element);
+        return elementOutput.contains(search);
     }
 }

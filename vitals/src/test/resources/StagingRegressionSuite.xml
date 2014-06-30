@@ -12,11 +12,11 @@
         <listener class-name="com.vitalsqa.listener.DotTestListener" />
 	</listeners>
 
-    <!--<test name="Analytics Tests">-->
-        <!--<classes>-->
-            <!--<class name="com.vitals.test.AnalyticsTest" />-->
-        <!--</classes>-->
-    <!--</test>-->
+    <test name="Analytics Tests">
+        <classes>
+            <class name="com.vitals.test.AnalyticsTest" />
+        </classes>
+    </test>
     <test name="Search Specfic Tests">
         <classes>
             <class name="com.vitals.test.SearchTest" />
