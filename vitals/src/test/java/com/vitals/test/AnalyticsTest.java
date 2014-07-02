@@ -252,13 +252,13 @@ public class AnalyticsTest {
             result = false;
         }
 
-        if (!checkTag(page, body, quant)) {
-            Reporter.log("Quant<br>");
+        if (!checkTag(page, head, googleAnalytics)) {
+            Reporter.log("Google Analytics<br>");
             result = false;
         }
 
-        if (!checkTag(page, body, googleAnalytics)) {
-            Reporter.log("Google Analytics<br>");
+        if (!checkTag(page, body, quant)) {
+            Reporter.log("Quant<br>");
             result = false;
         }
 
