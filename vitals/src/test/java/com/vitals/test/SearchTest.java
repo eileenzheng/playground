@@ -95,13 +95,13 @@ public class SearchTest {
         m_assert = new SoftAssert();
 
         SearchResultsPage serp = new SearchResultsPage();
-        serp.get(url + "/dermatologists/ak/kenai");
+        serp.get(url + "/endocrinologists/ak/kenai");
 
         m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("We found 0"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("dermatologists"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("endocrinologists"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(2).getText().toString().equals("near"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("Kenai, AK"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Closest dermatologists"), "Closest sentence is wrong");
+        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Closest endocrinologists"), "Closest sentence is wrong");
         m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
 
         m_assert.assertAll();
