@@ -182,7 +182,7 @@ public class SearchTest {
 
         serp.headerModule().enterSearchTerm("Diabetes");
         serp.headerModule().conditionSuggestions().get(0).click();
-        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition serach path");
+        m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for condition search path");
 
         m_assert.assertAll();
     }
