@@ -296,7 +296,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
 
         ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Debra_Ortiz/profile");
+        profile.get(url + "/dentists/Dr_Mark_Falco/profile");
         profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
@@ -305,7 +305,7 @@ public class PatientLinkTest {
         modal.switchIframe("iframe[src*='bookthatdoc']");
 
         IframeBookThatDoc iframe = new IframeBookThatDoc();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Debra M Ortiz"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Mark Falco"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
