@@ -183,12 +183,13 @@ public class AnalyticsTest {
         m_assert = new SoftAssert();
         page.get(url + "/group-practice");
         m_assert.assertTrue(checkAnalytics(page), "Main Page");
-        page.get(url + "/group-practice/alabama");
+        page.get(url + "/group-practice/alabama/");
         m_assert.assertTrue(checkAnalytics(page), "State Page");
-        page.get(url + "/group-practice/alabama/shelby/birmingham");
+        page.get(url + "/group-practice/alabama/shelby/birmingham/");
         m_assert.assertTrue(checkAnalytics(page), "City Page");
         page.get(url + "/group-practice/alabama/shelby/birmingham/greenvale-pediatric-assoc/");
         m_assert.assertTrue(checkAnalytics(page), "Group Page");
+        m_assert.assertAll();
     }
 
     @TestCase(id=2162)
@@ -230,6 +231,7 @@ public class AnalyticsTest {
         page.get(url + "/contact");
         m_assert.assertTrue(checkAnalytics(page), "Contact Us");
         m_assert.assertTrue(checkTag(page, head, pardot), "Contact Us: Pardot");
+        m_assert.assertAll();
     }
 
     private boolean checkAnalytics(BasePage page) {
