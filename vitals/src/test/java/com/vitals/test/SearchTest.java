@@ -26,6 +26,38 @@ public class SearchTest {
         this.url = url;
     }
 
+    @TestCase(id=2204)
+    @Test
+    public void searchEmpty() {
+        m_assert = new SoftAssert();
+
+        HomePage home = new HomePage();
+        home.deleteCookies();
+        home.get(url);
+
+        String location = "Austin, TX";
+        home.headerModule().locationTextBoxSelector().click();
+        home.headerModule().enterLocation(location);
+        home.headerModule().locationSuggestions().get(0).click();
+        home.headerModule().goButton().click();
+
+        SearchResultsPage serp = new SearchResultsPage();
+
+        int locationCount=0;
+        int specialtyCount=0;
+        for (FluentWebElement result: serp.searchResults()) {
+            if (result.getWebElement().findElement(By.cssSelector("address")).getText().contains("Austin, TX"))
+                locationCount++;
+            if (result.getWebElement().findElement(By.cssSelector(".location-distance")).getText().contains("General Practice"))
+                specialtyCount++;
+        }
+
+        m_assert.assertTrue(locationCount>=10, "Less than 10 results are from Austin, TX");
+        m_assert.assertTrue(specialtyCount>=25, "Less than 25 results are General Practice");
+
+        m_assert.assertAll();
+    }
+
     @TestCase(id=1548)
     @Test
     public void searchByName() {
@@ -35,11 +67,7 @@ public class SearchTest {
         home.get(url);
 
         String name = "Todd";
-        String location = "Austin, TX";
 
-        home.headerModule().locationTextBoxSelector().click();
-        home.headerModule().enterLocation(location);
-        home.headerModule().locationSuggestions().get(0).click();
         home.headerModule().enterSearchTerm(name);
         home.headerModule().goButton().click();
 
