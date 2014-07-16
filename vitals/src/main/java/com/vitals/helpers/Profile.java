@@ -14,7 +14,7 @@ public class Profile {
     }
 
     public boolean searchAndProfileMatches() {
-        return searchResultName.equals(profileName);
+        return searchResultName.split(",")[0].equals(profileName.split(",")[0]);
     }
 
     public String getUrl() {
