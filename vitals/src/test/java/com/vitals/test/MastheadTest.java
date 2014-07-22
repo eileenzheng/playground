@@ -45,7 +45,6 @@ public class MastheadTest {
 			String location = "1000";
 			String city = "New York";
 
-            homePage.headerModule().locationTextBoxSelector().click();
             homePage.headerModule().enterLocation(location);
 
 			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
@@ -64,8 +63,6 @@ public class MastheadTest {
 
 			String name = "Todd";
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
             homePage.headerModule().enterSearchTerm(name);
 			Reporter.log("The Docs> " + homePage.headerModule().getNameSuggestions());
 
@@ -84,8 +81,6 @@ public class MastheadTest {
 
 			String specialty = "Fam";
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm(specialty);
 			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
 
@@ -104,8 +99,6 @@ public class MastheadTest {
 
 			String condition = "Diab";
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm(condition);
 			Reporter.log("The Conditions> " + homePage.headerModule().getConditionSearchSuggestions());
 
@@ -122,8 +115,6 @@ public class MastheadTest {
 			HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
 			homePage.headerModule().goButton().click();
             homePage.headerModule().acceptAlertIfPresent();
@@ -141,10 +132,8 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
-            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().showAllDoctors().click();
             homePage.headerModule().acceptAlertIfPresent();
 
             SearchResultsPage serp = new SearchResultsPage();
@@ -160,8 +149,6 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDoctor().click();
 			homePage.headerModule().enterSearchTerm("John");
             homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
 
@@ -175,19 +162,17 @@ public class MastheadTest {
 	@Test
 	public void dentistSearchGo() {
 
-		for (int i=0; i<2; i++) {
-            HomePage homePage = new HomePage();
-            homePage.get(url[i]);
-
-			homePage.headerModule().findDropDown().click();
-			homePage.headerModule().findByDentist().click();
-			homePage.headerModule().enterSearchTerm("John");
-            homePage.headerModule().goButton().click();
-            homePage.headerModule().acceptAlertIfPresent();
-
-            SearchResultsPage serp = new SearchResultsPage();
-			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
-		}
+//		for (int i=0; i<2; i++) {
+//            HomePage homePage = new HomePage();
+//            homePage.get(url[i]);
+//
+//			homePage.headerModule().enterSearchTerm("John");
+//            homePage.headerModule().goButton().click();
+//            homePage.headerModule().acceptAlertIfPresent();
+//
+//            SearchResultsPage serp = new SearchResultsPage();
+//			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
+//		}
 	}
 
 	@TestCase(id=1620)
@@ -198,10 +183,8 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-			homePage.headerModule().findDropDown().click();
-			homePage.headerModule().findByDentist().click();
 			homePage.headerModule().enterSearchTerm("John");
-            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().showAllDentists().click();
             homePage.headerModule().acceptAlertIfPresent();
 
             SearchResultsPage serp = new SearchResultsPage();
@@ -213,19 +196,17 @@ public class MastheadTest {
 	@Test
 	public void dentistSearchClick() {
 
-		for (int i=0; i<2; i++) {
-            HomePage homePage = new HomePage();
-            homePage.get(url[i]);
-
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByDentist().click();
-            homePage.headerModule().enterSearchTerm("John");
-            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
-
-			ProfileCommonPage profilePage = new ProfileCommonPage();
-
-			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
-		}
+//		for (int i=0; i<2; i++) {
+//            HomePage homePage = new HomePage();
+//            homePage.get(url[i]);
+//
+//            homePage.headerModule().enterSearchTerm("John");
+//            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
+//
+//			ProfileCommonPage profilePage = new ProfileCommonPage();
+//
+//			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
+//		}
 	}
 
 	@TestCase(id=1622)
@@ -236,8 +217,6 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByUcc().click();
             homePage.headerModule().enterSearchTerm("citymd");
             homePage.headerModule().goButton().click();
             homePage.headerModule().acceptAlertIfPresent();
@@ -255,10 +234,8 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByUcc().click();
             homePage.headerModule().enterSearchTerm("citymd");
-            homePage.headerModule().showAlllink().click();
+            homePage.headerModule().showAllFacilities().click();
             homePage.headerModule().acceptAlertIfPresent();
 
             UccSearchResultsPage serp = new UccSearchResultsPage();
@@ -274,8 +251,6 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-            homePage.headerModule().findDropDown().click();
-            homePage.headerModule().findByUcc().click();
             homePage.headerModule().enterSearchTerm("citymd");
             homePage.getRandom(homePage.headerModule().uccSuggestions()).click();
 
@@ -411,7 +386,6 @@ public class MastheadTest {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
         homePage.get(url[0]);
-		homePage.headerModule().locationTextBoxSelector().click();
 		homePage.headerModule().enterLocation("Fort Lee, NJ");
 		homePage.headerModule().locationSuggestions().get(0).click();
 

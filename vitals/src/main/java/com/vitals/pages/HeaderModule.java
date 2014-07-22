@@ -13,22 +13,6 @@ public class HeaderModule extends BasePage {
         return link(cssSelector(".masthead-logo>a"));
     }
 
-    public FluentWebElement findDropDown () {
-        return link(cssSelector(".find .type-select .mini-selector"));
-    }
-
-    public FluentWebElement findByDoctor() {
-        return link(cssSelector("a[data-type='1']"));
-    }
-
-    public FluentWebElement findByDentist() {
-        return link(cssSelector("a[data-type='4']"));
-    }
-
-    public FluentWebElement findByUcc() {
-        return link(cssSelector("a[data-type='10']"));
-    }
-
     public FluentWebElement searchTextBox() {
         return input(cssSelector("#q"));
     }
@@ -56,37 +40,41 @@ public class HeaderModule extends BasePage {
     public FluentWebElements uccSuggestions() {
         return links(cssSelector(".ui-menu-item[data-facility-id]>a"));
     }
-
-    public FluentWebElement showAlllink() {
-        return link(cssSelector(".ui-menu-item:last-child>a"));
-    }
     
     public FluentWebElement showAllDoctors() {
         return link(linkText("Show all doctors..."));
     }
 
+    public FluentWebElement showAllDentists() {
+        return link(linkText("Show all dentists..."));
+    }
+
     public FluentWebElement showAllFacilities() {
         return link(linkText("Show all facilities..."));
     }
-    
-    public FluentWebElement locationTextBoxSelector() {
-        return link(cssSelector(".location .location-textbox"));
-    }
 
     public FluentWebElement locationTextBox() {
-        return input(cssSelector(".location .location-form .ui-autocomplete-input"));
+        return input(cssSelector("#doctor-tab .location .location-form .ui-autocomplete-input"));
+    }
+
+    public FluentWebElement locationTextBoxReview() {
+        return input(cssSelector("#review-tab .location .location-form .ui-autocomplete-input"));
     }
 
     public FluentWebElements locationSuggestions() {
-        return links(cssSelector(".ui-menu-item>a"));
+        return links(cssSelector("#ui-id-1 .ui-menu-item>a"));
+    }
+
+    public FluentWebElements locationSuggestionsReview() {
+        return links(cssSelector("#ui-id-2 .ui-menu-item>a"));
     }
 
     public FluentWebElement goButton() {
-        return button(cssSelector(".go-button>button"));
+        return button(cssSelector("#provider-go"));
     }
 
     public FluentWebElement reviewGoButton() {
-        return button(cssSelector(".review button"));
+        return button(cssSelector("#review-go"));
     }
 
     public FluentWebElement urgentCareLink() {
@@ -134,7 +122,7 @@ public class HeaderModule extends BasePage {
     }
 
     public FluentWebElements insuranceSuggestions() {
-        return links(cssSelector(".ui-menu-item>a"));
+        return links(cssSelector("#ui-id-3 .ui-menu-item>a"));
     }
 
     public FluentWebElement insurancePlanDropDown() {

@@ -128,13 +128,10 @@ public class SearchPagePropertiesTest {
     @Test
     public void nameSearchDentist() {
         HomePage homePage = new HomePage();
-        homePage.deleteCookies();
         homePage.get(url);
 
-        homePage.headerModule().findDropDown().click();
-        homePage.headerModule().findByDentist().click();
         homePage.headerModule().enterSearchTerm(name);
-        homePage.headerModule().goButton().click();
+        homePage.headerModule().showAllDentists().click();
 
         SearchResultsPage results = new SearchResultsPage();
 
@@ -350,11 +347,8 @@ public class SearchPagePropertiesTest {
     @Test
     public void specialtySearchDentist() {
         HomePage homePage = new HomePage();
-        homePage.deleteCookies();
         homePage.get(url);
 
-        homePage.headerModule().findDropDown().click();
-        homePage.headerModule().findByDentist().click();
         homePage.headerModule().enterSearchTerm(dentistSpecialty);
         homePage.headerModule().specialtySuggestions().get(0).click();
 
@@ -513,13 +507,10 @@ public class SearchPagePropertiesTest {
     @Test
     public void nameSearchUcc() {
         HomePage homePage = new HomePage();
-        homePage.deleteCookies();
         homePage.get(url);
 
-        homePage.headerModule().findDropDown().click();
-        homePage.headerModule().findByUcc().click();
         homePage.headerModule().enterSearchTerm(uccName);
-        homePage.headerModule().goButton().click();
+        homePage.headerModule().showAllFacilities().click();
 
         SearchResultsPage results = new SearchResultsPage();
 
@@ -593,14 +584,15 @@ public class SearchPagePropertiesTest {
     private boolean h1NameSearch (List<String> h1, String locationTerm, String type) {
     	int len = h1.size();
     	if (!h1.get(len-5).contains(type))
-    		return false;
+            return false;
     	else if (!h1.get(len-4).equals("named"))
-    		return false;
-    	else if (!h1.get(len-3).contains(name))
-    		return false;
+            return false;
+    	else if (!h1.get(len-3).equalsIgnoreCase(name))
+            return false;
     	else if (!h1.get(len-2).equals("near"))
-    		return false;
-    	else return h1.get(len - 1).equals(locationTerm);
+            return false;
+    	else
+            return h1.get(len - 1).equals(locationTerm);
     }
 
     private boolean h1ConditionSearch (List<String> h1, String locationTerm) {

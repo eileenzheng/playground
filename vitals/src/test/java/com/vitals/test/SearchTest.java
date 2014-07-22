@@ -36,7 +36,6 @@ public class SearchTest {
         home.get(url);
 
         String location = "Austin, TX";
-        home.headerModule().locationTextBoxSelector().click();
         home.headerModule().enterLocation(location);
         home.headerModule().locationSuggestions().get(0).click();
         home.headerModule().goButton().click();
