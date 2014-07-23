@@ -23,7 +23,7 @@ public class DFPTest {
     private String[] rectangleSizes = {"[300, 250]", "[300, 600]", "[300, 1050]"};
     private String[] rectangleBottomSizes = {"[300, 250]", "[160, 600]", "[300, 600]"};
     private String[] skyscraperSizes = {"[160, 600]"};
-    private String[] sponsoredSizes = {"[615, 1840]"};
+    private String[] sponsoredSizes = {"[615, 7250]"};
 
     @Parameters({"url"})
     @BeforeMethod
