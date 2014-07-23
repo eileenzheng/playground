@@ -70,7 +70,7 @@ public class HeaderModule extends BasePage {
     }
 
     public FluentWebElement goButton() {
-        return button(cssSelector("#provider-go"));
+        return button(cssSelector(".doctor button"));
     }
 
     public FluentWebElement reviewGoButton() {

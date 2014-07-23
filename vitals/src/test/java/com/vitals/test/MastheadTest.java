@@ -37,19 +37,20 @@ public class MastheadTest {
 	@TestCase(id=1603)
 	@Test
 	public void autoSuggestLocation() {
+        m_assert = new SoftAssert();
 
 		for (int i=0; i<2; i++) {
 			HomePage homePage = new HomePage();
-            homePage.get(url[i]);
 
-			String location = "1000";
+			String zip = "100";
 			String city = "New York";
 
-            homePage.headerModule().enterLocation(location);
-
-			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
-
-            homePage.deleteCookies();
+            homePage.get(url[i]);
+            homePage.headerModule().enterLocation(zip);
+            m_assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, zip), env(i));
+            homePage.get(url[i]);
+            homePage.headerModule().enterLocation(city);
+            m_assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
 		}
 	}
 
