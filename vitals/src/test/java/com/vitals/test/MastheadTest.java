@@ -80,7 +80,7 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-			String specialty = "Fam";
+			String specialty = "Card";
 
 			homePage.headerModule().enterSearchTerm(specialty);
 			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
@@ -125,6 +125,23 @@ public class MastheadTest {
 		}
 	}
 
+    @TestCase(id=1618)
+    @Test
+    public void doctorSearchClick() {
+
+        for (int i=0; i<2; i++) {
+            HomePage homePage = new HomePage();
+            homePage.get(url[i]);
+
+            homePage.headerModule().enterSearchTerm("John");
+            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
+
+            ProfileCommonPage profilePage = new ProfileCommonPage();
+
+            Assert.assertTrue(profilePage.isSummaryPage(), env(i));
+        }
+    }
+
 	@TestCase(id=1617)
 	@Test
 	public void doctorSearchSeeAll() {
@@ -142,40 +159,6 @@ public class MastheadTest {
 		}
 	}
 
-	@TestCase(id=1618)
-	@Test
-	public void doctorSearchClick() {
-
-		for (int i=0; i<2; i++) {
-            HomePage homePage = new HomePage();
-            homePage.get(url[i]);
-
-			homePage.headerModule().enterSearchTerm("John");
-            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
-
-			ProfileCommonPage profilePage = new ProfileCommonPage();
-
-			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
-		}
-	}
-
-	@TestCase(id=1619)
-	@Test
-	public void dentistSearchGo() {
-
-//		for (int i=0; i<2; i++) {
-//            HomePage homePage = new HomePage();
-//            homePage.get(url[i]);
-//
-//			homePage.headerModule().enterSearchTerm("John");
-//            homePage.headerModule().goButton().click();
-//            homePage.headerModule().acceptAlertIfPresent();
-//
-//            SearchResultsPage serp = new SearchResultsPage();
-//			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
-//		}
-	}
-
 	@TestCase(id=1620)
 	@Test
 	public void dentistSearchSeeAll() {
@@ -191,23 +174,6 @@ public class MastheadTest {
             SearchResultsPage serp = new SearchResultsPage();
 			Assert.assertTrue(serp.getResultsCountNumber()>100, env(i));
         }
-	}
-
-	@TestCase(id=1621)
-	@Test
-	public void dentistSearchClick() {
-
-//		for (int i=0; i<2; i++) {
-//            HomePage homePage = new HomePage();
-//            homePage.get(url[i]);
-//
-//            homePage.headerModule().enterSearchTerm("John");
-//            homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
-//
-//			ProfileCommonPage profilePage = new ProfileCommonPage();
-//
-//			Assert.assertTrue(profilePage.isSummaryPage(), env(i));
-//		}
 	}
 
 	@TestCase(id=1622)
@@ -331,7 +297,7 @@ public class MastheadTest {
         homePage.headerModule().writeReviewTab().click();
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.headerModule().enterReviewSearchTerm("John");
-        reviewPage.getRandom(reviewPage.headerModule().nameSuggestions()).click();
+        reviewPage.getRandom(reviewPage.headerModule().reviewNameSuggestions()).click();
 
 		ReviewWritePage reviewWritePage = new ReviewWritePage();
 		Assert.assertTrue(reviewWritePage.isDoctorReview());
@@ -347,7 +313,7 @@ public class MastheadTest {
         homePage.headerModule().writeReviewTab().click();
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.headerModule().enterReviewSearchTerm("city");
-        reviewPage.getRandom(reviewPage.headerModule().uccSuggestions()).click();
+        reviewPage.getRandom(reviewPage.headerModule().reviewUccSuggestions()).click();
 
         ReviewWritePage reviewWritePage = new ReviewWritePage();
 		Assert.assertTrue(reviewWritePage.isFacilityReview());

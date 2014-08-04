@@ -13,7 +13,7 @@ public class DFPTest {
     String url;
     BasePage page;
     SoftAssert m_assert;
-    private final String profile = "/doctors/Dr_Emile_Bacha/";
+    private final String profile = "/doctors/Dr_Lisa_Eng/";
     private final String ucc = "/urgent-care/citymd-new-york-3/";
     private final String[] conditionCenters = {"/topics/high-cholesterol", "/topics/high-cholesterol/should-children-be-checked",
             "/topics/high-cholesterol/things-to-consider", "/topics/high-cholesterol/lifestyle-matters", "/topics/high-cholesterol/specialist-vs-pcp"};
@@ -43,24 +43,18 @@ public class DFPTest {
 
         String[] znValues = {"profile", "summary"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
-
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
         m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
@@ -80,22 +74,17 @@ public class DFPTest {
 
         String[] znValues = {"profile", "reviews_yes"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
@@ -147,22 +136,17 @@ public class DFPTest {
 
         String[] znValues = {"profile", "credentials"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
@@ -183,22 +167,17 @@ public class DFPTest {
 
         String[] znValues = {"profile", "locations"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
@@ -218,22 +197,17 @@ public class DFPTest {
 
         String[] znValues = {"profile", "insurance"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
@@ -254,24 +228,18 @@ public class DFPTest {
 
         String[] znValues = {"profile", "sponsored"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
-
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
         m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
@@ -287,29 +255,22 @@ public class DFPTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url);
-        page.get(url + profile + "video");
+        page.get(url + "/doctors/Dr_Todd_Rosengart/video");
 
         m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/video"), "Incorrect ad unit zones");
 
         String[] znValues = {"profile", "video"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"surg", "ctsg", "famp"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"surg"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "famp-amed"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"953", "958", "959"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13716928"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
-        m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
         m_assert.assertTrue(checkSlots(page.getPageSource(), "rectangle", rectangleSizes, "1"), "Incorrect rectangle");
@@ -329,22 +290,17 @@ public class DFPTest {
 
         String[] znValues = {"profile", "basic"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"ctsg", "surg", "card"};
+        String[] specValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String pspec;
-        if (url.contains("staging"))
-            pspec = "surg";
-        else
-            pspec = "ctsg";
-        String[] pspecValues = {pspec};
+        String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "intm-cdis"};
+        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"77", "374", "383"};
+        String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13679110"};
+        String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "107", "311", "270"};
+        String[] inscValues = {"35", "72", "311", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");

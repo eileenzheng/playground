@@ -26,19 +26,27 @@ public class HeaderModule extends BasePage {
     }
 
     public FluentWebElements specialtySuggestions() {
-        return links(cssSelector(".categorical-autosuggest .ui-menu-item.parent>a,.ui-menu-item.sub>a"));
+        return links(cssSelector("#ui-id-5 .ui-menu-item:not([data-facility-id]):not([data-provider-id]):not([data-id])>a:not(.link)"));
     }
 
     public FluentWebElements conditionSuggestions() {
-        return links(cssSelector(".ui-menu-item[data-id]>a"));
+        return links(cssSelector("#ui-id-5 .ui-menu-item[data-id]>a"));
     }
 
     public FluentWebElements nameSuggestions() {
-        return links(cssSelector(".ui-menu-item[data-provider-id]>a"));
+        return links(cssSelector("#ui-id-5 .ui-menu-item[data-provider-id]>a"));
+    }
+
+    public FluentWebElements reviewNameSuggestions() {
+        return links(cssSelector("#ui-id-6 .ui-menu-item[data-provider-id]>a"));
     }
 
     public FluentWebElements uccSuggestions() {
-        return links(cssSelector(".ui-menu-item[data-facility-id]>a"));
+        return links(cssSelector("#ui-id-5 .ui-menu-item[data-facility-id]>a"));
+    }
+
+    public FluentWebElements reviewUccSuggestions() {
+        return links(cssSelector("#ui-id-6 .ui-menu-item[data-facility-id]>a"));
     }
     
     public FluentWebElement showAllDoctors() {
@@ -142,14 +150,12 @@ public class HeaderModule extends BasePage {
         searchTextBox().sendKeys(text);
         waitUntilVisible(autocompleteCategories().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
-
     
     public void enterReviewSearchTerm (String text) {
     	reviewSearchTextBox().clearField();
         reviewSearchTextBox().sendKeys(text);
         waitUntilVisible(autocompleteCategories().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
-
     
     public void enterInsuranceCompany(String text) {
         waitUntilVisible(insuranceBox(), Constants.SELENIUM_EXPLICIT_WAIT);

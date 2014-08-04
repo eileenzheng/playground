@@ -20,7 +20,7 @@ public class PatientLinkTest {
     private String url;
     
     private static final String serpUrl = "/internists/ny/new-york";
-    private static final String dentistSerpUrl = "/search?type=specialty&provider_type=4&specialist_id=196&q=Dentist&location=34787";
+    private static final String dentistSerpUrl = "/dentists/fl/orlando";
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
@@ -332,6 +332,30 @@ public class PatientLinkTest {
 
         IframeGreenville iframe = new IframeGreenville();
         m_assert.assertTrue(iframe.name().getText().toString().contains("Molly C. Adams, MD"), "Incorrect name");
+
+        modal.switchWindow(mainWindow);
+        modal.closeButton().click();
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2447)
+    @Test
+    public void doctorDotComIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/doctors/Dr_Deborah_Tanus/profile");
+        profile.dismissReviewIntercept();
+        profile.plBookAppt().click();
+
+        ModalIframe modal = new ModalIframe();
+        String mainWindow = modal.getMainWindow();
+        modal.switchIframe("iframe[src*='patients.doctor.com']");
+
+        IframeDoctorDotCom iframe = new IframeDoctorDotCom();
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr Deborah Tanus"), "Incorrect name");
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();

@@ -288,4 +288,24 @@ public class PatientLinkTest {
 
         m_assert.assertAll();
     }
+
+    @TestCase(id=2448)
+    @Test
+    public void doctorDotComIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/drs/deborah_tanus/");
+        profile.dismissReviewIntercept();
+        Assert.assertTrue(profile.hasBookOnline(), "Book Online button is not present");
+        profile.plBookAppt().click();
+
+        profile.switchIframe("iframe[src*='patients.doctor.com']");
+
+        IframeDoctorDotCom iframe = new IframeDoctorDotCom();
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr Deborah Tanus"), "Incorrect name");
+
+        m_assert.assertAll();
+    }
 }
