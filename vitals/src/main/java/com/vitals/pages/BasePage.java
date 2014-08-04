@@ -167,4 +167,9 @@ public class BasePage extends FluentWebDriver{
     public FluentWebElement divMaincontent() {
         return div(cssSelector(".main-content"));
     }
+
+    public void refresh() {
+        String url = getCurrentUrl();
+        webDriver().get(url);
+    }
 }
