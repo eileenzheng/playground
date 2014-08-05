@@ -106,4 +106,45 @@ public class SitemapTest {
 
         m_assert.assertAll();
     }
+
+    @TestCase(id=2453)
+    @Test
+    public void conditionSiteMap() {
+        m_assert = new SoftAssert();
+        ConditionsPage conditionsPage = new ConditionsPage();
+        conditionsPage.get(url + "/conditions");
+        m_assert.assertTrue(conditionsPage.conditions().size()==50, "# of conditions displayed does not equal 50");
+
+        while (conditionsPage.currentAlphabet().getText().toString().equals("Featured")) {
+            conditionsPage.getRandom(conditionsPage.alphabet()).click();
+        }
+        m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>1, "# of conditions displayed not between 1 and 50");
+
+        if (conditionsPage.conditions().size()==50) {
+            conditionsPage.getRandom(conditionsPage.pagination()).click();
+            m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>1, "# of conditions displayed not between 1 and 50");
+
+        }
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2454)
+    @Test
+    public void insuranceSiteMap() {
+        m_assert = new SoftAssert();
+        InsurancePage insurancePage = new InsurancePage();
+        insurancePage.get(url + "/insurances");
+        m_assert.assertTrue(insurancePage.companies().size()> 160 && insurancePage.companies().size()< 170, "# of insurance companies displayed not between 160 and 170");
+        m_assert.assertTrue(insurancePage.plans().size()> 640 && insurancePage.plans().size()< 650, "# of insurance plans displayed not between 640 and 650");
+
+        while (insurancePage.currentAlphabet().getText().toString().equals("All")) {
+            insurancePage.getRandom(insurancePage.alphabet()).click();
+        }
+        m_assert.assertTrue(insurancePage.companies().size()>= 1, "Less than 1 insurance company displayed");
+        m_assert.assertTrue(insurancePage.plans().size()>=1, "Less than 1 insurance plan displayed");
+
+        m_assert.assertAll();
+    }
+
 }
