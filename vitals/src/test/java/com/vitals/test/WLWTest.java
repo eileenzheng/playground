@@ -1,31 +1,24 @@
 package com.vitals.test;
 
-import com.vitals.helpers.Profile;
-import com.vitals.pages.HomePage;
-import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.wlw.LandingPage;
 import com.vitals.pages.wlw.SearchPage;
 import com.vitalsqa.testrail.TestCase;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import java.util.List;
 
 public class WLWTest {
 
     private String url;
-    private String vitalsUrl;
     private SoftAssert m_assert;
 
     @Parameters({"url"})
     @BeforeMethod
     public void setup(String url) throws Exception {
         this.url = url;
-        if (this.url.contains("features.hb"))
-            vitalsUrl = "http://qa.mdxdev.net";
-        else
-            vitalsUrl = "http://www.vitals.com";
     }
 
     @TestCase(id=1780)
@@ -63,6 +56,7 @@ public class WLWTest {
         landingPage.searchButton().click();
 
         SearchPage serp = new SearchPage();
+        m_assert.assertTrue(serp.getResultCount()==5000, "Less than 5000 results for Internists");
         m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
         serp.nextLink().click();
         m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
@@ -76,55 +70,100 @@ public class WLWTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=1782)
+    @TestCase(id=2455)
     @Test
-    public void compareWithVitals() {
+    public void checkSerpRelevancy() {
         m_assert = new SoftAssert();
-
-        HomePage home = new HomePage();
-        home.get(vitalsUrl);
-        home.headerModule().enterSearchTerm("Family Practitioner");
-        home.headerModule().specialtySuggestions().get(0).click();
-
-        SearchResultsPage vitalsSerp = new SearchResultsPage();
-        String serpUrl = vitalsSerp.getCurrentUrl();
-        vitalsSerp.get(serpUrl + "&location=10036");
-
-        List<Profile> relevancyProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
-        int vitalsResultCount = vitalsSerp.getResultsCountNumber();
-        vitalsSerp.refinement().sortDropDown().click();
-        vitalsSerp.refinement().sortByDistance().click();
-        vitalsSerp.waitForJQuery();
-        List<Profile> distanceProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
-        vitalsSerp.refinement().sortDropDown().click();
-        vitalsSerp.refinement().sortByName().click();
-        vitalsSerp.waitForJQuery();
-        List<Profile> nameProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
-        vitalsSerp.refinement().sortDropDown().click();
-        vitalsSerp.refinement().sortByRating().click();
-        vitalsSerp.waitForJQuery();
-        List<Profile> ratingProfile = vitalsSerp.doctorResults(vitalsSerp.drList());
 
         LandingPage landingPage = new LandingPage();
         landingPage.get(url);
-        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Family Physicians");
-        landingPage.locationTextBox().clearField().sendKeys("10036");
+
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Psychiatrists");
+        landingPage.locationTextBox().clearField().sendKeys("33021");
         landingPage.searchButton().click();
 
         SearchPage serp = new SearchPage();
-
-        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals (sort by relevancy)");
-        m_assert.assertTrue(serp.isProviderMatchingVitals(relevancyProfile), "First X results does not match Vitals(sort by relevancy)");
-        serp.selectDropDown(serp.sortDropDown(), "Distance");
-        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by distance)");
-        m_assert.assertTrue(serp.isProviderMatchingVitals(distanceProfile), "First X results does not match Vitals(sort by distance)");
-        serp.selectDropDown(serp.sortDropDown(), "Name");
-        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by name)");
-        m_assert.assertTrue(serp.isProviderMatchingVitals(nameProfile), "First X results does not match Vitals(sort by name)");
-        serp.selectDropDown(serp.sortDropDown(), "Rating");
-        m_assert.assertEquals(vitalsResultCount, serp.getResultCount(), "Number of results does not match Vitals(sort by rating)");
-        m_assert.assertTrue(serp.isProviderMatchingVitals(ratingProfile), "First X results does not match Vitals(sort by rating)");
+        m_assert.assertTrue(countOccurrences(serp.specialties(), "Psychiatry")>=5 && countOccurrences(serp.specialties(), "Psychiatry") <=10,
+                "Less than 5 Psychiatrists returned in relevacy sort");
+        m_assert.assertTrue(countOccurrences(serp.cities(), "Hollywood")>=1 && countOccurrences(serp.cities(), "Hollywood")<=10,
+                "Less than 1 from Hollywood returned in relevancy sort");
+        m_assert.assertTrue(countOccurrences(serp.states(), "FL")>=8 && countOccurrences(serp.states(), "FL")<=10,
+                "Less than 8 from FL returned in relevancy sort");
 
         m_assert.assertAll();
+    }
+
+    @TestCase(id=2456)
+    @Test
+    public void checkSerpDistance() {
+        m_assert = new SoftAssert();
+
+        LandingPage landingPage = new LandingPage();
+        landingPage.get(url);
+
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Psychiatrists");
+        landingPage.locationTextBox().clearField().sendKeys("33021");
+        landingPage.searchButton().click();
+
+        SearchPage serp = new SearchPage();
+        serp.selectDropDown(serp.sortDropDown(), "Distance");
+        m_assert.assertTrue(countOccurrences(serp.specialties(), "Psychiatry")>=5 && countOccurrences(serp.specialties(), "Psychiatry") <=10,
+                "Less than 5 Psychiatrists returned in distance sort");
+        m_assert.assertTrue(countOccurrences(serp.cities(), "Hollywood")>=8 && countOccurrences(serp.cities(), "Hollywood")<=10,
+                "Less than 8 from Hollywood returned in distance sort");
+        m_assert.assertTrue(countOccurrences(serp.states(), "FL")==10,
+                "Not everything from FL is returned in distance sort");
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=2457)
+    @Test
+    public void checkSerpName() {
+        m_assert = new SoftAssert();
+
+        LandingPage landingPage = new LandingPage();
+        landingPage.get(url);
+
+        landingPage.selectDropDown(landingPage.specialtyDropDown(), "Psychiatrists");
+        landingPage.locationTextBox().clearField().sendKeys("33021");
+        landingPage.searchButton().click();
+
+        SearchPage serp = new SearchPage();
+        serp.selectDropDown(serp.sortDropDown(), "Name");
+        m_assert.assertTrue(countOccurrences(serp.specialties(), "Psychiatry")>=5 && countOccurrences(serp.specialties(), "Psychiatry") <=10,
+                "Less than 5 Psychiatrists returned in name sort");
+        m_assert.assertTrue(countOccurrences(serp.cities(), "Hollywood")>=1 && countOccurrences(serp.cities(), "Hollywood")<=10,
+                "Less than 1 from Hollywood returned in name sort");
+        m_assert.assertTrue(countOccurrences(serp.states(), "FL")>=8 && countOccurrences(serp.states(), "FL")<=10,
+                "Less than 8 from FL returned in name sort");
+        m_assert.assertTrue(sortedByLastName(serp.names()), "Results are not sorted by name");
+
+        m_assert.assertAll();
+    }
+
+    private int countOccurrences(FluentWebElements els, String text) {
+        int result = 0;
+        for (FluentWebElement el: els) {
+            if (el.getText().toString().equals(text)) result++;
+        }
+        return result;
+    }
+
+    private boolean sortedByLastName(FluentWebElements names) {
+        int offCount = 0;
+        for (int i=0; i<9; i++) {
+            if (parseName(names.get(i).getText().toString()).compareTo(parseName(parseName(names.get(i+1).getText().toString())))>0) {
+                offCount++;
+            }
+        }
+
+        return offCount<2; // allow 1 off result due to difference of name and display name
+    }
+
+    private String parseName(String fullName) {
+        String name = fullName.split(",")[0];
+        String[] names = name.split(" ");
+        return names[names.length-1];
     }
 }

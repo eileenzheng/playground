@@ -1,11 +1,8 @@
 package com.vitals.pages.wlw;
 
-import com.vitals.helpers.Profile;
 import com.vitals.pages.BasePage;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
-import org.testng.Reporter;
-import java.util.List;
 import static org.openqa.selenium.By.cssSelector;
 
 public class SearchPage extends BasePage {
@@ -56,6 +53,18 @@ public class SearchPage extends BasePage {
         return links(cssSelector(".details a"));
     }
 
+    public FluentWebElements specialties() {
+        return divs(cssSelector("div.specialty"));
+    }
+
+    public FluentWebElements cities() {
+        return spans(cssSelector("span[itemprop=addressLocality]"));
+    }
+
+    public FluentWebElements states() {
+        return spans(cssSelector("span[itemprop=addressRegion]"));
+    }
+
     public FluentWebElement result() {
         return span(cssSelector("#result-count"));
     }
@@ -71,22 +80,6 @@ public class SearchPage extends BasePage {
             return Integer.parseInt(split[0]);
         else
             return Integer.parseInt(split[0].concat(split[1]));
-    }
-
-    public boolean isProviderMatchingVitals(List<Profile> vitalsProfile) {
-        int len;
-        if (names().size() > vitalsProfile.size())
-            len = vitalsProfile.size();
-        else
-            len = names().size();
-
-        for (int i=0; i<len; i++) {
-            if (!names().get(i).getText().toString().equals(vitalsProfile.get(i).getName())) {
-                Reporter.log(names().get(i).getText().toString() + " vs " + vitalsProfile.get(i).getName());
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean isProfileLinkCorrect() {
