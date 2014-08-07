@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitals.pages.BasePage;
+import com.vitalsqa.testrail.TestCase;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -20,6 +21,7 @@ public class StylingTest {
     }
 
     @Test
+    @TestCase(id=2459)
     public void marginBelowMasthead() {
         page = new BasePage();
         m_assert = new SoftAssert();

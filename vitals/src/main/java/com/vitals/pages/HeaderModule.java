@@ -222,6 +222,12 @@ public class HeaderModule extends BasePage {
     	waitUntilVisible(locationSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 
+    public void enterLocationReview(String location) {
+        locationTextBoxReview().clearField();
+        locationTextBoxReview().sendKeys(location);
+        waitUntilVisible(locationSuggestionsReview().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
+    }
+
     public boolean locationSearchIsPopulated() {
         return (!locationTextBox().getAttribute("value").toString().equals("") && !locationTextBox().getAttribute("value").toString().equals(","));
     }
