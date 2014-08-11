@@ -43,4 +43,22 @@ public class ReviewSearchResultsPage extends BasePage {
     	else
     		return Integer.parseInt(split[0].concat(split[1]));
     }
+
+    public boolean resultsContainsText(FluentWebElements results, String text) {
+        boolean value = true;
+        for (FluentWebElement result: results) {
+            if (!result.getText().toString().toLowerCase().contains(text.toLowerCase())) {
+                value = false;
+            }
+        }
+        return value;
+    }
+
+    public int countOccurrences(FluentWebElements els, String text) {
+        int result = 0;
+        for (FluentWebElement el: els) {
+            if (el.getText().toString().equals(text)) result++;
+        }
+        return result;
+    }
 }

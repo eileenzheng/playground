@@ -8,13 +8,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.vitals.pages.HomePage;
-import com.vitals.pages.ReviewPage;
-import com.vitals.pages.ReviewWritePage;
-import com.vitals.pages.ReviewSearchResultsPage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.ucc.UccProfileSummaryPage;
 import com.vitals.pages.ucc.UccSearchResultsPage;
-import com.vitals.helpers.Constants;
 import org.testng.asserts.SoftAssert;
 
 public class MastheadTest {
@@ -47,29 +43,37 @@ public class MastheadTest {
 
             homePage.get(url[i]);
             homePage.headerModule().enterLocation(zip);
-            m_assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, zip), env(i));
+            m_assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().locationSuggestions(), zip), env(i));
             homePage.get(url[i]);
             homePage.headerModule().enterLocation(city);
-            m_assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.LOCATION, city), env(i));
-		}
+            m_assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().locationSuggestions(), city), env(i));
+
+            m_assert.assertAll();
+        }
 	}
 
     @TestCase(id=1604)
 	@Test
 	public void autoSuggestName() {
+        m_assert = new SoftAssert();
 
 		for (int i=0; i<2; i++) {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-			String name = "Todd";
+			String name = "John";
 
             homePage.headerModule().enterSearchTerm(name);
 			Reporter.log("The Docs> " + homePage.headerModule().getNameSuggestions());
 
-			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.NAME, name),
-                    env(i) + "One or more autosuggest results do not contain search term");
-		}
+			m_assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().nameSuggestions(), name),
+                    env(i) + "One or more autosuggest doctor results do not contain search term");
+
+            m_assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().uccSuggestions(), name),
+                    env(i) + "One or more autosuggest facility results do not contain search term");
+
+            m_assert.assertAll();
+        }
 	}
 
 	@TestCase(id=1605)
@@ -85,7 +89,7 @@ public class MastheadTest {
 			homePage.headerModule().enterSearchTerm(specialty);
 			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
 
-			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.SPECIALTY, specialty),
+			Assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().specialtySuggestions(), specialty),
                     env(i) + "One or more autosuggest results do not contain search term");
 		}
 	}
@@ -103,7 +107,7 @@ public class MastheadTest {
 			homePage.headerModule().enterSearchTerm(condition);
 			Reporter.log("The Conditions> " + homePage.headerModule().getConditionSearchSuggestions());
 
-			Assert.assertTrue(homePage.headerModule().checkSuggestions(Constants.SearchType.CONDITION, condition),
+			Assert.assertTrue(homePage.checkSuggestions(homePage.headerModule().conditionSuggestions(), condition),
                     env(i) + "One or more autosuggest results do not contain search term");
 		}
 	}

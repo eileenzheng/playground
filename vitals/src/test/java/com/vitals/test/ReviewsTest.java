@@ -1,17 +1,17 @@
 package com.vitals.test;
 
-import com.vitals.pages.HomePage;
 import com.vitals.pages.ReviewPage;
 import com.vitals.pages.ReviewSearchResultsPage;
 import com.vitals.pages.ReviewWritePage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
-import org.testng.asserts.SoftAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class MastheadReviewsTest {
+import org.testng.asserts.SoftAssert;
+
+public class ReviewsTest {
 
     SoftAssert m_assert;
     String url;
@@ -23,24 +23,32 @@ public class MastheadReviewsTest {
         this.url = url;
     }
 
-    @TestCase(id=2458)
+    @TestCase(id=2470)
     @Test
     public void autoSuggestLocation() {
         m_assert = new SoftAssert();
-        String zip = "100";
-        String city = "New York";
+        String zip = "300";
+        String city = "Charles";
         ReviewPage reviewPage = new ReviewPage();
 
         reviewPage.get(url + "/review");
-        reviewPage.headerModule().enterLocationReview(zip);
-        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.headerModule().locationSuggestionsReview(), zip));
+        m_assert.assertTrue(reviewPage.headerModule().locationTextBox().getAttribute("value").toString().equals(
+            reviewPage.locationBox().getAttribute("value").toString()), "Location box out-of-sync with masthead");
+
+        reviewPage.enterLocation(zip);
+        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.locationSuggestions(), zip), "Location suggestion doesn't contain search term");
         reviewPage.get(url + "/review");
-        reviewPage.headerModule().enterLocationReview(city);
-        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.headerModule().locationSuggestionsReview(), city));
+        reviewPage.enterLocation(city);
+        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.locationSuggestions(), city), "Location suggestion doesn't contain search term");
+
+        reviewPage.locationSuggestions().get(0).click();
+        m_assert.assertTrue(reviewPage.headerModule().locationTextBox().getAttribute("value").toString().equals(
+                reviewPage.locationBox().getAttribute("value").toString()), "Location box out-of-sync with masthead");
+
         m_assert.assertAll();
     }
 
-    @TestCase(id=2469)
+    @TestCase(id=2471)
     @Test
     public void autoSuggestName() {
 
@@ -49,16 +57,16 @@ public class MastheadReviewsTest {
         reviewPage.get(url + "/review");
 
         String name = "John";
-        reviewPage.headerModule().enterReviewSearchTerm(name);
-        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.headerModule().reviewNameSuggestions(), name),
+        reviewPage.enterSearchTerm(name);
+        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.doctorNames(), name),
                 "One or more autosuggest provider results do not contain search term");
-        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.headerModule().reviewUccSuggestions(), name),
+        m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.facilityNames(), name),
                 "One or more autosuggest facility results do not contain search term");
 
         m_assert.assertAll();
     }
 
-    @TestCase(id=1625)
+    @TestCase(id=2472)
     @Test
     public void reviewSearchGo() {
 
@@ -67,11 +75,12 @@ public class MastheadReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
+        reviewPage.headerModule().hoverFindNav();
 
-        reviewPage.headerModule().enterReviewSearchTerm(searchTerm);
-        reviewPage.headerModule().enterLocationReview("33021");
-        reviewPage.headerModule().locationSuggestionsReview().get(0).click();
-        reviewPage.headerModule().reviewGoButton().click();
+        reviewPage.enterSearchTerm(searchTerm);
+        reviewPage.enterLocation("33021");
+        reviewPage.locationSuggestions().get(0).click();
+        reviewPage.goButton().click();
 
         ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
         m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Doctors"), "Not at doctor toggle");
@@ -83,7 +92,7 @@ public class MastheadReviewsTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=1626)
+    @TestCase(id=2473)
     @Test
     public void reviewSearchSeeAllDoctors() {
 
@@ -92,9 +101,10 @@ public class MastheadReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
+        //reviewPage.headerModule().hoverFindNav();
 
-        reviewPage.headerModule().enterReviewSearchTerm(searchTerm);
-        reviewPage.headerModule().showAllDoctors().click();
+        reviewPage.enterSearchTerm(searchTerm);
+        reviewPage.showAllDoctors().click();
 
         ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
         m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Doctors"), "Not at doctor toggle");
@@ -104,7 +114,7 @@ public class MastheadReviewsTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=1627)
+    @TestCase(id=2474)
     @Test
     public void reviewSearchSeeAllFacilities() {
 
@@ -113,9 +123,10 @@ public class MastheadReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
+        //reviewPage.headerModule().hoverFindNav();
 
-        reviewPage.headerModule().enterReviewSearchTerm(searchTerm);
-        reviewPage.headerModule().showAllFacilities().click();
+        reviewPage.enterSearchTerm(searchTerm);
+        reviewPage.showAllFacilities().click();
 
         ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
         m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Facilities"), "Not at facility toggle");
@@ -125,35 +136,67 @@ public class MastheadReviewsTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=1628)
+    @TestCase(id=2475)
     @Test
-    public void reviewSearchClickDoctor() {
-        m_assert = new SoftAssert();
-        HomePage homePage = new HomePage();
-        homePage.get(url);
+         public void reviewSearchClickDoctor() {
 
-        homePage.headerModule().writeReviewTab().click();
+        m_assert = new SoftAssert();
         ReviewPage reviewPage = new ReviewPage();
-        reviewPage.headerModule().enterReviewSearchTerm("John");
-        reviewPage.getRandom(reviewPage.headerModule().reviewNameSuggestions()).click();
+        reviewPage.get(url + "/review");
+        reviewPage.headerModule().hoverFindNav();
+
+        reviewPage.enterSearchTerm("John");
+        reviewPage.getRandom(reviewPage.doctorNames()).click();
 
         ReviewWritePage reviewWritePage = new ReviewWritePage();
         Assert.assertTrue(reviewWritePage.isDoctorReview());
     }
 
-    @TestCase(id=1629)
+    @TestCase(id=2476)
     @Test
     public void reviewSearchClickFacility() {
-        m_assert = new SoftAssert();
-        HomePage homePage = new HomePage();
-        homePage.get(url);
 
-        homePage.headerModule().writeReviewTab().click();
+        m_assert = new SoftAssert();
         ReviewPage reviewPage = new ReviewPage();
-        reviewPage.headerModule().enterReviewSearchTerm("city");
-        reviewPage.getRandom(reviewPage.headerModule().reviewUccSuggestions()).click();
+        reviewPage.get(url + "/review");
+        reviewPage.headerModule().hoverFindNav();
+
+        reviewPage.enterSearchTerm("city");
+        reviewPage.getRandom(reviewPage.facilityNames()).click();
 
         ReviewWritePage reviewWritePage = new ReviewWritePage();
         Assert.assertTrue(reviewWritePage.isFacilityReview());
     }
+
+    @TestCase(id=2477)
+    @Test
+    public void reviewSearchClickDoctorButton() {
+
+        m_assert = new SoftAssert();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.get(url + "/review");
+        reviewPage.headerModule().hoverFindNav();
+
+        reviewPage.enterSearchTerm("John");
+        reviewPage.getRandom(reviewPage.doctorReviewButtons()).click();
+
+        ReviewWritePage reviewWritePage = new ReviewWritePage();
+        Assert.assertTrue(reviewWritePage.isDoctorReview());
+    }
+
+//    @TestCase(id=2478)
+//    @Test
+//    public void reviewSearchClickFacilityButton() {
+//
+//        m_assert = new SoftAssert();
+//        ReviewPage reviewPage = new ReviewPage();
+//        reviewPage.get(url + "/review");
+//        reviewPage.headerModule().hoverFindNav();
+//
+//        reviewPage.enterSearchTerm("city");
+//        reviewPage.getRandom(reviewPage.facilityReviewButtons()).click();
+//
+//        ReviewWritePage reviewWritePage = new ReviewWritePage();
+//        Assert.assertTrue(reviewWritePage.isDoctorReview());
+//    }
 }

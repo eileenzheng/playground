@@ -3,7 +3,6 @@ package com.vitals.pages;
 import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
-import com.vitals.helpers.Constants.SearchType;
 import static org.openqa.selenium.By.cssSelector;
 import static org.openqa.selenium.By.linkText;
 
@@ -164,28 +163,6 @@ public class HeaderModule extends BasePage {
     	waitUntilVisible(insuranceSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 
-    public boolean checkSuggestions(SearchType type, String suggestion) {
-    	FluentWebElements suggestions = null;
-
-    	if (type.equals(SearchType.NAME))
-    		suggestions = nameSuggestions();
-        else if (type.equals(SearchType.SPECIALTY))
-    		suggestions = specialtySuggestions();
-        else if (type.equals(SearchType.CONDITION))
-    		suggestions = conditionSuggestions();
-        else if (type.equals(SearchType.UCC))
-    		suggestions = uccSuggestions();
-        else if (type.equals(SearchType.LOCATION))
-    		suggestions = locationSuggestions();
-
-        for (FluentWebElement el : suggestions) {
-            if (!el.getText().toString().toLowerCase().contains(suggestion.toLowerCase()))
-                return false;
-        }
- 
-        return true;
-    }
-
     public String getNameSuggestions() {
         StringBuilder drs = new StringBuilder();
 
@@ -237,5 +214,9 @@ public class HeaderModule extends BasePage {
         if (insurancePlanSuggestions().size()==0) // workaround to random failing
             openInsurancePlan();
         waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
+    }
+
+    public void hoverFindNav() {
+        executeJS("jQuery('a.nav-tab.find-magnifying-glass').trigger('mouseenter');");
     }
 }

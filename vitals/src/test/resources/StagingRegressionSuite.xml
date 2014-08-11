@@ -51,6 +51,11 @@
             <class name="com.vitals.test.PatientGuideTest" />
         </classes>
     </test>
+    <test name="Review Specific Tests">
+        <classes>
+            <class name="com.vitals.test.ReviewsTest" />
+        </classes>
+    </test>
     <test name="Site Map Tests">
         <classes>
             <class name="com.vitals.test.SitemapTest" />

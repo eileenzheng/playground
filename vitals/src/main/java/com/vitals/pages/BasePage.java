@@ -10,7 +10,6 @@ import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import org.testng.Reporter;
-
 import java.util.concurrent.TimeUnit;
 import static org.openqa.selenium.By.cssSelector;
 
@@ -145,6 +144,10 @@ public class BasePage extends FluentWebDriver{
         return (String) ((JavascriptExecutor)webDriver()).executeScript("return " + part);
     }
 
+    public String executeJS(String code) {
+        return (String) ((JavascriptExecutor)webDriver()).executeScript(code);
+    }
+
     public String getPageSource() {
         int i=0;
         String source = webDriver().getPageSource();
@@ -168,8 +171,13 @@ public class BasePage extends FluentWebDriver{
         return div(cssSelector(".main-content"));
     }
 
-    public void refresh() {
-        String url = getCurrentUrl();
-        webDriver().get(url);
+    public boolean checkSuggestions(FluentWebElements suggestions, String suggestion) {
+
+        for (FluentWebElement el : suggestions) {
+            if (!el.getText().toString().toLowerCase().contains(suggestion.toLowerCase()))
+                return false;
+        }
+
+        return true;
     }
 }
