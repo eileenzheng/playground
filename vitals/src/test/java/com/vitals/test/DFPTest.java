@@ -47,7 +47,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -78,7 +78,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -99,23 +99,23 @@ public class DFPTest {
     public void profileReviewsNo() {
         page = new BasePage();
         m_assert = new SoftAssert();
-        page.get(url + "/doctors/Dr_Mary_Banerji/reviews");
+        page.get(url + "/doctors/Dr_Angie_Wen/reviews");
 
         m_assert.assertTrue(page.getPageSource().contains("/8905/vitals/profile/reviews_no"), "Incorrect ad unit zones");
 
         String[] znValues = {"profile", "reviews_no"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "zn", znValues), "Incorrect zn");
-        String[] specValues = {"endo", "intm"};
+        String[] specValues = {"opth"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
-        String[] pspecValues = {"endo"};
+        String[] pspecValues = {"opth"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"intm-eamt", "intm-intm", "intm-endo"};
+        String[] fspecValues = {"opth-opth"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"1628", "6577", "6578"};
+        String[] spexValues = {"996", "2153", "6493"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13511627"};
+        String[] midValues = {"13678488"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"40", "66", "96"};
+        String[] inscValues = {"66", "217", "270"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "insc", inscValues), "Incorrect insc");
 
         m_assert.assertTrue(checkSlots(page.getPageSource(), "leaderboard_top", leaderboardTopSizes, "1"), "Incorrect leaderboard top");
@@ -140,7 +140,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -171,7 +171,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -201,7 +201,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -232,7 +232,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
@@ -294,7 +294,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"obgn-obgn", "obgn-obst", "obgn-gync"};
+        String[] fspecValues = {"obgn-obgn"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "fspec", fspecValues), "Incorrect fspec");
         String[] spexValues = {"816", "2964", "3957"};
         m_assert.assertTrue(checkKeys(page.getPageSource(), "spex", spexValues), "Incorrect spex");
