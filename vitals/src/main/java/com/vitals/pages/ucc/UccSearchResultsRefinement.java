@@ -1,11 +1,10 @@
 package com.vitals.pages.ucc;
 
-import java.util.List;
 import com.vitals.pages.BasePage;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+
 import static org.openqa.selenium.By.cssSelector;
 
 public class UccSearchResultsRefinement extends BasePage {
@@ -38,12 +37,13 @@ public class UccSearchResultsRefinement extends BasePage {
         return label(cssSelector(".preventive"));
     }
 
+    public FluentWebElements dropdowns() {
+        return uls(cssSelector("ul.dropdown-menu.selectpicker"));
+    }
+
     public boolean isFilterOpen() {
         return has().div(cssSelector(".service-filters.in"));
     }
-    
-    @FindBy (css=".service-filters.in")
-    private List<WebElement> filterOpened;
     
     public void clickToggleServices() throws InterruptedException {
     	setImplicitWait(0);

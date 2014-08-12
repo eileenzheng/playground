@@ -1,11 +1,22 @@
 package com.vitals.pages.ucc;
 
 import com.vitals.pages.BasePage;
+import com.vitals.pages.HeaderModule;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 
 public class UccProfileSummaryPage extends BasePage {
+
+    HeaderModule headerModule;
+
+    public UccProfileSummaryPage() {
+        headerModule = new HeaderModule();
+    }
+
+    public HeaderModule headerModule() {
+        return headerModule;
+    }
 
     public FluentWebElements breadcrumbs() {
         return links(cssSelector(".full.ucc>span>a"));
@@ -33,6 +44,14 @@ public class UccProfileSummaryPage extends BasePage {
 
     public FluentWebElement mapAddress() {
         return link(cssSelector(".col-md-4:nth-of-type(2) .col-md-12 a:nth-child(3)"));
+    }
+
+    public FluentWebElements divAdvertBox() {
+        return divs(cssSelector("div.advert.cbox"));
+    }
+
+    public FluentWebElement divAdvertWrapper() {
+        return div(cssSelector("div.advert-wrapper"));
     }
 
 	public boolean isTitleMatched() {

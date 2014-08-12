@@ -67,6 +67,14 @@ public class SearchResultsPage extends BasePage {
         return div(cssSelector("#map"));
     }
 
+    public FluentWebElement adTop() {
+        return div(cssSelector("div.advert-wrapper"));
+    }
+
+    public FluentWebElements adRectangles() {
+        return divs(cssSelector("div.skyscraper"));
+    }
+
     public int getResultsCountNumber() {
     	String count = resultsTotal().getText().toString();
     	String[] split = count.split(",");
@@ -83,7 +91,7 @@ public class SearchResultsPage extends BasePage {
     public List<Profile> doctorResults(FluentWebElements searchResults) {
         List<Profile> doc = new ArrayList<Profile>();
 
-        for (FluentWebElement el : searchResults()) {
+        for (FluentWebElement el : searchResults) {
             String name = el.link(cssSelector(".profile-name>a")).getText().toString().trim();
             String url = el.link(cssSelector(".profile-name>a")).getAttribute("href").toString();
             doc.add(new Profile(name,url));

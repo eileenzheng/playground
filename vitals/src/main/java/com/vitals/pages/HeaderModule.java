@@ -144,6 +144,14 @@ public class HeaderModule extends BasePage {
         return link(cssSelector(".save_insurance"));
     }
 
+    public FluentWebElement divTopNav() {
+        return div(cssSelector(".top-nav"));
+    }
+
+    public FluentWebElement divMainHeader() {
+        return div(cssSelector(".main-header"));
+    }
+
     public void enterSearchTerm (String text) {
     	searchTextBox().clearField();
         searchTextBox().sendKeys(text);

@@ -2,6 +2,7 @@ package com.vitals.pages.profile;
 
 import com.vitals.helpers.Constants;
 import com.vitals.pages.BasePage;
+import com.vitals.pages.HeaderModule;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
@@ -11,13 +12,19 @@ import static org.openqa.selenium.By.linkText;
 public class ProfileCommonPage extends BasePage {
 
     PatientLinkRrAd rrAd;
+    HeaderModule headerModule;
 
     public ProfileCommonPage() {
         rrAd = new PatientLinkRrAd();
+        headerModule = new HeaderModule();
     }
 
     public PatientLinkRrAd rrAd() {
         return rrAd;
+    }
+
+    public HeaderModule headerModule() {
+        return headerModule;
     }
 
     public FluentWebElement summaryTab() {
@@ -82,6 +89,30 @@ public class ProfileCommonPage extends BasePage {
 
     public FluentWebElement name(){
         return link(cssSelector("h1>a"));
+    }
+
+    public FluentWebElement reviewQuestionMark() {
+        return span(cssSelector(".reviews span.qtipit"));
+    }
+
+    public FluentWebElements divAdvertBox() {
+        return divs(cssSelector("div.advert.cbox"));
+    }
+
+    public FluentWebElement divAdvertWrapper() {
+        return div(cssSelector("div.advert-wrapper"));
+    }
+
+    public FluentWebElement divModal() {
+        return div(cssSelector("div.modal"));
+    }
+
+    public FluentWebElement divModalBackdrop() {
+        return div(cssSelector("div.modal-backdrop"));
+    }
+
+    public FluentWebElement divTooltip() {
+        return div(cssSelector(".qtip"));
     }
 
     public boolean isSummaryPage() {

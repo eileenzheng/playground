@@ -49,6 +49,14 @@ public class UccSearchResultsPage extends BasePage {
     public FluentWebElement map() {
         return div(cssSelector("#map"));
     }
+
+    public FluentWebElement adTop() {
+        return div(cssSelector("div.advert-wrapper"));
+    }
+
+    public FluentWebElements adRectangles() {
+        return divs(cssSelector("div.skyscraper"));
+    }
     
     public int getResultsCountNumber() {
     	String count = resultsTotal().getText().toString();

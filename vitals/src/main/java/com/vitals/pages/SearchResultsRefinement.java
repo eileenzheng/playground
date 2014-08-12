@@ -1,6 +1,8 @@
 package com.vitals.pages;
 
 import org.seleniumhq.selenium.fluent.FluentWebElement;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
+
 import static org.openqa.selenium.By.cssSelector;
 
 public class SearchResultsRefinement extends BasePage{
@@ -80,5 +82,9 @@ public class SearchResultsRefinement extends BasePage{
 
     public FluentWebElement usEducated() {
         return input(cssSelector("#us-educated"));
+    }
+
+    public FluentWebElements dropdowns() {
+        return uls(cssSelector("ul.dropdown-menu"));
     }
 }
