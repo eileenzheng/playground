@@ -67,7 +67,7 @@ public class StylingTest {
         }
         m_assert.assertTrue(page.getStyle(page.divAdvertWrapper(), "z-index").equals("5001"), "Advert Wrapper");
 
-        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999"), ".top-nav");
+        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999") || page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5900000"), ".top-nav");
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         page.reviewQuestionMark().click();
@@ -75,7 +75,7 @@ public class StylingTest {
 
         page.plBookAppt().click();
         m_assert.assertTrue(page.getStyle(page.divModal(), "z-index").equals("6000000"), "Modal");
-        m_assert.assertTrue(page.getStyle(page.divModalBackdrop(), "z-index").equals("5999999"), "Modal Backdrop");
+        m_assert.assertTrue(page.getStyle(page.divModalBackdrop(), "z-index").equals("5999999") || page.getStyle(page.divModalBackdrop(), "z-index").equals("6000000"), "Modal Backdrop");
 
         m_assert.assertAll();
     }
@@ -93,7 +93,7 @@ public class StylingTest {
         }
         m_assert.assertTrue(page.getStyle(page.divAdvertWrapper(), "z-index").equals("5001"), "Advert Wrapper");
 
-        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999"), ".top-nav");
+        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999") || page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5900000"), ".top-nav");
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         m_assert.assertAll();
@@ -115,7 +115,7 @@ public class StylingTest {
         m_assert.assertTrue(page.getStyle(page.adRectangles().get(0), "z-index").equals("5001"), "rectangle");
         m_assert.assertTrue(page.getStyle(page.adRectangles().get(1), "z-index").equals("5001"), "rectangle_bottom");
 
-        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999"), ".top-nav");
+        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999") || page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5900000"), ".top-nav");
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         m_assert.assertAll();
@@ -136,7 +136,7 @@ public class StylingTest {
         m_assert.assertTrue(page.getStyle(page.adRectangles().get(0), "z-index").equals("5001"), "rectangle");
         m_assert.assertTrue(page.getStyle(page.adRectangles().get(1), "z-index").equals("5001"), "rectangle_bottom");
 
-        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999"), ".top-nav");
+        m_assert.assertTrue(page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5899999") || page.getStyle(page.headerModule().divTopNav(), "z-index").equals("5900000"), ".top-nav");
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         m_assert.assertAll();
