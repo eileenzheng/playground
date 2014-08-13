@@ -118,11 +118,11 @@ public class SitemapTest {
         while (conditionsPage.currentAlphabet().getText().toString().equals("Featured")) {
             conditionsPage.getRandom(conditionsPage.alphabet()).click();
         }
-        m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>1, "# of conditions displayed not between 1 and 50");
+        m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>=1, "# of conditions displayed not between 1 and 50");
 
         if (conditionsPage.conditions().size()==50) {
             conditionsPage.getRandom(conditionsPage.pagination()).click();
-            m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>1, "# of conditions displayed not between 1 and 50");
+            m_assert.assertTrue(conditionsPage.conditions().size()<=50 && conditionsPage.conditions().size()>=1, "# of conditions displayed not between 1 and 50");
 
         }
 
