@@ -71,8 +71,8 @@ public class StylingTest {
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         page.reviewQuestionMark().click();
-        m_assert.assertTrue(page.getStyle(page.divTooltip(), "z-index").equals("6000001") || page.getStyle(page.divTooltip(), "z-index").equals("6000002"), "Tooltip");
-
+        m_assert.assertTrue(page.getStyle(page.divTooltip(), "z-index").equals("6000001") || page.getStyle(page.divTooltip(), "z-index").equals("6000000"), "Tooltip");
+        System.out.println(page.getStyle(page.divTooltip(), "z-index"));
         page.plBookAppt().click();
         m_assert.assertTrue(page.getStyle(page.divModal(), "z-index").equals("6000000"), "Modal");
         m_assert.assertTrue(page.getStyle(page.divModalBackdrop(), "z-index").equals("5999999") || page.getStyle(page.divModalBackdrop(), "z-index").equals("6000000"), "Modal Backdrop");
