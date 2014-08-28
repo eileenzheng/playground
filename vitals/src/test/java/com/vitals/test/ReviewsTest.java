@@ -184,19 +184,19 @@ public class ReviewsTest {
         Assert.assertTrue(reviewWritePage.isDoctorReview());
     }
 
-//    @TestCase(id=2478)
-//    @Test
-//    public void reviewSearchClickFacilityButton() {
-//
-//        m_assert = new SoftAssert();
-//        ReviewPage reviewPage = new ReviewPage();
-//        reviewPage.get(url + "/review");
-//        reviewPage.headerModule().hoverFindNav();
-//
-//        reviewPage.enterSearchTerm("city");
-//        reviewPage.getRandom(reviewPage.facilityReviewButtons()).click();
-//
-//        ReviewWritePage reviewWritePage = new ReviewWritePage();
-//        Assert.assertTrue(reviewWritePage.isDoctorReview());
-//    }
+    @TestCase(id=2478)
+    @Test
+    public void reviewSearchClickFacilityButton() {
+
+        m_assert = new SoftAssert();
+        ReviewPage reviewPage = new ReviewPage();
+        reviewPage.get(url + "/review");
+        reviewPage.headerModule().hoverFindNav();
+
+        reviewPage.enterSearchTerm("city");
+        reviewPage.getRandom(reviewPage.facilityReviewButtons()).click();
+
+        ReviewWritePage reviewWritePage = new ReviewWritePage();
+        Assert.assertTrue(reviewWritePage.isFacilityReview());
+    }
 }
