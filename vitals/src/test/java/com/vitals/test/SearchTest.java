@@ -232,8 +232,13 @@ public class SearchTest {
 
         List<Profile> docs = results.doctorResults(results.drList());
 
+        int stop;
+        if (docs.size()>=5)
+            stop = 5;
+        else
+            stop = docs.size();
         Reporter.log("ResultsPage,ProfileCommonPage,ProfilePageUrl");
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<stop; i++) {
             Profile doc = docs.get(i);
             profile.get(doc.getUrl());
             doc.setProfileName(profile.name().getText().toString().trim());
