@@ -144,8 +144,8 @@ public class BasePage extends FluentWebDriver{
         return (String) ((JavascriptExecutor)webDriver()).executeScript("return " + part);
     }
 
-    public String executeJS(String code) {
-        return (String) ((JavascriptExecutor)webDriver()).executeScript(code);
+    public Object executeJS(String code) {
+        return ((JavascriptExecutor)webDriver()).executeScript(code);
     }
 
     public String getPageSource() {
