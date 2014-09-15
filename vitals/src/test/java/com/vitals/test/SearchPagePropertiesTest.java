@@ -14,6 +14,7 @@ public class SearchPagePropertiesTest {
 
     SoftAssert m_assert;
     String url;
+    String url_plain;
     String name = "Todd";
     String insurance = "United Healthcare";
     String plan = "Definity Choice Plus";
@@ -26,6 +27,9 @@ public class SearchPagePropertiesTest {
     @BeforeMethod
     public void setup(String url) throws Exception {
         this.url = url;
+        if (url.contains("staging")) {
+            url_plain = "http://staging.vitals.com";
+        }
     }
     
     @TestCase(id=1672)
@@ -644,7 +648,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(0).equals("Home"))
     	   return false;
-    	else return results.getBreadcrumbUrl().get(0).contains(url.toLowerCase());
+    	else return results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase());
     }
 
     private boolean breadcrumbCondition(SearchResultsPage results) {
@@ -654,9 +658,9 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(1).equals("Find a doctor by condition"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
     		return false;
-    	else return !(!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+    	else return !(!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
                     !results.getBreadcrumbUrl().get(1).contains("/conditions"));
     }
 
@@ -665,7 +669,7 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(0).equals("Home"))
     		return false;
-    	else return results.getBreadcrumbUrl().get(0).contains(url.toLowerCase());
+    	else return results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase());
     }
 
     private boolean breadcrumbSpecialtyInsurance(SearchResultsPage results) {
@@ -675,9 +679,9 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(1).equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
     		return false;
-    	else return !(!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+    	else return !(!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
                     !results.getBreadcrumbUrl().get(1).contains("/dermatologists"));
     }
 
@@ -690,12 +694,12 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(2).equals(insurance))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
     			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
     			return false;
-    	else return !(!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+    	else return !(!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
                     !results.getBreadcrumbUrl().get(2).contains("/dermatologists/united-healthcare"));
     }
 
@@ -708,12 +712,12 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(2).equals("NY"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
     			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
     			return false;
-    	else return !(!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+    	else return !(!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
                     !results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"));
     }
 
@@ -728,15 +732,15 @@ public class SearchPagePropertiesTest {
     		return false;
     	else if (!results.getBreadcrumbText().get(3).equals("New York Dermatologists"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
     			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+    	else if (!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
     			!results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(3).contains(url.toLowerCase()) ||
+    	else if (!results.getBreadcrumbUrl().get(3).contains(url_plain.toLowerCase()) ||
     			!results.getBreadcrumbUrl().get(3).contains("/dermatologists/ny/new-york"))
     			return false;
     	else
@@ -752,12 +756,12 @@ public class SearchPagePropertiesTest {
             return false;
         else if (!results.getBreadcrumbText().get(2).equals("NY"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+        else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
             return false;
-        else if (!results.getBreadcrumbUrl().get(1).contains(url.toLowerCase()) ||
+        else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
                 !results.getBreadcrumbUrl().get(1).contains("/urgent-care"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(2).contains(url.toLowerCase()) ||
+        else if (!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
                 !results.getBreadcrumbUrl().get(2).contains("/locations/urgent-care/ny"))
             return false;
         else
@@ -769,7 +773,7 @@ public class SearchPagePropertiesTest {
             return false;
         else if (!results.getBreadcrumbText().get(0).equals("Home"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(0).contains(url.toLowerCase()))
+        else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
             return false;
         else
             return true;

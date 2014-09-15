@@ -355,7 +355,7 @@ public class PatientLinkTest {
         modal.switchIframe("iframe[src*='patients.doctor.com']");
 
         IframeDoctorDotCom iframe = new IframeDoctorDotCom();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr Deborah Tanus"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Deborah Tanus"), "Incorrect name");
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();

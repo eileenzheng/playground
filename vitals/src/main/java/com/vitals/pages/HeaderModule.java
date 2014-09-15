@@ -224,7 +224,7 @@ public class HeaderModule extends BasePage {
         waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 
-    public void hoverFindNav() {
-        executeJS("jQuery('a.nav-tab.find-magnifying-glass').trigger('mouseenter');");
+    public Object hoverFindNav() {
+        return executeJS("jQuery('a.nav-tab.find-magnifying-glass').trigger('mouseenter');");
     }
 }
