@@ -21,12 +21,19 @@ import static org.seleniumhq.selenium.fluent.Period.millis;
 public class MyVitalsTest {
 
     private String url;
+    private String myVitalsUrl;
     private final String claimProfileUrl = "/doctors/Dr_Marina_Katz/profile";
     
     @Parameters({"url"})
     @BeforeMethod
     public void setup(String url) throws Exception {
         this.url = url;
+        if (url.contains("staging")) {
+            myVitalsUrl = "http://admin:mdx4dm1n@my.staging.vitals.com";
+        }
+        else {
+            myVitalsUrl = "https://my.vitals.com";
+        }
     }
 
     @TestCase(id=1559)
@@ -34,7 +41,7 @@ public class MyVitalsTest {
     public void loginMyVitals() {
     	HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
         login(homePage);
 
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
@@ -48,7 +55,7 @@ public class MyVitalsTest {
     public void editAccount() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
 
         // sign in to myvitals first
         login(homePage);
@@ -71,7 +78,7 @@ public class MyVitalsTest {
     public void claimProfileFail() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
     	login(homePage);
@@ -98,7 +105,8 @@ public class MyVitalsTest {
     	if (url.contains("staging") || url.contains("qa")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
-            homePage.get(url);
+            homePage.get("https://admin:mdx4dm1n@my.staging.vitals.com");
+            homePage.get(myVitalsUrl);
 
             // sign in to myvitals first
             login(homePage);
@@ -129,7 +137,7 @@ public class MyVitalsTest {
     	if (url.contains("staging") || url.contains("mdxdev")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
-            homePage.get(url);
+            homePage.get(myVitalsUrl);
 
             // sign in to myvitals first
             login(homePage);
@@ -157,7 +165,7 @@ public class MyVitalsTest {
     public void editNoProfile() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "edit profile"
         login(homePage);
@@ -178,7 +186,7 @@ public class MyVitalsTest {
     public void locateProfileAutoSuggestLocation() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
         login(homePage);
@@ -197,7 +205,7 @@ public class MyVitalsTest {
     public void locateProfileAutoSuggestName() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
-        homePage.get(url);
+        homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
     	login(homePage);
@@ -212,8 +220,8 @@ public class MyVitalsTest {
     }
     
     public void login(HomePage home) {
-        home.headerModule().signInLink().click();
     	MyVitalsSignInPage signInPage = new MyVitalsSignInPage();
+        signInPage.get(myVitalsUrl + "/users/sign_in");
         signInPage.emailTextBox().clearField().sendKeys("selenium@mailinator.com");
         signInPage.passwordTextBox().clearField().sendKeys("test1234");
         signInPage.signInButton().click();

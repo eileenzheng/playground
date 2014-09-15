@@ -23,7 +23,7 @@ public class MastheadTest {
 	public void setup(String url) throws Exception {
 		this.url[0] = url;
 		if (url.toLowerCase().contains("staging"))
-			this.url[1] = "https://my.staging.vitals.com";
+			this.url[1] = "https://admin:mdx4dm1n@my.staging.vitals.com";
 		else if (url.toLowerCase().contains("mdxdev"))
 			this.url[1] = "http://my.qa.mdxdev.net";
 		else
