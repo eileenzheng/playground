@@ -30,6 +30,9 @@ public class SearchPagePropertiesTest {
         if (url.contains("staging")) {
             url_plain = "http://staging.vitals.com";
         }
+        else {
+            url_plain = "http://www.vitals.com";
+        }
     }
     
     @TestCase(id=1672)
