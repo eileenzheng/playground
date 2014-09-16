@@ -32,6 +32,9 @@ public class BasePage extends FluentWebDriver{
 
     public void get(String url) {
         try {
+            if (url.contains("staging") && !url.contains("mdx4dm1n")) {
+                url = url.split("://")[0].concat("://admin:mdx4dm1n@").concat(url.split("://")[1]);
+            }
             webDriver().get(url);
         }
         catch (Exception e) {
