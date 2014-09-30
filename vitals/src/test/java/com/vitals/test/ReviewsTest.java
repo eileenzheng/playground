@@ -8,7 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import org.testng.asserts.SoftAssert;
 
 public class ReviewsTest {
@@ -32,8 +31,8 @@ public class ReviewsTest {
         ReviewPage reviewPage = new ReviewPage();
 
         reviewPage.get(url + "/review");
-//        m_assert.assertTrue(reviewPage.headerModule().locationTextBox().getAttribute("value").toString().equals(
-//            reviewPage.locationBox().getAttribute("value").toString()), "Location box out-of-sync with masthead");
+        m_assert.assertTrue(reviewPage.headerModule().locationTextBox().getAttribute("value").toString().equals(
+            reviewPage.locationBox().getAttribute("value").toString()), "Location box out-of-sync with masthead");
 
         reviewPage.enterLocation(zip);
         m_assert.assertTrue(reviewPage.checkSuggestions(reviewPage.locationSuggestions(), zip), "Location suggestion doesn't contain search term");
