@@ -219,8 +219,8 @@ public class HeaderModule extends BasePage {
 
     public void openInsurancePlan() {
         insurancePlanDropDown().click();
-        if (insurancePlanSuggestions().size()==0) // workaround to random failing
-            openInsurancePlan();
+//        if (insurancePlanSuggestions().size()==0) // workaround to random failing
+//            openInsurancePlan();
         waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 
