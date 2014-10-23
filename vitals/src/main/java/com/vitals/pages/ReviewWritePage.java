@@ -10,7 +10,7 @@ public class ReviewWritePage extends BasePage {
     }
 	
 	public boolean isDoctorReview() {
-		return (headline().getText().toString().equals("Tell us about your experience with this doctor."));
+		return (headline().getText().toString().contains("Tell us about your experience with"));
 	}
 	
 	public boolean isFacilityReview() {

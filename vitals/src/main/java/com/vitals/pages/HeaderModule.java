@@ -218,10 +218,18 @@ public class HeaderModule extends BasePage {
     }
 
     public void openInsurancePlan() {
+        int count=0;
         insurancePlanDropDown().click();
-//        if (insurancePlanSuggestions().size()==0) // workaround to random failing
-//            openInsurancePlan();
-        waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
+        if (insurancePlanSuggestions().size()==0 && count<5) {// workaround to random failing
+            insurancePlanDropDown().click();
+            waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
+            count++;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                // do nothing
+            }
+        }
     }
 
     public Object hoverFindNav() {
