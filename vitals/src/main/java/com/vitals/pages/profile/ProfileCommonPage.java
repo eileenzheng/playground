@@ -88,7 +88,7 @@ public class ProfileCommonPage extends BasePage {
     }
 
     public FluentWebElement name(){
-        return link(cssSelector("h1>a"));
+        return link(cssSelector(".slider-default:not(.bx-clone) h1>a"));
     }
 
     public FluentWebElement reviewQuestionMark() {
