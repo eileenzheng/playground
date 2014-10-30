@@ -30,7 +30,7 @@ public class ProfileTest {
         seoProfile.get(url + drProfile);
         seoProfile.dismissReviewIntercept();
 
-        Assert.assertTrue(seoProfile.viewFullProfileButton().isDisplayed().value(),
+        Assert.assertTrue(seoProfile.viewFullProfileLink().isDisplayed().value(),
                 "SEO Doctor Page did not load successfully" + drProfile);
 
         seoProfile.get(url + drProfile);
@@ -47,7 +47,7 @@ public class ProfileTest {
         seoProfile.get(url + dentistProfile);
         seoProfile.dismissReviewIntercept();
 
-        Assert.assertTrue(seoProfile.viewFullProfileButton().isDisplayed().value(),
+        Assert.assertTrue(seoProfile.viewFullProfileLink().isDisplayed().value(),
                 "SEO Dentist Page did not load successfully: " + dentistProfile);
 
         seoProfile.get(url + dentistProfile);

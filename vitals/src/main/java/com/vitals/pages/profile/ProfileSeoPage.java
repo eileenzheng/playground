@@ -5,6 +5,7 @@ import com.vitals.pages.BasePage;
 import com.vitals.pages.patientlink.PatientLinkRrAd;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import static org.openqa.selenium.By.cssSelector;
+import static org.openqa.selenium.By.linkText;
 
 public class ProfileSeoPage extends BasePage {
 
@@ -18,8 +19,8 @@ public class ProfileSeoPage extends BasePage {
         return rrAd;
     }
 
-    public FluentWebElement viewFullProfileButton() {
-        return link(cssSelector("#view-full"));
+    public FluentWebElement viewFullProfileLink() {
+        return link(linkText("View full profile"));
     }
 
     private FluentWebElement reviewClose() {

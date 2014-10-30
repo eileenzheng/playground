@@ -141,6 +141,7 @@ public class MastheadTest {
             homePage.getRandom(homePage.headerModule().nameSuggestions()).click();
 
             ProfileCommonPage profilePage = new ProfileCommonPage();
+            profilePage.dismissReviewIntercept();
 
             Assert.assertTrue(profilePage.isSummaryPage(), env(i));
         }
