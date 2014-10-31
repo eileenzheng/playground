@@ -35,6 +35,7 @@ public class ProfileTest {
 
         seoProfile.get(url + drProfile);
         ProfileCommonPage fullProfile = new ProfileCommonPage();
+        fullProfile.dismissReviewIntercept();
         Assert.assertTrue(fullProfile.isSummaryPage(),
                 "Profile page did not load: " + fullProfile.getCurrentUrl());
     }
