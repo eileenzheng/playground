@@ -12,10 +12,9 @@
         <listener class-name="com.vitalsqa.listener.DotTestListener" />
 	</listeners>
 
-    <test name="Masthead Specific Tests" parallel="classes">
+    <test name="Masthead Specific Tests">
         <classes>
             <class name="com.vitals.test.MastheadTest" />
-            <class name="com.vitals.test.MastheadReviewsTest" />
         </classes>
     </test>
     <test name="Search Specfic Tests" parallel="classes">
