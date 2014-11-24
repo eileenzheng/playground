@@ -74,7 +74,6 @@ public class ReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
-        reviewPage.headerModule().hoverFindNav();
 
         reviewPage.enterSearchTerm(searchTerm);
         reviewPage.enterLocation("33021");
@@ -100,10 +99,9 @@ public class ReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
-        //reviewPage.headerModule().hoverFindNav();
 
         reviewPage.enterSearchTerm(searchTerm);
-        reviewPage.showAllDoctors().click();
+        reviewPage.showAll().get(0).click();
 
         ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
         m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Doctors"), "Not at doctor toggle");
@@ -122,10 +120,9 @@ public class ReviewsTest {
 
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
-        //reviewPage.headerModule().hoverFindNav();
 
         reviewPage.enterSearchTerm(searchTerm);
-        reviewPage.showAllFacilities().click();
+        reviewPage.showAll().get(reviewPage.showAll().size()-1).click();
 
         ReviewSearchResultsPage reviewSerp = new ReviewSearchResultsPage();
         m_assert.assertTrue(reviewSerp.activeToggle().getText().toString().equals("Facilities"), "Not at facility toggle");
@@ -142,7 +139,6 @@ public class ReviewsTest {
         m_assert = new SoftAssert();
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
-        reviewPage.headerModule().hoverFindNav();
 
         reviewPage.enterSearchTerm("John");
         reviewPage.getRandom(reviewPage.doctorNames()).click();
@@ -158,42 +154,9 @@ public class ReviewsTest {
         m_assert = new SoftAssert();
         ReviewPage reviewPage = new ReviewPage();
         reviewPage.get(url + "/review");
-        reviewPage.headerModule().hoverFindNav();
 
         reviewPage.enterSearchTerm("city");
         reviewPage.getRandom(reviewPage.facilityNames()).click();
-
-        ReviewWritePage reviewWritePage = new ReviewWritePage();
-        Assert.assertTrue(reviewWritePage.isFacilityReview());
-    }
-
-    @TestCase(id=2477)
-    @Test
-    public void reviewSearchClickDoctorButton() {
-
-        m_assert = new SoftAssert();
-        ReviewPage reviewPage = new ReviewPage();
-        reviewPage.get(url + "/review");
-        reviewPage.headerModule().hoverFindNav();
-
-        reviewPage.enterSearchTerm("John");
-        reviewPage.getRandom(reviewPage.doctorReviewButtons()).click();
-
-        ReviewWritePage reviewWritePage = new ReviewWritePage();
-        Assert.assertTrue(reviewWritePage.isDoctorReview());
-    }
-
-    @TestCase(id=2478)
-    @Test
-    public void reviewSearchClickFacilityButton() {
-
-        m_assert = new SoftAssert();
-        ReviewPage reviewPage = new ReviewPage();
-        reviewPage.get(url + "/review");
-        reviewPage.headerModule().hoverFindNav();
-
-        reviewPage.enterSearchTerm("city");
-        reviewPage.getRandom(reviewPage.facilityReviewButtons()).click();
 
         ReviewWritePage reviewWritePage = new ReviewWritePage();
         Assert.assertTrue(reviewWritePage.isFacilityReview());

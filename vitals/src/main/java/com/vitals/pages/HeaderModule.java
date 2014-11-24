@@ -4,7 +4,6 @@ import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.By.linkText;
 
 public class HeaderModule extends BasePage {
 
@@ -16,84 +15,48 @@ public class HeaderModule extends BasePage {
         return input(cssSelector("#q"));
     }
 
-    public FluentWebElement reviewSearchTextBox() {
-        return input(cssSelector("#review_q"));
-    }
-
     public FluentWebElements autocompleteCategories() {
-        return lis(cssSelector(".ui-autocomplete-category"));
+        return lis(cssSelector("#ui-id-4 .ui-autocomplete-category"));
     }
 
     public FluentWebElements specialtySuggestions() {
-        return links(cssSelector("#ui-id-5 .ui-menu-item:not([data-facility-id]):not([data-provider-id]):not([data-id])>a:not(.link)"));
+        return links(cssSelector(".specialty>a"));
     }
 
     public FluentWebElements conditionSuggestions() {
-        return links(cssSelector("#ui-id-5 .ui-menu-item[data-id]>a"));
+        return links(cssSelector(".disorder>a"));
     }
 
     public FluentWebElements nameSuggestions() {
-        return links(cssSelector("#ui-id-5 .ui-menu-item[data-provider-id]>a"));
-    }
-
-    public FluentWebElements reviewNameSuggestions() {
-        return links(cssSelector("#ui-id-6 .ui-menu-item[data-provider-id]>a"));
+        return links(cssSelector("#ui-id-4 .provider>a"));
     }
 
     public FluentWebElements uccSuggestions() {
-        return links(cssSelector("#ui-id-5 .ui-menu-item[data-facility-id]>a"));
-    }
-
-    public FluentWebElements reviewUccSuggestions() {
-        return links(cssSelector("#ui-id-6 .ui-menu-item[data-facility-id]>a"));
+        return links(cssSelector("#ui-id-4 .facility>a"));
     }
     
-    public FluentWebElement showAllDoctors() {
-        return link(linkText("Show all doctors..."));
-    }
-
-    public FluentWebElement showAllDentists() {
-        return link(linkText("Show all dentists..."));
-    }
-
-    public FluentWebElement showAllFacilities() {
-        return link(linkText("Show all facilities..."));
+    public FluentWebElements showAll() {
+        return links(cssSelector("#ui-id-4 .show-all>a"));
     }
 
     public FluentWebElement locationTextBox() {
-        return input(cssSelector("#doctor-tab .location .location-form .ui-autocomplete-input"));
-    }
-
-    public FluentWebElement locationTextBoxReview() {
-        return input(cssSelector("#review-tab .location .location-form .ui-autocomplete-input"));
+        return input(cssSelector("#location_text"));
     }
 
     public FluentWebElements locationSuggestions() {
         return links(cssSelector("#ui-id-1 .ui-menu-item>a"));
     }
 
-    public FluentWebElements locationSuggestionsReview() {
-        return links(cssSelector("#ui-id-2 .ui-menu-item>a"));
-    }
-
     public FluentWebElement goButton() {
-        return button(cssSelector(".doctor button"));
-    }
-
-    public FluentWebElement reviewGoButton() {
-        return button(cssSelector("#review-go"));
-    }
-
-    public FluentWebElement urgentCareLink() {
-        return link(cssSelector(".session-info li>a:nth-child(2)"));
+        return button(cssSelector("#provider-go"));
     }
 
     public FluentWebElement signUpLink() {
-        return link(cssSelector(".session-info li>a:nth-child(1)"));
+        return link(cssSelector(".session-info .sign-in"));
     }
 
     public FluentWebElement signInLink() {
-        return link(cssSelector(".session-info li>a:nth-child(3)"));
+        return link(cssSelector(".session-info .sign-up"));
     }
 
     public FluentWebElement signedInEmailLink() {
@@ -101,19 +64,11 @@ public class HeaderModule extends BasePage {
     }
     
     public FluentWebElement editProfileLink() {
-        return link(cssSelector(".edit-profile"));
+        return link(cssSelector(".when-signed-in .edit-profile"));
     }
 
     public FluentWebElement signOutLink() {
-        return link(cssSelector(".sign-out"));
-    }
-
-    public FluentWebElement getInfoTab() {
-        return link(cssSelector(".nav-tab.get-info"));
-    }
-
-    public FluentWebElement writeReviewTab() {
-        return link(cssSelector(".nav-tab.write-review"));
+        return link(cssSelector(".when-signed-in .sign-out"));
     }
 
     public FluentWebElement insurance() {
@@ -129,7 +84,7 @@ public class HeaderModule extends BasePage {
     }
 
     public FluentWebElements insuranceSuggestions() {
-        return links(cssSelector("#ui-id-3 .ui-menu-item>a"));
+        return links(cssSelector("#ui-id-2 .ui-menu-item>a"));
     }
 
     public FluentWebElement insurancePlanDropDown() {
@@ -155,12 +110,6 @@ public class HeaderModule extends BasePage {
     public void enterSearchTerm (String text) {
     	searchTextBox().clearField();
         searchTextBox().sendKeys(text);
-        waitUntilVisible(autocompleteCategories().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
-    }
-    
-    public void enterReviewSearchTerm (String text) {
-    	reviewSearchTextBox().clearField();
-        reviewSearchTextBox().sendKeys(text);
         waitUntilVisible(autocompleteCategories().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
     
@@ -207,12 +156,6 @@ public class HeaderModule extends BasePage {
     	waitUntilVisible(locationSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 
-    public void enterLocationReview(String location) {
-        locationTextBoxReview().clearField();
-        locationTextBoxReview().sendKeys(location);
-        waitUntilVisible(locationSuggestionsReview().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
-    }
-
     public boolean locationSearchIsPopulated() {
         return (!locationTextBox().getAttribute("value").toString().equals("") && !locationTextBox().getAttribute("value").toString().equals(","));
     }
@@ -220,7 +163,7 @@ public class HeaderModule extends BasePage {
     public void openInsurancePlan() {
         int count=0;
         insurancePlanDropDown().click();
-        if (insurancePlanSuggestions().size()==0 && count<5) {// workaround to random failing
+        if (insurancePlanSuggestions().size()==0 && count<5) { // workaround to random failing
             insurancePlanDropDown().click();
             waitUntilVisible(insurancePlanSuggestions().get(0), Constants.SELENIUM_EXPLICIT_WAIT);
             count++;
@@ -230,9 +173,5 @@ public class HeaderModule extends BasePage {
                 // do nothing
             }
         }
-    }
-
-    public Object hoverFindNav() {
-        return executeJS("jQuery('a.nav-tab.find-magnifying-glass').trigger('mouseenter');");
     }
 }

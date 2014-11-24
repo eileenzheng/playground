@@ -15,7 +15,7 @@ public class SearchPagePropertiesTest {
     SoftAssert m_assert;
     String url;
     String url_plain;
-    String name = "Todd";
+    String name = "John";
     String insurance = "United Healthcare";
     String plan = "Definity Choice Plus";
     String condition = "Diabetes";
@@ -49,7 +49,7 @@ public class SearchPagePropertiesTest {
         homePage.headerModule().insurancePlanSuggestions().get(0).click();
         homePage.headerModule().saveInsuranceButton().click();
         homePage.headerModule().enterSearchTerm(name);
-        homePage.headerModule().goButton().click();
+        homePage.headerModule().showAll().get(0).click();
 
         SearchResultsPage results = new SearchResultsPage();
 
@@ -82,7 +82,7 @@ public class SearchPagePropertiesTest {
         homePage.headerModule().insuranceSuggestions().get(0).click();
         homePage.headerModule().saveInsuranceButton().click();
         homePage.headerModule().enterSearchTerm(name);
-        homePage.headerModule().goButton().click();
+        homePage.headerModule().showAll().get(0).click();
 
         SearchResultsPage results = new SearchResultsPage();
 
@@ -111,8 +111,7 @@ public class SearchPagePropertiesTest {
         homePage.get(url);
 
         homePage.headerModule().enterSearchTerm(name);
-        homePage.headerModule().goButton().click();
-
+        homePage.headerModule().showAll().get(0).click();
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
@@ -138,7 +137,7 @@ public class SearchPagePropertiesTest {
         homePage.get(url);
 
         homePage.headerModule().enterSearchTerm(name);
-        homePage.headerModule().showAllDentists().click();
+        homePage.headerModule().showAll().get(1).click(); // 1 is dentist for search term 'john'
 
         SearchResultsPage results = new SearchResultsPage();
 
@@ -517,7 +516,7 @@ public class SearchPagePropertiesTest {
         homePage.get(url);
 
         homePage.headerModule().enterSearchTerm(uccName);
-        homePage.headerModule().showAllFacilities().click();
+        homePage.headerModule().showAll().get(homePage.headerModule().showAll().size()-1).click();
 
         SearchResultsPage results = new SearchResultsPage();
 

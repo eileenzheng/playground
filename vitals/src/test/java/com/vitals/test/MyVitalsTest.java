@@ -15,7 +15,6 @@ import com.vitals.pages.myvitals.MyVitalsHomePage;
 import com.vitals.pages.myvitals.MyVitalsLocateProfilePage;
 import com.vitals.pages.myvitals.MyVitalsProfessionalsPage;
 import com.vitals.pages.myvitals.MyVitalsSignInPage;
-
 import static org.seleniumhq.selenium.fluent.Period.millis;
 
 public class MyVitalsTest {

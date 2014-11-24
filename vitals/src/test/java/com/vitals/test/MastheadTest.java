@@ -156,7 +156,7 @@ public class MastheadTest {
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
-            homePage.headerModule().showAllDoctors().click();
+            homePage.headerModule().showAll().get(0).click();
             homePage.headerModule().acceptAlertIfPresent();
 
             SearchResultsPage serp = new SearchResultsPage();
@@ -173,7 +173,7 @@ public class MastheadTest {
             homePage.get(url[i]);
 
 			homePage.headerModule().enterSearchTerm("John");
-            homePage.headerModule().showAllDentists().click();
+            homePage.headerModule().showAll().get(1).click();
             homePage.headerModule().acceptAlertIfPresent();
 
             SearchResultsPage serp = new SearchResultsPage();
@@ -207,7 +207,7 @@ public class MastheadTest {
             homePage.get(url[i]);
 
             homePage.headerModule().enterSearchTerm("citymd");
-            homePage.headerModule().showAllFacilities().click();
+            homePage.headerModule().showAll().get(0).click();
             homePage.headerModule().acceptAlertIfPresent();
 
             UccSearchResultsPage serp = new UccSearchResultsPage();

@@ -179,7 +179,7 @@ public class UccTest {
         HomePage home = new HomePage();
         home.get(url);
         home.headerModule().enterSearchTerm("city");
-        home.headerModule().showAllFacilities().click();
+        home.headerModule().showAll().get(home.headerModule().showAll().size()-1).click();
 
         UccSearchResultsPage uccSerp = new UccSearchResultsPage();
         m_assert.assertTrue(uccSerp.getResultsCountNumber()>30 && uccSerp.getResultsCountNumber()<40,
@@ -229,7 +229,7 @@ public class UccTest {
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for browse path");
 
         serp.headerModule().enterSearchTerm("city");
-        serp.headerModule().showAllFacilities().click();
+        serp.headerModule().showAll().get(serp.headerModule().showAll().size()-1).click();
 
         m_assert.assertTrue(!serp.isMapEmpty(), "Map is empty for search path");
 

@@ -3,9 +3,7 @@ package com.vitals.pages;
 import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
-
 import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.By.linkText;
 
 public class ReviewPage extends BasePage {
 
@@ -30,31 +28,19 @@ public class ReviewPage extends BasePage {
     }
 
     public FluentWebElements autocompleteCategories() {
-        return lis(cssSelector("#ui-id-7 .ui-autocomplete-category"));
+        return lis(cssSelector("#ui-id-5 .ui-autocomplete-category"));
     }
 
     public FluentWebElements doctorNames() {
-        return links(cssSelector("#ui-id-7 li[data-provider-id]>a"));
+        return links(cssSelector("#ui-id-5 .provider>a"));
     }
 
     public FluentWebElements facilityNames() {
-        return links(cssSelector("#ui-id-7 li[data-facility-id]>a"));
+        return links(cssSelector("#ui-id-5 .facility>a"));
     }
 
-    public FluentWebElements doctorReviewButtons() {
-        return spans(cssSelector("#ui-id-7 span.btn"));
-    }
-
-    public FluentWebElements facilityReviewButtons() {
-        return buttons(cssSelector("#ui-id-7 li[data-facility-id] button"));
-    }
-
-    public FluentWebElement showAllDoctors() {
-        return link(linkText("Show all doctors..."));
-    }
-
-    public FluentWebElement showAllFacilities() {
-        return link(linkText("Show all facilities..."));
+    public FluentWebElements showAll() {
+        return links(cssSelector("#ui-id-5 .show-all>a"));
     }
 
     public FluentWebElement locationBox() {
@@ -62,7 +48,7 @@ public class ReviewPage extends BasePage {
     }
 
     public FluentWebElements locationSuggestions() {
-        return links(cssSelector("#ui-id-8>li>a"));
+        return links(cssSelector("#ui-id-1 .ui-menu-item>a"));
     }
 
     public FluentWebElement goButton() {
