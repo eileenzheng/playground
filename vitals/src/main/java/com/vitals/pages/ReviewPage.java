@@ -48,7 +48,7 @@ public class ReviewPage extends BasePage {
     }
 
     public FluentWebElements locationSuggestions() {
-        return links(cssSelector("#ui-id-1 .ui-menu-item>a"));
+        return links(cssSelector("#ui-id-6 .ui-menu-item>a"));
     }
 
     public FluentWebElement goButton() {

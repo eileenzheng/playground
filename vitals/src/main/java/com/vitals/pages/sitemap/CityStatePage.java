@@ -7,10 +7,10 @@ import static org.openqa.selenium.By.cssSelector;
 public class CityStatePage extends BasePage {
 
     public FluentWebElements states() {
-        return links(cssSelector(".col-sm-4 li>a"));
+        return links(cssSelector(".sitemap-container .col-sm-4 li>a"));
     }
 
     public FluentWebElements cities() {
-        return links(cssSelector(".col-sm-4 li>div>a"));
+        return links(cssSelector(".sitemap-container .col-sm-4 li>div>a"));
     }
 }
