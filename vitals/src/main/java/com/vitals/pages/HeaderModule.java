@@ -95,10 +95,6 @@ public class HeaderModule extends BasePage {
         return links(cssSelector(".plan.ui-menu-item>a"));
     }
 
-    public FluentWebElement saveInsuranceButton() {
-        return link(cssSelector(".save_insurance"));
-    }
-
     public FluentWebElement divMainHeader() {
         return div(cssSelector(".masthead-container"));
     }
