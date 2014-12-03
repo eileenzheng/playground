@@ -28,6 +28,6 @@ public class HomePage extends BasePage {
     }
 
     public FluentWebElements locationLinks() {
-        return links(cssSelector(".specialty-list li:not(.buffered)>a"));
+        return links(cssSelector(".specialty-list-container .specialty-list li:not(.buffered)>a"));
     }
 }

@@ -84,7 +84,7 @@ public class MastheadTest {
             HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-			String specialty = "Card";
+			String specialty = "Cardio";
 
 			homePage.headerModule().enterSearchTerm(specialty);
 			Reporter.log("The Specialties> " + homePage.headerModule().getSpecialtySearchSuggestions());
