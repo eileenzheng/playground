@@ -22,6 +22,7 @@ public class DFPTest {
     private final String[] patientGuides = {"/patient-education/infertility", "/patient-education/infertility/the-team",
             "/patient-education/infertility/how-to-prepare", "/patient-education/infertility/questions-to-ask", "/patient-education/infertility/what-to-expect", "/patient-education/infertility/treatment-options"};
     private String[] leaderboardTopSizes = {"728, 90", "880, 150", "970, 250", "970, 90"};
+    private String[] leaderboardBottomSizes = {"728, 90"};
     private String[] rectangleSizes = {"300, 250", "300, 600", "300, 1050"};
     private String[] rectangleBottomSizes = {"300, 250", "160, 600", "300, 600"};
     private String[] skyscraperSizes = {"160, 600"};
@@ -58,6 +59,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/summary";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "skyscraper", skyscraperSizes, "1", path), "Incorrect skyscraper");
@@ -88,6 +90,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/reviews_yes";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
 
@@ -118,6 +121,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/reviews_no";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
 
@@ -148,6 +152,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/credentials";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "skyscraper", skyscraperSizes, "1", path), "Incorrect skyscraper");
@@ -178,6 +183,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/locations";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertAll();
@@ -207,6 +213,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/insurance";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "skyscraper", skyscraperSizes, "1", path), "Incorrect skyscraper");
@@ -237,6 +244,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/sponsored";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "sponsored_page", sponsoredSizes, "1", path), "Incorrect sponsored_page");
@@ -267,6 +275,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/video";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertAll();
@@ -297,6 +306,7 @@ public class DFPTest {
 
         String path = "/8905/vitals/profile/basic";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");
+        m_assert.assertTrue(checkSlots(page, "leaderboard_bottom", leaderboardBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertTrue(checkSlots(page, "rectangle", rectangleSizes, "1", path), "Incorrect rectangle");
         m_assert.assertTrue(checkSlots(page, "rectangle_bottom", rectangleBottomSizes, "2", path), "Incorrect rectangle bottom");
         m_assert.assertAll();
@@ -767,7 +777,7 @@ public class DFPTest {
             }
         }
 
-        if (!found) {
+        if (!found && !slot.equals("leaderboard_bottom")) {
             Reporter.log("Missing slot: " + slot + " not found <br>");
             return false;
         }
