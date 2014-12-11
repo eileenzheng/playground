@@ -7,7 +7,7 @@ import static org.openqa.selenium.By.cssSelector;
 public class LocationsPage extends BasePage {
 
     public FluentWebElements specialties() {
-        return links(cssSelector("div.row:first-of-type ul>li>a"));
+        return links(cssSelector("div.row.location:first-of-type ul>li>a"));
     }
 
     public FluentWebElements groupPractices() {

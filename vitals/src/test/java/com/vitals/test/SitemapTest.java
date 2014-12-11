@@ -27,7 +27,7 @@ public class SitemapTest {
         LocationsPage locationPage = new LocationsPage();
         locationPage.get(url + "/locations");
 
-        m_assert.assertTrue(locationPage.specialties().size()==56, "# of specialties not equal to 56");
+        m_assert.assertTrue(locationPage.specialties().size()==57, "# of specialties not equal to 57");
         m_assert.assertTrue(locationPage.groupPractices().size()==51, "# of states for GP not equal to 51");
         m_assert.assertAll();
     }
