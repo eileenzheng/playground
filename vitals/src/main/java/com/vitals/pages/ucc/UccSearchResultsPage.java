@@ -35,27 +35,25 @@ public class UccSearchResultsPage extends BasePage {
     }
 
     public FluentWebElement resultsTotal() {
-        return span(cssSelector("h1>span:first-child"));
+        return span(cssSelector("#search-sentence-top #result-count"));
     }
 
     public FluentWebElements searchResults() {
-        return divs(cssSelector(".listing>.listing-details"));
+        return divs(cssSelector(".serplist-listing"));
     }
 
     public FluentWebElements searchSentenceNoResult() {
-        return spans(cssSelector("#search-sentence-results h1>span:not(.q)"));
+        return spans(cssSelector("#serp-results .searchsentence>span"));
     }
+
+    public FluentWebElement closestSentence() { return div(cssSelector("#related-search")); }
 
     public FluentWebElement map() {
         return div(cssSelector("#map"));
     }
 
-    public FluentWebElement adTop() {
-        return div(cssSelector("div.advert-wrapper"));
-    }
-
-    public FluentWebElements adRectangles() {
-        return divs(cssSelector("div.skyscraper"));
+    public FluentWebElements ads() {
+        return divs(cssSelector(".serplist-ad-wrap"));
     }
     
     public int getResultsCountNumber() {
@@ -75,12 +73,12 @@ public class UccSearchResultsPage extends BasePage {
         List<Ucc> ucc = new ArrayList<Ucc>();
 
         for (FluentWebElement el : uccList()) {
-            String name = el.getWebElement().findElement(cssSelector(".profile-name>a")).getText().trim();
-            String url = el.getWebElement().findElement(cssSelector(".profile-name>a")).getAttribute("href");
-            String address = el.getWebElement().findElement(cssSelector("span[itemprop=streetAddress]")).getText();
-            String city = el.getWebElement().findElement(cssSelector("span[itemprop=addressLocality]")).getText();
-            String state = el.getWebElement().findElement(cssSelector("span[itemprop=addressRegion]")).getText();
-            String zip = el.getWebElement().findElement(cssSelector("span[itemprop=postalCode]")).getText();
+            String name = el.getWebElement().findElement(cssSelector(".serplist-listing-title>a")).getText().trim();
+            String url = el.getWebElement().findElement(cssSelector(".serplist-listing-title>a")).getAttribute("href");
+            String address = el.getWebElement().findElement(cssSelector(".serplist-listing-address span[itemprop=streetAddress]")).getText();
+            String city = el.getWebElement().findElement(cssSelector(".serplist-listing-address span[itemprop=addressLocality]")).getText();
+            String state = el.getWebElement().findElement(cssSelector(".serplist-listing-address span[itemprop=addressRegion]")).getText();
+            String zip = el.getWebElement().findElement(cssSelector(".serplist-listing-address span[itemprop=postalCode]")).getText();
             ucc.add(new Ucc(name,url,address,city,state,zip));
         }
 

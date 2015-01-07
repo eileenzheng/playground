@@ -236,7 +236,7 @@ public class MastheadTest {
 	@Test
 	public void isLocationPopulated() {
 
-		for (int i=0; i<2; i++) {
+		for (int i=0; i<1; i++) { // due to VIT-3911 we are skipping this test for MyVitals
 			HomePage homePage = new HomePage();
             homePage.deleteCookies();
             homePage.get(url[i]);

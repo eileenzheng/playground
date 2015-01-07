@@ -40,8 +40,11 @@ public class MyVitalsTest {
     public void loginMyVitals() {
     	HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        if (url.contains("staging")) {
+            homePage.get(url);
+        }
         homePage.get(myVitalsUrl);
-        login(homePage);
+        login();
 
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
 
@@ -54,10 +57,13 @@ public class MyVitalsTest {
     public void editAccount() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        if (url.contains("staging")) {
+            homePage.get(url);
+        }
         homePage.get(myVitalsUrl);
 
         // sign in to myvitals first
-        login(homePage);
+        login();
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
 
         // go to edit account setting page & change password
@@ -77,10 +83,13 @@ public class MyVitalsTest {
     public void claimProfileFail() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        if (url.contains("staging")) {
+            homePage.get(url);
+        }
         homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
-    	login(homePage);
+    	login();
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
         myVitalsHome.buttons().get(1).click();
 
@@ -104,11 +113,14 @@ public class MyVitalsTest {
     	if (url.contains("staging") || url.contains("qa")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
-            homePage.get("https://admin:mdx4dm1n@my.staging.vitals.com");
+            if (url.contains("staging")) {
+                homePage.get(url);
+                homePage.get("https://admin:mdx4dm1n@my.staging.vitals.com");
+            }
             homePage.get(myVitalsUrl);
 
             // sign in to myvitals first
-            login(homePage);
+            login();
 
     		// go to profile page of doctor
             ProfileCommonPage profileToClaim = new ProfileCommonPage();
@@ -136,10 +148,12 @@ public class MyVitalsTest {
     	if (url.contains("staging") || url.contains("mdxdev")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
+            homePage.get(url);
+            homePage.get("https://admin:mdx4dm1n@my.staging.vitals.com");
             homePage.get(myVitalsUrl);
 
             // sign in to myvitals first
-            login(homePage);
+            login();
             homePage.headerModule().signedInEmailLink().click();
             homePage.headerModule().editProfileLink().click();
 
@@ -164,10 +178,11 @@ public class MyVitalsTest {
     public void editNoProfile() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        homePage.get(url);
         homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "edit profile"
-        login(homePage);
+        login();
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
         myVitalsHome.buttons().get(0).click();
 
@@ -185,10 +200,13 @@ public class MyVitalsTest {
     public void locateProfileAutoSuggestLocation() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        if (url.contains("staging")) {
+            homePage.get(url);
+        }
         homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
-        login(homePage);
+        login();
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
         myVitalsHome.buttons().get(1).click();
 
@@ -204,10 +222,13 @@ public class MyVitalsTest {
     public void locateProfileAutoSuggestName() {
         HomePage homePage = new HomePage();
         homePage.deleteCookies();
+        if (url.contains("staging")) {
+            homePage.get(url);
+        }
         homePage.get(myVitalsUrl);
 
     	// sign in to myvitals & click "claim profile"
-    	login(homePage);
+    	login();
         MyVitalsHomePage myVitalsHome = new MyVitalsHomePage();
         myVitalsHome.buttons().get(1).click();
 
@@ -218,7 +239,7 @@ public class MyVitalsTest {
         Assert.assertTrue(locateProfilePage.checkNameSuggestions("Todd"));
     }
     
-    public void login(HomePage home) {
+    public void login() {
     	MyVitalsSignInPage signInPage = new MyVitalsSignInPage();
         signInPage.get(myVitalsUrl + "/users/sign_in");
         signInPage.emailTextBox().clearField().sendKeys("selenium@mailinator.com");

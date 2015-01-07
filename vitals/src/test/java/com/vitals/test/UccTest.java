@@ -102,11 +102,14 @@ public class UccTest {
         UccSearchResultsPage serp = new UccSearchResultsPage();
         serp.get(url + "/urgent-care/hi/waimea");
 
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("We found 0"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("No"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("Urgent Care Centers"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(2).getText().toString().equals("near"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("Waimea, HI"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.h2().getText().toString().equals("Closest similar results"), "Closest sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("were found"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(4).getText().toString().equals("within"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(5).getText().toString().equals("15 miles"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(6).getText().toString().equals("of"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(7).getText().toString().equals("Waimea, Hawaii."), "Search sentence is wrong");
+        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Showing the 25 nearest similar results"), "Closest sentence is wrong");
         m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
 
         m_assert.assertAll();
@@ -174,10 +177,11 @@ public class UccTest {
 
     @TestCase(id=1646)
     @Test
-    public void serpFilters() throws InterruptedException {
+    public void serpFilters() {
     	m_assert = new SoftAssert();
         HomePage home = new HomePage();
         home.get(url);
+        home.headerModule().logo().click();
         home.headerModule().enterSearchTerm("city");
         home.headerModule().showAll().get(home.headerModule().showAll().size()-1).click();
 
@@ -188,22 +192,25 @@ public class UccTest {
         int initialCount = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with no filters");
 
-        uccSerp.refinement().clickToggleServices();
-        uccSerp.refinement().clickPhysicals();
+        uccSerp.refinement().toggleServices().click();
+        uccSerp.refinement().filterPhysicals().click();
+        uccSerp.refinement().clickApply();
 
-        m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
-        		"Number of results incorrect with 'Physicals' filter");
+        m_assert.assertTrue(uccSerp.getResultsCountNumber() <= count && uccSerp.getResultsCountNumber() > 0,
+                "Number of results incorrect with 'Physicals' filter");
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with physicals filter");
 
-        uccSerp.refinement().clickInjuries();
+        uccSerp.refinement().filterInjuries().click();
+        uccSerp.refinement().clickApply();
         m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Injuries' filter");
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with injuries filter");
 
-        uccSerp.refinement().clickPhysicals();
-        uccSerp.refinement().clickInjuries();
+        uccSerp.refinement().filterPhysicals().click();
+        uccSerp.refinement().filterInjuries().click();
+        uccSerp.refinement().clickApply();
 
         int finalCount;
         finalCount = uccSerp.getResultsCountNumber();
@@ -211,7 +218,7 @@ public class UccTest {
             // do nothing, workaround
         }
         else {
-        m_assert.assertTrue(finalCount==initialCount,
+            m_assert.assertTrue(finalCount==initialCount,
         		"Number of results incorrect after resetting filters " + finalCount + " vs " + initialCount);
         }
         Reporter.log(finalCount + " results after resetting filters vs " + initialCount + " initially");

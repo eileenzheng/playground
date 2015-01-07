@@ -56,7 +56,7 @@ public class SearchPagePropertiesTest {
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
         Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
-        boolean h1 = h1NameSearch(results.getH1Text(), results.headerModule().locationTextBox().getAttribute("value").toString(), "doctor");
+        boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance + " - " + plan);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
@@ -88,7 +88,7 @@ public class SearchPagePropertiesTest {
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
         Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
-        boolean h1 = h1NameSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), "doctor");
+        boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
@@ -116,7 +116,7 @@ public class SearchPagePropertiesTest {
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
         Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
-        boolean h1 = h1NameSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), "doctor");
+        boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         m_assert.assertTrue(h1, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
 
@@ -143,7 +143,7 @@ public class SearchPagePropertiesTest {
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
         Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
-        boolean h1 = h1NameSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), "dentist");
+        boolean h1 = h1NameSearch(results.getH1Text(), "dentist");
         m_assert.assertTrue(h1, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
 
@@ -518,7 +518,7 @@ public class SearchPagePropertiesTest {
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
         Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
-        boolean h1 = h1UccSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
+        boolean h1 = h1UccSearch(results.getH1Text());
         m_assert.assertTrue(h1, "H1 is incorrect");
         Reporter.log(results.getH1Text().toString());
 
@@ -581,62 +581,64 @@ public class SearchPagePropertiesTest {
     }
 
 
-    private boolean h1NameSearch (List<String> h1, String locationTerm, String type) {
+    private boolean h1NameSearch (List<String> h1, String type) {
     	int len = h1.size();
-    	if (!h1.get(len-5).contains(type))
+    	if (!h1.get(len-4).contains(type))
             return false;
-    	else if (!h1.get(len-4).equals("named"))
+        else if (!h1.get(len-3).equals("matching"))
             return false;
-    	else if (!h1.get(len-3).equalsIgnoreCase(name))
-            return false;
-    	else if (!h1.get(len-2).equals("near"))
+    	else if (!h1.get(len-2).equalsIgnoreCase(name))
             return false;
     	else
-            return h1.get(len - 1).equals(locationTerm);
+            return h1.get(len - 1).equals("were found");
     }
 
     private boolean h1ConditionSearch (List<String> h1, String locationTerm) {
     	int len = h1.size();
-    	if (!h1.get(len-5).contains("doctor"))
+    	if (!h1.get(len-6).contains("doctor"))
     		return false;
-    	else if (!h1.get(len-4).contains("who treat"))
+    	else if (!h1.get(len-5).contains("who treat"))
     		return false;
-    	else if (!h1.get(len-3).equalsIgnoreCase(condition))
+    	else if (!h1.get(len-4).equalsIgnoreCase(condition))
     		return false;
+        else if (!h1.get(len-3).equals("were found"))
+            return false;
     	else if (!h1.get(len-2).equals("near"))
     		return false;
-    	else return h1.get(len - 1).equals(locationTerm);
+    	else return h1.get(len - 1).contains(locationTerm.split(",")[0]);
     }
 
     private boolean h1SpecialtySearch (List<String> h1, String locationTerm, String spec) {
     	int len = h1.size();
-    	if (!h1.get(len-3).contains(spec.toLowerCase()))
+    	if (!h1.get(len-4).contains(spec.toLowerCase()))
     		return false;
+        else if (!h1.get(len-3).equals("were found"))
+            return false;
     	else if (!h1.get(len-2).equals("near"))
     		return false;
-    	else return h1.get(len - 1).equals(locationTerm);
+    	else return h1.get(len - 1).contains(locationTerm.split(",")[0]);
     }
 
-    private boolean h1UccSearch (List<String> h1, String locationTerm) {
+    private boolean h1UccSearch (List<String> h1) {
         int len = h1.size();
-        if (!h1.get(len-5).equals("Urgent Care Centers"))
+        if (!h1.get(len-4).equals("Urgent Care Centers"))
             return false;
-        else if (!h1.get(len-4).equals("named"))
+        else if (!h1.get(len-3).equals("matching"))
             return false;
-        else if (!h1.get(len-3).contains(uccName))
+        else if (!h1.get(len-2).equalsIgnoreCase(uccName))
             return false;
-        else if (!h1.get(len-2).equals("near"))
-            return false;
-        else return h1.get(len - 1).equals(locationTerm);
+        else return h1.get(len - 1).equals("were found");
     }
 
     private boolean h1UccBrowse (List<String> h1, String locationTerm) {
         int len = h1.size();
-        if (!h1.get(len-4).equals("Urgent Care Centers"))
+        if (!h1.get(len-5).equals("Urgent Care Centers"))
+            return false;
+        else if (!h1.get(len-3).equals("were found"))
             return false;
         else if (!h1.get(len-2).equals("near"))
             return false;
-        else return h1.get(len - 1).equals(locationTerm);
+        else return h1.get(len - 1).contains(locationTerm.split(",")[0]);
     }
 
     private boolean breadcrumbSearch(SearchResultsPage results) {

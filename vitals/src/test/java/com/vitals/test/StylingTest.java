@@ -29,8 +29,8 @@ public class StylingTest {
         BasePage page = new BasePage();
         m_assert = new SoftAssert();
 
-        page.get(url + "/internists");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "SERP");
+//        page.get(url + "/internists");
+//        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "SERP");
 
         page.get(url + profile + "profile");
         m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Summary");
@@ -109,9 +109,9 @@ public class StylingTest {
             m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(i), "z-index").equals("5000000"), "Dropdown " + i);
         }
 
-        m_assert.assertTrue(page.getStyle(page.adTop(), "z-index").equals("5001"), "leaderboard_top");
-        m_assert.assertTrue(page.getStyle(page.adRectangles().get(0), "z-index").equals("5001"), "rectangle");
-        m_assert.assertTrue(page.getStyle(page.adRectangles().get(1), "z-index").equals("5001"), "rectangle_bottom");
+        m_assert.assertTrue(page.getStyle(page.ads().get(0), "z-index").equals("5001"), "leaderboard_top");
+        m_assert.assertTrue(page.getStyle(page.ads().get(1), "z-index").equals("5001"), "rectangle");
+        m_assert.assertTrue(page.getStyle(page.ads().get(2), "z-index").equals("5001"), "rectangle_bottom");
 
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
@@ -129,9 +129,9 @@ public class StylingTest {
         m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(0), "z-index").equals("5000000"), "Dropdown Sort");
         m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(1), "z-index").equals("5000000"), "Dropdown Distance");
 
-        m_assert.assertTrue(page.getStyle(page.adTop(), "z-index").equals("5001"), "leaderboard_top");
-        m_assert.assertTrue(page.getStyle(page.adRectangles().get(0), "z-index").equals("5001"), "rectangle");
-        m_assert.assertTrue(page.getStyle(page.adRectangles().get(1), "z-index").equals("5001"), "rectangle_bottom");
+        m_assert.assertTrue(page.getStyle(page.ads().get(0), "z-index").equals("5001"), "leaderboard_top");
+        m_assert.assertTrue(page.getStyle(page.ads().get(1), "z-index").equals("5001"), "rectangle");
+        m_assert.assertTrue(page.getStyle(page.ads().get(2), "z-index").equals("5001"), "rectangle_bottom");
 
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 

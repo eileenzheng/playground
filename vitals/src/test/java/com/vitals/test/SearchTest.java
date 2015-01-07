@@ -45,9 +45,9 @@ public class SearchTest {
         int locationCount=0;
         int specialtyCount=0;
         for (FluentWebElement result: serp.searchResults()) {
-            if (result.getWebElement().findElement(By.cssSelector("address")).getText().contains("Austin, TX"))
+            if (result.getWebElement().findElement(By.cssSelector(".serplist-listing .serplist-listing-address")).getText().contains("Austin, TX"))
                 locationCount++;
-            if (result.getWebElement().findElement(By.cssSelector(".location-distance")).getText().contains("General Practice"))
+            if (result.getWebElement().findElement(By.cssSelector(".serplist-listing .serplist-listing-type")).getText().contains("General Practice"))
                 specialtyCount++;
         }
 
@@ -124,11 +124,14 @@ public class SearchTest {
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + "/endocrinologists/ak/kenai");
 
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("We found 0"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("No"), "Search sentence is wrong");
         m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("endocrinologists"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(2).getText().toString().equals("near"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("Kenai, AK"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Closest endocrinologists"), "Closest sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(2).getText().toString().equals("were found"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("within"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(4).getText().toString().equals("15 miles"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(5).getText().toString().equals("of"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(6).getText().toString().equals("Kenai, Alaska."), "Search sentence is wrong");
+        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Showing the 25 nearest endocrinologists"), "Closest sentence is wrong");
         m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
 
         m_assert.assertAll();
@@ -147,8 +150,11 @@ public class SearchTest {
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
 
+        results.refinement().toggleFilter().click();
+
         results.refinement().distanceDropDown().click();
         results.refinement().distance5().click();
+        results.refinement().applyToResults().click();
         results.waitForJQuery();
 
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0,
@@ -156,9 +162,9 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
 
-        results.refinement().toggleFilter().click();
         results.refinement().genderDropDown().click();
         results.refinement().genderMale().click();
+        results.refinement().applyToResults().click();
         results.waitForJQuery();
 
         m_assert.assertTrue(results.getResultsCountNumber()< count && results.getResultsCountNumber()>0,
@@ -167,6 +173,7 @@ public class SearchTest {
         Reporter.log(count + " results after male gender filter");
 
         results.refinement().boardCertified().click();
+        results.refinement().applyToResults().click();
         results.waitForJQuery();
 
         m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0,
@@ -175,14 +182,13 @@ public class SearchTest {
         Reporter.log(count + " results after board certified filter");
 
         results.refinement().usEducated().click();
+        results.refinement().applyToResults().click();
         results.waitForJQuery();
 
         m_assert.assertTrue(results.getResultsCountNumber()<= count && results.getResultsCountNumber()>0,
         		"U.S. educated filter not returning proper number of results!");
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after U.S. educated filter");
-
-        results.refinement().resetFilters().click();
 
         m_assert.assertAll();
     }

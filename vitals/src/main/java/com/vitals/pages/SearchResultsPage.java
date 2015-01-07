@@ -34,11 +34,11 @@ public class SearchResultsPage extends BasePage {
     }
 
     public FluentWebElement resultsTotal() {
-        return span(cssSelector("h1>span:first-child"));
+        return span(cssSelector("#search-sentence-top #result-count"));
     }
 
     public FluentWebElements searchResults() {
-        return divs(cssSelector("#results-content .v-pwl.listing"));
+        return divs(cssSelector(".serplist-listing"));
     }
 
     public FluentWebElements breadcrumb() {
@@ -50,14 +50,14 @@ public class SearchResultsPage extends BasePage {
     }
 
     public FluentWebElements searchSentence() {
-        return spans(cssSelector("#search-sentence-top h1>span:not(#result-count)"));
+        return spans(cssSelector("#search-sentence-top .searchsentence>span:not(#result-count)"));
     }
 
     public FluentWebElements searchSentenceNoResult() {
-        return spans(cssSelector("#search-sentence-results h1>span"));
+        return spans(cssSelector("#serp-results .searchsentence>span"));
     }
 
-    public FluentWebElement closestSentence() { return h2(cssSelector(".related-search")); }
+    public FluentWebElement closestSentence() { return div(cssSelector("#related-search")); }
 
     public WebElement description() {
         return webDriver().findElement(cssSelector("meta[name=description]"));
@@ -67,12 +67,8 @@ public class SearchResultsPage extends BasePage {
         return div(cssSelector("#map"));
     }
 
-    public FluentWebElement adTop() {
-        return div(cssSelector("div.advert-wrapper"));
-    }
-
-    public FluentWebElements adRectangles() {
-        return divs(cssSelector("div.skyscraper"));
+    public FluentWebElements ads() {
+        return divs(cssSelector(".serplist-ad-wrap"));
     }
 
     public int getResultsCountNumber() {
@@ -92,8 +88,8 @@ public class SearchResultsPage extends BasePage {
         List<Profile> doc = new ArrayList<Profile>();
 
         for (FluentWebElement el : searchResults) {
-            String name = el.link(cssSelector(".profile-name>a")).getText().toString().trim();
-            String url = el.link(cssSelector(".profile-name>a")).getAttribute("href").toString();
+            String name = el.link(cssSelector(".serplist-listing-title>a")).getText().toString().trim();
+            String url = el.link(cssSelector(".serplist-listing-title>a")).getAttribute("href").toString();
             doc.add(new Profile(name,url));
         }
 

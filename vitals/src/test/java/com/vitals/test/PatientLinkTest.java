@@ -7,6 +7,7 @@ import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.patientlink.*;
 import com.vitals.pages.ucc.UccSearchResultsPage;
 import com.vitalsqa.testrail.TestCase;
+import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -109,6 +110,7 @@ public class PatientLinkTest {
         serp.get(url + serpUrl);
         Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on provider SERP");
 
+        clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
     }
 
@@ -120,6 +122,7 @@ public class PatientLinkTest {
         serp.get(url + dentistSerpUrl);
         Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on dentist SERP");
 
+        clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
     }
 
@@ -131,6 +134,7 @@ public class PatientLinkTest {
         ucc.get(url + uccUrl);
         Assert.assertTrue(ucc.centerAd().getSize()>0, "No CMT ads on UCC SERP");
 
+        clickCall(ucc.centerAd());
         testIndividualAd(ucc.centerAd());
     }
 
@@ -210,6 +214,14 @@ public class PatientLinkTest {
         }
 
         m_assert.assertAll();
+    }
+
+    private void clickCall(PatientLinkCenterAd ad) {
+        if (ad.callButtons().size()>0) {
+            for (FluentWebElement button: ad.callButtons()) {
+                button.click();
+            }
+        }
     }
 
     @TestCase(id=1757)

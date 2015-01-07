@@ -11,43 +11,43 @@ import static org.openqa.selenium.By.cssSelector;
 public class PatientLinkCenterAd extends PatientLinkAd {
 
 	public FluentWebElements name() {
-        return links(cssSelector(".listing-featured .profile-name>a"));
+        return links(cssSelector(".serplist-listing-featured .serplist-listing-title>a"));
     }
 
     public FluentWebElements specialty() {
-        return divs(cssSelector(".listing-featured .location-distance"));
+        return divs(cssSelector(".serplist-listing-featured .serplist-listing-type"));
     }
 
     public FluentWebElements address1() {
-        return spans(cssSelector(".listing-featured span[itemprop=streetAddress]>span:first-child"));
+        return spans(cssSelector(".serplist-listing-featured .serplist-listing-address>span>span:first-child"));
     }
 
     public FluentWebElements address2() {
-        return spans(cssSelector(".listing-featured span[itemprop=streetAddress]>span:last-child"));
+        return spans(cssSelector(".serplist-listing-featured .serplist-listing-address>span>span:last-child"));
     }
 
     public FluentWebElements city() {
-        return spans(cssSelector(".listing-featured span[itemprop=addressLocality]"));
+        return spans(cssSelector(".serplist-listing-featured .serplist-listing-address>span:nth-last-child(3)"));
     }
 
     public FluentWebElements state() {
-        return spans(cssSelector(".listing-featured span[itemprop=addressRegion]"));
+        return spans(cssSelector(".serplist-listing-featured .serplist-listing-address>span:nth-last-child(2)"));
     }
 
     public FluentWebElements zip() {
-        return spans(cssSelector(".listing-featured span[itemprop=postalCode]"));
+        return spans(cssSelector(".serplist-listing-featured .serplist-listing-address>span:last-child"));
     }
 
     public FluentWebElements block() {
-        return divs(cssSelector(".listing-featured"));
+        return divs(cssSelector(".serplist-listing-featured"));
     }
 
     public FluentWebElements bookButton() {
         setImplicitWait(0);
         List<FluentWebElement> list = new ArrayList<FluentWebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().link(cssSelector(".book-button>a")))
-                list.add(el.link(cssSelector(".book-button>a")));
+            if (el.has().link(cssSelector(".serplist-listing-featured-button a.modal-call")))
+                list.add(el.link(cssSelector(".serplist-listing-featured-button a.modal-call")));
             else
                 list.add(null);
         }
@@ -55,12 +55,16 @@ public class PatientLinkCenterAd extends PatientLinkAd {
         return makeFluentWebElements(list,null,null);
     }
 
+    public FluentWebElements callButtons() {
+        return links(cssSelector(".serplist-listing-featured-button .call-appt"));
+    }
+
     public List<WebElement> phoneNumber() {
         setImplicitWait(0);
         List<WebElement> list = new ArrayList<WebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().span(cssSelector(".appointment-info"))) {
-                list.add(el.span(cssSelector(".appointment-info")).getWebElement().findElement(cssSelector("strong")));
+            if (el.has().link(cssSelector(".call-appt-clicked"))) {
+                list.add(el.link(cssSelector(".call-appt-clicked")).getWebElement());
             }
             else
                 list.add(null);
@@ -73,8 +77,8 @@ public class PatientLinkCenterAd extends PatientLinkAd {
         setImplicitWait(0);
         List<FluentWebElement> list = new ArrayList<FluentWebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().img(cssSelector(".sponsorship img")))
-                list.add(el.img(cssSelector(".sponsorship img")));
+            if (el.has().img(cssSelector(".serplist-listing-sponsorship img")))
+                list.add(el.img(cssSelector(".serplist-listing-sponsorship img")));
             else
                 list.add(null);
         }
