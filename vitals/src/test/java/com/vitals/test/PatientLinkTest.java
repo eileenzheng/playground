@@ -56,6 +56,10 @@ public class PatientLinkTest {
         	m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(646) 499-2330") , "Phone number is incorrect!");
         }
         m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
+
+        m_assert.assertTrue(profile.getPageSource().contains("c|5||"), "Click tracking missing");
+        m_assert.assertTrue(profile.getPageSource().contains("d|5||"), "Display tracking missing");
+
         m_assert.assertAll();
     }
 
@@ -75,6 +79,10 @@ public class PatientLinkTest {
             m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 307-3243") , "Phone number is incorrect!");
         }
         m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
+
+        m_assert.assertTrue(profile.getPageSource().contains("c|5||"), "Click tracking missing");
+        m_assert.assertTrue(profile.getPageSource().contains("d|5||"), "Display tracking missing");
+
         m_assert.assertAll();
     }
 
@@ -108,7 +116,12 @@ public class PatientLinkTest {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + serpUrl);
-        Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on provider SERP");
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on provider SERP");
+        m_assert.assertTrue(serp.getPageSource().contains("c|3||"), "Click tracking missing");
+        m_assert.assertTrue(serp.getPageSource().contains("d|3||"), "Display tracking missing");
+        m_assert.assertAll();
 
         clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
@@ -120,7 +133,12 @@ public class PatientLinkTest {
 
         SearchResultsPage serp = new SearchResultsPage();
         serp.get(url + dentistSerpUrl);
-        Assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on dentist SERP");
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(serp.centerAd().getSize()>0, "No CMT ads on dentist SERP");
+        m_assert.assertTrue(serp.getPageSource().contains("c|3||"), "Click tracking missing");
+        m_assert.assertTrue(serp.getPageSource().contains("d|3||"), "Display tracking missing");
+        m_assert.assertAll();
 
         clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
@@ -132,7 +150,12 @@ public class PatientLinkTest {
 
         UccSearchResultsPage ucc = new UccSearchResultsPage();
         ucc.get(url + uccUrl);
-        Assert.assertTrue(ucc.centerAd().getSize()>0, "No CMT ads on UCC SERP");
+
+        m_assert = new SoftAssert();
+        m_assert.assertTrue(ucc.centerAd().getSize()>0, "No CMT ads on UCC SERP");
+        m_assert.assertTrue(ucc.getPageSource().contains("c|3||"), "Click tracking missing");
+        m_assert.assertTrue(ucc.getPageSource().contains("d|3||"), "Display tracking missing");
+        m_assert.assertAll();
 
         clickCall(ucc.centerAd());
         testIndividualAd(ucc.centerAd());
