@@ -44,7 +44,7 @@
             <activation>
                 <property>
                     <name>env</name>
-                    <value>stg</value>
+                    <value>stg_full</value>
                 </property>
             </activation>
             <properties>
@@ -57,7 +57,7 @@
             <activation>
                 <property>
                     <name>env</name>
-                    <value>prod</value>
+                    <value>prod_full</value>
                 </property>
             </activation>
             <properties>
