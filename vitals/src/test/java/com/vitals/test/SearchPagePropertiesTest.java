@@ -1,6 +1,7 @@
 package com.vitals.test;
 
 import com.vitalsqa.testrail.TestCase;
+import org.seleniumhq.selenium.fluent.FluentWebElements;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -22,6 +23,7 @@ public class SearchPagePropertiesTest {
     String specialty = "Dermatologist";
     String dentistSpecialty = "Dentist";
     String uccName="citymd";
+    private FluentWebElements breadcrumb;
     
     @Parameters({"url"})
     @BeforeMethod
@@ -53,13 +55,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance + " - " + plan);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -85,13 +93,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -113,12 +127,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1NameSearch(results.getH1Text(), "doctor");
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -140,12 +160,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1NameSearch(results.getH1Text(), "dentist");
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -173,13 +199,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1ConditionSearch(results.getH1Text(), results.headerModule().locationTextBox().getAttribute("value").toString());
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance + " - " + plan);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -205,13 +237,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1ConditionSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -234,12 +272,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1ConditionSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -267,13 +311,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(), results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance + " - " + plan);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -299,13 +349,19 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -328,12 +384,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -355,12 +417,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), dentistSpecialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Doctor or Dentist - Vitals.com"),
         		"Title is incorrect");
@@ -377,12 +445,18 @@ public class SearchPagePropertiesTest {
         results.get(url + "/condition/diabetes");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbCondition(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1ConditionSearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Diabetes Experts - Read Patient Reviews & Get Informed - Vitals.com"),
         		"Title is incorrect");
@@ -399,12 +473,18 @@ public class SearchPagePropertiesTest {
         results.get(url + "/dermatologists");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSpecialty(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find a Dermatologist near you, Read Patient Reviews, & Get Informed - Vitals.com"),
         		"Title is incorrect");
@@ -421,12 +501,18 @@ public class SearchPagePropertiesTest {
         results.get(url + "/dermatologists/united-healthcare");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSpecialtyInsurance(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find United Healthcare Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
         		"Title is incorrect");
@@ -443,13 +529,19 @@ public class SearchPagePropertiesTest {
         results.get(url + "/dermatologists/united-healthcare/definity-choice-plus");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSpecialtyInsurancePlan(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         boolean ins = (results.getH1Text().get(0)).equalsIgnoreCase(insurance + " - " + plan);
         m_assert.assertTrue(h1 && ins, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1 || !ins) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find Definity Choice Plus Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
         		"Title is incorrect");
@@ -466,12 +558,18 @@ public class SearchPagePropertiesTest {
         results.get(url + "/dermatologists/ny/new-york");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSpecialtyCity(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Dermatologists in New York, NY - Read Patient Reviews - Vitals"),
         		"Title is incorrect");
@@ -488,12 +586,18 @@ public class SearchPagePropertiesTest {
         results.get(url + "/dermatologists/ny/new-york/united-healthcare");
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSpecialtyCityInsurance(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1SpecialtySearch(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString(), specialty);
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("United Healthcare Dermatologists in New York, NY - Read Patient Reviews & Get Informed - Vitals.com"),
         		"Title is incorrect");
@@ -515,12 +619,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbSearch(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1UccSearch(results.getH1Text());
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find an Urgent Care Center near you, Read Patient Reviews, & Get Informed - Vitals.com"),
                 "Title is incorrect");
@@ -540,12 +650,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbUccMainBrowse(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1UccBrowse(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("Find an Urgent Care Center near you, Read Patient Reviews, & Get Informed - Vitals.com"),
                 "Title is incorrect");
@@ -565,12 +681,18 @@ public class SearchPagePropertiesTest {
         SearchResultsPage results = new SearchResultsPage();
 
         m_assert = new SoftAssert();
+
         boolean breadcrumb = breadcrumbUccCityBrowse(results);
         m_assert.assertTrue(breadcrumb, "Breadcrumb text or link is incorrect");
-        Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        if (!breadcrumb) {
+            Reporter.log(results.getBreadcrumbText().toString() + results.breadcrumbCurrent().getText().toString() + results.getBreadcrumbUrl().toString());
+        }
+
         boolean h1 = h1UccBrowse(results.getH1Text(),results.headerModule().locationTextBox().getAttribute("value").toString());
         m_assert.assertTrue(h1, "H1 is incorrect");
-        Reporter.log(results.getH1Text().toString());
+        if (!h1) {
+            Reporter.log(results.getH1Text().toString());
+        }
 
         m_assert.assertTrue(results.getTitle().equals("New York, NY Urgent Care Centers - Read Patient Reviews & Get Informed - Vitals.com"),
                 "Title is incorrect");
@@ -642,136 +764,145 @@ public class SearchPagePropertiesTest {
     }
 
     private boolean breadcrumbSearch(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals("Search"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     	   return false;
-    	else return results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase());
+    	else return breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase());
     }
 
     private boolean breadcrumbCondition(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals("Diabetes experts"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(1).equals("Find a doctor by condition"))
+    	else if (!breadcrumb.get(1).getText().toString().equals("Find a doctor by condition"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+    	else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
     		return false;
-    	else return !(!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-                    !results.getBreadcrumbUrl().get(1).contains("/conditions"));
+    	else return !(!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                    !breadcrumb.get(1).getAttribute("href").toString().contains("/conditions"));
     }
 
     private boolean breadcrumbSpecialty(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else return results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase());
+    	else return breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase());
     }
 
     private boolean breadcrumbSpecialtyInsurance(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals(insurance))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(1).equals("Find a Dermatologist"))
+    	else if (!breadcrumb.get(1).getText().toString().equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+    	else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
     		return false;
-    	else return !(!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-                    !results.getBreadcrumbUrl().get(1).contains("/dermatologists"));
+    	else return !(!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                    !breadcrumb.get(1).getAttribute("href").toString().contains("/dermatologists"));
     }
 
     private boolean breadcrumbSpecialtyInsurancePlan(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals(plan))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(1).equals("Find a Dermatologist"))
+    	else if (!breadcrumb.get(1).getText().toString().equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(2).equals(insurance))
+    	else if (!breadcrumb.get(2).getText().toString().equals(insurance))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+    	else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-    			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
+    	else if (!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+    			!breadcrumb.get(1).getAttribute("href").toString().contains("/dermatologists"))
     			return false;
-    	else return !(!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
-                    !results.getBreadcrumbUrl().get(2).contains("/dermatologists/united-healthcare"));
+    	else return !(!breadcrumb.get(2).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                    !breadcrumb.get(2).getAttribute("href").toString().contains("/dermatologists/united-healthcare"));
     }
 
     private boolean breadcrumbSpecialtyCity(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
     	if (!results.breadcrumbCurrent().getText().toString().equals("New York Dermatologists"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(1).equals("Find a Dermatologist"))
+    	else if (!breadcrumb.get(1).getText().toString().equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(2).equals("NY"))
+    	else if (!breadcrumb.get(2).getText().toString().equals("NY"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+    	else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-    			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
+    	else if (!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+    			!breadcrumb.get(1).getAttribute("href").toString().contains("/dermatologists"))
     			return false;
-    	else return !(!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
-                    !results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"));
+    	else return !(!breadcrumb.get(2).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                    !breadcrumb.get(2).getAttribute("href").toString().contains("/locations/dermatologists/ny"));
     }
 
     private boolean breadcrumbSpecialtyCityInsurance(SearchResultsPage results) {
-    	if (!results.breadcrumbCurrent().getText().toString().equals(insurance))
+        breadcrumb = results.breadcrumb();
+        if (!results.breadcrumbCurrent().getText().toString().equals(insurance))
     		return false;
-    	else if (!results.getBreadcrumbText().get(0).equals("Home"))
+    	else if (!breadcrumb.get(0).getText().toString().equals("Home"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(1).equals("Find a Dermatologist"))
+    	else if (!breadcrumb.get(1).getText().toString().equals("Find a Dermatologist"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(2).equals("NY"))
+    	else if (!breadcrumb.get(2).getText().toString().equals("NY"))
     		return false;
-    	else if (!results.getBreadcrumbText().get(3).equals("New York Dermatologists"))
+    	else if (!breadcrumb.get(3).getText().toString().equals("New York Dermatologists"))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+    	else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
     		return false;
-    	else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-    			!results.getBreadcrumbUrl().get(1).contains("/dermatologists"))
+    	else if (!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+    			!breadcrumb.get(1).getAttribute("href").toString().contains("/dermatologists"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
-    			!results.getBreadcrumbUrl().get(2).contains("/locations/dermatologists/ny"))
+    	else if (!breadcrumb.get(2).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+    			!breadcrumb.get(2).getAttribute("href").toString().contains("/locations/dermatologists/ny"))
     			return false;
-    	else if (!results.getBreadcrumbUrl().get(3).contains(url_plain.toLowerCase()) ||
-    			!results.getBreadcrumbUrl().get(3).contains("/dermatologists/ny/new-york"))
+    	else if (!breadcrumb.get(3).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+    			!breadcrumb.get(3).getAttribute("href").toString().contains("/dermatologists/ny/new-york"))
     			return false;
     	else
     		return true;
     }
 
     private boolean breadcrumbUccCityBrowse(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
         if (!results.breadcrumbCurrent().getText().toString().equals("New York urgent care centers"))
             return false;
-        else if (!results.getBreadcrumbText().get(0).equals("Home"))
+        else if (!breadcrumb.get(0).getText().toString().equals("Home"))
             return false;
-        else if (!results.getBreadcrumbText().get(1).equals("Find an urgent care center"))
+        else if (!breadcrumb.get(1).getText().toString().equals("Find an urgent care center"))
             return false;
-        else if (!results.getBreadcrumbText().get(2).equals("NY"))
+        else if (!breadcrumb.get(2).getText().toString().equals("NY"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+        else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
             return false;
-        else if (!results.getBreadcrumbUrl().get(1).contains(url_plain.toLowerCase()) ||
-                !results.getBreadcrumbUrl().get(1).contains("/urgent-care"))
+        else if (!breadcrumb.get(1).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                !breadcrumb.get(1).getAttribute("href").toString().contains("/urgent-care"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(2).contains(url_plain.toLowerCase()) ||
-                !results.getBreadcrumbUrl().get(2).contains("/locations/urgent-care/ny"))
+        else if (!breadcrumb.get(2).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
+                !breadcrumb.get(2).getAttribute("href").toString().contains("/locations/urgent-care/ny"))
             return false;
         else
             return true;
     }
 
     private boolean breadcrumbUccMainBrowse(SearchResultsPage results) {
+        breadcrumb = results.breadcrumb();
         if (!results.breadcrumbCurrent().getText().toString().equals("Find an urgent care center"))
             return false;
-        else if (!results.getBreadcrumbText().get(0).equals("Home"))
+        else if (!breadcrumb.get(0).getText().toString().equals("Home"))
             return false;
-        else if (!results.getBreadcrumbUrl().get(0).contains(url_plain.toLowerCase()))
+        else if (!breadcrumb.get(0).getAttribute("href").toString().contains(url_plain.toLowerCase()))
             return false;
         else
             return true;

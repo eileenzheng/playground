@@ -39,6 +39,31 @@
                 <suite.filename>ProductionRegressionSuite.xml</suite.filename>
             </properties>
         </profile>
+        <profile>
+            <id>vitals_staging_full</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>stg</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>StagingRegressionSuiteFull.xml</suite.filename>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>vitals_production_full</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>ProductionRegressionSuiteFull.xml</suite.filename>
+            </properties>
+        </profile>
 
         <profile>
             <id>white_label_widget</id>
