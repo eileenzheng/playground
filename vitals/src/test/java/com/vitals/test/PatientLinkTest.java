@@ -27,7 +27,7 @@ public class PatientLinkTest {
     private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
     private static final String dentistProfileHeaderUrl = "/dentists/Dr_Mark_Falco/profile";
-    private static final String uccUrl = "/urgent-care/ny/yonkers";
+    private static final String uccUrl = "/urgent-care/ct/hartford";
     
     @Parameters({"url"})
     @BeforeMethod
@@ -124,7 +124,6 @@ public class PatientLinkTest {
         m_assert.assertTrue(serp.getPageSource().contains("d|3||"), "Display tracking missing");
         m_assert.assertAll();
 
-        clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
     }
 
@@ -141,7 +140,6 @@ public class PatientLinkTest {
         m_assert.assertTrue(serp.getPageSource().contains("d|3||"), "Display tracking missing");
         m_assert.assertAll();
 
-        clickCall(serp.centerAd());
         testIndividualAd(serp.centerAd());
     }
 
@@ -158,7 +156,6 @@ public class PatientLinkTest {
         m_assert.assertTrue(ucc.getPageSource().contains("d|3||"), "Display tracking missing");
         m_assert.assertAll();
 
-        clickCall(ucc.centerAd());
         testIndividualAd(ucc.centerAd());
     }
 
@@ -241,14 +238,6 @@ public class PatientLinkTest {
         }
 
         m_assert.assertAll();
-    }
-
-    private void clickCall(PatientLinkCenterAd ad) {
-        if (ad.callButtons().size()>0) {
-            for (FluentWebElement button: ad.callButtons()) {
-                button.click();
-            }
-        }
     }
 
     @TestCase(id=1757)

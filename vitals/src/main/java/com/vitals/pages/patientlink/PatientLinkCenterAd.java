@@ -55,17 +55,12 @@ public class PatientLinkCenterAd extends PatientLinkAd {
         return makeFluentWebElements(list,null,null);
     }
 
-    public FluentWebElements callButtons() {
-        return links(cssSelector(".serplist-listing-featured-button .call-appt"));
-    }
-
     public List<WebElement> phoneNumber() {
         setImplicitWait(0);
         List<WebElement> list = new ArrayList<WebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().link(cssSelector(".call-appt-clicked"))) {
-                list.add(el.link(cssSelector(".call-appt-clicked")).getWebElement());
-            }
+            if (el.has().link(cssSelector(".call-appt")))
+                list.add(el.link(cssSelector(".call-appt")).getWebElement());
             else
                 list.add(null);
         }
