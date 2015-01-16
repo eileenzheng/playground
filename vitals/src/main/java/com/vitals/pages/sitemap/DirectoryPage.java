@@ -30,4 +30,8 @@ public class DirectoryPage extends BasePage {
     public FluentWebElement lastJumpPageLink() {
         return link(cssSelector(".dropdown-menu li:last-child>a"));
     }
+
+    public FluentWebElement jumpLink() {
+        return button(cssSelector(".btn-default.dropdown-toggle"));
+    }
 }
