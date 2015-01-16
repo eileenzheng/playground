@@ -4,6 +4,7 @@ import com.vitals.pages.HomePage;
 import com.vitals.pages.sitemap.*;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -101,6 +102,7 @@ public class SitemapTest {
         }
         // not last page
         else {
+            Reporter.log("current page: " + directoryPage.currentPage().getText().toString() + " <br>last page: " + directoryPage.lastJumpPageLink().getText().toString());
             m_assert.assertTrue(directoryPage.doctors().size() == 100, "# of doctors displayed does not equal 100");
         }
 
