@@ -78,7 +78,7 @@ public class SitemapTest {
         SpecialtiesPage specialtiesPage = new SpecialtiesPage();
         specialtiesPage.get(url + "/specialties");
 
-        Assert.assertTrue(specialtiesPage.specialties().size()>=55 && specialtiesPage.specialties().size()<=57, "# of specialties not between 55 & 57");
+        Assert.assertTrue(specialtiesPage.specialties().size()>=57 && specialtiesPage.specialties().size()<=58, "# of specialties not between 57 & 58");
     }
 
     @TestCase(id=2452)
