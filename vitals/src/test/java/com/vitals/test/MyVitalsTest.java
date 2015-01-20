@@ -143,13 +143,15 @@ public class MyVitalsTest {
 
     @TestCase(id=1566)
     @Test (dependsOnMethods = {"claimProfileSuccess"})
-    public void removeProfileLink() {
+    public void removeProfileLink() throws InterruptedException {
     	// only perform this test on staging or qa
     	if (url.contains("staging") || url.contains("mdxdev")) {
             HomePage homePage = new HomePage();
             homePage.deleteCookies();
             homePage.get(url);
+            Thread.sleep(500);
             homePage.get("https://admin:mdx4dm1n@my.staging.vitals.com");
+            Thread.sleep(500);
             homePage.get(myVitalsUrl);
 
             // sign in to myvitals first
