@@ -37,7 +37,7 @@ public class AnalyticsTest {
     @Test
     public void homePage() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {pardot, adroll, tynt};
         page.get(url);
         Assert.assertTrue(checkAnalytics(page, exceptions));
     }
