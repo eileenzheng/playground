@@ -108,11 +108,7 @@
     </test>
     <test name="Site Map Tests">
         <classes>
-            <class name="com.vitals.test.SitemapTest">
-                <methods>
-                    <exclude name="specialtiesSiteMap" />
-                </methods>
-            </class>
+            <class name="com.vitals.test.SitemapTest" />
         </classes>
     </test>
     <test name="Analytics Tests">

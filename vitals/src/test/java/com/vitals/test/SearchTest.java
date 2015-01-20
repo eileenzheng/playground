@@ -65,7 +65,7 @@ public class SearchTest {
         HomePage home = new HomePage();
         home.get(url);
 
-        String name = "Todd";
+        String name = "Marina";
 
         home.headerModule().enterSearchTerm(name);
         home.headerModule().goButton().click();
