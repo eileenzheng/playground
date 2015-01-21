@@ -21,7 +21,7 @@ public class PatientLinkTest {
     private boolean alreadyInit = false;
     private String url;
     
-    private static final String serpUrl = "/internists/ny/new-york";
+    private static final String serpUrl = "/dermatologists/ny/new-york";
     private static final String dentistSerpUrl = "/dentists/fl/orlando";
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
