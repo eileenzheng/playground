@@ -137,10 +137,25 @@
         </classes>
     </test>
     <test name="Styling (CSS) Tests">
+    <classes>
+        <class name="com.vitals.test.StylingTest">
+            <methods>
+                <include name="zindexSerp" />
+            </methods>
+        </class>
+    </classes>
+    </test>
+    <test name="White Label Widget Tests" parallel="classes">
         <classes>
-            <class name="com.vitals.test.StylingTest">
+            <class name="com.vitals.test.WlwTest">
                 <methods>
-                    <include name="zindexSerp" />
+                    <include name="checkSerpDistance" />
+                    <include name="checkSerpLatLong" />
+                </methods>
+            </class>
+            <class name="com.vitals.test.WlwQsymiaTest">
+                <methods>
+                    <include name="checkSerp" />
                 </methods>
             </class>
         </classes>

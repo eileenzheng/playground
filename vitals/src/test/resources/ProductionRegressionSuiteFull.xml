@@ -75,4 +75,10 @@
             <class name="com.vitals.test.StylingTest" />
         </classes>
     </test>
+    <test name="White Label Widget Tests" parallel="classes">
+        <classes>
+            <class name="com.vitals.test.WlwTest" />
+            <class name="com.vitals.test.WlwQsymiaTest" />
+        </classes>
+    </test>
 </suite>

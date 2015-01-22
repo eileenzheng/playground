@@ -7,18 +7,14 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class SearchPage extends BasePage {
 
-    HeaderBar headerBar;
+    HeaderFooter headerFooter;
 
     public SearchPage () {
-        headerBar = new HeaderBar();
+        headerFooter = new HeaderFooter();
     }
 
-    public HeaderBar headerPage(){
-        return headerBar;
-    }
-
-    public FluentWebElement heading() {
-        return div(cssSelector(".contentHeader"));
+    public HeaderFooter commonModule(){
+        return headerFooter;
     }
 
     public FluentWebElement specialtyDropDown() {
@@ -65,8 +61,16 @@ public class SearchPage extends BasePage {
         return spans(cssSelector("span[itemprop=addressRegion]"));
     }
 
-    public FluentWebElement result() {
-        return span(cssSelector("#result-count"));
+    public FluentWebElement resultSentence() {
+        return span(cssSelector("#results-count"));
+    }
+
+    public FluentWebElement resultHeader() {
+        return div(cssSelector(".results-header:first-of-type>div"));
+    }
+
+    public FluentWebElement resultHeaderQsymia() {
+        return div(cssSelector("#qsymia-search>div:first-child"));
     }
 
     public FluentWebElement sortDropDown() {
@@ -74,7 +78,7 @@ public class SearchPage extends BasePage {
     }
 
     public int getResultCount() {
-        String count = result().getText().toString().split(" ")[3];
+        String count = resultSentence().getText().toString().split(" ")[3];
         String[] split = count.split(",");
         if (split.length==1)
             return Integer.parseInt(split[0]);

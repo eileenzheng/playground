@@ -64,19 +64,6 @@
                 <suite.filename>ProductionRegressionSuiteFull.xml</suite.filename>
             </properties>
         </profile>
-
-        <profile>
-            <id>white_label_widget</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>wlw</value>
-                </property>
-            </activation>
-            <properties>
-                <suite.filename>WLWRegressionSuite.xml</suite.filename>
-            </properties>
-        </profile>
     </profiles>
 
     <properties>
