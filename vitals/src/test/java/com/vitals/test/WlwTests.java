@@ -10,7 +10,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class WlwTest {
+public class WlwTests {
 
     private String url;
     private SoftAssert m_assert;
