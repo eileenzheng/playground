@@ -147,7 +147,7 @@
     </test>
     <test name="White Label Widget Tests" parallel="classes">
         <classes>
-            <class name="com.vitals.test.WlwTests">
+            <class name="com.vitals.test.WlwTest">
                 <methods>
                     <include name="checkSerpDistance" />
                     <include name="checkSerpLatLong" />
