@@ -43,7 +43,7 @@ public class UccProfileSummaryPage extends BasePage {
     }
 
     public FluentWebElement mapAddress() {
-        return link(cssSelector(".middle-column .col-xs-12>a"));
+        return link(cssSelector(".middle-column .ucc-box:last-of-type .col-xs-12>a"));
     }
 
     public FluentWebElements divAdvertBox() {

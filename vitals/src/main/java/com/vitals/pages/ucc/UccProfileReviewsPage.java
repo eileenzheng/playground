@@ -28,7 +28,7 @@ public class UccProfileReviewsPage extends BasePage {
     }
 
     public FluentWebElement totalRating() {
-        return span(cssSelector(".overall span.col-md-12"));
+        return span(cssSelector(".overall>div:first-child>span:last-child"));
     }
 
     public FluentWebElements ratingBreakdown() {
