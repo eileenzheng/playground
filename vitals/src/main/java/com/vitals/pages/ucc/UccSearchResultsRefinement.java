@@ -10,39 +10,39 @@ import static org.openqa.selenium.By.id;
 public class UccSearchResultsRefinement extends BasePage {
 
     public FluentWebElement toggleServices() {
-        return div(cssSelector("#serplist-filter-toggle-arrow"));
+        return div(cssSelector("#serp-sidebar-filter #serplist-filter-toggle-arrow"));
     }
 
     public FluentWebElement filterPhysicals() {
-        return input(cssSelector("#search-physicals"));
+        return input(cssSelector("#serp-sidebar-filter #search-physicals"));
     }
 
     public FluentWebElement filterLab() {
-        return input(cssSelector("#search-lab"));
+        return input(cssSelector("#serp-sidebar-filter #search-lab"));
     }
 
     public FluentWebElement filterDiagnostic() {
-        return input(cssSelector("#search-diagnostic"));
+        return input(cssSelector("#serp-sidebar-filter #search-diagnostic"));
     }
 
     public FluentWebElement filterInjuries() {
-        return input(cssSelector("#search-injuries"));
+        return input(cssSelector("#serp-sidebar-filter #search-injuries"));
     }
 
     public FluentWebElement filterAilments() {
-        return input(cssSelector("#search-ailments"));
+        return input(cssSelector("#serp-sidebar-filter #search-ailments"));
     }
 
     public FluentWebElement filterPreventive() {
-        return input(cssSelector("#search-preventive"));
+        return input(cssSelector("#serp-sidebar-filter #search-preventive"));
     }
 
     public FluentWebElements dropdowns() {
-        return uls(cssSelector("ul.dropdown-menu.selectpicker"));
+        return uls(cssSelector("#serp-sidebar-filter ul.dropdown-menu.selectpicker"));
     }
 
     public FluentWebElement applyToResults() {
-        return button(id("serp-apply-filters"));
+        return button(cssSelector("#serp-sidebar-filter #serp-apply-filters"));
     }
 
     public void clickApply() {
