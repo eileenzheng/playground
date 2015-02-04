@@ -374,7 +374,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
 
         ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Deborah_Tanus/profile");
+        profile.get(url + "/doctors/Dr_Tina_Beck/profile");
         profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
@@ -383,7 +383,7 @@ public class PatientLinkTest {
         modal.switchIframe("iframe[src*='patients.doctor.com']");
 
         IframeDoctorDotCom iframe = new IframeDoctorDotCom();
-        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Deborah Tanus"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Tina Beck"), "Incorrect name");
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();
