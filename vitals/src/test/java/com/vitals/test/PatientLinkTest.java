@@ -247,7 +247,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
 
         ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Siby_Cherian/profile");
+        profile.get(url + "/doctors/Dr_Saka_Kazeem/profile");
         profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
@@ -256,7 +256,7 @@ public class PatientLinkTest {
         modal.switchIframe("iframe[src*='docasap']");
 
         IframeDocAsap iframe = new IframeDocAsap();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Siby Cherian, MD"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Saka Kazeem, MD"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
