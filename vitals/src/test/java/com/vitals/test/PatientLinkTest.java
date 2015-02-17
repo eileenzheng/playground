@@ -159,87 +159,6 @@ public class PatientLinkTest {
         testIndividualAd(ucc.centerAd());
     }
 
-    // only need to call init function once for all the tests
-    public void init() {
-    	if (!alreadyInit) {
-        	PatientLinkSetFeatures.init();
-        	alreadyInit = true;
-    	}
-    }
-
-    // loop through given list of ad and test the patient link features against expected
-    public void testIndividualAd(PatientLinkAd ad) {
-
-    	init();
-    	m_assert = new SoftAssert();
-    	PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
-    	ModalEmail modal = new ModalEmail();
-
-        for (int i=0; i<ad.getSize(); i++) {
-
-        	pl.resetMatched();
-            pl.setExpected(ad.name().get(i).getText().toString());
-
-            if (!pl.isMatched()) {
-                Reporter.log(ad.name().get(i).getText().toString() + " is not in property file.");
-                continue;
-            }
-
-            m_assert.assertEquals(ad.specialty().get(i).getText().toString(), pl.getExpectedSpecialty(),
-                    "Featured specialty for " + ad.specialty().get(i).getText().toString() + " did not match");
-
-            m_assert.assertEquals(ad.address1().get(i).getText().toString(), pl.getExpectedAddress(),
-                    "Address Line 1 for " + ad.name().get(i).getText().toString() + " did not match");
-
-            if (ad.hasAddress2(i)) {
-                m_assert.assertEquals(ad.address2().get(i).getText().toString(), pl.getExpectedAddressLine2(),
-                        "Address Line 2 for " + ad.name().get(i).getText().toString() + " did not match");
-            }
-            else {
-            	m_assert.assertTrue(pl.getExpectedAddressLine2().equals(""), "Address Line 2 for " + ad.name().get(i) + " is missing");
-            }
-
-            m_assert.assertEquals(ad.city().get(i).getText().toString(), pl.getExpectedCity(),
-                    "City for " + ad.name().get(i).getText().toString() + " did not match");
-
-            m_assert.assertEquals(ad.state().get(i).getText().toString(), pl.getExpectedState(),
-                    "State for " + ad.name().get(i).getText().toString() + " did not match");
-
-            m_assert.assertEquals(ad.zip().get(i).getText().toString(), pl.getExpectedZip(),
-                    "Zip for " + ad.name().get(i).getText().toString() + " did not match");
-
-            if (ad.phoneNumber().get(i) != null) {
-				m_assert.assertEquals(ad.phoneNumber().get(i).getText(), pl.getExpectedNumber(),
-						"Phone number for " + ad.name().get(i).getText().toString() + " did not match");
-			}
-            else {
-            	m_assert.assertTrue(pl.getExpectedNumber().equals(""), "Phone number is empty for " + ad.name().get(i).getText().toString());
-            }
-
-            if (pl.hasBookOnline()) {
-            	m_assert.assertTrue(ad.bookButton()!=null, "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
-            	if (pl.getBookType()==1) {
-                    ad.bookButton().get(i).click();
-                    modal.fname().clearField().sendKeys("test_first");
-                    modal.lname().clearField().sendKeys("test_last");
-                    modal.radioAfternoon().click();
-                    modal.selectDropDown(modal.dropDownWhen(), "ASAP");
-            		modal.closeButton().click();
-            	}
-            	else if (pl.getBookType()==2) {
-            	    ad.bookButton().get(i).click();
-            		modal.closeButton().click();
-            	}
-            }
-
-            if (pl.hasLogo()) {
-            	m_assert.assertTrue(ad.logo().get(i).isDisplayed().value(), "Logo is not displayed for " + ad.name().get(i).getText().toString());
-            }
-        }
-
-        m_assert.assertAll();
-    }
-
     @TestCase(id=1757)
     @Test
     public void docAsapIframe() {
@@ -387,6 +306,87 @@ public class PatientLinkTest {
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();
+
+        m_assert.assertAll();
+    }
+
+    // only need to call init function once for all the tests
+    public void init() {
+    	if (!alreadyInit) {
+        	PatientLinkSetFeatures.init();
+        	alreadyInit = true;
+    	}
+    }
+
+    // loop through given list of ad and test the patient link features against expected
+    public void testIndividualAd(PatientLinkAd ad) {
+
+    	init();
+    	m_assert = new SoftAssert();
+    	PatientLinkSetFeatures pl = new PatientLinkSetFeatures();
+    	ModalEmail modal = new ModalEmail();
+
+        for (int i=0; i<ad.getSize(); i++) {
+
+        	pl.resetMatched();
+            pl.setExpected(ad.name().get(i).getText().toString());
+
+            if (!pl.isMatched()) {
+                Reporter.log(ad.name().get(i).getText().toString() + " is not in property file.");
+                continue;
+            }
+
+            m_assert.assertEquals(ad.specialty().get(i).getText().toString(), pl.getExpectedSpecialty(),
+                    "Featured specialty for " + ad.specialty().get(i).getText().toString() + " did not match");
+
+            m_assert.assertEquals(ad.address1().get(i).getText().toString(), pl.getExpectedAddress(),
+                    "Address Line 1 for " + ad.name().get(i).getText().toString() + " did not match");
+
+            if (ad.hasAddress2(i)) {
+                m_assert.assertEquals(ad.address2().get(i).getText().toString(), pl.getExpectedAddressLine2(),
+                        "Address Line 2 for " + ad.name().get(i).getText().toString() + " did not match");
+            }
+            else {
+            	m_assert.assertTrue(pl.getExpectedAddressLine2().equals(""), "Address Line 2 for " + ad.name().get(i) + " is missing");
+            }
+
+            m_assert.assertEquals(ad.city().get(i).getText().toString(), pl.getExpectedCity(),
+                    "City for " + ad.name().get(i).getText().toString() + " did not match");
+
+            m_assert.assertEquals(ad.state().get(i).getText().toString(), pl.getExpectedState(),
+                    "State for " + ad.name().get(i).getText().toString() + " did not match");
+
+            m_assert.assertEquals(ad.zip().get(i).getText().toString(), pl.getExpectedZip(),
+                    "Zip for " + ad.name().get(i).getText().toString() + " did not match");
+
+            if (ad.phoneNumber().get(i) != null) {
+				m_assert.assertEquals(ad.phoneNumber().get(i).getText(), pl.getExpectedNumber(),
+						"Phone number for " + ad.name().get(i).getText().toString() + " did not match");
+			}
+            else {
+            	m_assert.assertTrue(pl.getExpectedNumber().equals(""), "Phone number is empty for " + ad.name().get(i).getText().toString());
+            }
+
+            if (pl.hasBookOnline()) {
+            	m_assert.assertTrue(ad.bookButton()!=null, "Book Online button is not displayed for " + ad.name().get(i).getText().toString());
+            	if (pl.getBookType()==1) {
+                    ad.bookButton().get(i).click();
+                    modal.fname().clearField().sendKeys("test_first");
+                    modal.lname().clearField().sendKeys("test_last");
+                    modal.radioAfternoon().click();
+                    modal.selectDropDown(modal.dropDownWhen(), "ASAP");
+            		modal.closeButton().click();
+            	}
+            	else if (pl.getBookType()==2) {
+            	    ad.bookButton().get(i).click();
+            		modal.closeButton().click();
+            	}
+            }
+
+            if (pl.hasLogo()) {
+            	m_assert.assertTrue(ad.logo().get(i).isDisplayed().value(), "Logo is not displayed for " + ad.name().get(i).getText().toString());
+            }
+        }
 
         m_assert.assertAll();
     }
