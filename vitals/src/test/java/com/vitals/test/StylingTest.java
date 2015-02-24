@@ -1,6 +1,5 @@
 package com.vitals.test;
 
-import com.vitals.pages.BasePage;
 import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.ucc.UccProfileSummaryPage;
@@ -15,42 +14,11 @@ public class StylingTest {
 
     String url;
     SoftAssert m_assert;
-    private final String profile = "/doctors/Dr_Emile_Bacha/";
 
     @Parameters({"url"})
     @BeforeMethod
     public void setup(String url) throws Exception {
         this.url = url;
-    }
-
-    @Test
-    @TestCase(id=2459)
-    public void marginBelowMasthead() {
-        BasePage page = new BasePage();
-        m_assert = new SoftAssert();
-
-//        page.get(url + "/internists");
-//        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "SERP");
-
-        page.get(url + profile + "profile");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Summary");
-
-        page.get(url + profile + "reviews");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Reviews");
-
-        page.get(url + profile + "credentials");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Credentials");
-
-        page.get(url + profile + "office-locations");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Locations");
-
-        page.get(url + profile + "insurance");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Insurance");
-
-        page.get(url + profile + "video");
-        m_assert.assertTrue(page.getStyle(page.divMaincontent(), "margin-top").equals("10px"), "Profile Video");
-
-        m_assert.assertAll();
     }
 
     @TestCase(id=2480)
@@ -65,7 +33,6 @@ public class StylingTest {
         for (int i=0; i<page.divAdvertBox().size(); i++) {
             m_assert.assertTrue(page.getStyle(page.divAdvertBox().get(i), "z-index").equals("5001"), "Advert Box " + i);
         }
-        m_assert.assertTrue(page.getStyle(page.divAdvertWrapper(), "z-index").equals("5001"), "Advert Wrapper");
 
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
