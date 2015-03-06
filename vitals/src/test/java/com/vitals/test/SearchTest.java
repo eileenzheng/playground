@@ -162,6 +162,7 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
 
+        results.refinement().toggleFilter().click();
         results.refinement().genderDropDown().click();
         results.refinement().genderMale().click();
         results.refinement().applyToResults().click();
@@ -172,6 +173,7 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after male gender filter");
 
+        results.refinement().toggleFilter().click();
         results.refinement().boardCertified().click();
         results.refinement().applyToResults().click();
         results.waitForJQuery();
@@ -181,6 +183,7 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after board certified filter");
 
+        results.refinement().toggleFilter().click();
         results.refinement().usEducated().click();
         results.refinement().applyToResults().click();
         results.waitForJQuery();

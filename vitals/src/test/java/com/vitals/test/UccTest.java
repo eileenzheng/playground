@@ -32,6 +32,31 @@ public class UccTest {
         this.url = url;
     }
 
+    // used for testCityPageResults method
+    @DataProvider(name = "cityUrls")
+    public Object[][] generateCityUrls() {
+        Object[][] obj = new Object[cityUrl.size()][];
+
+        for (int i=0; i<cityUrl.size(); i++) {
+            obj[i] = new Object[]{cityUrl.get(i)};
+        }
+
+        return obj;
+    }
+
+    // used for testUccProfilePage method
+    @DataProvider(name = "profileUrls")
+    public Object[][] generateProfileUrls() {
+
+        Object[][] obj = new Object[profileUrl.size()][];
+
+        for (int i=0; i<profileUrl.size(); i++) {
+            obj[i] = new Object[]{profileUrl.get(i)};
+        }
+
+        return obj;
+    }
+
     @Test
     public void generateUrls() {
 
@@ -150,31 +175,6 @@ public class UccTest {
     	m_assert.assertAll();
     }
 
-    // used for testCityPageResults method
-    @DataProvider(name = "cityUrls")
-    public Object[][] generateCityUrls() {
-        Object[][] obj = new Object[cityUrl.size()][];
-
-        for (int i=0; i<cityUrl.size(); i++) {
-        	obj[i] = new Object[]{cityUrl.get(i)};
-        }
-
-        return obj;
-    }
-
-    // used for testUccProfilePage method
-    @DataProvider(name = "profileUrls")
-    public Object[][] generateProfileUrls() {
-
-        Object[][] obj = new Object[profileUrl.size()][];
-
-        for (int i=0; i<profileUrl.size(); i++) {
-        	obj[i] = new Object[]{profileUrl.get(i)};
-        }
-
-        return obj;
-    }
-
     @TestCase(id=1646)
     @Test
     public void serpFilters() {
@@ -201,6 +201,7 @@ public class UccTest {
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with physicals filter");
 
+        uccSerp.refinement().toggleServices().click();
         uccSerp.refinement().filterInjuries().click();
         uccSerp.refinement().clickApply();
         m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
@@ -208,6 +209,7 @@ public class UccTest {
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with injuries filter");
 
+        uccSerp.refinement().toggleServices().click();
         uccSerp.refinement().filterPhysicals().click();
         uccSerp.refinement().filterInjuries().click();
         uccSerp.refinement().clickApply();
