@@ -5,6 +5,7 @@ import java.util.List;
 import com.vitals.pages.sitemap.CityStatePage;
 import com.vitals.pages.sitemap.StatePage;
 import com.vitalsqa.testrail.TestCase;
+import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -105,39 +106,6 @@ public class UccTest {
     	m_assert = new SoftAssert();
         UccSearchResultsPage serp = new UccSearchResultsPage();
         serp.get(urls);
-
-        List<Ucc> uccs = serp.uccResults();
-
-    	for (Ucc ucc : uccs) {
-    		m_assert.assertTrue(ucc.isNameLongEnough(), "Name may be too short: " + ucc.getName());
-    		m_assert.assertTrue(ucc.isAddressLongEnough(), "Address may be too short: " + ucc.getAddress());
-    		m_assert.assertTrue(ucc.isCityLongEnough(), "City may be too short: " + ucc.getCity());
-    		m_assert.assertTrue(ucc.isStateValid(), "State is invalid: " + ucc.getState());
-    		m_assert.assertTrue(ucc.isZipValid(), "Zip is invalid: " + ucc.getZip());
-    	}
-
-    	m_assert.assertAll();
-    }
-
-    @TestCase(id=2050)
-    @Test
-    public void searchExpanded() {
-        m_assert = new SoftAssert();
-
-        UccSearchResultsPage serp = new UccSearchResultsPage();
-        serp.get(url + "/urgent-care/hi/waimea");
-
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("No"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("Urgent Care Centers"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("were found"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(4).getText().toString().equals("within"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(5).getText().toString().equals("15 miles"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(6).getText().toString().equals("of"), "Search sentence is wrong");
-        m_assert.assertTrue(serp.searchSentenceNoResult().get(7).getText().toString().equals("Waimea, Hawaii."), "Search sentence is wrong");
-        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Showing the 25 nearest similar results"), "Closest sentence is wrong");
-        m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
-
-        m_assert.assertAll();
     }
 
     @TestCase(id=1645)
@@ -173,6 +141,27 @@ public class UccTest {
     			+ reviews.getTotalRatingFromBreakDown() + " " + reviews.getCurrentUrl());
 
     	m_assert.assertAll();
+    }
+
+    @TestCase(id=2050)
+    @Test
+    public void searchExpanded() {
+        m_assert = new SoftAssert();
+
+        UccSearchResultsPage serp = new UccSearchResultsPage();
+        serp.get(url + "/urgent-care/hi/waimea");
+
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(0).getText().toString().equals("No"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(1).getText().toString().equals("Urgent Care Centers"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(3).getText().toString().equals("were found"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(4).getText().toString().equals("within"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(5).getText().toString().equals("15 miles"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(6).getText().toString().equals("of"), "Search sentence is wrong");
+        m_assert.assertTrue(serp.searchSentenceNoResult().get(7).getText().toString().equals("Waimea, Hawaii."), "Search sentence is wrong");
+        m_assert.assertTrue(serp.closestSentence().getText().toString().equals("Showing the 25 nearest similar results"), "Closest sentence is wrong");
+        m_assert.assertTrue(serp.searchResults().size()>0 && serp.searchResults().size()<26, "Not showing 1 - 25 results");
+
+        m_assert.assertAll();
     }
 
     @TestCase(id=1646)

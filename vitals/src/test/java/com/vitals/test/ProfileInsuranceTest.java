@@ -48,7 +48,6 @@ public class ProfileInsuranceTest {
         insurancePage.getQuoteLink().click();
         insurancePage.switchIframe("iframe[src*='getinsurance']");
         ProfileInsuranceIframe iframe = new ProfileInsuranceIframe();
-//        Assert.assertTrue(iframe.topImage().isDisplayed().value(), "Top image is not displayed in insurance iframe");
-        Assert.assertTrue(iframe.searchButton().isDisplayed().value(), "Top image is not displayed in insurance iframe");
+        Assert.assertTrue(iframe.searchButton().isDisplayed().value(), "Search button is not displayed in insurance iframe");
     }
 }

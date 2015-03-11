@@ -64,6 +64,19 @@
                 <suite.filename>ProductionRegressionSuiteFull.xml</suite.filename>
             </properties>
         </profile>
+
+        <profile>
+            <id>sauce_test</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>sauce</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>SauceTest.xml</suite.filename>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>

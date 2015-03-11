@@ -17,8 +17,8 @@ public class ProfileReviewsPage extends BasePage {
         return common;
     }
 
-    public FluentWebElement helpfulLink() {
-        return link(cssSelector("a.helpful"));
+    public FluentWebElements helpfulLink() {
+        return links(cssSelector("a.helpful"));
     }
 
     public FluentWebElement abuseLink() {
@@ -47,6 +47,10 @@ public class ProfileReviewsPage extends BasePage {
 
     public FluentWebElement nextPageLink() {
         return link(cssSelector("a.continue"));
+    }
+
+    public FluentWebElement moreReviewsLink() {
+        return link(cssSelector(".morePages"));
     }
 
     public boolean sortByRecent() {

@@ -21,7 +21,6 @@ public class BasePage extends FluentWebDriver{
     public BasePage() {
         super(DriverManager.getDriver());
     	this.webDriver = DriverManager.getDriver();
-        this.setWindowSize();
         this.setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
 
@@ -53,8 +52,8 @@ public class BasePage extends FluentWebDriver{
     }
 
 
-    public void setWindowSize() {
-        Dimension dim = new Dimension(1024,768);
+    public void setWindowSize(int width, int height) {
+        Dimension dim = new Dimension(width,height);
         if (webDriver().manage().window().getSize() != dim) {
             webDriver().manage().window().setSize(dim);
         }

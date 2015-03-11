@@ -242,8 +242,8 @@ public class SearchTest {
         List<Profile> docs = results.doctorResults(results.drList());
 
         int stop;
-        if (docs.size()>=5)
-            stop = 5;
+        if (docs.size()>=3)
+            stop = 3;
         else
             stop = docs.size();
         Reporter.log("ResultsPage,ProfileCommonPage,ProfilePageUrl");

@@ -1,17 +1,18 @@
 package com.vitals.test;
 
+import com.vitals.pages.PatientGuidePage;
 import com.vitalsqa.testrail.TestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.vitals.pages.PatientGuideLandingPage;
-import com.vitals.pages.PatientGuidePage;
+import com.vitals.pages.PatientGuideLegacyPage;
 
 public class PatientGuideTest {
 
-    static final String pglink = "/patient-education";
+    static final String legacylink = "/patient-education/lupus/overview";
+    static final String newlink = "/patient-education/breast-cancer/overview";
     SoftAssert m_assert;
     String url;
     
@@ -21,81 +22,29 @@ public class PatientGuideTest {
         this.url = url;
     }
 
-    @TestCase(id={1533,1535})
-    @Test
-    public void checkLandingPage() {
-        PatientGuideLandingPage lp = new PatientGuideLandingPage();
-    	lp.get(url + pglink);
-
-        Assert.assertTrue(lp.breadcrumb().getText().toString().equals("Patient Education"),
-                "Patient Guide landing page did not load successfully.");
-    }
-
     @TestCase(id={1534})
     @Test
-    public void clickLearnMore() {
-        if (url.toLowerCase().contains("qa"))
-        	return;
-        PatientGuideLandingPage lp = new PatientGuideLandingPage();
-        lp.get(url + pglink);
-        lp.learnMore().click();
+    public void checkLegacyGuide() {
+        PatientGuideLegacyPage page = new PatientGuideLegacyPage();
+        page.get(url + legacylink);
 
-        PatientGuidePage pgpage = new PatientGuidePage();
-        Assert.assertTrue(pgpage.isOverviewPage(),
-                "Overview page did not load on: " + pgpage.getCurrentUrl());
+        Assert.assertTrue(page.isOverviewPage(),
+                "Overview page did not load on: " + page.getCurrentUrl());
     }
 
-    @TestCase(id={1536})
+    @TestCase(id={1533})
     @Test
-    public void clickTopGuide() {
-        PatientGuideLandingPage lp = new PatientGuideLandingPage();
-        lp.get(url + pglink);
-        lp.getRandom(lp.topGuides()).click();
-
-        PatientGuidePage pgpage = new PatientGuidePage();
-        Assert.assertTrue(pgpage.isOverviewPage(),
-                "Overview page did not load on: " + pgpage.getCurrentUrl());
-    }
-
-    @TestCase(id={1537,1535})
-    @Test
-    public void clickAtoZGuide() {
-        PatientGuideLandingPage lp = new PatientGuideLandingPage();
-        lp.get(url + pglink);
-        lp.getRandom(lp.alphaGuides()).click();
-
-        testIndividualGuide();
-    }
-
-    private void testIndividualGuide() {
+    public void checkNewGuide() {
+        PatientGuidePage page = new PatientGuidePage();
+        page.get(url + newlink);
 
         m_assert = new SoftAssert();
+        m_assert.assertTrue(page.currentBreadcrumb().getText().equals("Overview"),
+                "Overview page did not load on: " + page.getCurrentUrl());
 
-        PatientGuidePage pgpage = new PatientGuidePage();
+        page.breadcrumbs().get(2).click();
 
-        m_assert.assertTrue(pgpage.isOverviewPage(),
-                "Overview page did not load on: " + pgpage.getCurrentUrl());
-
-        pgpage.menuTheTeam().click();
-        m_assert.assertTrue(pgpage.isTeamPage(),
-                "The Team page did not load on: " + pgpage.getCurrentUrl());
-
-        pgpage.menuPrepare().click();
-        m_assert.assertTrue(pgpage.isPreparePage(),
-                "How to Prepare page did not load on " + pgpage.getCurrentUrl());
-
-        pgpage.menuQuestion().click();
-        m_assert.assertTrue(pgpage.isQuestionPage(),
-                "Questions to Ask page did not load on " + pgpage.getCurrentUrl());
-
-        pgpage.menuExpect().click();
-        m_assert.assertTrue(pgpage.isExpectPage(),
-                "What to Expect page did not load on " + pgpage.getCurrentUrl());
-
-        pgpage.menuTreatment().click();
-        m_assert.assertTrue(pgpage.isTreatmentPage(),
-                "Treatment Options page did not load on " + pgpage.getCurrentUrl());
-
-        m_assert.assertAll();
+        m_assert.assertTrue(page.currentBreadcrumb().getText().equals("Breast Cander"),
+                "Landing page did not load on: " + page.getCurrentUrl());
     }
 }

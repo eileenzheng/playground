@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 public class ProfileReviewsTest {
 
+    static final String drProfileMany = "/doctors/Dr_Marina_Gafanovich/reviews";
     static final String drProfile = "/doctors/Dr_Emile_Bacha/reviews";
 
     String url;
@@ -25,11 +26,14 @@ public class ProfileReviewsTest {
     @Test
     public void markAsHelpful() {
         ProfileReviewsPage reviewsPage = new ProfileReviewsPage();
-        reviewsPage.get(url + drProfile);
+        reviewsPage.get(url + drProfileMany);
         ProfileCommonPage profile = new ProfileCommonPage();
         profile.dismissReviewIntercept();
 
-        reviewsPage.helpfulLink().click();
+        while (reviewsPage.moreReviewsLink().isDisplayed().value()) {
+            reviewsPage.moreReviewsLink().click();
+        }
+        reviewsPage.getRandom(reviewsPage.helpfulLink()).click();
         reviewsPage.setImplicitWait(1);
         Assert.assertTrue(reviewsPage.hasErrorText() || reviewsPage.hasHelpfulText(), "Mark as helpful link doesn't work");
         reviewsPage.setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);

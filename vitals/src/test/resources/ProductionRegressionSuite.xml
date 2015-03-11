@@ -77,6 +77,11 @@
             </class>
         </classes>
     </test>
+    <test name="Patient Guide Specific Tests">
+        <classes>
+            <class name="com.vitals.test.PatientGuideTest" />
+        </classes>
+    </test>
     <test name="MyVitals Specific Tests">
         <classes>
             <class name="com.vitals.test.MyVitalsTest" />
