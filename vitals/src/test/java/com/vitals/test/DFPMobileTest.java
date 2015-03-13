@@ -16,11 +16,6 @@ public class DFPMobileTest {
     BasePage page;
     SoftAssert m_assert;
     private final String profile = "/doctors/Dr_Lisa_Eng/";
-    private final String ucc = "/urgent-care/citymd-new-york-3/";
-    private final String[] conditionCenters = {"/topics/high-cholesterol", "/topics/high-cholesterol/should-children-be-checked",
-            "/topics/high-cholesterol/things-to-consider", "/topics/high-cholesterol/lifestyle-matters", "/topics/high-cholesterol/specialist-vs-pcp"};
-    private final String[] patientGuides = {"/patient-education/infertility", "/patient-education/infertility/the-team",
-            "/patient-education/infertility/how-to-prepare", "/patient-education/infertility/questions-to-ask", "/patient-education/infertility/what-to-expect", "/patient-education/infertility/treatment-options"};
     private String[] leaderboardTopSizes = {"300, 50", "320, 50"};
     private String[] rectangleSizes = {"300, 250"};
     private String[] rectangleBottomSizes = {"300, 250"};
@@ -32,7 +27,7 @@ public class DFPMobileTest {
         this.url = url;
     }
 
-    @TestCase(id=2083)
+    @TestCase(id=3468)
     @Test
     public void profileSummary() {
         page = new BasePage();
@@ -64,7 +59,7 @@ public class DFPMobileTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=2092)
+    @TestCase(id=3469)
     @Test
     public void serpFindSpec() {
         page = new BasePage();
@@ -91,7 +86,7 @@ public class DFPMobileTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=2095)
+    @TestCase(id=3470)
     @Test
     public void serpFindName() {
         page = new BasePage();
@@ -116,7 +111,7 @@ public class DFPMobileTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=2097)
+    @TestCase(id=3471)
     @Test
     public void serpBrowseSpecGeo() {
         page = new BasePage();
@@ -139,7 +134,7 @@ public class DFPMobileTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=2098)
+    @TestCase(id=3472)
     @Test
     public void serpBrowseCond() {
         page = new BasePage();
@@ -160,7 +155,7 @@ public class DFPMobileTest {
         m_assert.assertAll();
     }
 
-    @TestCase(id=2106)
+    @TestCase(id=3473)
     @Test
     public void uccSerpBrowse() {
         page = new BasePage();

@@ -1,11 +1,14 @@
 package com.vitals.pages;
 
 import com.vitals.helpers.Constants;
+import org.openqa.selenium.WebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
 
 public class HeaderModule extends BasePage {
+
+    // ***** shared by mobile & desktop *****
 
     public FluentWebElement logo() {
         return link(cssSelector(".masthead-logo>a"));
@@ -34,10 +37,6 @@ public class HeaderModule extends BasePage {
     public FluentWebElements uccSuggestions() {
         return links(cssSelector("#ui-id-4 .facility>a"));
     }
-    
-    public FluentWebElements showAll() {
-        return links(cssSelector("#ui-id-4 .show-all>a"));
-    }
 
     public FluentWebElement locationTextBox() {
         return input(cssSelector("#location_text"));
@@ -49,26 +48,6 @@ public class HeaderModule extends BasePage {
 
     public FluentWebElement goButton() {
         return button(cssSelector("#provider-go"));
-    }
-
-    public FluentWebElement signUpLink() {
-        return link(cssSelector(".session-info .sign-in"));
-    }
-
-    public FluentWebElement signInLink() {
-        return link(cssSelector(".session-info .sign-up"));
-    }
-
-    public FluentWebElement signedInEmailLink() {
-        return link(cssSelector(".when-signed-in .email"));
-    }
-    
-    public FluentWebElement editProfileLink() {
-        return link(cssSelector(".when-signed-in .edit-profile"));
-    }
-
-    public FluentWebElement signOutLink() {
-        return link(cssSelector(".when-signed-in .sign-out"));
     }
 
     public FluentWebElement insurance() {
@@ -95,9 +74,67 @@ public class HeaderModule extends BasePage {
         return links(cssSelector(".plan.ui-menu-item>a"));
     }
 
+    // ***** desktop only *****
+
+    public FluentWebElements showAll() {
+        return links(cssSelector("#ui-id-4 .show-all>a"));
+    }
+
+    public FluentWebElement signUpLink() {
+        return link(cssSelector(".session-info .sign-in"));
+    }
+
+    public FluentWebElement signInLink() {
+        return link(cssSelector(".session-info .sign-up"));
+    }
+
+    public FluentWebElement signedInEmailLink() {
+        return link(cssSelector(".when-signed-in .email"));
+    }
+
+    public FluentWebElement editProfileLink() {
+        return link(cssSelector(".when-signed-in .edit-profile"));
+    }
+
+    public FluentWebElement signOutLink() {
+        return link(cssSelector(".when-signed-in .sign-out"));
+    }
+
     public FluentWebElement divMainHeader() {
         return div(cssSelector(".masthead-container"));
     }
+
+    // ***** mobile only *****
+
+    public FluentWebElement mobHamburger() {
+        return span(cssSelector(".nav-handle"));
+    }
+
+    public WebElement mobCloseHamburger() {
+        return webDriver().findElement(cssSelector(".floating-menu-button .icon-x-bold"));
+    }
+
+    public WebElement mobSearchMenu() {
+        return webDriver().findElement(cssSelector(".icon-magnify-left"));
+    }
+
+    public WebElement mobCloseSearch () {
+        return webDriver().findElement(cssSelector(".search-wrapper-icon .icon-x-bold"));
+    }
+
+    public FluentWebElement mobBrowseSpecialties() {
+        return button(cssSelector("button[data-target='#browseSpecialties']"));
+    }
+
+    public FluentWebElement mobPatientEducation() {
+        return button(cssSelector("button[data-target='#patientEducation']"));
+    }
+
+    public FluentWebElements mobSpecialtyList() {
+        return lis(cssSelector("#browseSpecialties li"));
+    }
+
+    // ***** functions *****
 
     public void enterSearchTerm (String text) {
     	searchTextBox().clearField();

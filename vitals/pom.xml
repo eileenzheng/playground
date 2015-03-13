@@ -66,6 +66,19 @@
         </profile>
 
         <profile>
+            <id>vitals_production_browser</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod_browser</value>
+                </property>
+            </activation>
+            <properties>
+                <suite.filename>ProductionRegressionSuiteBrowser.xml</suite.filename>
+            </properties>
+        </profile>
+
+        <profile>
             <id>sauce_test</id>
             <activation>
                 <property>
