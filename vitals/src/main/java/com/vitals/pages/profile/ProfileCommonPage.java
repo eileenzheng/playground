@@ -27,33 +27,7 @@ public class ProfileCommonPage extends BasePage {
         return headerModule;
     }
 
-    public FluentWebElement summaryTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(1)>a"));
-    }
-
-    public FluentWebElement reviewsTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(2)>a"));
-    }
-
-    public FluentWebElement credentialsTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(3)>a"));
-    }
-
-    public FluentWebElement locationsTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(4)>a"));
-    }
-
-    public FluentWebElement insurancesTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(5)>a"));
-    }
-
-    public FluentWebElement sponsoredTab() {
-        return link(cssSelector(".nav-tabs li:nth-child(6)>a"));
-    }
-
-    public FluentWebElements breadcrumbTrail() {
-        return spans(cssSelector(".additionalInformation>span"));
-    }
+    // ***** shared by mobile & desktop *****
 
     public FluentWebElement drVideoLink() {
         return link(linkText("Video profile"));
@@ -95,6 +69,40 @@ public class ProfileCommonPage extends BasePage {
         return span(cssSelector(".reviews span.qtipit"));
     }
 
+    private FluentWebElement reviewClose() {
+        return link(cssSelector(".review-requests .close"));
+    }
+
+    // ***** desktop only *****
+
+    public FluentWebElement summaryTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(1)>a"));
+    }
+
+    public FluentWebElement reviewsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(2)>a"));
+    }
+
+    public FluentWebElement credentialsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(3)>a"));
+    }
+
+    public FluentWebElement locationsTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(4)>a"));
+    }
+
+    public FluentWebElement insurancesTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(5)>a"));
+    }
+
+    public FluentWebElement sponsoredTab() {
+        return link(cssSelector(".nav-tabs li:nth-child(6)>a"));
+    }
+
+    public FluentWebElements breadcrumbTrail() {
+        return spans(cssSelector(".additionalInformation>span"));
+    }
+
     public FluentWebElements divAdvertBox() {
         return divs(cssSelector("div.advert.cbox"));
     }
@@ -110,6 +118,34 @@ public class ProfileCommonPage extends BasePage {
     public FluentWebElement divTooltip() {
         return div(cssSelector(".qtip"));
     }
+
+    // ***** mobile only *****
+
+    public FluentWebElement mobSummaryTab() {
+        return link(cssSelector(".mobile-tab:nth-child(1)"));
+    }
+
+    public FluentWebElement mobReviewsTab() {
+        return link(cssSelector(".mobile-tab:nth-child(2)"));
+    }
+
+    public FluentWebElement mobCredentialsTab() {
+        return link(cssSelector(".mobile-tab:nth-child(3)"));
+    }
+
+    public FluentWebElement mobLocationsTab() {
+        return link(cssSelector(".mobile-tab:nth-child(4)"));
+    }
+
+    public FluentWebElement mobInsurancesTab() {
+        return link(cssSelector(".mobile-tab:nth-child(5)"));
+    }
+
+    public FluentWebElement mobSponsoredTab() {
+        return link(cssSelector(".mobile-tab:nth-child(6)"));
+    }
+
+    // ***** functions *****
 
     public boolean isSummaryPage() {
         return breadcrumbTrail().get(breadcrumbTrail().size()-1).getText().toString().equals("Summary");
@@ -136,10 +172,6 @@ public class ProfileCommonPage extends BasePage {
         int begin = onClick.indexOf("http");
         int end = onClick.indexOf("', '_blank'");
         return onClick.substring(begin, end);
-    }
-
-    private FluentWebElement reviewClose() {
-        return link(cssSelector(".review-requests .close"));
     }
 
     public void dismissReviewIntercept() {

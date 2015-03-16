@@ -5,12 +5,11 @@ import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
-import static org.openqa.selenium.By.id;
 
 public class UccSearchResultsRefinement extends BasePage {
 
-    public FluentWebElement toggleServices() {
-        return div(cssSelector("#serp-sidebar-filter #serplist-filter-toggle-arrow"));
+    private FluentWebElement openFilterArrow() {
+        return div(cssSelector("#serp-sidebar-filter #serplist-filter-toggle-arrow.icon-chevron-thin-down"));
     }
 
     public FluentWebElement filterPhysicals() {
@@ -48,5 +47,10 @@ public class UccSearchResultsRefinement extends BasePage {
     public void clickApply() {
         applyToResults().click();
         waitUntilInvisible(cssSelector("#loading"), Constants.SELENIUM_EXPLICIT_WAIT);
+    }
+
+    public void openFilter() {
+        openFilterArrow().click();
+        waitUntilVisible(filterAilments(), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

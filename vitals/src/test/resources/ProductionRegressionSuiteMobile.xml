@@ -23,4 +23,9 @@
             <class name="com.vitals.test.DFPMobileTest" />
         </classes>
     </test>
+    <test name="Profile Mobile Tests">
+        <classes>
+            <class name="com.vitals.test.ProfileMobileTest" />
+        </classes>
+    </test>
 </suite>

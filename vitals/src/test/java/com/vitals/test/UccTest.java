@@ -5,7 +5,6 @@ import java.util.List;
 import com.vitals.pages.sitemap.CityStatePage;
 import com.vitals.pages.sitemap.StatePage;
 import com.vitalsqa.testrail.TestCase;
-import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -181,8 +180,9 @@ public class UccTest {
         int initialCount = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with no filters");
 
-        uccSerp.refinement().toggleServices().click();
+        uccSerp.refinement().openFilter();
         uccSerp.refinement().filterPhysicals().click();
+        uccSerp.scrollToElement(uccSerp.refinement().applyToResults());
         uccSerp.refinement().clickApply();
 
         m_assert.assertTrue(uccSerp.getResultsCountNumber() <= count && uccSerp.getResultsCountNumber() > 0,
@@ -190,17 +190,19 @@ public class UccTest {
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with physicals filter");
 
-        uccSerp.refinement().toggleServices().click();
+        uccSerp.refinement().openFilter();
         uccSerp.refinement().filterInjuries().click();
+        uccSerp.scrollToElement(uccSerp.refinement().applyToResults());
         uccSerp.refinement().clickApply();
         m_assert.assertTrue(uccSerp.getResultsCountNumber()<=count && uccSerp.getResultsCountNumber()>0,
         		"Number of results incorrect with 'Injuries' filter");
         count = uccSerp.getResultsCountNumber();
         Reporter.log(count + " results with injuries filter");
 
-        uccSerp.refinement().toggleServices().click();
+        uccSerp.refinement().openFilter();
         uccSerp.refinement().filterPhysicals().click();
         uccSerp.refinement().filterInjuries().click();
+        uccSerp.scrollToElement(uccSerp.refinement().applyToResults());
         uccSerp.refinement().clickApply();
 
         int finalCount;

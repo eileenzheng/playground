@@ -79,15 +79,15 @@
         </profile>
 
         <profile>
-            <id>sauce_test</id>
+            <id>vitals_production_mobile</id>
             <activation>
                 <property>
                     <name>env</name>
-                    <value>sauce</value>
+                    <value>prod_mobile</value>
                 </property>
             </activation>
             <properties>
-                <suite.filename>SauceTest.xml</suite.filename>
+                <suite.filename>ProductionRegressionSuiteMobile.xml</suite.filename>
             </properties>
         </profile>
     </profiles>

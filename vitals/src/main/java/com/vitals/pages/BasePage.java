@@ -3,6 +3,7 @@ package com.vitals.pages;
 import com.vitals.helpers.Constants;
 import com.vitalsqa.listener.DriverManager;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -78,6 +79,10 @@ public class BasePage extends FluentWebDriver{
         return list.get(rand);
     }
 
+    public int getRandomIndex(FluentWebElements list) {
+        return (int) Math.floor(Math.random() * (list.size() - 1));
+    }
+
     public void deleteCookies() {
         webDriver().manage().deleteAllCookies();
     }
@@ -90,6 +95,10 @@ public class BasePage extends FluentWebDriver{
         } catch (NoAlertPresentException e) {
             // do nothing
         }
+    }
+
+    public int getWindowsCount() {
+        return webDriver().getWindowHandles().size();
     }
 
     public void switchIframe(String css) {
@@ -107,6 +116,13 @@ public class BasePage extends FluentWebDriver{
     public void selectDropDown(FluentWebElement el, String text) {
         Select dropdown = new Select(el.getWebElement());
         dropdown.selectByVisibleText(text);
+    }
+
+    public void scrollToElement(FluentWebElement el) {
+        Actions actions = new Actions(webDriver());
+        actions.moveToElement(el.getWebElement());
+        actions.perform();
+        executeJS("scrollBy(0,200)");
     }
 
     public void waitForJQuery() {

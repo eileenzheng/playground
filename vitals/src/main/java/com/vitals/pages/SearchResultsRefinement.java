@@ -1,5 +1,6 @@
 package com.vitals.pages;
 
+import com.vitals.helpers.Constants;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.seleniumhq.selenium.fluent.FluentWebElements;
 import static org.openqa.selenium.By.cssSelector;
@@ -26,8 +27,8 @@ public class SearchResultsRefinement extends BasePage{
         return link(cssSelector("#serp-sidebar-filter .serplist-filter-sort .dropdown-menu.selectpicker li:last-child>a.serplist-filter-sort .dropdown-menu.selectpicker li:last-child>a"));
     }
 
-    public FluentWebElement toggleFilter() {
-        return div(cssSelector("#serplist-filter-toggle-arrow"));
+    private FluentWebElement openFilterArrow() {
+        return div(cssSelector("#serplist-filter-toggle-arrow.icon-chevron-thin-down"));
     }
 
     public FluentWebElement distanceDropDown() {
@@ -84,5 +85,10 @@ public class SearchResultsRefinement extends BasePage{
 
     public FluentWebElements dropdowns() {
         return uls(cssSelector("#serp-sidebar-filter ul.dropdown-menu"));
+    }
+
+    public void openFilter() {
+        openFilterArrow().click();
+        waitUntilVisible(boardCertified(), Constants.SELENIUM_EXPLICIT_WAIT);
     }
 }

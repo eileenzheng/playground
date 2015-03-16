@@ -150,10 +150,11 @@ public class SearchTest {
         int count = results.getResultsCountNumber();
         Reporter.log(count + " results with default filter settings");
 
-        results.refinement().toggleFilter().click();
+        results.refinement().openFilter();
 
         results.refinement().distanceDropDown().click();
         results.refinement().distance5().click();
+        results.scrollToElement(results.refinement().applyToResults());
         results.refinement().applyToResults().click();
         results.waitForJQuery();
 
@@ -162,9 +163,10 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after 5 miles filter");
 
-        results.refinement().toggleFilter().click();
+        results.refinement().openFilter();
         results.refinement().genderDropDown().click();
         results.refinement().genderMale().click();
+        results.scrollToElement(results.refinement().applyToResults());
         results.refinement().applyToResults().click();
         results.waitForJQuery();
 
@@ -173,8 +175,10 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after male gender filter");
 
-        results.refinement().toggleFilter().click();
+        results.refinement().openFilter();
+        results.scrollToElement(results.refinement().boardCertified());
         results.refinement().boardCertified().click();
+        results.scrollToElement(results.refinement().applyToResults());
         results.refinement().applyToResults().click();
         results.waitForJQuery();
 
@@ -183,8 +187,10 @@ public class SearchTest {
         count = results.getResultsCountNumber();
         Reporter.log(count + " results after board certified filter");
 
-        results.refinement().toggleFilter().click();
+        results.refinement().openFilter();
+        results.scrollToElement(results.refinement().usEducated());
         results.refinement().usEducated().click();
+        results.scrollToElement(results.refinement().applyToResults());
         results.refinement().applyToResults().click();
         results.waitForJQuery();
 

@@ -185,7 +185,9 @@ public class MastheadMobileTest {
         homePage.headerModule().mobCloseSearch().click();
         homePage.headerModule().mobHamburger().click();
         homePage.headerModule().mobBrowseSpecialties().click();
-        homePage.getRandom(homePage.headerModule().mobSpecialtyList()).click();
+        int rand = homePage.getRandomIndex(homePage.headerModule().mobSpecialtyList());
+        homePage.scrollToElement(homePage.headerModule().mobSpecialtyList().get(rand));
+        homePage.headerModule().mobSpecialtyList().get(rand).click();
 
         SearchResultsPage serp = new SearchResultsPage();
         Assert.assertTrue(serp.getResultsCountNumber()>=1);
