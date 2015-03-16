@@ -6,6 +6,8 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class ReviewSearchResultsPage extends BasePage {
 
+    // ***** shared by mobile & desktop *****
+
     public FluentWebElement resultsTotal() {
         return p(cssSelector("#result-count"));
     }
@@ -33,7 +35,9 @@ public class ReviewSearchResultsPage extends BasePage {
     public FluentWebElements listingStates() {
         return spans(cssSelector(".listing span[itemprop=addressRegion]"));
     }
-    
+
+    // ***** functions *****
+
     public int getResultsCountNumber() {
     	String[] split = resultsTotal().getText().toString().split(" ");
     	String count = split[split.length-2];

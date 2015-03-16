@@ -23,6 +23,8 @@ public class ReviewPage extends BasePage {
         return footerModule;
     }
 
+    // ***** shared by mobile & desktop *****
+
     public FluentWebElement searchBox() {
         return input(cssSelector("#search-review .search-main"));
     }
@@ -39,10 +41,6 @@ public class ReviewPage extends BasePage {
         return links(cssSelector("#ui-id-5 .facility>a"));
     }
 
-    public FluentWebElements showAll() {
-        return links(cssSelector("#ui-id-5 .show-all>a"));
-    }
-
     public FluentWebElement locationBox() {
         return input(cssSelector("input.search-location"));
     }
@@ -54,6 +52,14 @@ public class ReviewPage extends BasePage {
     public FluentWebElement goButton() {
         return input(cssSelector(".go-btn"));
     }
+
+    // ***** desktop only *****
+
+    public FluentWebElements showAll() {
+        return links(cssSelector("#ui-id-5 .show-all>a"));
+    }
+
+    // ***** functions *****
 
     public void enterSearchTerm (String text) {
         searchBox().clearField();

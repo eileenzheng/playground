@@ -28,4 +28,9 @@
             <class name="com.vitals.test.ProfileMobileTest" />
         </classes>
     </test>
+    <test name="Review Mobile Tests">
+        <classes>
+            <class name="com.vitals.test.ReviewsMobileTest" />
+        </classes>
+    </test>
 </suite>
