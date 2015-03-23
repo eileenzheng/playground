@@ -26,7 +26,7 @@ public class PatientLinkTest {
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
-    private static final String dentistProfileHeaderUrl = "/dentists/Dr_Amaury_Valle/profile";
+    private static final String dentistProfileHeaderUrl = "/dentists/Dr_Rahim_Bhanji/profile";
     private static final String uccUrl = "/urgent-care/ct/hartford";
     
     @Parameters({"url"})
@@ -77,7 +77,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
         m_assert.assertTrue(profile.hasPlPhoneNumber(), "Phone number is missing!");
         if (profile.hasPlPhoneNumber()) {
-            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 502-4037") , "Phone number is incorrect!");
+            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 603-2684") , "Phone number is incorrect!");
         }
         m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
 
@@ -243,7 +243,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
 
         ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/dentists/Dr_Amaury_Valle/profile");
+        profile.get(url + "/dentists/Dr_Rahim_Bhanji/profile");
         profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
@@ -252,7 +252,7 @@ public class PatientLinkTest {
         modal.switchIframe("iframe[src*='bookthatdoc']");
 
         IframeBookThatDoc iframe = new IframeBookThatDoc();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Amaury O Valle"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Rahim Bhanji"), "Incorrect name");
         iframe.nextButton().click();
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
 
