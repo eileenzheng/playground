@@ -1,5 +1,6 @@
 package com.vitals.test;
 
+import com.vitals.helpers.Constants;
 import com.vitals.helpers.PatientLinkSetFeatures;
 import com.vitals.pages.profile.ProfileCommonPage;
 import com.vitals.pages.profile.ProfileSeoPage;
@@ -7,7 +8,6 @@ import com.vitals.pages.SearchResultsPage;
 import com.vitals.pages.patientlink.*;
 import com.vitals.pages.ucc.UccSearchResultsPage;
 import com.vitalsqa.testrail.TestCase;
-import org.seleniumhq.selenium.fluent.FluentWebElement;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
@@ -303,6 +303,59 @@ public class PatientLinkTest {
 
         IframeDoctorDotCom iframe = new IframeDoctorDotCom();
         m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Tina Beck"), "Incorrect name");
+
+        modal.switchWindow(mainWindow);
+        modal.closeButton().click();
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=3485)
+    @Test
+    public void athenaIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/doctors/Dr_Stanislav_Goykhman/profile");
+        profile.dismissReviewIntercept();
+        profile.plBookAppt().click();
+
+        ModalIframe modal = new ModalIframe();
+        String mainWindow = modal.getMainWindow();
+        modal.switchIframe("iframe[src*='appointments.vitals.com']");
+
+        IframeAthena iframe = new IframeAthena();
+        iframe.waitUntilVisible(iframe.name(), Constants.SELENIUM_IMPLICIT_WAIT);
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr. Stanislav Goykhman, MD"), "Incorrect name");
+        iframe.nextButton().click();
+        iframe.waitUntilVisible(iframe.nextButton(), Constants.SELENIUM_IMPLICIT_WAIT);
+        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+
+        modal.switchWindow(mainWindow);
+        modal.closeButton().click();
+
+        m_assert.assertAll();
+    }
+
+    @TestCase(id=3486)
+    @Test
+    public void caditIframe() {
+
+        m_assert = new SoftAssert();
+
+        ProfileCommonPage profile = new ProfileCommonPage();
+        profile.get(url + "/doctors/Dr_Andrew_Camerota/profile");
+        profile.dismissReviewIntercept();
+        profile.plBookAppt().click();
+
+        ModalIframe modal = new ModalIframe();
+        String mainWindow = modal.getMainWindow();
+        modal.switchIframe("iframe[src*='.cadit.com']");
+
+        IframeCadit iframe = new IframeCadit();
+        iframe.waitUntilVisible(iframe.comments(), Constants.SELENIUM_IMPLICIT_WAIT);
+        iframe.comments().sendKeys("test test");
 
         modal.switchWindow(mainWindow);
         modal.closeButton().click();
