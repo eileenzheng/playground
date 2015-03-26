@@ -6,12 +6,12 @@ import static org.openqa.selenium.By.cssSelector;
 
 public class HeaderFooter extends BasePage {
 
-    public FluentWebElement header() {
-        return div(cssSelector(".title"));
-    }
-
     public FluentWebElement logo() {
         return img(cssSelector("img[src*='logo']"));
+    }
+
+    public FluentWebElement headerQsymia() {
+        return div(cssSelector(".search-header"));
     }
 
     public FluentWebElement terms() {

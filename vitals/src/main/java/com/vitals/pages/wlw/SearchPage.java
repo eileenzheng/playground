@@ -49,8 +49,16 @@ public class SearchPage extends BasePage {
         return links(cssSelector(".details a"));
     }
 
+    public FluentWebElements namesQsymia() {
+        return links(cssSelector(".qsymia-result h4>a"));
+    }
+
     public FluentWebElements specialties() {
         return divs(cssSelector("div.specialty"));
+    }
+
+    public FluentWebElements specialtiesQsymia() {
+        return divs(cssSelector(".qsymia-result .doctor-title"));
     }
 
     public FluentWebElements cities() {
@@ -70,7 +78,7 @@ public class SearchPage extends BasePage {
     }
 
     public FluentWebElement resultHeaderQsymia() {
-        return div(cssSelector("#qsymia-search>div:first-child"));
+        return div(cssSelector(".results-header>div:first-of-type"));
     }
 
     public FluentWebElement sortDropDown() {

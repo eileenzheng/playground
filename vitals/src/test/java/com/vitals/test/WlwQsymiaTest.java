@@ -34,7 +34,7 @@ public class WlwQsymiaTest {
         LandingPage landingPage = new LandingPage();
         landingPage.get(url);
 
-        m_assert.assertEquals(landingPage.commonModule().header().getText().toString(), "Find a Weight Loss Specialist Near You", "Incorrect header text on landing page");
+        m_assert.assertEquals(landingPage.commonModule().headerQsymia().getText().toString(), "Find a Weight Loss Specialist Near You", "Incorrect header text on landing page");
         m_assert.assertEquals(landingPage.commonModule().terms().getText().toString(), "The provider finder that generated the above stated physician results list was created by MDX Medical, Inc. (“Vitals”) specifically for Vivus, Inc. As more fully set forth in a website's terms of use, (1) nothing contained on or offered by or through this website should be construed as medical advice and should not be relied upon for medical diagnosis or treatment. MDX Medical, Inc. (\"MDX\"), the provider of this website, does not recommend or endorse any particular healthcare provider whose information or ratings appear on this website; and (2) MDX has granted you a limited license to access and use this website for your own noncommercial use. You are not permitted to copy, reproduce, distribute, transmit, mirror, frame, scrape, extract, wrap, create derivative works of, reverse engineer, decompile or disassemble any part or aspect of this website.", "Incorrect terms text on landing page");
         m_assert.assertTrue(landingPage.commonModule().logo().isDisplayed().value(), "Logo not displayed on landing page");
 
@@ -42,7 +42,7 @@ public class WlwQsymiaTest {
         landingPage.searchButton().click();
 
         SearchPage serp = new SearchPage();
-        m_assert.assertEquals(serp.commonModule().header().getText().toString(), "Find a Weight Loss Specialist Near You", "Incorrect header text on search page");
+        m_assert.assertEquals(serp.commonModule().headerQsymia().getText().toString(), "Find a Weight Loss Specialist Near You", "Incorrect header text on search page");
         m_assert.assertEquals(serp.commonModule().terms().getText().toString(), "The provider finder that generated the above stated physician results list was created by MDX Medical, Inc. (“Vitals”) specifically for Vivus, Inc. As more fully set forth in a website's terms of use, (1) nothing contained on or offered by or through this website should be construed as medical advice and should not be relied upon for medical diagnosis or treatment. MDX Medical, Inc. (\"MDX\"), the provider of this website, does not recommend or endorse any particular healthcare provider whose information or ratings appear on this website; and (2) MDX has granted you a limited license to access and use this website for your own noncommercial use. You are not permitted to copy, reproduce, distribute, transmit, mirror, frame, scrape, extract, wrap, create derivative works of, reverse engineer, decompile or disassemble any part or aspect of this website.", "Incorrect terms text on landing page");
         m_assert.assertTrue(serp.commonModule().logo().isDisplayed().value(), "Logo not displayed on search page");
         m_assert.assertTrue(serp.resultHeaderQsymia().getText().toString().equals("All providers sorted by prescription data and location based on zip code searched."), "Incorrect search text");
@@ -65,9 +65,9 @@ public class WlwQsymiaTest {
         serp.searchButton().click();
 
         m_assert.assertTrue(serp.getResultCount()>=80 && serp.getResultCount()<=81, "Number of results not between 80 and 81");
-        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
-                "Not all 10 results are from WA");
-        m_assert.assertTrue(sortedByExternal(serp.names()), "Results are not sorted by external file");
+//        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
+//                "Not all 10 results are from WA");
+        m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
         m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
 
         m_assert.assertAll();
