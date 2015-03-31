@@ -77,6 +77,7 @@ public class ProfileTest {
         profilePage.get(url+ drProfile);
         profilePage.dismissReviewIntercept();
         profilePage.reviewsTab().click();
+        profilePage.dismissReviewIntercept();
 
         Assert.assertTrue(profilePage.isPatientReviewsPage(),
                 "Patient Reviews page was not visible: " + profilePage.getCurrentUrl());
