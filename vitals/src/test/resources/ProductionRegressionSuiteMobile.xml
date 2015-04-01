@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Sauce Test" verbose="5" parallel="tests" thread-count="2">
     <parameter name="url" value="http://www.vitals.com" />
+    <!--<parameter name="url" value="http://admin:mdx4dm1n@staging.vitals.com" />-->
     <parameter name="projectId" value="2"/>
     <parameter name="suiteId" value="12"/>
     <parameter name="testRunId" value="151"/>
-    <parameter name="driverType" value="remote" />
+    <parameter name="driverType" value="local" />
     <parameter name="device" value="Google Nexus 5" />
     <parameter name="browser" value="chrome" />
 

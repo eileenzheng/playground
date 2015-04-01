@@ -116,7 +116,7 @@ public class MastheadMobileTest {
         homePage.get(url);
 
         homePage.headerModule().mobSearchMenu().click();
-        homePage.headerModule().enterSearchTerm("John");
+        homePage.headerModule().enterSearchTerm("Sam");
         homePage.headerModule().goButton().click();
 
         SearchResultsPage serp = new SearchResultsPage();
