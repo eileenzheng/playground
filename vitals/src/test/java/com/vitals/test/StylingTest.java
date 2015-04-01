@@ -37,7 +37,7 @@ public class StylingTest {
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         page.reviewQuestionMark().click();
-        m_assert.assertTrue(page.getStyle(page.divTooltip(), "z-index").equals("6000001") || page.getStyle(page.divTooltip(), "z-index").equals("6000000"), "Tooltip");
+        m_assert.assertTrue(page.getStyle(page.divTooltip(), "z-index").equals("6000001") || page.getStyle(page.divTooltip(), "z-index").equals("6000002"), "Tooltip");
 
         page.plBookAppt().click();
         m_assert.assertTrue(page.getStyle(page.divModal(), "z-index").equals("6000000"), "Modal");
@@ -73,7 +73,7 @@ public class StylingTest {
         page.get(url + "/dermatologists");
 
         for (int i=0; i<page.refinement().dropdowns().size(); i++) {
-            m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(i), "z-index").equals("5000000"), "Dropdown " + i);
+            m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(i), "z-index").equals("5000001"), "Dropdown " + i);
         }
 
         m_assert.assertTrue(page.getStyle(page.ads().get(0), "z-index").equals("5001"), "leaderboard_top");
@@ -93,8 +93,8 @@ public class StylingTest {
 
         page.get(url + "/urgent-care");
 
-        m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(0), "z-index").equals("5000000"), "Dropdown Sort");
-        m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(1), "z-index").equals("5000000"), "Dropdown Distance");
+        m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(0), "z-index").equals("5000001"), "Dropdown Sort");
+        m_assert.assertTrue(page.getStyle(page.refinement().dropdowns().get(1), "z-index").equals("5000001"), "Dropdown Distance");
 
         m_assert.assertTrue(page.getStyle(page.ads().get(0), "z-index").equals("5001"), "leaderboard_top");
         m_assert.assertTrue(page.getStyle(page.ads().get(1), "z-index").equals("5001"), "rectangle");

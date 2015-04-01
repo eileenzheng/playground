@@ -120,7 +120,7 @@ public class MastheadTest {
 			HomePage homePage = new HomePage();
             homePage.get(url[i]);
 
-			homePage.headerModule().enterSearchTerm("John");
+			homePage.headerModule().enterSearchTerm("Sam");
 			homePage.headerModule().goButton().click();
             homePage.headerModule().acceptAlertIfPresent();
 

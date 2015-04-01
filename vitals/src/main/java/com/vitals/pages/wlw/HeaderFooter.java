@@ -10,6 +10,10 @@ public class HeaderFooter extends BasePage {
         return img(cssSelector("img[src*='logo']"));
     }
 
+    public FluentWebElement header() {
+        return div(cssSelector(".title"));
+    }
+
     public FluentWebElement headerQsymia() {
         return div(cssSelector(".search-header"));
     }
