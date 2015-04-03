@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="2">
-    <parameter name="url" value="http://www.vitals.com" />
-    <!--<parameter name="url" value="http://admin:mdx4dm1n@staging.vitals.com" />-->
+<suite name="Vitals Production Regression" verbose="5" parallel="tests" thread-count="1">
+    <!--<parameter name="url" value="http://www.vitals.com" />-->
+    <parameter name="url" value="http://admin:mdx4dm1n@staging.vitals.com" />
     <parameter name="driverType" value="local" />
     <parameter name="browser" value="chrome" />
     <!--<parameter name="platform" value="Windows 7" />-->

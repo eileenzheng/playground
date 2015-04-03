@@ -20,7 +20,7 @@ public class AnalyticsTest {
     private final String tynt = "tynt.com";
     private final String quant = "quantserve.com";
     private final String adroll = "adroll.com";
-    private final String pardot = "cdn.pardot.com";
+    private final String marketo = "marketo.net";
     private final String profile = "/doctors/Dr_Emile_Bacha/";
     private final String uccProfile = "/urgent-care/citymd-new-york-4/";
     private final String pg = "/patient-education/diabetes/";
@@ -37,7 +37,7 @@ public class AnalyticsTest {
     @Test
     public void homePage() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll, tynt};
+        String[] exceptions = {marketo, adroll, tynt};
         page.get(url);
         Assert.assertTrue(checkAnalytics(page, exceptions));
     }
@@ -46,7 +46,7 @@ public class AnalyticsTest {
     @Test
     public void serp() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll, tynt};
+        String[] exceptions = {marketo, adroll, tynt};
         m_assert = new SoftAssert();
         page.get(url + "/dermatologists");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "SERP browse path geo");
@@ -67,7 +67,7 @@ public class AnalyticsTest {
     @Test
     public void profile() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url);
         page.get(url + profile + "profile");
@@ -89,7 +89,7 @@ public class AnalyticsTest {
     @Test
     public void uccProfile() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + uccProfile);
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Summary page");
@@ -106,7 +106,7 @@ public class AnalyticsTest {
     @Test
     public void reviewPages() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + "/review");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Review page");
@@ -123,7 +123,7 @@ public class AnalyticsTest {
     @Test
     public void sitemaps() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + "/specialties");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Specialties");
@@ -148,7 +148,7 @@ public class AnalyticsTest {
     @Test
     public void patientGuides() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + "/patient-education");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Landing Page");
@@ -171,7 +171,7 @@ public class AnalyticsTest {
     @Test
     public void topics() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + "/topics");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Landing Page");
@@ -192,7 +192,7 @@ public class AnalyticsTest {
     @Test
     public void groupPractice() {
         page = new BasePage();
-        String[] exceptions = {pardot, adroll};
+        String[] exceptions = {marketo, adroll};
         m_assert = new SoftAssert();
         page.get(url + "/group-practice");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Main Page");
@@ -266,8 +266,8 @@ public class AnalyticsTest {
             result = false;
         }
 
-        if (!isInArray(pardot, exceptions) && !checkTag(page, head, pardot)) {
-            Reporter.log("Pardot<br>");
+        if (!isInArray(marketo, exceptions) && !checkTag(page, body, marketo)) {
+            Reporter.log("Marketo<br>");
             result = false;
         }
 
