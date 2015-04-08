@@ -10,7 +10,7 @@
     <parameter name="browser" value="chrome" />
 
     <listeners>
-        <listener class-name="com.vitalsqa.testrail.TestRailResultListener" />
+        <!--<listener class-name="com.vitalsqa.testrail.TestRailResultListener" />-->
         <listener class-name="com.vitalsqa.listener.DotTestListener" />
     </listeners>
 
