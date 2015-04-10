@@ -64,7 +64,7 @@ public class WlwQsymiaTest {
         serp.locationTextBox().clearField().sendKeys("98144");
         serp.searchButton().click();
 
-        m_assert.assertTrue(serp.getResultCount()>=80 && serp.getResultCount()<=81, "Number of results not between 80 and 81");
+        m_assert.assertTrue(serp.getResultCount()==11, "Number of results not 11");
 //        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
 //                "Not all 10 results are from WA");
         m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
@@ -85,16 +85,16 @@ public class WlwQsymiaTest {
         if (!names.get(0).getText().toString().equals("Dr. Jonathan P Stoehr MD, PHD")) {
             return false;
         }
-        if (!names.get(1).getText().toString().equals("Dr. Gandis G Mazeika MD")) {
+        if (!names.get(1).getText().toString().equals("Gal Omry MD")) {
             return false;
         }
-        if (!names.get(2).getText().toString().equals("Dr. James J Buttitta MD")) {
+        if (!names.get(2).getText().toString().equals("Dr. Elizabeth R Reilly MD")) {
             return false;
         }
-        if (!names.get(3).getText().toString().equals("Dr. Bradley J Wallum MD")) {
+        if (!names.get(3).getText().toString().equals("Dr. Grace A Lee MD")) {
             return false;
         }
-        if (!names.get(4).getText().toString().equals("Dr. Emily K Balser MD")) {
+        if (!names.get(4).getText().toString().equals("Dr. Mary N Morcos MD")) {
             return false;
         }
         return true;
