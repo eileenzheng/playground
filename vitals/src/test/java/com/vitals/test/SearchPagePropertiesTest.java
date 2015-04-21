@@ -17,8 +17,8 @@ public class SearchPagePropertiesTest {
     String url;
     String url_plain;
     String name = "John";
-    String insurance = "United Healthcare";
-    String plan = "Definity Choice Plus";
+    String insurance = "Aetna";
+    String plan = "Aetna HMO";
     String condition = "Diabetes";
     String specialty = "Dermatologist";
     String dentistSpecialty = "Dentist";
@@ -498,7 +498,7 @@ public class SearchPagePropertiesTest {
     @Test
     public void specialtyBrowseInsurance() {
         SearchResultsPage results = new SearchResultsPage();
-        results.get(url + "/dermatologists/united-healthcare");
+        results.get(url + "/dermatologists/aetna");
 
         m_assert = new SoftAssert();
 
@@ -514,9 +514,9 @@ public class SearchPagePropertiesTest {
             Reporter.log(results.getH1Text().toString());
         }
 
-        m_assert.assertTrue(results.getTitle().equals("Find United Healthcare Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
+        m_assert.assertTrue(results.getTitle().equals("Find Aetna Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
         		"Title is incorrect");
-        m_assert.assertTrue(results.getDescription().equals("Find United Healthcare dermatologists near you, read patient reviews, and get informed on Vitals.com"),
+        m_assert.assertTrue(results.getDescription().equals("Find Aetna dermatologists near you, read patient reviews, and get informed on Vitals.com"),
         		"Meta description is incorrect");
 
         m_assert.assertAll();
@@ -526,7 +526,7 @@ public class SearchPagePropertiesTest {
     @Test
     public void specialtyBrowseInsurancePlan() {
         SearchResultsPage results = new SearchResultsPage();
-        results.get(url + "/dermatologists/united-healthcare/definity-choice-plus");
+        results.get(url + "/dermatologists/aetna/aetna-hmo");
 
         m_assert = new SoftAssert();
 
@@ -583,7 +583,7 @@ public class SearchPagePropertiesTest {
     @Test
     public void specialtyBrowseCityInsurance() {
         SearchResultsPage results = new SearchResultsPage();
-        results.get(url + "/dermatologists/ny/new-york/united-healthcare");
+        results.get(url + "/dermatologists/ny/new-york/aetna");
 
         m_assert = new SoftAssert();
 
@@ -599,9 +599,9 @@ public class SearchPagePropertiesTest {
             Reporter.log(results.getH1Text().toString());
         }
 
-        m_assert.assertTrue(results.getTitle().equals("United Healthcare Dermatologists in New York, NY - Read Patient Reviews & Get Informed - Vitals.com"),
+        m_assert.assertTrue(results.getTitle().equals("Aetna Dermatologists in New York, NY - Read Patient Reviews & Get Informed - Vitals.com"),
         		"Title is incorrect");
-        m_assert.assertTrue(results.getDescription().equals("Find United Healthcare dermatologists in New York, NY, read patient reviews, and get informed on Vitals.com"),
+        m_assert.assertTrue(results.getDescription().equals("Find Aetna dermatologists in New York, NY, read patient reviews, and get informed on Vitals.com"),
         		"Meta description is incorrect");
 
         m_assert.assertAll();
@@ -825,7 +825,7 @@ public class SearchPagePropertiesTest {
     			!breadcrumb.get(1).getAttribute("href").toString().contains("/dermatologists"))
     			return false;
     	else return !(!breadcrumb.get(2).getAttribute("href").toString().contains(url_plain.toLowerCase()) ||
-                    !breadcrumb.get(2).getAttribute("href").toString().contains("/dermatologists/united-healthcare"));
+                    !breadcrumb.get(2).getAttribute("href").toString().contains("/dermatologists/aetna"));
     }
 
     private boolean breadcrumbSpecialtyCity(SearchResultsPage results) {

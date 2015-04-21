@@ -54,7 +54,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/summary";
@@ -85,7 +85,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/reviews_yes";
@@ -116,7 +116,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13678488"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"66", "217", "270"};
+        String[] inscValues = {"4", "57", "105"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/reviews_no";
@@ -147,7 +147,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/credentials";
@@ -178,7 +178,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/locations";
@@ -208,7 +208,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/insurance";
@@ -239,7 +239,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/sponsored";
@@ -301,7 +301,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/basic";
@@ -476,7 +476,7 @@ public class DFPTest {
     public void serpBrowseSpecIns() {
         page = new BasePage();
         m_assert = new SoftAssert();
-        page.get(url + "/cardiologists/united-healthcare/definity-ppo");
+        page.get(url + "/cardiologists/aetna/aetna-hmo");
 
         String[] znValues = {"serp", "browse", "spec", "ins"};
         m_assert.assertTrue(checkKeys(page, "zn", znValues), "Incorrect zn");
@@ -484,9 +484,9 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"card"};
         m_assert.assertTrue(checkKeys(page, "pspec", pspecValues), "Incorrect pspec");
-        String[] inscValues = {"35"};
+        String[] inscValues = {"34"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
-        String[] inspValues = {"514"};
+        String[] inspValues = {"122"};
         m_assert.assertTrue(checkKeys(page, "insp", inspValues), "Incorrect insp");
 
         String path = "/8905/vitals/serp/browse/spec/ins";
@@ -501,7 +501,7 @@ public class DFPTest {
     public void serpBrowseSpecInsGeo() {
         page = new BasePage();
         m_assert = new SoftAssert();
-        page.get(url + "/cardiologists/ny/new-york/united-healthcare");
+        page.get(url + "/cardiologists/ny/new-york/aetna");
 
         String[] znValues = {"serp", "browse", "spec", "ins"};
         m_assert.assertTrue(checkKeys(page, "zn", znValues), "Incorrect zn");
@@ -509,7 +509,7 @@ public class DFPTest {
         m_assert.assertTrue(checkKeys(page, "spec", specValues), "Incorrect spec");
         String[] pspecValues = {"card"};
         m_assert.assertTrue(checkKeys(page, "pspec", pspecValues), "Incorrect pspec");
-        String[] inscValues = {"35"};
+        String[] inscValues = {"34"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/serp/browse/spec/ins";
@@ -729,7 +729,7 @@ public class DFPTest {
                 for (int j=0; j<values.length; j++) {
                     if (!values_to_string.contains(values[j])) {
                         result = false;
-                        Reporter.log("Missing/incorrect value for " + key + ", expecting " + values[i] + " <br>");
+                        Reporter.log("Missing/incorrect value for " + key + ", expecting " + values[j] + " <br>");
                     }
                 }
             }

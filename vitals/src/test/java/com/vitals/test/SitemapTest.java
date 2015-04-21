@@ -136,8 +136,8 @@ public class SitemapTest {
         m_assert = new SoftAssert();
         InsurancePage insurancePage = new InsurancePage();
         insurancePage.get(url + "/insurances");
-        m_assert.assertTrue(insurancePage.companies().size()> 160 && insurancePage.companies().size()< 170, "# of insurance companies displayed not between 160 and 170");
-        m_assert.assertTrue(insurancePage.plans().size()> 640 && insurancePage.plans().size()< 650, "# of insurance plans displayed not between 640 and 650");
+        m_assert.assertTrue(insurancePage.companies().size()> 110 && insurancePage.companies().size()< 115, "# of insurance companies displayed not between 110 and 115");
+        m_assert.assertTrue(insurancePage.plans().size()> 215 && insurancePage.plans().size()< 220, "# of insurance plans displayed not between 215 and 220");
 
         while (insurancePage.currentAlphabet().getText().toString().equals("All")) {
             insurancePage.getRandom(insurancePage.alphabet()).click();

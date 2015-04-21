@@ -13,7 +13,7 @@ import static org.seleniumhq.selenium.fluent.Period.millis;
 
 public class ProfileInsuranceTest {
 
-    static final String drProfile = "/doctors/Dr_Marina_Gafanovich/insurance";
+    static final String drProfile = "/doctors/Dr_Thomas_C_Li/insurance";
 
     String url;
 
