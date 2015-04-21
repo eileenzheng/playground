@@ -543,9 +543,9 @@ public class SearchPagePropertiesTest {
             Reporter.log(results.getH1Text().toString());
         }
 
-        m_assert.assertTrue(results.getTitle().equals("Find Definity Choice Plus Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
+        m_assert.assertTrue(results.getTitle().equals("Find Aetna HMO Dermatologists near you, Read Patient Reviews, & Get Informed - Vitals.com"),
         		"Title is incorrect");
-        m_assert.assertTrue(results.getDescription().equals("Find Definity Choice Plus dermatologists near you, read patient reviews, and get informed on Vitals.com"),
+        m_assert.assertTrue(results.getDescription().equals("Find Aetna HMO dermatologists near you, read patient reviews, and get informed on Vitals.com"),
         		"Meta description is incorrect");
 
         m_assert.assertAll();
