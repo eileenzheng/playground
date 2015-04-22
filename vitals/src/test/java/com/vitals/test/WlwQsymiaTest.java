@@ -61,10 +61,10 @@ public class WlwQsymiaTest {
         landingPage.searchButton().click();
 
         SearchPage serp = new SearchPage();
-        serp.locationTextBox().clearField().sendKeys("98144");
+        serp.locationTextBox().clearField().sendKeys("02111");
         serp.searchButton().click();
 
-        m_assert.assertTrue(serp.getResultCount()==11, "Number of results not 11");
+        m_assert.assertTrue(serp.getResultCount()==19, "Number of results not 19");
 //        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
 //                "Not all 10 results are from WA");
         m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
@@ -82,19 +82,16 @@ public class WlwQsymiaTest {
     }
 
     private boolean sortedByExternal(FluentWebElements names) {
-        if (!names.get(0).getText().toString().equals("Dr. Jonathan P Stoehr MD, PHD")) {
+        if (!names.get(0).getText().toString().equals("Dr. Caroline M Apovian MD")) {
             return false;
         }
-        if (!names.get(1).getText().toString().equals("Gal Omry MD")) {
+        if (!names.get(1).getText().toString().equals("Dr. Osama S Hamdy MD, PHD")) {
             return false;
         }
-        if (!names.get(2).getText().toString().equals("Dr. Elizabeth R Reilly MD")) {
+        if (!names.get(2).getText().toString().equals("Dr. Florencia Halperin MD")) {
             return false;
         }
-        if (!names.get(3).getText().toString().equals("Dr. Grace A Lee MD")) {
-            return false;
-        }
-        if (!names.get(4).getText().toString().equals("Dr. Mary N Morcos MD")) {
+        if (!names.get(3).getText().toString().equals("Dr. Winfield S Butsch MD")) {
             return false;
         }
         return true;
