@@ -74,7 +74,7 @@
                 </property>
             </activation>
             <properties>
-                <suite.filename>ProductionRegressionSuiteBrowser.xml</suite.filename>
+                <suite.filename>StagingRegressionSuiteBrowser.xml</suite.filename>
             </properties>
         </profile>
 
@@ -87,7 +87,7 @@
                 </property>
             </activation>
             <properties>
-                <suite.filename>ProductionRegressionSuiteMobile.xml</suite.filename>
+                <suite.filename>StagingRegressionSuiteMobile.xml</suite.filename>
             </properties>
         </profile>
     </profiles>

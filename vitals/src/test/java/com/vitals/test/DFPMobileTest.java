@@ -48,7 +48,7 @@ public class DFPMobileTest {
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
         String[] midValues = {"13607954"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
-        String[] inscValues = {"35", "72", "311", "270"};
+        String[] inscValues = {"33", "92", "105", "486"};
         m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/summary";
@@ -246,7 +246,15 @@ public class DFPMobileTest {
                     result = false;
                     Reporter.log("Incorrect pos for " + slot + ", expecting " + pos + " <br>");
                 }
-                command = "return window.app.advert.googletag.logs['defineSlot'][" + i + "][0].responsive.mobile";
+
+                // sticky_mob_banner doesn't have responsive
+                if (slot.equals("sticky_mob_banner")) {
+                    command = "return window.app.advert.googletag.logs['defineSlot'][" + i + "][0].size";
+                }
+                else {
+                    command = "return window.app.advert.googletag.logs['defineSlot'][" + i + "][0].responsive.mobile";
+                }
+
                 ArrayList<String> sizesArray = (ArrayList<String>) page.executeJS(command);
                 size_string = StringUtils.join(sizesArray, ", ");
                 for (int j=0; j<sizes.length; j++) {
