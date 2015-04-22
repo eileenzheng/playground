@@ -48,7 +48,7 @@ public class SearchPagePropertiesTest {
         homePage.headerModule().enterInsuranceCompany(insurance);
         homePage.headerModule().insuranceSuggestions().get(0).click();
         homePage.headerModule().openInsurancePlan();
-        homePage.headerModule().insurancePlanSuggestions().get(0).click();
+        homePage.headerModule().insurancePlanSuggestions().get(6).click();
         homePage.headerModule().enterSearchTerm(name);
         homePage.headerModule().showAll().get(0).click();
 
@@ -192,7 +192,7 @@ public class SearchPagePropertiesTest {
         homePage.headerModule().enterInsuranceCompany(insurance);
         homePage.headerModule().insuranceSuggestions().get(0).click();
         homePage.headerModule().openInsurancePlan();
-        homePage.headerModule().insurancePlanSuggestions().get(0).click();
+        homePage.headerModule().insurancePlanSuggestions().get(6).click();
         homePage.headerModule().enterSearchTerm(condition);
         homePage.headerModule().conditionSuggestions().get(0).click();
 
@@ -304,7 +304,7 @@ public class SearchPagePropertiesTest {
         homePage.headerModule().enterInsuranceCompany(insurance);
         homePage.headerModule().insuranceSuggestions().get(0).click();
         homePage.headerModule().openInsurancePlan();
-        homePage.headerModule().insurancePlanSuggestions().get(0).click();
+        homePage.headerModule().insurancePlanSuggestions().get(6).click();
         homePage.headerModule().enterSearchTerm(specialty);
         homePage.headerModule().specialtySuggestions().get(0).click();
 
