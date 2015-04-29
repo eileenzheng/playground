@@ -26,7 +26,7 @@ public class PatientLinkTest {
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
     private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
-    private static final String dentistProfileHeaderUrl = "/dentists/Dr_Rahim_Bhanji/profile";
+    private static final String dentistProfileHeaderUrl = "/dentists/Dr_Camilo_Achury/profile";
     private static final String uccUrl = "/urgent-care/ct/hartford";
     
     @Parameters({"url"})
@@ -77,7 +77,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
         m_assert.assertTrue(profile.hasPlPhoneNumber(), "Phone number is missing!");
         if (profile.hasPlPhoneNumber()) {
-            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(407) 603-2684") , "Phone number is incorrect!");
+            m_assert.assertTrue(profile.plPhoneNumber().getText().toString().contains("(347) 313-8646") , "Phone number is incorrect!");
         }
         m_assert.assertTrue(profile.hasPlBookAppt(), "Book online button is missing!");
 
