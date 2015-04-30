@@ -22,9 +22,9 @@ public class PatientLinkTest {
     private String url;
     
     private static final String serpUrl = "/dermatologists/ny/new-york";
-    private static final String dentistSerpUrl = "/dentists/fl/orlando";
+    private static final String dentistSerpUrl = "/dentists/ma/wellesley";
     private static final String profileUrl = "/doctors/Dr_Donald_Belsito/profile";
-    private static final String dentistProfileUrl = "/dentists/Dr_James_Flatley/profile";
+    private static final String dentistProfileUrl = "/dentists/Dr_Robert_Benny/profile";
     private static final String profileHeaderUrl = "/doctors/Dr_Adelle_Quintana/profile";
     private static final String dentistProfileHeaderUrl = "/dentists/Dr_Camilo_Achury/profile";
     private static final String uccUrl = "/urgent-care/ct/hartford";
@@ -317,7 +317,7 @@ public class PatientLinkTest {
         m_assert = new SoftAssert();
 
         ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Stanislav_Goykhman/profile");
+        profile.get(url + "/doctors/Dr_Katherine_Ludington/profile");
         profile.dismissReviewIntercept();
         profile.plBookAppt().click();
 
@@ -327,7 +327,7 @@ public class PatientLinkTest {
 
         IframeAthena iframe = new IframeAthena();
         iframe.waitUntilVisible(iframe.name(), Constants.SELENIUM_IMPLICIT_WAIT);
-        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr. Stanislav Goykhman, MD"), "Incorrect name");
+        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr. Katherine Ludington, MD"), "Incorrect name");
         iframe.nextButton().click();
         iframe.waitUntilVisible(iframe.nextButton(), Constants.SELENIUM_IMPLICIT_WAIT);
         m_assert.assertTrue(iframe.hasSlots(), "No time slots");
