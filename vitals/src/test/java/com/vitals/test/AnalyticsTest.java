@@ -227,7 +227,7 @@ public class AnalyticsTest {
         m_assert.assertTrue(checkAnalytics(page, exceptions), "News");
         page.get(url + "/about/resources");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Resources");
-        page.get(url + "/about/doctor-awards");
+        page.get(url + "/about/providers/doctor-awards");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Awards");
         page.get(url + "/about/careers");
         m_assert.assertTrue(checkAnalytics(page, exceptions), "Careers");
