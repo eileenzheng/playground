@@ -30,10 +30,6 @@ public class StylingTest {
         page.get(url + "/doctors/Dr_Adelle_Quintana");
         page.get(url + "/doctors/Dr_Adelle_Quintana");
 
-//        for (int i=0; i<page.divAdvertBox().size(); i++) {
-//            m_assert.assertTrue(page.getStyle(page.divAdvertBox().get(i), "z-index").equals("5001"), "Advert Box " + i);
-//        }
-
         m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         page.reviewQuestionMark().click();
@@ -42,24 +38,6 @@ public class StylingTest {
         page.plBookAppt().click();
         m_assert.assertTrue(page.getStyle(page.divModal(), "z-index").equals("6000000"), "Modal");
         m_assert.assertTrue(page.getStyle(page.divModalBackdrop(), "z-index").equals("5999999") || page.getStyle(page.divModalBackdrop(), "z-index").equals("6000000"), "Modal Backdrop");
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=2481)
-    @Test
-    public void zindexUccProfile() {
-        UccProfileSummaryPage page = new UccProfileSummaryPage();
-        m_assert = new SoftAssert();
-
-        page.get(url + "/urgent-care/emergency-medical-care");
-
-        for (int i=0; i<page.divAdvertBox().size(); i++) {
-            m_assert.assertTrue(page.getStyle(page.divAdvertBox().get(i), "z-index").equals("5001"), "Advert Box " + i);
-        }
-        m_assert.assertTrue(page.getStyle(page.divAdvertWrapper(), "z-index").equals("5001"), "Advert Wrapper");
-
-        m_assert.assertTrue(page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000001") || page.getStyle(page.headerModule().divMainHeader(), "z-index").equals("5000000"), ".main-header");
 
         m_assert.assertAll();
     }

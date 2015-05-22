@@ -103,10 +103,6 @@ public class ProfileCommonPage extends BasePage {
         return spans(cssSelector(".additionalInformation>span"));
     }
 
-    public FluentWebElements divAdvertBox() {
-        return divs(cssSelector("div.advert.cbox"));
-    }
-
     public FluentWebElement divModal() {
         return div(cssSelector("div.modal"));
     }

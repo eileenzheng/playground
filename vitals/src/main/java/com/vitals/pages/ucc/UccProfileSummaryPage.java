@@ -46,14 +46,6 @@ public class UccProfileSummaryPage extends BasePage {
         return link(cssSelector(".middle-column .ucc-box:last-of-type .col-xs-12>a"));
     }
 
-    public FluentWebElements divAdvertBox() {
-        return divs(cssSelector("div.advert.cbox"));
-    }
-
-    public FluentWebElement divAdvertWrapper() {
-        return div(cssSelector("div.advert-wrapper"));
-    }
-
 	public boolean isTitleMatched() {
         return (breadcrumbs().get(breadcrumbs().size() - 1)).getText().toString().equals(h1().getText().toString());
 	}
