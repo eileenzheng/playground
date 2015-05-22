@@ -55,17 +55,17 @@ public class PatientLinkCenterAd extends PatientLinkAd {
         return makeFluentWebElements(list,null,null);
     }
 
-    public List<WebElement> phoneNumber() {
+    public FluentWebElements phoneNumber() {
         setImplicitWait(0);
-        List<WebElement> list = new ArrayList<WebElement>();
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
         for (FluentWebElement el : block()){
             if (el.has().link(cssSelector(".call-appt")))
-                list.add(el.link(cssSelector(".call-appt")).getWebElement());
+                list.add(el.link(cssSelector(".call-appt")));
             else
                 list.add(null);
         }
         setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
-        return list;
+        return makeFluentWebElements(list,null,null);
     }
 
     public FluentWebElements logo() {

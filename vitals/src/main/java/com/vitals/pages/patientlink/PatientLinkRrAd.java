@@ -11,35 +11,35 @@ import static org.openqa.selenium.By.cssSelector;
 public class PatientLinkRrAd extends PatientLinkAd {
 
     public FluentWebElements name() {
-        return links(cssSelector(".related.block.border .rr-row .title>a"));
+        return links(cssSelector(".related-result h4>a"));
     }
 
     public FluentWebElements specialty() {
-        return divs(cssSelector(".related.block.border .rr-row .specialty"));
+        return ps(cssSelector(".related-result .specialty"));
     }
 
     public FluentWebElements address1() {
-        return spans(cssSelector(".related.block.border .rr-row .details>address>span>span:first-child"));
+        return spans(cssSelector(".related-result .details>address>span>span:first-child"));
     }
 
     public FluentWebElements address2() {
-        return spans(cssSelector(".related.block.border .rr-row .details>address>span>span:last-child"));
+        return spans(cssSelector(".related-result .details>address>span>span:last-child"));
     }
 
     public FluentWebElements city() {
-        return spans(cssSelector(".related.block.border .rr-row .details address>span:nth-last-child(3)"));
+        return spans(cssSelector(".related-result .details address>span:nth-last-child(3)"));
     }
 
     public FluentWebElements state() {
-        return spans(cssSelector(".related.block.border .rr-row .details address>span:nth-last-child(2)"));
+        return spans(cssSelector(".related-result .details address>span:nth-last-child(2)"));
     }
 
     public FluentWebElements zip() {
-        return spans(cssSelector(".related.block.border .rr-row .details>address>span:last-of-type"));
+        return spans(cssSelector(".related-result .details address>span:last-of-type"));
     }
 
     public FluentWebElements block() {
-        return divs(cssSelector(".related.block.border .row2"));
+        return divs(cssSelector(".related-result"));
     }
 
     public FluentWebElements bookButton() {
@@ -55,25 +55,25 @@ public class PatientLinkRrAd extends PatientLinkAd {
         return makeFluentWebElements(list,null,null);
     }
 
-    public List<WebElement> phoneNumber() {
+    public FluentWebElements phoneNumber() {
         setImplicitWait(0);
-        List<WebElement> list = new ArrayList<WebElement>();
+        List<FluentWebElement> list = new ArrayList<FluentWebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().link(cssSelector(".call-appointment a")))
-                list.add(el.link(cssSelector(".call-appointment a")).getWebElement().findElement(cssSelector("strong")));
+            if (el.has().span(cssSelector(".call-wrapper .text>span")))
+                list.add(el.span(cssSelector(".call-wrapper .text>span")));
             else
                 list.add(null);
         }
         setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
-        return list;
+        return makeFluentWebElements(list,null,null);
     }
 
     public FluentWebElements logo() {
         setImplicitWait(0);
         List<FluentWebElement> list = new ArrayList<FluentWebElement>();
         for (FluentWebElement el : block()){
-            if (el.has().img(cssSelector(".logo>img")))
-                list.add(el.img(cssSelector(".logo>img")));
+            if (el.has().img(cssSelector(".sponsor>img")))
+                list.add(el.img(cssSelector(".sponsor>img")));
             else
                 list.add(null);
         }

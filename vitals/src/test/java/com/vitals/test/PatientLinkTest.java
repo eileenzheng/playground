@@ -159,209 +159,209 @@ public class PatientLinkTest {
         testIndividualAd(ucc.centerAd());
     }
 
-    @TestCase(id=1757)
-    @Test
-    public void docAsapIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Saka_Kazeem/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='docasap']");
-
-        IframeDocAsap iframe = new IframeDocAsap();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Saka Kazeem, MD"), "Incorrect name");
-        iframe.nextButton().click();
-        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=1758)
-    @Test
-    public void healthPostIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Victoria_Adeleye/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='healthpost']");
-
-        IframeHealthPost iframe = new IframeHealthPost();
-        iframe.nextButton().click();
-        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=1759)
-    @Test
-    public void drChronoIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Matthew_Krasucki/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='chrono']");
-
-        IframeDrChrono iframe = new IframeDrChrono();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Matthew D. Krasucki M.D."), "Incorrect name");
-        iframe.nextButton().click();
-        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=1871)
-    @Test
-    public void bookThatDocIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/dentists/Dr_Rahim_Bhanji/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='bookthatdoc']");
-
-        IframeBookThatDoc iframe = new IframeBookThatDoc();
-        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Rahim Bhanji"), "Incorrect name");
-        iframe.nextButton().click();
-        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=2111)
-    @Test
-    public void greenvilleIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Molly_Adams/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='ghswebdev.com']");
-
-        IframeGreenville iframe = new IframeGreenville();
-        m_assert.assertTrue(iframe.name().getText().toString().contains("Molly C. Adams, MD"), "Incorrect name");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=2447)
-    @Test
-    public void doctorDotComIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Tina_Beck/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='patients.doctor.com']");
-
-        IframeDoctorDotCom iframe = new IframeDoctorDotCom();
-        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Tina Beck"), "Incorrect name");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=3485)
-    @Test
-    public void athenaIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Katherine_Ludington/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='appointments.vitals.com']");
-
-        IframeAthena iframe = new IframeAthena();
-        iframe.waitUntilVisible(iframe.name(), Constants.SELENIUM_IMPLICIT_WAIT);
-        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr. Katherine Ludington, MD"), "Incorrect name");
-        iframe.nextButton().click();
-        iframe.waitUntilVisible(iframe.nextButton(), Constants.SELENIUM_IMPLICIT_WAIT);
-        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
-
-    @TestCase(id=3486)
-    @Test
-    public void caditIframe() {
-
-        m_assert = new SoftAssert();
-
-        ProfileCommonPage profile = new ProfileCommonPage();
-        profile.get(url + "/doctors/Dr_Andrew_Camerota/profile");
-        profile.dismissReviewIntercept();
-        profile.plBookAppt().click();
-
-        ModalIframe modal = new ModalIframe();
-        String mainWindow = modal.getMainWindow();
-        modal.switchIframe("iframe[src*='.cadit.com']");
-
-        IframeCadit iframe = new IframeCadit();
-        iframe.waitUntilVisible(iframe.comments(), Constants.SELENIUM_IMPLICIT_WAIT);
-        iframe.comments().sendKeys("test test");
-
-        modal.switchWindow(mainWindow);
-        modal.closeButton().click();
-
-        m_assert.assertAll();
-    }
+//    @TestCase(id=1757)
+//    @Test
+//    public void docAsapIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Saka_Kazeem/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='docasap']");
+//
+//        IframeDocAsap iframe = new IframeDocAsap();
+//        m_assert.assertTrue(iframe.name().getText().toString().equals("Saka Kazeem, MD"), "Incorrect name");
+//        iframe.nextButton().click();
+//        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=1758)
+//    @Test
+//    public void healthPostIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Victoria_Adeleye/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='healthpost']");
+//
+//        IframeHealthPost iframe = new IframeHealthPost();
+//        iframe.nextButton().click();
+//        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=1759)
+//    @Test
+//    public void drChronoIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Matthew_Krasucki/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='chrono']");
+//
+//        IframeDrChrono iframe = new IframeDrChrono();
+//        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Matthew D. Krasucki M.D."), "Incorrect name");
+//        iframe.nextButton().click();
+//        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=1871)
+//    @Test
+//    public void bookThatDocIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/dentists/Dr_Rahim_Bhanji/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='bookthatdoc']");
+//
+//        IframeBookThatDoc iframe = new IframeBookThatDoc();
+//        m_assert.assertTrue(iframe.name().getText().toString().equals("Dr. Rahim Bhanji"), "Incorrect name");
+//        iframe.nextButton().click();
+//        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=2111)
+//    @Test
+//    public void greenvilleIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Molly_Adams/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='ghswebdev.com']");
+//
+//        IframeGreenville iframe = new IframeGreenville();
+//        m_assert.assertTrue(iframe.name().getText().toString().contains("Molly C. Adams, MD"), "Incorrect name");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=2447)
+//    @Test
+//    public void doctorDotComIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Tina_Beck/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='patients.doctor.com']");
+//
+//        IframeDoctorDotCom iframe = new IframeDoctorDotCom();
+//        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr Tina Beck"), "Incorrect name");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=3485)
+//    @Test
+//    public void athenaIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Katherine_Ludington/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='appointments.vitals.com']");
+//
+//        IframeAthena iframe = new IframeAthena();
+//        iframe.waitUntilVisible(iframe.name(), Constants.SELENIUM_IMPLICIT_WAIT);
+//        m_assert.assertTrue(iframe.name().getText().toString().contains("Dr. Katherine Ludington, MD"), "Incorrect name");
+//        iframe.nextButton().click();
+//        iframe.waitUntilVisible(iframe.nextButton(), Constants.SELENIUM_IMPLICIT_WAIT);
+//        m_assert.assertTrue(iframe.hasSlots(), "No time slots");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
+//
+//    @TestCase(id=3486)
+//    @Test
+//    public void caditIframe() {
+//
+//        m_assert = new SoftAssert();
+//
+//        ProfileCommonPage profile = new ProfileCommonPage();
+//        profile.get(url + "/doctors/Dr_Andrew_Camerota/profile");
+//        profile.dismissReviewIntercept();
+//        profile.plBookAppt().click();
+//
+//        ModalIframe modal = new ModalIframe();
+//        String mainWindow = modal.getMainWindow();
+//        modal.switchIframe("iframe[src*='.cadit.com']");
+//
+//        IframeCadit iframe = new IframeCadit();
+//        iframe.waitUntilVisible(iframe.comments(), Constants.SELENIUM_IMPLICIT_WAIT);
+//        iframe.comments().sendKeys("test test");
+//
+//        modal.switchWindow(mainWindow);
+//        modal.closeButton().click();
+//
+//        m_assert.assertAll();
+//    }
 
     // only need to call init function once for all the tests
     public void init() {
@@ -413,7 +413,7 @@ public class PatientLinkTest {
                     "Zip for " + ad.name().get(i).getText().toString() + " did not match");
 
             if (ad.phoneNumber().get(i) != null) {
-				m_assert.assertEquals(ad.phoneNumber().get(i).getText(), pl.getExpectedNumber(),
+				m_assert.assertEquals(ad.phoneNumber().get(i).getText().toString(), pl.getExpectedNumber(),
 						"Phone number for " + ad.name().get(i).getText().toString() + " did not match");
 			}
             else {

@@ -26,7 +26,7 @@ public abstract class PatientLinkAd extends BasePage {
 
     public abstract FluentWebElements bookButton();
 
-    public abstract List<WebElement> phoneNumber();
+    public abstract FluentWebElements phoneNumber();
 
     public abstract FluentWebElements logo();
 
