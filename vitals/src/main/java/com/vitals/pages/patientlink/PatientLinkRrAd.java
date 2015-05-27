@@ -11,7 +11,7 @@ import static org.openqa.selenium.By.cssSelector;
 public class PatientLinkRrAd extends PatientLinkAd {
 
     public FluentWebElements name() {
-        return links(cssSelector(".related-result h4>a"));
+        return h4s(cssSelector(".related-result h4"));
     }
 
     public FluentWebElements specialty() {
