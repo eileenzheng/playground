@@ -258,20 +258,22 @@ public class DFPTest {
         page = new BasePage();
         m_assert = new SoftAssert();
         page.get(url);
-        page.get(url + "/doctors/Dr_Todd_Rosengart/video");
+        page.get(url + "/doctors/Dr_Craig_Birkby/video");
 
         String[] znValues = {"profile", "video"};
         m_assert.assertTrue(checkKeys(page, "zn", znValues), "Incorrect zn");
-        String[] specValues = {"surg", "ctsg", "famp"};
+        String[] specValues = {"derm"};
         m_assert.assertTrue(checkKeys(page, "spec", specValues), "Incorrect spec");
-        String[] pspecValues = {"surg"};
+        String[] pspecValues = {"derm"};
         m_assert.assertTrue(checkKeys(page, "pspec", pspecValues), "Incorrect pspec");
-        String[] fspecValues = {"ctsg-ctsg", "surg-surg", "famp-amed"};
+        String[] fspecValues = {"derm-derm"};
         m_assert.assertTrue(checkKeys(page, "fspec", fspecValues), "Incorrect fspec");
-        String[] spexValues = {"953", "958", "959"};
+        String[] spexValues = {"49", "47"};
         m_assert.assertTrue(checkKeys(page, "spex", spexValues), "Incorrect spex");
-        String[] midValues = {"13716928"};
+        String[] midValues = {"13573435"};
         m_assert.assertTrue(checkKeys(page, "mid", midValues), "Incorrect mid");
+        String[] inscValues = {"33", "14", "83", "91"};
+        m_assert.assertTrue(checkKeys(page, "insc", inscValues), "Incorrect insc");
 
         String path = "/8905/vitals/profile/video";
         m_assert.assertTrue(checkSlots(page, "leaderboard_top", leaderboardTopSizes, "1", path), "Incorrect leaderboard top");

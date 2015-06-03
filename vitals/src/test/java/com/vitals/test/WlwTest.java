@@ -140,7 +140,7 @@ public class WlwTest {
         serp.selectDropDown(serp.sortDropDown(), "Name");
         m_assert.assertTrue(countOccurrences(serp.specialties(), "Psychiatry")>=5 && countOccurrences(serp.specialties(), "Psychiatry") <=10,
                 "Less than 5 Psychiatrists returned in name sort");
-        m_assert.assertTrue(countOccurrences(serp.cities(), "Hollywood")>=1 && countOccurrences(serp.cities(), "Hollywood")<=10,
+        m_assert.assertTrue(countOccurrences(serp.cities(), "Hollywood")>=0 && countOccurrences(serp.cities(), "Hollywood")<=10,
                 "Less than 1 from Hollywood returned in name sort");
         m_assert.assertTrue(countOccurrences(serp.states(), "FL")>=8 && countOccurrences(serp.states(), "FL")<=10,
                 "Less than 8 from FL returned in name sort");
