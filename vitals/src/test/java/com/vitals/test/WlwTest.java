@@ -19,7 +19,7 @@ public class WlwTest {
     @BeforeMethod
     public void setup(String url) throws Exception {
         if (url.contains("staging")) {
-            this.url = "http://finder.dev.features.hb.mdxdev.net/";
+            this.url = "http://finder.dev.features.qa.vitals.mdx.med/";
         }
         else {
             this.url = "http://finder.vitals.com/";

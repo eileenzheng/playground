@@ -19,7 +19,7 @@ public class WlwQsymiaTest {
     @BeforeMethod
     public void setup(String url) throws Exception {
         if (url.contains("staging")) {
-            this.url = "http://finder.dev.features.hb.mdxdev.net/obsrx";
+            this.url = "http://finder.dev.features.qa.vitals.mdx.med/obsrx";
         }
         else {
             this.url = "http://finder.vitals.com/obsrx";
@@ -67,7 +67,7 @@ public class WlwQsymiaTest {
         m_assert.assertTrue(serp.getResultCount()>=16 && serp.getResultCount()<=18, "Number of results not between 16 & 18");
 //        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
 //                "Not all 10 results are from WA");
-        m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
+//        m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
         m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
 
         m_assert.assertAll();
