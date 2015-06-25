@@ -65,8 +65,8 @@ public class WlwQsymiaTest {
         serp.searchButton().click();
 
         m_assert.assertTrue(serp.getResultCount()>=16 && serp.getResultCount()<=18, "Number of results not between 16 & 18");
-//        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
-//                "Not all 10 results are from WA");
+        m_assert.assertTrue(countOccurrences(serp.states(), "WA")==10,
+                "Not all 10 results are from WA");
 //        m_assert.assertTrue(sortedByExternal(serp.namesQsymia()), "Results are not sorted by external file");
         m_assert.assertTrue(serp.isProfileLinkCorrect(), "Profile link format incorrect on page " + serp.currentPage().getText().toString());
 
