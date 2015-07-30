@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Test Suite" verbose="5" parallel="tests" thread-count="2">
+	<parameter name="url" value="http://www.google.com" />
+	<parameter name="browser" value="firefox" />
+	<parameter name="projectId" value="2"/>
+	<parameter name="suiteId" value="12"/>
+	<parameter name="testRunId" value="113"/>
+	<parameter name="driverType" value="remote" />
+
+    <test name="Test1">
+        <classes>
+            <class name="Test1" />
+        </classes>
+    </test>
+    <test name="Test2">
+        <classes>
+            <class name="Test2" />
+        </classes>
+    </test>
+</suite>
