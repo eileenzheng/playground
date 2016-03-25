@@ -98,7 +98,7 @@
                         </property>
                         <property>
                             <name>listener</name>
-                            <value>listener.WebDriverListener,org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
+                            <value>listener.WebDriverListener,listener.RetryListener,org.uncommons.reportng.HTMLReporter,org.testng.reporters.XMLReporter</value>
                         </property>
                         <property>
                             <name>outputDir</name>

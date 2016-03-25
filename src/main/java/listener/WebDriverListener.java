@@ -46,6 +46,16 @@ public class WebDriverListener extends TestListenerAdapter implements ITestListe
     public void onTestFailure(ITestResult tr) {
         super.onTestFailure(tr);
         takeScreenshot(tr,wd.get());
+//        if (tr.getMethod().getRetryAnalyzer() != null) {
+//            Retry retryAnalyzer = (Retry)tr.getMethod().getRetryAnalyzer();
+//
+//            if(retryAnalyzer.retry(tr)) {
+//                tr.setStatus(ITestResult.SKIP);
+//            } else {
+//                tr.setStatus(ITestResult.FAILURE);
+//            }
+//            Reporter.setCurrentTestResult(tr);
+//        }
         endDriver(tr);
     }
 
@@ -53,6 +63,21 @@ public class WebDriverListener extends TestListenerAdapter implements ITestListe
     public void onTestSkipped(ITestResult tr) {
         super.onTestSkipped(tr);
         endDriver(tr);
+    }
+
+    @Override
+    public void onFinish(ITestContext context) {
+        Set<ITestResult> failedTests = context.getFailedTests().getAllResults();
+        for (ITestResult temp : failedTests) {
+            ITestNGMethod method = temp.getMethod();
+            if (context.getFailedTests().getResults(method).size() > 1) {
+                failedTests.remove(temp);
+            } else {
+                if (context.getPassedTests().getResults(method).size() > 0) {
+                    failedTests.remove(temp);
+                }
+            }
+        }
     }
 
     // Class Methods
