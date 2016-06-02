@@ -213,16 +213,20 @@ public class WebDriverListener extends TestListenerAdapter implements ITestListe
     }
 
     private void setClassListMap(ITestContext tc) {
-        // for every method in tc
-        for (ITestNGMethod m : tc.getAllTestMethods()) {
-            Class methodsClass = m.getRealClass(); // get the class of the method
-            // look by class (key) in the classListMap, if list of methods (value) doesn't exist, create list
-            List<ITestNGMethod> methods = classListMap.get(methodsClass);
-            if (methods == null) {
-                methods = new ArrayList<ITestNGMethod>();
+
+        synchronized(classListMap) {
+
+            // for every method in tc
+            for (ITestNGMethod m : tc.getAllTestMethods()) {
+                Class methodsClass = m.getRealClass(); // get the class of the method
+                // look by class (key) in the classListMap, if list of methods (value) doesn't exist, create list
+                List<ITestNGMethod> methods = classListMap.get(methodsClass);
+                if (methods == null) {
+                    methods = new ArrayList<ITestNGMethod>();
+                }
+                methods.add(m); // add current method to the list of methods
+                classListMap.put(methodsClass, methods); // update map with class (key) and method list (value)
             }
-            methods.add(m); // add current method to the list of methods
-            classListMap.put(methodsClass, methods); // update map with class (key) and method list (value)
         }
     }
 

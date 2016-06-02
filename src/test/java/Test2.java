@@ -19,6 +19,6 @@ public class Test2 {
         HomePage page = new HomePage();
         page.get(url);
 
-        Assert.assertTrue(page.getTitle().equals("Test"));
+        Assert.assertTrue(page.getTitle().equals("Google"));
     }
 }

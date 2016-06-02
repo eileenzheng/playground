@@ -28,8 +28,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <remoteUrl>http://thqatrprd01.mdx.med:4444/wd/hub</remoteUrl>
-        <selenium.version>2.43.0</selenium.version>
-        <testng.version>6.8.5</testng.version>
+        <selenium.version>2.53.0</selenium.version>
+        <testng.version>6.9.10</testng.version>
         <fluent-selenium.version>1.14.2</fluent-selenium.version>
         <maven-surefire.version>2.16</maven-surefire.version>
     </properties>
