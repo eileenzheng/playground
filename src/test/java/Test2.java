@@ -1,8 +1,7 @@
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.HomePage;
+import org.testng.asserts.SoftAssert;
 
 public class Test2 {
 
@@ -15,10 +14,11 @@ public class Test2 {
     }
 
     @Test
-    public void checkTitle(){
-        HomePage page = new HomePage();
-        page.get(url);
-
-        Assert.assertTrue(page.getTitle().equals("Google"));
+    public void test2() {
+        SoftAssert m_assert = new SoftAssert();
+        double rand = Math.random();
+        System.out.println("Test 2: " + rand);
+        m_assert.assertTrue(rand > 0.5);
+        m_assert.assertAll();
     }
 }

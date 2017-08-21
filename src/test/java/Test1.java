@@ -1,8 +1,7 @@
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.HomePage;
+import org.testng.asserts.SoftAssert;
 
 public class Test1 {
 
@@ -15,10 +14,11 @@ public class Test1 {
     }
 
     @Test
-    public void checkPhoto(){
-        HomePage page = new HomePage();
-        page.get(url);
-
-        Assert.assertTrue(page.homePhoto().isDisplayed().value());
+    public void test1() {
+        SoftAssert m_assert = new SoftAssert();
+        double rand = Math.random();
+        System.out.println("Test 1: " + rand);
+        m_assert.assertTrue(rand>0.5);
+        m_assert.assertAll();
     }
 }

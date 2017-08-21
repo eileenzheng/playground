@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Test Suite" verbose="5" parallel="tests" thread-count="2">
 	<parameter name="url" value="http://www.google.com" />
 	<parameter name="browser" value="firefox" />
 	<parameter name="projectId" value="2"/>
 	<parameter name="suiteId" value="12"/>
 	<parameter name="testRunId" value="113"/>
-	<parameter name="driverType" value="remote" />
+	<parameter name="driverType" value="local" />
 
     <test name="Test1">
         <classes>
