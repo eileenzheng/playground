@@ -5,17 +5,16 @@ import listener.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.seleniumhq.selenium.fluent.FluentWebDriver;
 import org.seleniumhq.selenium.fluent.FluentWebElement;
 import java.util.concurrent.TimeUnit;
 
-public class BasePage extends FluentWebDriver{
+public class BasePage {
 
     private final WebDriver webDriver;
 
 
     public BasePage() {
-        super(DriverManager.getDriver());
+        DriverManager.getDriver();
     	this.webDriver = DriverManager.getDriver();
         this.setImplicitWait(Constants.SELENIUM_IMPLICIT_WAIT);
     }
