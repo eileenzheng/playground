@@ -5,7 +5,6 @@ import listener.DriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.seleniumhq.selenium.fluent.FluentWebElement;
 import java.util.concurrent.TimeUnit;
 
 public class BasePage {
@@ -52,9 +51,9 @@ public class BasePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
     }
 
-    public void waitUntilVisible(FluentWebElement el, Integer seconds) {
+    public void waitUntilVisible(WebElement el, Integer seconds) {
         WebDriverWait wait = new WebDriverWait(webDriver(),seconds);
-        wait.until(ExpectedConditions.visibilityOf(el.getWebElement()));
+        wait.until(ExpectedConditions.visibilityOf(el));
     }
 
     public void deleteCookies() {

@@ -1,6 +1,7 @@
 package listener;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,11 +10,65 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DriverFactory {
+
+    /**
+     * Create a remote web driver instance
+     * @param browserName firefox or chrome
+     * @param record whether you want to record video
+     * @return driver
+     */
+    public static WebDriver createGridlasticInstance(String browserName, String record) {
+        WebDriver driver = null;
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setPlatform(Platform.LINUX);
+
+        if (record.equalsIgnoreCase("true")) {
+            caps.setCapability("video", "True");
+        }
+        else {
+            caps.setCapability("video", "False");
+        }
+
+        if (browserName.toLowerCase().equals("firefox")) {
+            caps.setBrowserName("firefox");
+            caps.setVersion("45");
+            FirefoxProfile firefoxProfile = new FirefoxProfile();
+            firefoxProfile.setAlwaysLoadNoFocusLib(true);
+            try {
+                driver = new RemoteWebDriver(new URL("http://7hFkpRkg6hs6QXrW3Wj10e2aX3y9LAEJ:H9UWR43OcmKT92F3OPVFTOFHI4GkuaT2@I08BPXKN.gridlastic.com:80/wd/hub"), caps);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            driver.manage().window().setSize(new Dimension(1920,1080));
+
+        }
+        else if (browserName.toLowerCase().equals("chrome")) {
+            caps.setBrowserName("chrome");
+            caps.setVersion("latest");
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("disable-infobars");
+            options.addArguments(Arrays.asList("--window-position=0,0"));
+            options.addArguments(Arrays.asList("--window-size=1920,1080"));
+            caps.setCapability(ChromeOptions.CAPABILITY, options);
+            try {
+                driver = new RemoteWebDriver(new URL("http://7hFkpRkg6hs6QXrW3Wj10e2aX3y9LAEJ:H9UWR43OcmKT92F3OPVFTOFHI4GkuaT2@I08BPXKN.gridlastic.com:80/wd/hub"), caps);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (record.equalsIgnoreCase("true")) {
+            System.out.println("Test Video: http://s3.amazonaws.com/4ad4a405-ef2a-b3d3-a629-1ab0a2d338b1/20e2eaa4-9264-dfd4-52c6-8f3af914e90f/play.html?" + ((RemoteWebDriver) driver).getSessionId());
+        }
+        return driver;
+    }
 
     /**
      * Create a remote web driver instance

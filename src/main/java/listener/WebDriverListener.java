@@ -94,9 +94,14 @@ public class WebDriverListener extends TestListenerAdapter implements ITestListe
                 ? tc.getCurrentXmlTest().getParameter("device")
                 : "";
 
+        String video = tc.getCurrentXmlTest().getParameter("video") != null
+                ? tc.getCurrentXmlTest().getParameter("video")
+                : "";
+
         testParams.put("driverType",driverType);
         testParams.put("browser",browser);
         testParams.put("device",device);
+        testParams.put("video",video);
     }
 
     /**
@@ -128,9 +133,13 @@ public class WebDriverListener extends TestListenerAdapter implements ITestListe
 
         if (dt.equals("") || dt.equals("local")) {
             driver = DriverFactory.createLocalInstance(testParams.get("browser"), testParams.get("device"));
-        } else if (dt.equals("remote")) {
+        }
+        else if (dt.equals("remote")) {
                 URL server = getRemoteServerURL();
                 driver = DriverFactory.createRemoteInstance(testParams.get("browser"),testParams.get("device"),server);
+        }
+        else if (dt.equals("gridlastic")) {
+            driver = DriverFactory.createGridlasticInstance(testParams.get("browser"), testParams.get("video"));
         }
 
         DriverManager.setWebDriver(driver);

@@ -3,7 +3,8 @@
 <suite name="Test Suite" verbose="5" parallel="tests" thread-count="2">
 	<parameter name="url" value="http://www.google.com" />
 	<parameter name="browser" value="firefox" />
-	<parameter name="driverType" value="local" />
+	<parameter name="driverType" value="gridlastic" />
+    <parameter name="video" value="false" />
 
     <test name="Test1">
         <classes>
